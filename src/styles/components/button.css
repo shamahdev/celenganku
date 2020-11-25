@@ -1,0 +1,9 @@
+.btn-nav {
+    @apply h-16 w-16 p-4 text-white rounded-l-lg transition duration-100 ease-in-out;
+}
+.btn-nav:hover {
+    @apply bg-white text-black;
+}
+.btn-nav.active {
+    @apply bg-white text-black;
+}
