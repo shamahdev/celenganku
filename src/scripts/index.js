@@ -7,6 +7,7 @@ import App from './views/app'
 
 const app = new App({
   content: document.querySelector('main'),
+  sidebar: document.getElementById('sidebar'),
 });
 
 window.addEventListener('hashchange', () => {

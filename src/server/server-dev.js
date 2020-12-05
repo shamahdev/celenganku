@@ -7,23 +7,9 @@ import config from '../../webpack.dev.js'
 import routes from './routes'
 
 const app = express(),
-  compiler = webpack(config),
-  HTML_FILE = path.join(__dirname, 'index.html'),
-  PORT = process.env.PORT || 8080
-
-app.use(express.static(__dirname))
-routes(app)
-
-app.get('*', (req, res, next) => {
-  compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
-    if (err) {
-      return next(err)
-    }
-    res.set('content-type', 'text/html')
-    res.send(result)
-    res.end()
-  })
-})
+            DIST_DIR = __dirname,
+            HTML_FILE = path.join(DIST_DIR, 'index.html'),
+            compiler = webpack(config)
 
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
@@ -31,7 +17,23 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler))
 
+app.use(express.static(__dirname))
+routes(app)
+
+app.get('*', (req, res, next) => {
+  compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
+  if (err) {
+    return next(err)
+  }
+  res.set('content-type', 'text/html')
+  res.send(result)
+  res.end()
+  })
+})
+
+const PORT = process.env.PORT || 8080
+
 app.listen(PORT, () => {
-  console.log(`App listening to ${PORT}....`)
-  console.log('Press Ctrl+C to quit.')
+    console.log(`App listening to ${PORT}....`)
+    console.log('Press Ctrl+C to quit.')
 })

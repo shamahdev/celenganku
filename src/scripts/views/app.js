@@ -1,20 +1,19 @@
 import UrlParser from '../routes/urlparser'
 import Routes from '../routes/routes'
+import SidebarNavigation from '../utils/sidebar-nav'
 
 
 class App {
-  constructor({content}) {
-
+  constructor({content, sidebar}) {
     this._content = content
+    this._sidebar = sidebar
     this._initialAppShell()
   }
 
   _initialAppShell() {
-    // NavigationDrawer.init({
-    //   hamburger: this._hamburger,
-    //   drawer: this._drawer,
-    //   content: this._content,
-    // })
+    SidebarNavigation.init({
+      sidebar: this._sidebar
+    })
   }
 
   async loadPage() {
@@ -22,6 +21,7 @@ class App {
     const page = await Routes[url]
     try {
       this._content.innerHTML = await page.render()
+      await SidebarNavigation.highlight(url)
       await page.afterRender()
     } catch (err) {
       this._load404()
