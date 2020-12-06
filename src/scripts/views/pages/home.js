@@ -70,9 +70,9 @@ const Home = {
           <div class="bg-white flex-1 p-5 white rounded-lg">
             <div class="flex items-center">
               <div class="flex flex-row flex-1">
-                <p class="flex-1 hidden md:block">Penarikan</p>
-                <p class="flex-1 font-bold text-red-500">Rp 80.000</p>
-                <p class="flex-1">gopay</p>
+                <p class="flex-1 hidden md:block">Pemasukan</p>
+                <p class="flex-1 font-bold text-green-500">Rp 800.000</p>
+                <p class="flex-1">Admin</p>
                 <p class="flex-1 hidden md:block">17 September 2020</p>
                 <a class="ml-auto h-6 w-6">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,7 +86,7 @@ const Home = {
             <div class="flex items-center">
               <div class="flex flex-row flex-1">
                 <p class="flex-1 hidden md:block">Penarikan</p>
-                <p class="flex-1 font-bold text-red-500">Rp 80.000</p>
+                <p class="flex-1 font-bold text-red-500">Rp 65.000</p>
                 <p class="flex-1">gopay</p>
                 <p class="flex-1 hidden md:block">17 September 2020</p>
                 <a class="ml-auto h-6 w-6">
@@ -99,12 +99,12 @@ const Home = {
           </div>
         </div>
       </div>
-      `;
+      `
   },
 
   async afterRender() {
     // Write after render here.
   },
-};
+}
 
-export default Home;
+export default Home
