@@ -16,6 +16,10 @@ module.exports = {
       }
     }
   },
-  variants: {},
+  variants: {
+    textColor: ({ after }) => after(['disabled']),
+    resize: ({ after }) => after(['disabled']),
+    opacity: ({ after }) => after(['disabled']),
+  },
   plugins: []
 }

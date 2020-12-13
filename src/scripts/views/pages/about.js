@@ -12,7 +12,7 @@ const About = {
         <div class="flex flex-col md:flex-row gap-4">
           <div class="p-3 rounded-lg">
             <div class="flex w-48 h-48 rounded-full text-white"><img
-              class="rounded-full w-full h-full" alt="User Photo Profile" src="https://avatars3.githubusercontent.com/u/2763884?s=128"> </div>
+              class="rounded-full w-full h-full mx-auto" alt="User Photo Profile" src="https://i.pravatar.cc/150?u=tooryadikevin"> </div>
           </div>
           <div class="flex-1 p-5 rounded-lg w-full">
             <p class="my-2 text-lg">NISN</p>
@@ -20,10 +20,12 @@ const About = {
             <p class="my-2 text-lg">Nama Lengkap</p>
             <input disabled value="Turyadi Kevin" type="text" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
             <p class="my-2 text-lg">Tentang Saya</p>
-            <textarea disabled rows="4" type="text" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
+            <textarea rows="4" type="text" class="disabled:resize-none mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
             <p class="my-2 text-lg">Password</p>
-            <input disabled value="Nardi Meninggal" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
-            <button class="w-max bg-primary text-white font-light py-3 px-5 rounded-lg">Edit Profil</button>
+            <input value="Nardi Meninggal" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
+            <button id="discard-button" class="hidden w-max bg-red-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Batal</button>
+            <button id="confirm-button" class="hidden w-max bg-green-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Selesai</button>
           </div>
         </div>
       </div>
@@ -33,7 +35,18 @@ const About = {
   },
 
   async afterRender() {
-    // Write after render here.
+    const editButton = document.getElementById('edit-button')
+    const discardButton = document.getElementById('discard-button')
+    const confirmButton = document.getElementById('confirm-button')
+    editButton.addEventListener('click', () => {
+      const editableForm = document.querySelectorAll('textarea, input[type="password"]')
+      editableForm.forEach(input => {
+          input.disabled = false
+          editButton.disabled = true
+          discardButton.classList.remove('hidden')     
+          confirmButton.classList.remove('hidden')     
+      });
+    })
   },
 };
 

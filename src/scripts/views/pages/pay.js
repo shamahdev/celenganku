@@ -11,7 +11,7 @@ const Pay = {
             <p class="my-4 text-2xl">Jenis Transaksi</p>
             <div class="flex-1 py-0 white rounded-lg">
               <div class="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
-                <div class="flex-1 p-5 bg-red-500 rounded-lg w-full">
+                <button id="withdraw-balance" class="flex-1 p-5 bg-red-500 shadow-red rounded-lg w-full transition duration-100 ease-in-out">
                   <div class="flex items-center">
                     <div class="text-white flex flex-col flex-1 text-center items-center">
                       <p class="text-2xl font-bold">tarik saldo</p>
@@ -22,8 +22,8 @@ const Pay = {
                       </svg>
                     </div>
                   </div>
-                </div>
-                <div class="flex-1 p-5 bg-green-500 rounded-lg w-full">
+                </button>
+                <button id="deposit-balance" class="flex-1 p-5 bg-green-500 shadow-green rounded-lg w-full transition duration-100 ease-in-out">
                   <div class="flex items-center">
                     <div class="text-white flex flex-col flex-1 text-center items-center">
                       <p class="text-2xl font-bold">isi saldo</p>
@@ -34,20 +34,39 @@ const Pay = {
                       </svg>
                     </div>
                   </div>
-                </div>
+                </button>
               </div>
             </div>
-            <p class="my-5 text-xl">Nominal</p>
-            <input placeholder="Masukkan Nominal" type="text" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white text-black border-gray-300 placeholder-gray-500 focus:placeholder-gray-400">
-            <button class="w-max bg-primary text-white font-light py-3 px-5 rounded-lg">Lanjut ke pembayaran</button>
-          </div>
+            <div id="nominal-form" class="hidden transition duration-100 ease-in-out">
+              <p class="my-5 text-xl">Nominal</p>
+              <input placeholder="Masukkan Nominal" type="text" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white text-black border-gray-300 placeholder-gray-500 focus:placeholder-gray-400">
+              <button class="w-max bg-primary text-white font-light py-3 px-5 rounded-lg">Lanjut ke pembayaran</button>
+            </div>
+            </div>
         </div>
       `
   },
 
   async afterRender() {
-    // Write after render here.
+    const optionButton = document.querySelectorAll("#deposit-balance, #withdraw-balance")
+    optionButton.forEach(option => {
+      option.addEventListener('click', () => {
+        this._selectTransactionOption(optionButton, option.id)
+      })
+    })
   },
+
+  _selectTransactionOption(optionButton, optionId) {
+    optionButton.forEach(option => {
+      if (option.id !== optionId) {
+        option.classList.add('disabled-option')
+      } else {
+        option.classList.remove('disabled-option')
+      }
+    })
+    const nominalForm = document.getElementById('nominal-form')
+    nominalForm.classList.remove('hidden')
+  }
 }
 
 export default Pay

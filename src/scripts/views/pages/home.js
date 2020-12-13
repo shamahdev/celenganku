@@ -8,7 +8,7 @@ const Home = {
       </div>
       <div class="flex flex-col">
         <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:gap-8 md:mt-6 lg:flex-row">
-          <div class="flex-1 p-5 bg-blue-500 rounded-lg">
+          <div class="flex-1 p-5 bg-blue-500 rounded-lg shadow-blue">
             <div class="flex items-center">
               <div class="text-white flex flex-col flex-1">
                 <p class="font-light">Saldo</p>
@@ -16,7 +16,7 @@ const Home = {
               </div>
             </div>
           </div>
-          <div class="flex-1 p-5 bg-green-500 rounded-lg">
+          <div class="flex-1 p-5 bg-green-500 rounded-lg shadow-green">
             <div class="flex items-center">
               <div class="text-white flex flex-col flex-1">
                 <p class="font-light">Pemasukan Bulan ini</p>
@@ -25,7 +25,7 @@ const Home = {
               </div>
             </div>
           </div>
-          <div class="flex-1 p-5 bg-red-500 rounded-lg">
+          <div class="flex-1 p-5 bg-red-500 rounded-lg shadow-red">
             <div class="flex items-center">
               <div class="text-white flex flex-col flex-1">
                 <p class="">Pengeluaran Bulan ini</p>
@@ -52,7 +52,7 @@ const Home = {
               </div>
             </div>
           </div>
-          <div class="bg-white flex-1 p-5 white rounded-lg">
+          <button class="text-left bg-white flex-1 p-5 white rounded-lg hover:shadow-lg ring-1 ring-black ring-opacity-5 transition duration-100 ease-in-out">
             <div class="flex items-center">
               <div class="flex flex-row flex-1">
                 <p class="flex-1 hidden md:block">Penarikan</p>
@@ -66,8 +66,8 @@ const Home = {
                 </a>
               </div>
             </div>
-          </div>
-          <div class="bg-white flex-1 p-5 white rounded-lg">
+          </button>
+          <button class="text-left bg-white flex-1 p-5 white rounded-lg hover:shadow-lg ring-1 ring-black ring-opacity-5 transition duration-100 ease-in-out">
             <div class="flex items-center">
               <div class="flex flex-row flex-1">
                 <p class="flex-1 hidden md:block">Pemasukan</p>
@@ -81,8 +81,8 @@ const Home = {
                 </a>
               </div>
             </div>
-          </div>
-          <div class="bg-white flex-1 p-5 white rounded-lg">
+          </button>
+          <button class="text-left bg-white flex-1 p-5 white rounded-lg hover:shadow-lg ring-1 ring-black ring-opacity-5 transition duration-100 ease-in-out">
             <div class="flex items-center">
               <div class="flex flex-row flex-1">
                 <p class="flex-1 hidden md:block">Penarikan</p>
@@ -96,7 +96,7 @@ const Home = {
                 </a>
               </div>
             </div>
-          </div>
+          </button>
         </div>
       </div>
       `

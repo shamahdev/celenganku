@@ -3,3 +3,19 @@
 .w-max {
     width: fit-content;
 }
+button#settings:hover ~ #settings-dropdown {
+    display: block !important;
+}
+#settings-dropdown:hover {
+    display: block !important;
+}
+
+.shadow-blue {
+    box-shadow: 0 14px 28px #4299e12f, 0 10px 10px #4299e12f;
+}
+.shadow-green {
+    box-shadow: 0 14px 28px #48bb782f, 0 10px 10px #48bb782f;
+}
+.shadow-red {
+    box-shadow: 0 14px 28px #f565652f, 0 10px 10px #f565652f;
+}

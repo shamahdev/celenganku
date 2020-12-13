@@ -7,3 +7,6 @@
 .btn-nav.active {
     @apply bg-white text-black;
 }
+.disabled-option {
+    @apply bg-gray-400 shadow-none !important;
+}
