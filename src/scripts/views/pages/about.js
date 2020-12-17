@@ -22,7 +22,7 @@ const About = {
             <p class="my-2 text-lg">Tentang Saya</p>
             <textarea rows="4" type="text" class="disabled:resize-none mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
             <p class="my-2 text-lg">Password</p>
-            <input value="Nardi Meninggal" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            <input value="turyadikevin" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>
             <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
             <button id="discard-button" class="hidden w-max bg-red-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Batal</button>
             <button id="confirm-button" class="hidden w-max bg-green-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Selesai</button>
@@ -31,23 +31,41 @@ const About = {
       </div>
     </div>
   </div>
-      `;
+      `
   },
 
   async afterRender() {
     const editButton = document.getElementById('edit-button')
     const discardButton = document.getElementById('discard-button')
     const confirmButton = document.getElementById('confirm-button')
+    const editableForm = document.querySelectorAll('textarea, input[type="password"]')
     editButton.addEventListener('click', () => {
-      const editableForm = document.querySelectorAll('textarea, input[type="password"]')
       editableForm.forEach(input => {
-          input.disabled = false
-          editButton.disabled = true
-          discardButton.classList.remove('hidden')     
-          confirmButton.classList.remove('hidden')     
-      });
+        input.disabled = false
+        editButton.disabled = true
+        discardButton.classList.remove('hidden')
+        confirmButton.classList.remove('hidden')
+      })
+    })
+    confirmButton.addEventListener('click', () => {
+      editableForm.forEach(input => {
+        input.disabled = true
+        editButton.disabled = false
+        discardButton.classList.add('hidden')
+        confirmButton.classList.add('hidden')
+      })
+    })
+    discardButton.addEventListener('click', () => {
+      editableForm[0].value = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.`
+      editableForm[1].value = `turyadikevin`
+      editableForm.forEach(input => {
+        input.disabled = true
+        editButton.disabled = false
+        discardButton.classList.add('hidden')
+        confirmButton.classList.add('hidden')
+      })
     })
   },
-};
+}
 
 export default About;
