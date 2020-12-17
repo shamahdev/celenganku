@@ -10,7 +10,7 @@ const About = {
     <div class="bg-gray-200 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
       <div class="flex-1 py-0 white rounded-lg">
         <div class="flex flex-col md:flex-row gap-4">
-          <div class="p-3 rounded-lg">
+          <div class="p-3 mx-auto rounded-lg">
             <div class="flex w-48 h-48 rounded-full text-white"><img
               class="rounded-full w-full h-full mx-auto" alt="User Photo Profile" src="https://i.pravatar.cc/150?u=tooryadikevin"> </div>
           </div>

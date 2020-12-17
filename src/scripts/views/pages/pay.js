@@ -57,6 +57,7 @@ const Pay = {
   },
 
   _selectTransactionOption(optionButton, optionId) {
+    window.scrollTo(0,document.body.scrollHeight);
     optionButton.forEach(option => {
       if (option.id !== optionId) {
         option.classList.add('disabled-option')

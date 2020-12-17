@@ -3,6 +3,9 @@
 .w-max {
     width: fit-content;
 }
+.w-24-rem {
+    max-width: 24rem;
+}
 button#settings:hover ~ #settings-dropdown {
     display: block !important;
 }
@@ -18,4 +21,8 @@ button#settings:hover ~ #settings-dropdown {
 }
 .shadow-red {
     box-shadow: 0 14px 28px #f565652f, 0 10px 10px #f565652f;
+}
+
+.shadow-primary, .hover\:shadow-primary:hover {
+    box-shadow: 0 14px 28px #FF974B2f, 0 10px 10px #FF974B2f;
 }

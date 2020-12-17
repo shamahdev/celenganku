@@ -8,6 +8,7 @@ import App from './views/app'
 const app = new App({
   content: document.querySelector('main'),
   sidebar: document.getElementById('sidebar'),
+  appbar: document.getElementById('appbar'),
 });
 
 window.addEventListener('hashchange', () => {
