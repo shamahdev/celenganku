@@ -13,6 +13,26 @@ const Dashboard = {
           <p class="text-xl text-center leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
           Mulai Menabung
         </p>
+        <div class="flex md:flex-row gap-5">
+          <div class="flex-1 p-5  bg-gray-300 rounded-lg">
+            <div class="flex items-center text-center">
+              <div class="flex flex-col flex-1">
+                <p class="text-xl">Masuk</p>
+                <img class="object-contain" src="./images/login-cover.png" alt="" srcset="">
+                <p>Sudah punya akun? Login ke akunmu dan cek celengan kamu sekarang</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 p-5  bg-gray-300 rounded-lg">
+            <div class="flex items-center text-center">
+              <div class="flex flex-col flex-1">
+                <p class="text-xl">Daftar</p>
+                <img class="object-contain" src="./images/register-cover.png" alt="" srcset="">
+                <p>Belum punya akun? Daftar sekarang dan mulai menabung di celenganku</p>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       `
   },
