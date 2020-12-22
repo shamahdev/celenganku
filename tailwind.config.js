@@ -7,19 +7,19 @@ module.exports = {
   },
   purge: {
     enabled: true,
-    content: ['./src/**/*.html','./src/**/*.js'],
+    content: ['./src/**/*.html', './src/**/*.js'],
   },
   theme: {
     extend: {
       colors: {
-        'primary': '#FF974B',
-      }
-    }
+        primary: '#FF974B',
+      },
+    },
   },
   variants: {
     textColor: ({ after }) => after(['disabled']),
     resize: ({ after }) => after(['disabled']),
     opacity: ({ after }) => after(['disabled']),
   },
-  plugins: []
+  plugins: [],
 }

@@ -4,12 +4,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: {
-    main: './src/scripts/index.js'
+    main: './src/scripts/index.js',
   },
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: '[name].js',
   },
   target: 'web',
   devtool: 'source-map',
@@ -22,14 +22,14 @@ module.exports = {
     //   },
       {
         // Loads the javacript into html template provided.
-        // Entry point is set below in HtmlWebPackPlugin in Plugins 
+        // Entry point is set below in HtmlWebPackPlugin in Plugins
         test: /\.html$/,
         use: [
           {
             loader: 'html-loader',
-            //options: { minimize: true }
-          }
-        ]
+            // options: { minimize: true }
+          },
+        ],
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -40,10 +40,10 @@ module.exports = {
         ],
       },
       {
-       test: /\.(png|svg|jpg|gif)$/,
-       use: ['file-loader']
-      }
-    ]
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['file-loader'],
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin({
@@ -57,7 +57,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',
-      excludeChunks: [ 'server' ]
+      excludeChunks: ['server'],
     }),
-  ]
+  ],
 }

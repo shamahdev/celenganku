@@ -40,7 +40,7 @@ const About = {
     const confirmButton = document.getElementById('confirm-button')
     const editableForm = document.querySelectorAll('textarea, input[type="password"]')
     editButton.addEventListener('click', () => {
-      editableForm.forEach(input => {
+      editableForm.forEach((input) => {
         input.disabled = false
         editButton.disabled = true
         discardButton.classList.remove('hidden')
@@ -48,7 +48,7 @@ const About = {
       })
     })
     confirmButton.addEventListener('click', () => {
-      editableForm.forEach(input => {
+      editableForm.forEach((input) => {
         input.disabled = true
         editButton.disabled = false
         discardButton.classList.add('hidden')
@@ -56,9 +56,9 @@ const About = {
       })
     })
     discardButton.addEventListener('click', () => {
-      editableForm[0].value = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.`
-      editableForm[1].value = `turyadikevin`
-      editableForm.forEach(input => {
+      editableForm[0].value = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.'
+      editableForm[1].value = 'turyadikevin'
+      editableForm.forEach((input) => {
         input.disabled = true
         editButton.disabled = false
         discardButton.classList.add('hidden')
@@ -68,4 +68,4 @@ const About = {
   },
 }
 
-export default About;
+export default About

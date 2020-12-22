@@ -1,6 +1,6 @@
 const SidebarNavigation = {
   async init({
-    sidebar
+    sidebar,
   }) {
     this._sidebar = sidebar
     this.highlight('/')
@@ -9,13 +9,13 @@ const SidebarNavigation = {
   async highlight(page) {
     const navLinks = this._sidebar.querySelectorAll('a.btn-nav')
     if (page === '/') page = ''
-    navLinks.forEach(navElement => {
+    navLinks.forEach((navElement) => {
       navElement.classList.remove('active')
       if (page === navElement.hash.substring(1)) {
         navElement.classList.add('active')
       }
     })
-  }
+  },
 }
 
 export default SidebarNavigation

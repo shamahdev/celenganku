@@ -1,10 +1,12 @@
 import UrlParser from '../routes/urlparser'
 import Routes from '../routes/routes'
-import SidebarNavigation from '../utils/sidebar-nav'
+import SidebarNavigation from '../utils/sidebar-nav-init'
 
+// Components
+import '../components/sidebar-nav'
 
 class App {
-  constructor({content, sidebar, appbar}) {
+  constructor({ content, sidebar, appbar }) {
     this._content = content
     this._sidebar = sidebar
     this._appbar = appbar
@@ -13,7 +15,7 @@ class App {
 
   _initialAppShell() {
     SidebarNavigation.init({
-      sidebar: this._sidebar
+      sidebar: this._sidebar,
     })
   }
 
@@ -21,33 +23,41 @@ class App {
     const url = UrlParser.parseActiveUrlWithCombiner()
     const page = await Routes[url]
     try {
-      if(url === '/') {
+      if (url === '/') {
         this._toggleNavigation(false)
-      } else{
+      } else {
         this._toggleNavigation(true)
+        if (url.includes('admin')) {
+          this._toggleNavigation(true, 'admin')
+          this._sidebar.type = 'admin'
+        } else {
+          this._sidebar.type = 'user'
+        }
+        document.body.prepend(this._sidebar)
       }
       this._content.innerHTML = await page.render()
       await SidebarNavigation.highlight(url)
       await page.afterRender()
     } catch (err) {
-      this._load404()
+      console.error(err)
+      this._content.innerHTML = this.constructor._load404()
     }
   }
 
   _toggleNavigation(state = true, mode = 'user') {
-    if(state) {
-      this._sidebar.classList.remove('hidden')
+    if (state) {
       this._appbar.classList.remove('hidden')
-      if(mode === 'admin') {
-        this._sidebar.classList.add('admin-style')
-        this._appbar.classList.add('admin-style')
+      this._sidebar.classList.remove('hidden')
+      if (mode === 'admin') {
+        this._appbar.classList.add('md:bg-blue-500')
+        this._appbar.classList.remove('md:bg-primary')
       } else {
-        this._sidebar.classList.remove('admin-style')
-        this._appbar.classList.remove('admin-style')
+        this._appbar.classList.remove('md:bg-blue-500')
+        this._appbar.classList.add('md:bg-primary')
       }
     } else {
-      this._sidebar.classList.add('hidden')
       this._appbar.classList.add('hidden')
+      this._sidebar.classList.add('hidden')
     }
   }
 
@@ -57,7 +67,7 @@ class App {
     await page.afterRender()
   }
 
-  _load404() {
+  static _load404() {
     return `
         <article id='main'>
             <h2 class='center'>Halaman tidak ditemukan</h2>

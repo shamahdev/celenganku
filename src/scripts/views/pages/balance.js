@@ -99,12 +99,12 @@ const Balance = {
           </div>
         </div>
       </div>
-      `;
+      `
   },
 
   async afterRender() {
     // Write after render here.
   },
-};
+}
 
-export default Balance;
+export default Balance
