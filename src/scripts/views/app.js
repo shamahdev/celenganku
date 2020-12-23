@@ -39,6 +39,7 @@ class App {
       await SidebarNavigation.highlight(url)
       await page.afterRender()
     } catch (err) {
+      console.log(url)
       console.error(err)
       this._content.innerHTML = this.constructor._load404()
     }

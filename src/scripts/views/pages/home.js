@@ -70,7 +70,7 @@ const Home = {
           <input value="" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
-          <button disabled id="login" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</button>
+          <a data-modal="Masuk" href="#/dashboard" disabled id="login" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
           <a class="ml-4 block text-blue-500 underline text-sm" href="#/admin">Lupa Password</a>
         </div>`,
       })
@@ -90,7 +90,7 @@ const Home = {
           <input value="" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
-          <button disabled id="login" class="w-max bg-blue-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</button>
+          <a data-modal="Masuk Sebagai Admin" href="#/admin" disabled id="login" class="w-max bg-blue-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
           <a class="ml-4 block text-blue-500 underline text-sm" href="#/admin">Lupa Password</a>
         </div>`,
         bg: 'bg-blue-500',

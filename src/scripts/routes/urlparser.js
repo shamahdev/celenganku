@@ -21,7 +21,7 @@ const UrlParser = {
 
   _urlCombiner(splitedUrl) {
     return (splitedUrl.resource ? `/${splitedUrl.resource}` : '/')
-      + (splitedUrl.slug ? '/:slug' : '')
+      + (splitedUrl.slug ? `/${splitedUrl.slug}` : '')
       + (splitedUrl.verb ? `/${splitedUrl.verb}` : '')
   },
 }

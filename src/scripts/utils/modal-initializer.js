@@ -35,6 +35,12 @@ const ModalInitializer = {
         event.target.classList.add('hidden')
       }
     }
+    const formButtons = document.querySelectorAll(`button[data-modal="${this._title}"], a[data-modal="${this._title}"]`)
+    formButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        document.getElementById(`modal-${SlugParser.parseToSlug(this._title)}`).remove()
+      })
+    })
   },
 }
 
