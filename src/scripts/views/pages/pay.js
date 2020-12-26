@@ -10,7 +10,7 @@ const Pay = {
         </div>
         <div class="flex flex-col">
           <div class="bg-gray-200 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
-            <p class="my-4 text-2xl">Jenis Transaksi</p>
+            <p class="my-4 text-2xl">Pilih Aksi</p>
             <div class="flex-1 py-0 white rounded-lg">
               <div class="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
                 <button id="withdraw-balance" class="flex-1 p-5 bg-red-500 shadow-red rounded-lg w-full transition duration-100 ease-in-out">
@@ -33,6 +33,16 @@ const Pay = {
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+                <button id="deposit-balance" class="flex-1 p-5 bg-blue-500 shadow-blue rounded-lg w-full transition duration-100 ease-in-out">
+                  <div class="flex items-center">
+                    <div class="text-white flex flex-col flex-1 text-center items-center">
+                      <p class="text-2xl font-bold">cetak report</p>
+                      <svg class="w-32 h-32 p-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                   </div>

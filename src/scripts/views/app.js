@@ -36,6 +36,8 @@ class App {
         document.body.prepend(this._sidebar)
       }
       this._content.innerHTML = await page.render()
+      // eslint-disable-next-line no-restricted-globals
+      history.replaceState(null, null, document.location.pathname)
       await SidebarNavigation.highlight(url)
       await page.afterRender()
     } catch (err) {

@@ -7,36 +7,36 @@ const Dashboard = {
         </p>
       </div>
       <div class="flex flex-col">
-        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:gap-8 md:mt-6 lg:flex-row">
-          <div class="flex-1 p-5 bg-blue-500 rounded-lg shadow-blue">
+        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
+          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-blue-500 rounded-lg shadow-blue">
             <div class="flex items-center">
               <div class="text-white flex flex-col flex-1">
                 <p class="font-light">Saldo</p>
-                <p class="text-4xl font-bold">Rp 720.000</p>
+                <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 720.000</p>
               </div>
             </div>
           </div>
-          <div class="flex-1 p-5 bg-green-500 rounded-lg shadow-green">
+          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-green-500 rounded-lg shadow-green">
             <div class="flex items-center">
               <div class="text-white flex flex-col flex-1">
                 <p class="font-light">Pemasukan Bulan ini</p>
-                <p class="text-4xl font-bold">Rp 800.000</p>
-                <a class="font-light mt-3 text-right ml-auto underline" href="">lihat detail</a>
+                <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
+                <a class="font mt-3 text-right ml-auto underline" href="">Lihat Detail</a>
               </div>
             </div>
           </div>
-          <div class="flex-1 p-5 bg-red-500 rounded-lg shadow-red">
+          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-red-500 rounded-lg shadow-red">
             <div class="flex items-center">
               <div class="text-white flex flex-col flex-1">
-                <p class="">Pengeluaran Bulan ini</p>
-                <p class="text-4xl font-bold">Rp 80.000</p>
-                <a class="font-light mt-3 text-right ml-auto underline" href="">lihat detail</a>
+                <p class="font-light">Pengeluaran Bulan ini</p>
+                <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
+                <a class="font mt-3 text-right ml-auto underline" href="">Lihat Detail</a>
               </div>
             </div>
           </div>
         </div>
-        <p class="my-4 md:mt-8 lg:mt-12 text-2xl">Riwayat Transaksi</p>
-        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
+        <p class="mt-6 md:mt-8 lg:mt-10 text-xl text-center md:text-left md:text-2xl">Riwayat Transaksi</p>
+        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
           <div class="flex-1 p-5 py-0 white rounded-lg">
             <div class="flex items-center">
               <div class="font-bold flex flex-row flex-1">
