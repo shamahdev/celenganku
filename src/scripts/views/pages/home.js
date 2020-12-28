@@ -36,7 +36,6 @@ const Home = {
           </button>
         </div>
         <div class="text-center my-8">
-
           <a role="button" id="admin-login-button" class="block text-blue-500 underline"">login sebagai admin</a>
           <p class="inline-block">Butuh bantuan? </p><a class=" text-blue-500 underline" href="#/admin"> lihat panduan berikut</a>
         </div>
