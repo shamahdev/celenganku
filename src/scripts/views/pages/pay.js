@@ -37,7 +37,7 @@ const Pay = {
                     </div>
                   </div>
                 </button>
-                <button id="deposit-balance" class="flex-1 p-5 bg-blue-500 shadow-blue rounded-lg w-full transition duration-100 ease-in-out">
+                <button id="print-report" class="flex-1 p-5 bg-blue-500 shadow-blue rounded-lg w-full transition duration-100 ease-in-out">
                   <div class="flex items-center md:justify-center">
                     <div class="text-white flex flex-row-reverse md:flex-col text-center items-center">
                       <p class="text-2xl font-bold">cetak report</p>
@@ -60,7 +60,7 @@ const Pay = {
   },
 
   async afterRender() {
-    const optionButton = document.querySelectorAll('#deposit-balance, #withdraw-balance')
+    const optionButton = document.querySelectorAll('#deposit-balance, #withdraw-balance, #print-report')
     const payButton = document.getElementById('pay-button')
     optionButton.forEach((option) => {
       option.addEventListener('click', () => {

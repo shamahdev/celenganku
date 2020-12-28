@@ -12,32 +12,32 @@ const Home = {
               </g>
             </svg>
           </p>
-          <p class="text-xl text-center leading-8 font-normal tracking-tight text-gray-900 md:text-3xl mb-10">
-          Mulai Menabung
+          <p class="text-3xl text-center leading-8 font-normal tracking-tight text-gray-900 mb-10">
+          Celenganku
         </p>
-        <div class="flex flex-col md:flex-row gap-8">
+        <div class="flex flex-col md:flex-row my-4 gap-8">
           <button id='login-button' class="flex-1 cursor-pointer p-5 w-24-rem bg-gray-200 rounded-lg hover:bg-primary hover:shadow-primary hover:text-white transition duration-100 ease-in-out">
             <div class="flex items-center text-center">
               <div class="flex flex-col flex-1">
-                <p class="text-xl">Masuk</p>
+                <p class="text-xl font-bold">Masuk</p>
                 <img class="object-contain" src="./images/login-cover.png" alt="Login Button Illustration" srcset="">
-                <p class="text-sm">Sudah punya akun? Login ke akunmu dan cek celengan kamu sekarang</p>
+                <p class="text-sm">Sudah punya akun? Login dan cek celengan kamu sekarang!</p>
               </div>
             </div>
           </button>
           <button id='register-button' class="flex-1 cursor-pointer p-5 w-24-rem bg-gray-200 rounded-lg hover:bg-primary hover:shadow-primary hover:text-white transition duration-100 ease-in-out">
             <div class="flex items-center text-center">
               <div class="flex flex-col flex-1">
-                <p class="text-xl">Daftar</p>
+                <p class="text-xl font-bold">Daftar</p>
                 <img class="object-contain" src="./images/register-cover.png" alt="Register Button Illustration" srcset="">
-                <p class="text-sm">Belum punya akun? Daftar sekarang dan mulai menabung di celenganku</p>
+                <p class="text-sm">Belum punya akun? Daftar sekarang dan mulai menabung di Celenganku</p>
               </div>
             </div>
           </button>
         </div>
         <div class="text-center my-8">
-          <a role="button" id="admin-login-button" class="block text-blue-500 underline"">login sebagai admin</a>
-          <p class="inline-block">Butuh bantuan? </p><a class=" text-blue-500 underline" href="#/admin"> lihat panduan berikut</a>
+          <a role="button" id="admin-login-button" class="block text-primary underline"">Login sebagai Admin</a>
+          <p class="inline-block">Butuh bantuan? </p><a class="text-blue-500 ml-2 underline" href="#/admin">Lihat panduan berikut</a>
         </div>
         </div>
       `

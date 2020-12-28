@@ -37,9 +37,9 @@ const Dashboard = {
         </div>
         <p class="mt-6 md:mt-8 lg:mt-10 text-xl text-center md:text-left md:text-2xl">Riwayat Transaksi</p>
         <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
-          <div class="flex-1 p-5 py-0 white rounded-lg">
+          <div class="flex-1 py-0 white rounded-lg">
             <div class="flex items-center">
-              <div class="font-bold flex flex-row flex-1">
+              <div class="font-bold text-lg text-gray-900 flex flex-row flex-1">
                 <p class="flex-1 hidden md:block">Jenis</p>
                 <p class="flex-1">Nominal</p>
                 <p class="flex-1">Metode</p>

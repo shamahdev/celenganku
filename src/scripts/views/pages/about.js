@@ -11,18 +11,23 @@ const About = {
       <div class="flex-1 py-0 white rounded-lg">
         <div class="flex flex-col md:flex-row gap-4">
           <div class="p-3 mx-auto rounded-lg">
-            <div class="flex w-48 h-48 rounded-full text-white"><img
-              class="rounded-full w-full h-full mx-auto" alt="User Photo Profile" src="https://i.pravatar.cc/150?u=tooryadikevin"> </div>
+            <div class="flex flex-col w-48 rounded-full text-white">
+              <img class="rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="https://i.pravatar.cc/150?u=tooryadikevin">
+              <label id="change-photo" for="file-upload" class="hidden mt-4 ml-auto mr-auto cursor-pointer w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">
+                  Ubah Foto Profil
+              </label>
+              <input class="hidden" id="file-upload" type="file"/>
+            </div>
           </div>
           <div class="flex-1 p-5 rounded-lg w-full">
             <p class="my-2 text-lg">NISN</p>
-            <input disabled value="181113842" type="text" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
+            <input disabled value="181113842" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
             <p class="my-2 text-lg">Nama Lengkap</p>
-            <input disabled value="Turyadi Kevin" type="text" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
+            <input disabled value="Turyadi Kevin" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
             <p class="my-2 text-lg">Tentang Saya</p>
-            <textarea rows="4" type="text" class="disabled:resize-none mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
+            <textarea rows="4" type="text" class="disabled:resize-none mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
             <p class="my-2 text-lg">Password</p>
-            <input value="turyadikevin" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            <input value="turyadikevin" type="password" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>
             <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
             <button id="discard-button" class="hidden w-max bg-red-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Batal</button>
             <button id="confirm-button" class="hidden w-max bg-green-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Selesai</button>
@@ -38,21 +43,24 @@ const About = {
     const editButton = document.getElementById('edit-button')
     const discardButton = document.getElementById('discard-button')
     const confirmButton = document.getElementById('confirm-button')
+    const changePhotoButton = document.getElementById('change-photo')
     const editableForm = document.querySelectorAll('textarea, input[type="password"]')
     editButton.addEventListener('click', () => {
       editableForm.forEach((input) => {
         input.disabled = false
-        editButton.disabled = true
+        editButton.classList.add('hidden')
         discardButton.classList.remove('hidden')
         confirmButton.classList.remove('hidden')
+        changePhotoButton.classList.remove('hidden')
       })
     })
     confirmButton.addEventListener('click', () => {
       editableForm.forEach((input) => {
         input.disabled = true
-        editButton.disabled = false
+        editButton.classList.remove('hidden')
         discardButton.classList.add('hidden')
         confirmButton.classList.add('hidden')
+        changePhotoButton.classList.add('hidden')
       })
     })
     discardButton.addEventListener('click', () => {
@@ -60,9 +68,10 @@ const About = {
       editableForm[1].value = 'turyadikevin'
       editableForm.forEach((input) => {
         input.disabled = true
-        editButton.disabled = false
+        editButton.classList.remove('hidden')
         discardButton.classList.add('hidden')
         confirmButton.classList.add('hidden')
+        changePhotoButton.classList.add('hidden')
       })
     })
   },
