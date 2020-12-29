@@ -1,3 +1,4 @@
+import Particles from 'particlesjs'
 import ModalInitializer from '../../utils/modal-initializer'
 
 const Home = {
@@ -20,8 +21,8 @@ const Home = {
             <div class="flex items-center text-center">
               <div class="flex flex-col flex-1">
                 <p class="text-xl font-bold">Masuk</p>
-                <img class="object-contain" src="./images/login-cover.png" alt="Login Button Illustration" srcset="">
-                <p class="text-sm">Sudah punya akun? Login dan cek celengan kamu sekarang!</p>
+                <img class="hidden md:block object-contain" src="./images/login-cover.png" alt="Login Button Illustration" srcset="">
+                <p class="mt-2 md:mt-0 text-sm">Sudah punya akun? Login dan cek celengan kamu sekarang!</p>
               </div>
             </div>
           </button>
@@ -29,22 +30,49 @@ const Home = {
             <div class="flex items-center text-center">
               <div class="flex flex-col flex-1">
                 <p class="text-xl font-bold">Daftar</p>
-                <img class="object-contain" src="./images/register-cover.png" alt="Register Button Illustration" srcset="">
-                <p class="text-sm">Belum punya akun? Daftar sekarang dan mulai menabung di Celenganku</p>
+                <img class="hidden md:block object-contain" src="./images/register-cover.png" alt="Register Button Illustration" srcset="">
+                <p class="mt-2 md:mt-0 text-sm">Belum punya akun? Daftar sekarang dan mulai menabung di Celenganku</p>
               </div>
             </div>
           </button>
         </div>
-        <div class="text-center my-8">
-          <a role="button" id="admin-login-button" class="block text-primary underline"">Login sebagai Admin</a>
-          <p class="inline-block">Butuh bantuan? </p><a class="text-blue-500 ml-2 underline" href="#/admin">Lihat panduan berikut</a>
+        <div class="text-center flex flex-col w-max ml-auto mr-auto mt-3">
+          <a role="button" id="admin-login-button" class="text-primary underline mb-5">Masuk sebagai Admin</a>
+          <p class="inline-block text-gray-800">Butuh bantuan? </p><a class="text-blue-500 ml-2 underline block md:inline" href="#/admin">Pelajari panduan berikut</a>
         </div>
         </div>
       `
   },
 
   async afterRender() {
+    await this._renderParticle()
+    Particles.init({
+      selector: '.background',
+      connectParticles: true,
+      color: '#e2e2e2',
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            maxParticles: 25,
+          },
+        },
+        {
+          breakpoint: 1024,
+          options: {
+            maxParticles: 100,
+          },
+        },
+      ],
+    })
     await this._createModalForm()
+  },
+
+  async _renderParticle() {
+    const canvas = document.createElement('canvas')
+    canvas.classList = 'background absolute block left-0 top-0'
+    canvas.style.zIndex = -999
+    document.body.appendChild(canvas)
   },
 
   async _createModalForm() {
