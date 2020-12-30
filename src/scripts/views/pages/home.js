@@ -1,4 +1,3 @@
-import Particles from 'particlesjs'
 import ModalInitializer from '../../utils/modal-initializer'
 
 const Home = {
@@ -45,34 +44,7 @@ const Home = {
   },
 
   async afterRender() {
-    await this._renderParticle()
-    Particles.init({
-      selector: '.background',
-      connectParticles: true,
-      color: '#e2e2e2',
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            maxParticles: 25,
-          },
-        },
-        {
-          breakpoint: 1024,
-          options: {
-            maxParticles: 100,
-          },
-        },
-      ],
-    })
     await this._createModalForm()
-  },
-
-  async _renderParticle() {
-    const canvas = document.createElement('canvas')
-    canvas.classList = 'background absolute block left-0 top-0'
-    canvas.style.zIndex = -999
-    document.body.appendChild(canvas)
   },
 
   async _createModalForm() {
@@ -98,7 +70,7 @@ const Home = {
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
           <a data-modal="Masuk" href="#/dashboard" disabled id="login" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
-          <a class="ml-4 block text-blue-500 underline text-sm" href="#/admin">Lupa Password</a>
+          <a class="ml-4 block text-blue-500 underline text" href="#/admin">Lupa Password</a>
         </div>`,
       })
     })
@@ -118,7 +90,7 @@ const Home = {
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
           <a data-modal="Masuk Sebagai Admin" href="#/admin" disabled id="login" class="w-max bg-blue-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
-          <a class="ml-4 block text-blue-500 underline text-sm" href="#/admin">Lupa Password</a>
+          <a class="ml-4 block text-blue-500 underline" href="#/admin">Lupa Password</a>
         </div>`,
         bg: 'bg-blue-500',
       })
@@ -134,6 +106,8 @@ const Home = {
         `<div class="px-6 py-4">
           <p class="my-2">NISN</p>
           <input value="" type="number" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
+          <p class="my-2">Email</p>
+          <input value="" placeholder="email@address.com" type="email" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
           <p class="my-2">Password</p>
           <input value="" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
           <p class="my-2">Ulangi Password</p>
@@ -141,7 +115,7 @@ const Home = {
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
           <button disabled id="register" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Daftar</button>
-          <a class="ml-4 block text-blue-500 underline text-sm" href="#/admin">Sudah punya akun</a>
+          <a class="ml-4 block text-blue-500 underline" href="#/admin">Sudah punya akun</a>
         </div>`,
       })
     })
