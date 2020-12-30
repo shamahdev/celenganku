@@ -105,16 +105,16 @@ const Home = {
         content:
         `<div class="px-6 py-4">
           <p class="my-2">NISN</p>
-          <input value="" type="number" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
+          <input required value="" type="number" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
           <p class="my-2">Email</p>
-          <input value="" placeholder="email@address.com" type="email" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
+          <input required value="" placeholder="email@address.com" type="email" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
           <p class="my-2">Password</p>
-          <input value="" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
+          <input required value="" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
           <p class="my-2">Ulangi Password</p>
-          <input value="" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
+          <input required value="" type="password" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
-          <button disabled id="register" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Daftar</button>
+          <button data-submit="/user/register" disabled id="register" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Daftar</button>
           <a class="ml-4 block text-blue-500 underline" href="#/admin">Sudah punya akun</a>
         </div>`,
       })

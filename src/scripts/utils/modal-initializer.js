@@ -1,3 +1,4 @@
+import formValidation from '../helper/form-validation'
 import SlugParser from '../routes/slugparser'
 
 const ModalInitializer = {
@@ -27,6 +28,20 @@ const ModalInitializer = {
         </div>`
     document.body.appendChild(modalElement)
     await this._createEvent()
+
+    const modalInputs = modalElement.querySelectorAll('input')
+    const formSubmit = modalElement.querySelectorAll('button[data-submit]')
+    console.log('create form...')
+
+    if (typeof (formSubmit) !== 'undefined' && formSubmit != null) {
+      console.log('FORM')
+      await formValidation.init({
+        formInputs: modalInputs,
+        submitButton: formSubmit,
+      })
+    } else {
+      console.log('This modal is not categorized as a form input.')
+    }
   },
 
   async _createEvent() {
