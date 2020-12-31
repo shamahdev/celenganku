@@ -105,9 +105,9 @@ const Home = {
         content:
         `<div class="px-6 py-4">
           <p class="my-2">NISN</p>
-          <input name="NISN" value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="NISN" data-rule="required no-space" value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Email</p>
-          <input name="Email" value="" placeholder="email@address.com" type="email" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="Email" data-rule="required no-space" value="" placeholder="email@address.com" type="email" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Password</p>
           <input name="Password" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Ulangi Password</p>
