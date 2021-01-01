@@ -31,23 +31,19 @@ const ModalInitializer = {
 
     const modalInputs = modalElement.querySelectorAll('input')
     const formSubmit = modalElement.querySelectorAll('button[data-submit]')
-    console.log('create form...')
 
     if (typeof (formSubmit) !== 'undefined' && formSubmit != null) {
-      console.log('FORM')
       await formValidation.init({
         formInputs: modalInputs,
         submitButton: formSubmit,
       })
-    } else {
-      console.log('This modal is not categorized as a form input.')
     }
   },
 
   async _createEvent() {
     window.onclick = (event) => {
       if (event.target.id.indexOf('modal') >= 0) {
-        event.target.classList.add('hidden')
+        event.target.remove()
       }
     }
     const formButtons = document.querySelectorAll(`button[data-modal="${this._title}"], a[data-modal="${this._title}"]`)

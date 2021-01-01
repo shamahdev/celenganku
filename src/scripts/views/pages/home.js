@@ -64,9 +64,9 @@ const Home = {
         content:
         `<div class="px-6 py-4">
           <p class="my-2">NISN</p>
-          <input value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="NISN" data-rule="required no-space number-must-10" value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Password</p>
-          <input value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="Password" data-rule="required no-space" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
           <a data-modal="Masuk" href="#/dashboard" disabled id="login" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
@@ -84,9 +84,9 @@ const Home = {
         content:
         `<div class="px-6 py-4">
           <p class="my-2">ID Admin</p>
-          <input value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="ID Admin" data-rule="required no-space" value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Password</p>
-          <input value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="Password" data-rule="required no-space" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
           <a data-modal="Masuk Sebagai Admin" href="#/admin" disabled id="login" class="w-max bg-blue-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
@@ -105,13 +105,13 @@ const Home = {
         content:
         `<div class="px-6 py-4">
           <p class="my-2">NISN</p>
-          <input name="NISN" data-rule="required no-space" value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="NISN" data-rule="required no-space number-must-10" value="" type="number" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Email</p>
-          <input name="Email" data-rule="required no-space" value="" placeholder="email@address.com" type="email" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="Email" data-rule="required no-space email" value="" placeholder="email@address.com" type="email" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Password</p>
-          <input name="Password" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="Password" data-rule="required" data-equal="register-password" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
           <p class="my-2">Ulangi Password</p>
-          <input name="Password" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+          <input name="Password" data-rule="required equal-register-password" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
           <button data-submit="/user/register" disabled id="register" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Daftar</button>
