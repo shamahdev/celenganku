@@ -20,6 +20,7 @@ module.exports = {
     textColor: ({ after }) => after(['disabled']),
     resize: ({ after }) => after(['disabled']),
     opacity: ({ after }) => after(['disabled']),
+    cursor: ({ after }) => after(['disabled']),
   },
   plugins: [],
 }

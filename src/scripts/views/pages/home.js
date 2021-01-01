@@ -114,7 +114,7 @@ const Home = {
           <input name="Password" data-rule="required equal-register-password" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
-          <button data-submit="/user/register" disabled id="register" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Daftar</button>
+          <button data-submit="/user/register" disabled id="register" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50 disabled:cursor-default">Daftar</button>
           <a class="ml-4 block text-blue-500 underline" href="#/admin">Sudah punya akun</a>
         </div>`,
       })
