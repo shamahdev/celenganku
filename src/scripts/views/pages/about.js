@@ -1,3 +1,5 @@
+import formValidation from "../../helper/form-validation"
+
 const About = {
   async render() {
     return `
@@ -21,13 +23,13 @@ const About = {
           </div>
           <div class="flex-1 p-5 rounded-lg w-full">
             <p class="my-2 text-lg">NISN</p>
-            <input disabled value="181113842" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
+            <input disabled value="181113842" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
             <p class="my-2 text-lg">Nama Lengkap</p>
-            <input disabled value="Turyadi Kevin" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 text-gray-500 focus:placeholder-gray-400">
+            <input disabled value="Turyadi Kevin" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
             <p class="my-2 text-lg">Tentang Saya</p>
-            <textarea rows="4" type="text" class="disabled:resize-none mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
+            <textarea rows="4" type="text" class="disabled:resize-none mb-4 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
             <p class="my-2 text-lg">Password</p>
-            <input value="turyadikevin" type="password" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white border-gray-300 disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            <input name="Password" data-rule="required no-space" value="turyadikevin" type="password" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
             <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
             <button id="discard-button" class="hidden w-max bg-red-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Batal</button>
             <button id="confirm-button" class="hidden w-max bg-green-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Selesai</button>
@@ -73,6 +75,11 @@ const About = {
         confirmButton.classList.add('hidden')
         changePhotoButton.classList.add('hidden')
       })
+    })
+
+    formValidation.init({
+      formInputs: editableForm[1],
+      submitButton: confirmButton,
     })
   },
 }

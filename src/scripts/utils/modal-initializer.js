@@ -30,7 +30,7 @@ const ModalInitializer = {
     await this._createEvent()
 
     const modalInputs = modalElement.querySelectorAll('input')
-    const formSubmit = modalElement.querySelectorAll('button[data-submit]')
+    const formSubmit = modalElement.querySelector('button[data-submit]')
 
     if (typeof (formSubmit) !== 'undefined' && formSubmit != null) {
       await formValidation.init({

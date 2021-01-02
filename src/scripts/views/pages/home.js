@@ -36,7 +36,7 @@ const Home = {
           </button>
         </div>
         <div class="text-center flex flex-col w-max ml-auto mr-auto mt-3">
-          <a role="button" id="admin-login-button" class="text-primary underline mb-5">Masuk sebagai Admin</a>
+          <bu role="button" id="admin-login-button" class="text-primary underline mb-5">Masuk sebagai Admin</bu>
           <p class="inline-block text-gray-800">Butuh bantuan? </p><a class="text-blue-500 ml-2 underline block md:inline" href="#/admin">Pelajari panduan berikut</a>
         </div>
         </div>
@@ -69,7 +69,7 @@ const Home = {
           <input name="Password" data-rule="required no-space" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
-          <a data-modal="Masuk" href="#/dashboard" disabled id="login" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
+          <button role="button" data-submit="/user/register" disabled id="login" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</button>
           <a class="ml-4 block text-blue-500 underline text" href="#/admin">Lupa Password</a>
         </div>`,
       })
@@ -89,7 +89,7 @@ const Home = {
           <input name="Password" data-rule="required no-space" value="" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
         </div>
         <div class="flex justify-start items-center w-100 px-6 pb-6">
-          <a data-modal="Masuk Sebagai Admin" href="#/admin" disabled id="login" class="w-max bg-blue-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</a>
+          <button role="button" data-submit="/user/register" data-modal="Masuk Sebagai Admin" href="#/admin" disabled id="login" class="w-max bg-blue-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Masuk</button>
           <a class="ml-4 block text-blue-500 underline" href="#/admin">Lupa Password</a>
         </div>`,
         bg: 'bg-blue-500',

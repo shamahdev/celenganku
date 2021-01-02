@@ -8,13 +8,21 @@ const formValidation = {
 
   async _createEvent() {
     const formInputs = this._formInputs
-    formInputs.forEach((input) => {
-      // eslint-disable-next-line func-names
-      input.addEventListener('keyup', (event) => {
-        event.preventDefault()
-        this._validateInput(input)
+
+    if (formInputs.length !== undefined) {
+      formInputs.forEach((input) => {
+        // eslint-disable-next-line func-names
+        input.addEventListener('keyup', (event) => {
+          event.preventDefault()
+          this._validateInput(input)
+        })
       })
-    })
+    } else {
+      formInputs.addEventListener('keyup', (event) => {
+        event.preventDefault()
+        this._validateInput(formInputs)
+      })
+    }
   },
 
   async _validateInput(input) {
@@ -89,10 +97,17 @@ const formValidation = {
     }
 
     const validatedCounts = document.querySelectorAll('input.border-green-500')
-    if (validatedCounts.length === this._formInputs.length) {
-      this._submitButton[0].disabled = false
+
+    if (this._formInputs.length !== undefined) {
+      if (validatedCounts.length === this._formInputs.length) {
+        this._submitButton.disabled = false
+      } else {
+        this._submitButton.disabled = true
+      }
+    } else if (this._formInputs.className.includes(...successInputClasss)) {
+      this._submitButton.disabled = false
     } else {
-      this._submitButton[0].disabled = true
+      this._submitButton.disabled = true
     }
   },
 }
