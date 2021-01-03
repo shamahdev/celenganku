@@ -22,17 +22,21 @@ const About = {
             </div>
           </div>
           <div class="flex-1 p-5 rounded-lg w-full">
-            <p class="my-2 text-lg">NISN</p>
-            <input disabled value="181113842" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
-            <p class="my-2 text-lg">Nama Lengkap</p>
-            <input disabled value="Turyadi Kevin" type="text" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
-            <p class="my-2 text-lg">Tentang Saya</p>
-            <textarea rows="4" type="text" class="disabled:resize-none mb-4 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
-            <p class="my-2 text-lg">Password</p>
-            <input name="Password" data-rule="required no-space" value="turyadikevin" type="password" class="mb-4 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            <div class="py-4">
+            <p class="my-2">NISN</p>
+            <input disabled value="181113842" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
+            <p class="my-2">Nama Lengkap</p>
+            <input disabled value="Turyadi Kevin" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
+            <p class="my-2">Tentang Saya</p>
+            <textarea rows="4" type="text" class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
+            <p class="my-2">Password</p>
+            <input name="Password" data-rule="required no-space" value="turyadikevin" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            </div>
+            <div class="flex justify-start items-center">
             <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
             <button id="discard-button" class="hidden w-max bg-red-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Batal</button>
             <button id="confirm-button" class="hidden w-max bg-green-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Selesai</button>
+            </div>
           </div>
         </div>
       </div>

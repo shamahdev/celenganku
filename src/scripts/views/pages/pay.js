@@ -49,10 +49,12 @@ const Pay = {
                 </button>
               </div>
             </div>
-            <div id="nominal-form" class="hidden transition duration-100 ease-in-out">
-              <p class="my-5 text-xl">Nominal</p>
-              <input placeholder="Masukkan Nominal" type="text" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-white text-black border-gray-300 placeholder-gray-500 focus:placeholder-gray-400">
+            <div id="nominal-form" class="py-4 hidden transition duration-100 ease-in-out">
+              <p class="my-2">Nominal</p>
+              <input placeholder="Masukkan Nominal" type="text" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white text-gray-800 placeholder-gray-500 focus:placeholder-gray-400">
+              <div class="flex justify-start items-center w-100 pt-4">
               <button id='pay-button' class="w-max bg-primary text-white font-light py-3 px-5 rounded-lg">Lanjut ke pembayaran</button>
+              </div>
             </div>
             </div>
         </div>

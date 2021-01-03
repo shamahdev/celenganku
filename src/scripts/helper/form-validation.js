@@ -11,16 +11,56 @@ const formValidation = {
 
     if (formInputs.length !== undefined) {
       formInputs.forEach((input) => {
-        // eslint-disable-next-line func-names
+        this._showPasswordToggle(input)
         input.addEventListener('keyup', (event) => {
           event.preventDefault()
           this._validateInput(input)
         })
       })
     } else {
+      this._showPasswordToggle(formInputs)
       formInputs.addEventListener('keyup', (event) => {
         event.preventDefault()
         this._validateInput(formInputs)
+      })
+    }
+  },
+
+  async _showPasswordToggle(input) {
+    if (input.type === 'password') {
+      const passwordInputWrapper = document.createElement('div')
+      passwordInputWrapper.className = 'relative w-full'
+      passwordInputWrapper.id = `${input.id}-wrapper`
+      passwordInputWrapper.innerHTML = `
+          <div class="absolute inset-y-0 right-0 flex items-center px-2">
+            <input class="hidden password-toggle" id="${input.id}-toggle" type="checkbox">
+            <label class="rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer password-label" for="${input.id}-toggle">
+            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+        </svg>
+            </label>
+          </div>`
+      input.parentElement.insertBefore(passwordInputWrapper, input)
+      passwordInputWrapper.appendChild(input)
+
+      const passwordToggle = document.getElementById(`${input.id}-toggle`)
+      console.log(passwordToggle)
+
+      passwordToggle.addEventListener('change', () => {
+        const passwordLabel = passwordToggle.parentElement.querySelector('.password-label')
+        if (input.type === 'password') {
+          input.type = 'text'
+          passwordLabel.innerHTML = `<svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>`
+        } else {
+          input.type = 'password'
+          passwordLabel.innerHTML = `<svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+        </svg>`
+        }
+        input.focus()
       })
     }
   },
@@ -31,7 +71,7 @@ const formValidation = {
 
     const alertElement = document.createElement('span')
     alertElement.className = 'text-sm text-red-500'
-    alertElement.id = `${input.name}-alert`
+    alertElement.id = `${input.id}-alert`
 
     const alertText = []
 
@@ -76,7 +116,7 @@ const formValidation = {
       })
     }
 
-    const checkElement = document.getElementById(`${input.name}-alert`)
+    const checkElement = document.getElementById(`${input.id}-alert`)
     if (alertText.length > 0) {
       input.classList.add(...errorInputClasss)
       input.classList.remove(...successInputClasss)
@@ -86,7 +126,8 @@ const formValidation = {
         alertElement.innerHTML = alertText[0]
 
         if (input.name === 'Password') {
-          input.parentElement.parentElement.insertBefore(alertElement, input.nextSibling)
+          // eslint-disable-next-line max-len
+          input.parentElement.parentElement.insertBefore(alertElement, input.parentElement.nextSibling)
         } else {
           input.parentElement.insertBefore(alertElement, input.nextSibling)
         }
