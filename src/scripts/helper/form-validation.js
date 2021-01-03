@@ -84,7 +84,12 @@ const formValidation = {
         checkElement.innerHTML = alertText[0]
       } else {
         alertElement.innerHTML = alertText[0]
-        input.parentElement.insertBefore(alertElement, input.nextSibling)
+
+        if (input.name === 'Password') {
+          input.parentElement.parentElement.insertBefore(alertElement, input.nextSibling)
+        } else {
+          input.parentElement.insertBefore(alertElement, input.nextSibling)
+        }
       }
     } else {
       try {
