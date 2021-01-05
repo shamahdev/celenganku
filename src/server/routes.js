@@ -7,10 +7,4 @@ module.exports = function Routes(app) {
     .get((req, res) => {
       res.sendFile(HTML_FILE)
     })
-
-  app.route('/users')
-    .get((req, res) => {
-      res.send('USERS TAI')
-      console.log('TAIIII')
-    })
 }
