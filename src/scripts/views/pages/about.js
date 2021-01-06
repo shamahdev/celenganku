@@ -1,4 +1,4 @@
-import formValidation from "../../helper/form-validation"
+import formValidation from '../../helper/form-validation'
 
 const About = {
   async render() {
@@ -30,7 +30,7 @@ const About = {
             <p class="my-2">Tentang Saya</p>
             <textarea rows="4" type="text" class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
             <p class="my-2">Password</p>
-            <input name="Password" data-rule="required no-space" value="turyadikevin" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            <input id="edit-password" name="Password" data-rule="required no-space" value="turyadikevin" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
             </div>
             <div class="flex justify-start items-center">
             <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
@@ -73,6 +73,12 @@ const About = {
       editableForm[0].value = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.'
       editableForm[1].value = 'turyadikevin'
       editableForm.forEach((input) => {
+        editableForm[1].classList.remove('border-red-500', 'border-opacity-50', 'focus:border-red-500', 'border-green-500', 'border-opacity-50', 'focus:border-green-500')
+        const passwordInputAlert = document.getElementById('edit-password-alert')
+
+        if (typeof (passwordInputAlert) !== 'undefined' && passwordInputAlert != null) {
+          passwordInputAlert.remove()
+        }
         input.disabled = true
         editButton.classList.remove('hidden')
         discardButton.classList.add('hidden')
