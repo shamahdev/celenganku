@@ -5,10 +5,10 @@
   "main": "./src/scripts/index.js",
   "scripts": {
     "build:dev": "webpack --mode development --config webpack.server.js && webpack --config webpack.dev.js",
-    "build:prod": "webpack --mode production --config webpack.server.js && webpack --config webpack.prod.js",
     "build:server": "webpack --mode production --config webpack.server.js",
-    "server": "node ./build/server.js",
-    "start": "yarn build:dev && yarn server",
+    "build": "webpack --mode production --config webpack.server.js && webpack --config webpack.prod.js",
+    "start": "yarn build && node ./dist/server.js",
+    "start:dev": "yarn build:dev && yarn server",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix"
   },
