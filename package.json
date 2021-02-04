@@ -7,7 +7,7 @@
     "build:dev": "webpack --mode development --config webpack.server.js && webpack --config webpack.dev.js",
     "build:server": "webpack --mode production --config webpack.server.js",
     "build": "webpack --mode production --config webpack.server.js && webpack --config webpack.prod.js",
-    "start": "yarn build && node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "start:dev": "yarn build:dev && yarn server",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix"
