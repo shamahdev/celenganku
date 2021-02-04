@@ -1,5 +1,7 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
+const WebpackBar = require('webpackbar')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = (env, argv) => {
   const SERVER_PATH = (argv.mode === 'production')
@@ -33,5 +35,9 @@ module.exports = (env, argv) => {
         },
       ],
     },
+    plugins: [
+      new WebpackBar(),
+      new CleanWebpackPlugin(),
+    ],
   })
 }

@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const common = require('./webpack.common')
 
 module.exports = merge(common, {
-  mode: 'production',
+  mode: 'development',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

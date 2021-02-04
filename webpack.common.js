@@ -1,4 +1,5 @@
 const path = require('path')
+const WebpackBar = require('webpackbar')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
@@ -15,19 +16,11 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-    //   {
-    //     test: /\.js$/,
-    //     exclude: /node_modules/,
-    //     loader: 'babel-loader',
-    //   },
       {
-        // Loads the javacript into html template provided.
-        // Entry point is set below in HtmlWebPackPlugin in Plugins
         test: /\.html$/,
         use: [
           {
             loader: 'html-loader',
-            // options: { minimize: true }
           },
         ],
       },
@@ -46,6 +39,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new WebpackBar(),
     new CopyWebpackPlugin({
       patterns: [
         {

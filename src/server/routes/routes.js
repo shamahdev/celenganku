@@ -7,4 +7,8 @@ module.exports = function Routes(app) {
     .get((req, res) => {
       res.sendFile(HTML_FILE)
     })
+  app.route('/test')
+    .get((req, res) => {
+      res.send('test')
+    })
 }

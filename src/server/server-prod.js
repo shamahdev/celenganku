@@ -1,13 +1,13 @@
-const port = process.env.PORT || 8080
-const express = require('express')
+import express from 'express'
+import routes from './routes/routes'
+import CONFIG from './global/config'
 
 const app = express()
-const routes = require('./routes')
 
-app.use(express.static(__dirname))
+app.use(express.static(CONFIG.DIST_DIR))
 routes(app)
 
-app.listen(port, () => {
-  console.log(`App listening to ${port}`)
+app.listen(CONFIG.PORT, () => {
+  console.log(`App listening to ${CONFIG.PORT}....`)
   console.log('Press Ctrl+C to quit.')
 })
