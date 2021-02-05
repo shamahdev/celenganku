@@ -37,7 +37,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new WebpackBar(),
-      new CleanWebpackPlugin(),
+      (argv.mode === 'production') ? new CleanWebpackPlugin() : new WebpackBar(),
     ],
   })
 }
