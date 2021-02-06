@@ -8,6 +8,7 @@
     "build-dev": "yarn build-server-dev && webpack --config webpack.dev.js",
     "build-server": "webpack --mode production --config webpack.server.js",
     "build-server-dev": "webpack --mode development --config webpack.server.js",
+    "watch": "webpack --mode production --watch --config webpack.server.js",
     "server": "node ./build/server.js",
     "start": "yarn build-dev && yarn server",
     "lint": "eslint ./src",
@@ -23,16 +24,24 @@
   "homepage": "https://github.com/Shaddamah/celenganku-app#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "copy-webpack-plugin": "^7.0.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
     "eslint-config-airbnb": "^18.2.0",
     "express": "^4.17.1",
     "firebase": "^8.2.6",
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.1",
+    "helmet": "^4.4.1",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon-webpack-plugin": "^4.4.4",
     "particlesjs": "^2.2.3",
     "styled-components": "^5.2.1",
-    "terser-webpack-plugin": "^5.1.1"
+    "terser-webpack-plugin": "^5.1.1",
+    "xss-clean": "^0.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",

@@ -19,6 +19,10 @@ class App {
     })
   }
 
+  static loadUserPage() {
+    console.log(window.location.hash.slice(1).toLowerCase())
+  }
+
   async loadPage() {
     const url = UrlParser.parseActiveUrlWithCombiner()
     const page = await Routes[url]

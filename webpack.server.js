@@ -5,8 +5,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = (env, argv) => {
   const SERVER_PATH = (argv.mode === 'production')
-    ? './src/server/server-prod.js'
-    : './src/server/server-dev.js'
+    ? './server/server-prod.js'
+    : './server/server-dev.js'
   return ({
     entry: {
       server: SERVER_PATH,
@@ -36,8 +36,12 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
-      new WebpackBar(),
-      (argv.mode === 'production') ? new CleanWebpackPlugin() : new WebpackBar(),
+      new WebpackBar({
+        name: 'Server',
+        color: 'orange',
+      }),
+      new CleanWebpackPlugin(),
     ],
+    stats: 'errors-only',
   })
 }

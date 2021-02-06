@@ -8,4 +8,5 @@ module.exports = merge(common, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
+  stats: 'errors-only',
 })

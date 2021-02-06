@@ -11,6 +11,15 @@ const app = new App({
   appbar: document.getElementById('appbar'),
 })
 
+// window.addEventListener('popstate', () => {
+//   console.log(window.location.pathname)
+//   app.loadUserPage()
+// })
+
+if (window.location.pathname === '/admin') {
+  console.log('admin euy')
+}
+
 window.addEventListener('hashchange', () => {
   app.loadPage()
 })
@@ -20,6 +29,6 @@ window.addEventListener('load', () => {
 })
 
 // Needed for Hot Module Replacement
-if (typeof (module.hot) !== 'undefined') {
+if (module.hot) {
   module.hot.accept() // eslint-disable-line no-undef
 }
