@@ -3,7 +3,7 @@ const Dashboard = {
     return `
         <div class="hidden md:block text-center">
         <p class="text-xl leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
-          Celengan Turyadi Kevin 
+          Celengan adawd
         </p>
       </div>
       <div class="flex flex-col">

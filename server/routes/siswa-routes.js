@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import siswaController from '../controllers/siswaController'
-import authController from '../controllers/authController'
+import siswaController from '../controllers/siswa-controller'
+import authController from '../controllers/auth-controller'
 
 const siswaRoutes = express.Router()
 
@@ -10,7 +10,7 @@ siswaRoutes.use(bodyParser.json())
 siswaRoutes.post('/login', authController.login)
 siswaRoutes.post('/register', authController.register)
 
-siswaRoutes.use(authController.authenticateToken)
+siswaRoutes.use(authController.requireAuth)
 
 siswaRoutes.route('/')
   .get(siswaController.getAllAkunSiswa)

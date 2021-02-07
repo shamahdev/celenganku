@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import AppError from '../utils/appError'
 
-const global = {
+const BaseController = {
   deleteOne: (...Model) => async (req, res, next) => {
     try {
       Model.forEach(async (model) => {
@@ -102,4 +102,4 @@ const global = {
 
 }
 
-export default global
+export default BaseController

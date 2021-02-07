@@ -8,7 +8,6 @@
     "build-dev": "yarn build-server-dev && webpack --config webpack.dev.js",
     "build-server": "webpack --mode production --config webpack.server.js",
     "build-server-dev": "webpack --mode development --config webpack.server.js",
-    "watch": "webpack --mode production --watch --config webpack.server.js",
     "server": "node ./build/server.js",
     "start": "yarn build-dev && yarn server",
     "lint": "eslint ./src",
@@ -23,6 +22,7 @@
   },
   "homepage": "https://github.com/Shaddamah/celenganku-app#readme",
   "dependencies": {
+    "atob": "^2.1.2",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "copy-webpack-plugin": "^7.0.0",

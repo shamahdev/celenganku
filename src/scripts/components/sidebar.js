@@ -1,22 +1,22 @@
 /* eslint-disable class-methods-use-this */
 class Sidebar extends HTMLElement {
-  set type(type) {
-    this._type = type
+  set role(role) {
+    this._role = role
     this._render()
   }
 
   _bgColor() {
     let colorClass = 'bg-primary'
-    if (this._type === 'admin') {
+    if (this._role === 'admin') {
       colorClass = 'bg-blue-500'
     }
     return colorClass
   }
 
-  _renderNavsByType() {
-    const type = this._type
+  _renderNavsByRole() {
+    const role = this._role
     let navs = ''
-    if (type === 'admin') {
+    if (role === 'admin') {
       // Admin navs
       navs = `<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg active" href="#/admin">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,4 +75,4 @@ class Sidebar extends HTMLElement {
     </div>`
   }
 }
-customElements.define('sidebar-nav', Sidebar)
+customElements.define('side-bar', Sidebar)

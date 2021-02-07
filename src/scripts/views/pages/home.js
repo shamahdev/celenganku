@@ -21,7 +21,6 @@ const Home = {
 
   async afterRender() {
     const formInputs = document.querySelectorAll('input[data-rule]')
-    console.log(formInputs)
     const submit = document.querySelector('button[data-submit]')
     formValidation.init({
       formInputs,
@@ -33,7 +32,6 @@ const Home = {
         nisn: formInputs[0].value,
         password: formInputs[1].value,
       }
-      console.log(loginData)
       const response = await fetch('/api/siswa/login', {
         method: 'POST',
         headers: {
@@ -41,7 +39,11 @@ const Home = {
         },
         body: JSON.stringify(loginData),
       })
-      console.log(await response.json())
+      const loginResponse = (await response.json())
+      console.log(loginResponse)
+      if (loginResponse.status === 'success') {
+        window.dispatchEvent(new HashChangeEvent('hashchange'))
+      }
     })
   },
 

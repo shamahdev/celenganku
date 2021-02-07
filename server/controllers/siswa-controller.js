@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
-import global from './globalController'
-import siswa from '../models/siswaModel'
+import BaseController from './base-controller'
+import siswa from '../models/siswa-model'
 
 const siswaController = {
-  getAllSiswaData: global.getAll(siswa.data),
-  getAllAkunSiswa: global.getAll(siswa.akun),
-  getDataSiswa: global.getOne(siswa.data),
-  getProfilSiswa: global.getOne(siswa.profil),
-  getAkunSiswa: global.getOne(siswa.akun),
-  deleteAkunSiswa: global.deleteOne(siswa.akun, siswa.profil),
+  getAllSiswaData: BaseController.getAll(siswa.data),
+  getAllAkunSiswa: BaseController.getAll(siswa.akun),
+  getDataSiswa: BaseController.getOne(siswa.data),
+  getProfilSiswa: BaseController.getOne(siswa.profil),
+  getAkunSiswa: BaseController.getOne(siswa.akun),
+  deleteAkunSiswa: BaseController.deleteOne(siswa.akun, siswa.profil),
   createAkunSiswa: async (req, res, next) => {
     try {
       const {
@@ -64,7 +64,10 @@ const siswaController = {
         error: false,
         response: req.body,
       })
-      return { error: false }
+      return {
+        ...req.body,
+        error: false,
+      }
     } catch (error) {
       console.log(error)
       res.status(502).json({

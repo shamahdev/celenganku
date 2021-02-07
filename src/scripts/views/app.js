@@ -1,9 +1,11 @@
 import UrlParser from '../routes/urlparser'
 import Routes from '../routes/routes'
-import SidebarNavigation from '../utils/sidebar-nav-init'
+import SidebarNavigation from '../utils/sidebar-init'
+import Appbar from '../utils/appbar-init'
 
 // Components
-import '../components/sidebar-nav'
+import '../components/sidebar'
+import '../components/appbar'
 
 class App {
   constructor({ content, sidebar, appbar }) {
@@ -17,35 +19,42 @@ class App {
     SidebarNavigation.init({
       sidebar: this._sidebar,
     })
+    Appbar.init({
+      appbar: this._appbar,
+    })
   }
 
-  static loadUserPage() {
-    console.log(window.location.hash.slice(1).toLowerCase())
-  }
+  async loadPage(role) {
+    let url = UrlParser.parseActiveUrlWithCombiner()
+    if (url === '') url = '/'
 
-  async loadPage() {
-    const url = UrlParser.parseActiveUrlWithCombiner()
-    const page = await Routes[url]
     try {
-      if (url === '/') {
-        this._toggleNavigation(false)
-      } else {
-        this._toggleNavigation(true)
-        if (url.includes('admin')) {
-          this._toggleNavigation(true, 'admin')
-          this._sidebar.type = 'admin'
-        } else {
-          this._sidebar.type = 'user'
-        }
-        document.body.prepend(this._sidebar)
+      let page
+      switch (role) {
+        case 'user':
+          page = await Routes.user[url]
+          SidebarNavigation.setState(true, role)
+          Appbar.setState(true, role)
+          break
+        case 'admin':
+          page = await Routes.admin[url]
+          SidebarNavigation.setState(true, role)
+          Appbar.setState(true, role)
+          break
+        default:
+          page = await Routes.login
+          SidebarNavigation.setState(false)
+          Appbar.setState(false)
+          break
       }
+
+      document.body.prepend(this._sidebar)
       this._content.innerHTML = await page.render()
       await SidebarNavigation.highlight(url)
       await page.afterRender()
     } catch (err) {
-      console.log(url)
-      console.error(err)
-      this._content.innerHTML = this.constructor._load404()
+      console.log(err)
+      this._content.innerHTML = this.constructor._loadPageNotFound()
     }
   }
 
@@ -66,13 +75,13 @@ class App {
     }
   }
 
-  static async refreshPage() {
+  static async refreshPage(role) {
     const url = UrlParser.parseActiveUrlWithCombiner()
     const page = await Routes[url]
     await page.afterRender()
   }
 
-  static _load404() {
+  static _loadPageNotFound() {
     return `
         <article id='main'>
             <h2 class='center'>Halaman tidak ditemukan</h2>

@@ -14,8 +14,8 @@ import cookirParser from 'cookie-parser'
 import CONFIG from './global/config'
 import config from '../webpack.dev'
 
-import siswaRoutes from './routes/siswaRoutes'
-import authController from './controllers/authController'
+import siswaRoutes from './routes/siswa-routes'
+import authController from './controllers/auth-controller'
 
 const app = express()
 const HTML_FILE = path.join(__dirname, 'index.html')
@@ -36,14 +36,12 @@ app.use(express.json({
   limit: '15kb',
 }))
 app.use('/api/siswa', siswaRoutes)
-
-app.use('/user', authController.authenticateToken)
+app.get('/token', authController.requireAuth, authController.retrieveToken)
+app.use('/user', authController.requireAuth)
 
 app.use(bodyParser.json())
 app.use(express.static(__dirname))
-app.use('/', (req, res) => {
-  res.sendFile(HTML_FILE)
-})
+app.use('/', (req, res) => res.sendFile(HTML_FILE))
 
 app.get('*', (req, res, next) => {
   compiler.outputFileSystem.readFile(path.join(CONFIG.DIST_DIR, 'index.html'), (err, result) => {

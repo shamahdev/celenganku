@@ -8,14 +8,17 @@ import Process from '../views/pages/admin/process'
 import Users from '../views/pages/admin/users'
 
 const Routes = {
-  '/': Home,
-  '/dashboard': Dashboard,
-  '/admin': AdminDashboard,
-  '/admin/pay': Process,
-  '/admin/data': Users,
-  '/balance': Balance,
-  '/pay': Pay,
-  '/profile': About,
+  login: Home,
+  user: {
+    '/': Dashboard,
+    '/pay': Pay,
+    '/profile': About,
+  },
+  admin: {
+    '/admin': AdminDashboard,
+    '/admin/pay': Process,
+    '/admin/data': Users,
+  },
 }
 
 export default Routes

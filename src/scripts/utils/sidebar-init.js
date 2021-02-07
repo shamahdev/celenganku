@@ -1,4 +1,4 @@
-const SidebarNavigation = {
+const Sidebar = {
   async init({
     sidebar,
   }) {
@@ -16,6 +16,15 @@ const SidebarNavigation = {
       }
     })
   },
+
+  setState(state = true, role = 'user') {
+    if (state) {
+      this._sidebar.classList.remove('hidden')
+      this._sidebar.type = role
+    } else {
+      this._sidebar.classList.add('hidden')
+    }
+  }
 }
 
-export default SidebarNavigation
+export default Sidebar

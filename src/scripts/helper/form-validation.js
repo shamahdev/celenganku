@@ -44,7 +44,6 @@ const formValidation = {
       passwordInputWrapper.appendChild(input)
 
       const passwordToggle = document.getElementById(`${input.id}-toggle`)
-      console.log(passwordToggle)
 
       passwordToggle.addEventListener('change', () => {
         const passwordLabel = passwordToggle.parentElement.querySelector('.password-label')
