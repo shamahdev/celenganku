@@ -36,9 +36,11 @@ app.use(cookirParser())
 app.use(express.json({
   limit: '15kb',
 }))
+
 app.use('/api/siswa', siswaRoutes)
 app.use('/api/admin', adminRoutes)
 app.get('/token', AuthController.requireAuth, AuthController.retrieveToken)
+app.use('/logout', AuthController.logout)
 
 app.use(bodyParser.json())
 app.use(express.static(__dirname))

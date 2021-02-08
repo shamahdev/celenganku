@@ -2,35 +2,35 @@ const Dashboard = {
   async render() {
     return `
         <div class="hidden md:block text-center">
-        <p class="text-xl leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
+        <p class="text-xl leading-8 font-bold tracking-tight text-gray-900 md:text-3xl md:mt-2">
           Celengan adawd
         </p>
       </div>
       <div class="flex flex-col">
         <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
-          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-blue-500 rounded-lg shadow-blue">
+          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
             <div class="flex items-center">
               <div class="text-white flex flex-col flex-1">
-                <p class="font-light">Saldo</p>
+                <p class="-mb-2">Saldo</p>
                 <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 720.000</p>
               </div>
             </div>
           </div>
-          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-green-500 rounded-lg shadow-green">
+          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
             <div class="flex items-center">
-              <div class="text-white flex flex-col flex-1">
-                <p class="font-light">Pemasukan Bulan ini</p>
+              <div class="text-gray-900 flex flex-col flex-1">
+                <p class="-mb-2">Pemasukan Bulan ini</p>
                 <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
-                <a class="font mt-3 text-right ml-auto underline" href="">Lihat Detail</a>
+                <a class="font-bold text-sm text-gray-300 mt-3" href="">RP 100.000 MINGGU INI</a>
               </div>
             </div>
           </div>
-          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-red-500 rounded-lg shadow-red">
+          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
             <div class="flex items-center">
-              <div class="text-white flex flex-col flex-1">
-                <p class="font-light">Pengeluaran Bulan ini</p>
+              <div class="text-gray-900 flex flex-col flex-1">
+                <p class="-mb-2">Pengeluaran Bulan ini</p>
                 <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
-                <a class="font mt-3 text-right ml-auto underline" href="">Lihat Detail</a>
+                <a class="font-bold text-sm text-gray-300 mt-3" href="">RP 100.000 MINGGU INI</a>
               </div>
             </div>
           </div>

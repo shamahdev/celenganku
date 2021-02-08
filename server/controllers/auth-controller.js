@@ -108,9 +108,9 @@ const AuthController = {
       const account = await Siswa.akun.where('nisn', '==', nisn).where('password', '==', password).get()
       if (account.empty) {
         res.status(401).json({
-          status: 'failed',
+          status: 'error',
           error: true,
-          message: 'Wrong NISN or Password',
+          message: 'NISN atau Password salah',
           response: req.body,
         })
       }
@@ -121,12 +121,17 @@ const AuthController = {
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
       res.status(200).json({
         status: 'success',
+        message: 'Login Berhasil',
         error: false,
         response: req.body,
       })
     } catch (err) {
       next(err)
     }
+  },
+  logout: (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.redirect('/')
   },
   register: async (req, res, next) => {
     const { nisn } = await SiswaController.createAkunSiswa(req, res, next)

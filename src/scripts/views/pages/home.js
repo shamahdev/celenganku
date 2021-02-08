@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import Swal from 'sweetalert2'
 import formValidation from '../../helper/form-validation'
 
 const Home = {
@@ -41,6 +42,10 @@ const Home = {
       })
       const loginResponse = (await response.json())
       console.log(loginResponse)
+      Swal.fire({
+        icon: loginResponse.status,
+        title: loginResponse.message,
+      })
       if (loginResponse.status === 'success') {
         window.dispatchEvent(new HashChangeEvent('hashchange'))
       }

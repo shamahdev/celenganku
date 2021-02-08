@@ -87,12 +87,6 @@ class App {
     return userInformation
   }
 
-  static async refreshPage(role) {
-    const url = UrlParser.parseActiveUrlWithCombiner()
-    const page = await Routes[url]
-    await page.afterRender()
-  }
-
   static _loadPageNotFound() {
     return `
     <div id='preloader' class="flex mt-auto mb-auto ml-auto mr-auto">

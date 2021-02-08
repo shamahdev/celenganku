@@ -40,6 +40,7 @@
     "nodemon-webpack-plugin": "^4.4.4",
     "particlesjs": "^2.2.3",
     "styled-components": "^5.2.1",
+    "sweetalert2": "^10.14.0",
     "terser-webpack-plugin": "^5.1.1",
     "xss-clean": "^0.1.1"
   },

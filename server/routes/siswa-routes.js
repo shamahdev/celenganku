@@ -7,8 +7,8 @@ const siswaRoutes = express.Router()
 
 siswaRoutes.use(bodyParser.json())
 
-siswaRoutes.post('/login', AuthController.login)
 siswaRoutes.post('/register', AuthController.register)
+siswaRoutes.post('/login', AuthController.login)
 
 siswaRoutes.use(AuthController.requireAuth)
 

@@ -6,7 +6,7 @@ module.exports = {
     // standardFontWeights: true
   },
   purge: {
-    enabled: true,
+    // enabled: true,
     content: ['./src/**/*.html', './src/**/*.js'],
   },
   theme: {
