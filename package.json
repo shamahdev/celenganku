@@ -39,6 +39,7 @@
     "jsonwebtoken": "^8.5.1",
     "nodemon-webpack-plugin": "^4.4.4",
     "particlesjs": "^2.2.3",
+    "regenerator-runtime": "^0.13.7",
     "styled-components": "^5.2.1",
     "sweetalert2": "^10.14.0",
     "terser-webpack-plugin": "^5.1.1",
