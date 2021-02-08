@@ -12,7 +12,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#FF974B',
+        primary: '#EB643F',
+        primaryLight: '#FF9678',
+        primaryDisable: '#FFC7B8',
+        secondary: '#3F79EB',
+        secondaryDisable: '#CCDDFF',
+        success: '#46D65D',
+        failed: '#FB5555',
       },
     },
   },

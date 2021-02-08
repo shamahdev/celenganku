@@ -1,9 +1,9 @@
 import db from '../global/firebase'
 
-const siswa = {
+const Siswa = {
   data: db.collection('data_siswa'),
   akun: db.collection('akun_siswa'),
   profil: db.collection('profil_siswa'),
 }
 
-export default siswa
+export default Siswa

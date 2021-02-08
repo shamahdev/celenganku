@@ -15,7 +15,8 @@ import CONFIG from './global/config'
 import config from '../webpack.dev'
 
 import siswaRoutes from './routes/siswa-routes'
-import authController from './controllers/auth-controller'
+import adminRoutes from './routes/admin-routes'
+import AuthController from './controllers/auth-controller'
 
 const app = express()
 const HTML_FILE = path.join(__dirname, 'index.html')
@@ -36,8 +37,8 @@ app.use(express.json({
   limit: '15kb',
 }))
 app.use('/api/siswa', siswaRoutes)
-app.get('/token', authController.requireAuth, authController.retrieveToken)
-app.use('/user', authController.requireAuth)
+app.use('/api/admin', adminRoutes)
+app.get('/token', AuthController.requireAuth, AuthController.retrieveToken)
 
 app.use(bodyParser.json())
 app.use(express.static(__dirname))

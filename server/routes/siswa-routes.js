@@ -1,29 +1,32 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import siswaController from '../controllers/siswa-controller'
-import authController from '../controllers/auth-controller'
+import SiswaController from '../controllers/siswa-controller'
+import AuthController from '../controllers/auth-controller'
 
 const siswaRoutes = express.Router()
 
 siswaRoutes.use(bodyParser.json())
 
-siswaRoutes.post('/login', authController.login)
-siswaRoutes.post('/register', authController.register)
+siswaRoutes.post('/login', AuthController.login)
+siswaRoutes.post('/register', AuthController.register)
 
-siswaRoutes.use(authController.requireAuth)
+siswaRoutes.use(AuthController.requireAuth)
 
 siswaRoutes.route('/')
-  .get(siswaController.getAllAkunSiswa)
+  .get(SiswaController.getAllAkunSiswa)
+
+siswaRoutes.route('/data')
+  .get(SiswaController.getDataSiswa)
 
 siswaRoutes.route('/:id')
-  .get(siswaController.getAkunSiswa)
-  .patch(siswaController.updateAkunSiswa)
-  .delete(siswaController.deleteAkunSiswa)
+  .get(SiswaController.getAkunSiswa)
+  .patch(SiswaController.updateAkunSiswa)
+  .delete(SiswaController.deleteAkunSiswa)
 
 siswaRoutes.route('/:id/profil')
-  .get(siswaController.getProfilSiswa)
+  .get(SiswaController.getProfilSiswa)
 
 siswaRoutes.route('/:id/data')
-  .get(siswaController.getDataSiswa)
+  .get(SiswaController.getDataSiswa)
 
 export default siswaRoutes

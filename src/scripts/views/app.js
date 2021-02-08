@@ -1,7 +1,9 @@
+/* eslint-disable default-case */
 import UrlParser from '../routes/urlparser'
 import Routes from '../routes/routes'
-import SidebarNavigation from '../utils/sidebar-init'
+import Sidebar from '../utils/sidebar-init'
 import Appbar from '../utils/appbar-init'
+import APIData from '../data/api-data'
 
 // Components
 import '../components/sidebar'
@@ -12,11 +14,12 @@ class App {
     this._content = content
     this._sidebar = sidebar
     this._appbar = appbar
+    this._user = null
     this._initialAppShell()
   }
 
   _initialAppShell() {
-    SidebarNavigation.init({
+    Sidebar.init({
       sidebar: this._sidebar,
     })
     Appbar.init({
@@ -24,55 +27,64 @@ class App {
     })
   }
 
-  async loadPage(role) {
+  async loadPage() {
+    this._content.innerHTML = this.constructor._loadPreloader()
+    this._user = await APIData.retrieveUser()
+    const { role } = this._user
+
     let url = UrlParser.parseActiveUrlWithCombiner()
     if (url === '') url = '/'
 
     try {
       let page
-      switch (role) {
-        case 'user':
-          page = await Routes.user[url]
-          SidebarNavigation.setState(true, role)
-          Appbar.setState(true, role)
-          break
-        case 'admin':
-          page = await Routes.admin[url]
-          SidebarNavigation.setState(true, role)
-          Appbar.setState(true, role)
-          break
-        default:
-          page = await Routes.login
-          SidebarNavigation.setState(false)
-          Appbar.setState(false)
-          break
+      if (role !== 'unauthorized') {
+        switch (role) {
+          case 'user':
+            page = await Routes.user[url]
+            break
+          case 'admin':
+            page = await Routes.admin[url]
+            break
+        }
+        Sidebar.setState(true, role)
+        Appbar.setState(true, role)
+
+        const userInformation = await this._getUserInformation()
+        Appbar.setHeader(userInformation.nama, userInformation.url_foto)
+      } else {
+        page = await Routes.login
+        Sidebar.setState(false)
+        Appbar.setState(false)
       }
 
       document.body.prepend(this._sidebar)
       this._content.innerHTML = await page.render()
-      await SidebarNavigation.highlight(url)
-      await page.afterRender()
+      Sidebar.highlight(url)
+      page.afterRender()
     } catch (err) {
       console.log(err)
       this._content.innerHTML = this.constructor._loadPageNotFound()
     }
   }
 
-  _toggleNavigation(state = true, mode = 'user') {
-    if (state) {
-      this._appbar.classList.remove('hidden')
-      this._sidebar.classList.remove('hidden')
-      if (mode === 'admin') {
-        this._appbar.classList.add('md:bg-blue-500')
-        this._appbar.classList.remove('md:bg-primary')
-      } else {
-        this._appbar.classList.remove('md:bg-blue-500')
-        this._appbar.classList.add('md:bg-primary')
-      }
-    } else {
-      this._appbar.classList.add('hidden')
-      this._sidebar.classList.add('hidden')
+  async _getUserInformation() {
+    const { id, role } = this._user
+    const userDataArray = []
+    switch (role) {
+      case 'user':
+        userDataArray.push(await APIData.getDataSiswa(id))
+        userDataArray.push(await APIData.getProfilSiswa(id))
+        break
+      case 'admin':
+        userDataArray.push(await APIData.getAdmin(id))
+        break
     }
+    const userInformation = {}
+    userDataArray.forEach((data) => {
+      Object.assign(userInformation, data)
+    })
+
+    return userInformation
   }
 
   static async refreshPage(role) {
@@ -83,9 +95,17 @@ class App {
 
   static _loadPageNotFound() {
     return `
-        <article id='main'>
-            <h2 class='center'>Halaman tidak ditemukan</h2>
-        </article>
+    <div id='preloader' class="flex mt-auto mb-auto ml-auto mr-auto">
+    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+    </div>
+      `
+  }
+
+  static _loadPreloader() {
+    return `
+        <div id='preloader' class="flex mt-auto mb-auto ml-auto mr-auto">
+        <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+        </div>
       `
   }
 }

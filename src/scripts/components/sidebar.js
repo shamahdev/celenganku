@@ -8,7 +8,7 @@ class Sidebar extends HTMLElement {
   _bgColor() {
     let colorClass = 'bg-primary'
     if (this._role === 'admin') {
-      colorClass = 'bg-blue-500'
+      colorClass = 'bg-secondary'
     }
     return colorClass
   }
@@ -18,7 +18,7 @@ class Sidebar extends HTMLElement {
     let navs = ''
     if (role === 'admin') {
       // Admin navs
-      navs = `<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg active" href="#/admin">
+      navs = `<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/admin">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                 d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -38,7 +38,7 @@ class Sidebar extends HTMLElement {
         </a>`
     } else {
       // User/Siswa Navs
-      navs = `<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg active" href="#/dashboard">
+      navs = `<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                   d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -71,7 +71,7 @@ class Sidebar extends HTMLElement {
             </g>
             </svg>
         </p>
-        ${this._renderNavsByType()}
+        ${this._renderNavsByRole()}
     </div>`
   }
 }

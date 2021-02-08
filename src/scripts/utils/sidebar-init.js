@@ -3,7 +3,7 @@ const Sidebar = {
     sidebar,
   }) {
     this._sidebar = sidebar
-    this.highlight('/')
+    // this.highlight('/')
   },
 
   async highlight(page) {
@@ -20,11 +20,11 @@ const Sidebar = {
   setState(state = true, role = 'user') {
     if (state) {
       this._sidebar.classList.remove('hidden')
-      this._sidebar.type = role
+      this._sidebar.role = role
     } else {
       this._sidebar.classList.add('hidden')
     }
-  }
+  },
 }
 
 export default Sidebar

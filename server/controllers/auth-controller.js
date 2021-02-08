@@ -1,12 +1,14 @@
+/* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv'
-import atob from 'atob'
 import jwt from 'jsonwebtoken'
-import siswa from '../models/siswa-model'
-import siswaController from './siswa-controller'
+import Siswa from '../models/siswa-model'
+import SiswaController from './siswa-controller'
+import db from '../global/firebase'
 
 dotenv.config()
 const maxAge = 3 * 24 * 60 * 60
+const Admin = db.collection('akun_admin')
 const createToken = (id) => {
   let role = 'user'
   if (id.length < 10) {
@@ -25,7 +27,7 @@ const createToken = (id) => {
   return accessToken
 }
 
-const authController = {
+const AuthController = {
   requireAuth: (req, res, next) => {
     const token = req.cookies.jwt
     if (token) {
@@ -34,7 +36,6 @@ const authController = {
           console.log(err.message)
           res.redirect('/login')
         } else {
-          console.log(decodedToken)
           next()
         }
       })
@@ -54,6 +55,42 @@ const authController = {
     }
     next()
   },
+  adminLogin: async (req, res, next) => {
+    try {
+      const { id_admin, password } = req.body
+
+      if (!id_admin || !password) {
+        return res.status(404).json({
+          status: 'failed',
+          error: true,
+          message: 'Please provide ID, or password',
+          response: req.body,
+        })
+      }
+
+      const account = await Admin.where('id_admin', '==', id_admin).where('password', '==', password).get()
+      if (account.empty) {
+        res.status(401).json({
+          status: 'failed',
+          error: true,
+          message: 'Wrong ID or Password',
+          response: req.body,
+        })
+      }
+
+      const token = createToken(id_admin)
+      req.body.password = undefined
+
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+      res.status(200).json({
+        status: 'success',
+        error: false,
+        response: req.body,
+      })
+    } catch (err) {
+      next(err)
+    }
+  },
 
   login: async (req, res, next) => {
     try {
@@ -68,7 +105,7 @@ const authController = {
         })
       }
 
-      const account = await siswa.akun.where('nisn', '==', nisn).where('password', '==', password).get()
+      const account = await Siswa.akun.where('nisn', '==', nisn).where('password', '==', password).get()
       if (account.empty) {
         res.status(401).json({
           status: 'failed',
@@ -92,7 +129,7 @@ const authController = {
     }
   },
   register: async (req, res, next) => {
-    const { nisn } = await siswaController.createAkunSiswa(req, res, next)
+    const { nisn } = await SiswaController.createAkunSiswa(req, res, next)
     console.log(nisn)
 
     const token = createToken(nisn)
@@ -111,15 +148,6 @@ const authController = {
       response: req.cookies.jwt,
     })
   },
-  retrieveUser: async (req, res, next) => {
-    const cookiesToken = await req.cookies.jwt
-    const parsedToken = JSON.parse(atob(cookiesToken.split('.')[1]))
-    res.status(200).json({
-      status: 'success',
-      error: false,
-      response: parsedToken,
-    })
-  },
 }
 
-export default authController
+export default AuthController

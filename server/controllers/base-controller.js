@@ -34,9 +34,7 @@ const BaseController = {
 
       res.status(200).json({
         status: 'success',
-        data: {
-          doc,
-        },
+        ...doc,
       })
     } catch (error) {
       next(error)
@@ -60,7 +58,7 @@ const BaseController = {
       res.status(200).json({
         status: 'success',
         error: false,
-        data,
+        ...data,
       })
       return { success: true }
     } catch (error) {
@@ -84,7 +82,7 @@ const BaseController = {
         status: 'success',
         error: false,
         results: data.length,
-        data,
+        ...data,
       })
 
       if (data.length > 0) {

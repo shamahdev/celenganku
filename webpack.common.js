@@ -39,9 +39,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new WebpackBar({
-      name: 'Client',
-    }),
+    // new WebpackBar({
+    //   name: 'Client',
+    // }),
     new CopyWebpackPlugin({
       patterns: [
         {

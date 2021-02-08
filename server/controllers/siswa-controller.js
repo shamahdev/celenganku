@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
 import BaseController from './base-controller'
-import siswa from '../models/siswa-model'
+import Siswa from '../models/siswa-model'
 
-const siswaController = {
-  getAllSiswaData: BaseController.getAll(siswa.data),
-  getAllAkunSiswa: BaseController.getAll(siswa.akun),
-  getDataSiswa: BaseController.getOne(siswa.data),
-  getProfilSiswa: BaseController.getOne(siswa.profil),
-  getAkunSiswa: BaseController.getOne(siswa.akun),
-  deleteAkunSiswa: BaseController.deleteOne(siswa.akun, siswa.profil),
+const SiswaController = {
+  getAllSiswaData: BaseController.getAll(Siswa.data),
+  getAllAkunSiswa: BaseController.getAll(Siswa.akun),
+  getDataSiswa: BaseController.getOne(Siswa.data),
+  getProfilSiswa: BaseController.getOne(Siswa.profil),
+  getAkunSiswa: BaseController.getOne(Siswa.akun),
+  deleteAkunSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil),
   createAkunSiswa: async (req, res, next) => {
     try {
       const {
@@ -26,7 +26,7 @@ const siswaController = {
       }
 
       // Check if NISN is registered
-      const data = await siswa.data.doc(nisn).get()
+      const data = await Siswa.data.doc(nisn).get()
       if (!data.exists) {
         res.status(401).json({
           status: 'failed',
@@ -36,7 +36,7 @@ const siswaController = {
         })
       }
       // Check for existed document
-      const account = await siswa.akun.doc(nisn).get()
+      const account = await Siswa.akun.doc(nisn).get()
       if (account.exists) {
         res.status(401).json({
           status: 'failed',
@@ -46,18 +46,20 @@ const siswaController = {
         })
       }
 
-      await siswa.akun.doc(nisn).set({
+      await Siswa.akun.doc(nisn).set({
         nisn,
         email,
         password,
         saldo: 0,
       })
 
-      await siswa.profil.doc(nisn).set({
+      await Siswa.profil.doc(nisn).set({
         nisn,
         no_telepon: no_telepon || '',
         url_foto: url_foto || '',
       })
+
+      req.body.password = undefined
 
       res.status(200).json({
         status: 'success',
@@ -81,7 +83,7 @@ const siswaController = {
     try {
       const nisn = req.params.id
 
-      const account = await siswa.akun.doc(nisn).get()
+      const account = await Siswa.akun.doc(nisn).get()
       if (!account.exists) {
         res.status(401).json({
           status: 'failed',
@@ -100,26 +102,18 @@ const siswaController = {
         url_foto: req.body.url_foto || accountData.url_foto,
       }
 
-      // Check if req.body is not empty
-      if (!updateData.email || !updateData.password) {
-        return res.status(404).json({
-          status: 'failed',
-          error: true,
-          message: 'Please provide Email, or password',
-          response: req.body,
-        })
-      }
-
       // Check for existed document
-      await siswa.akun.doc(nisn).update({
+      await Siswa.akun.doc(nisn).update({
         email: updateData.email,
         password: updateData.password,
       })
 
-      await siswa.profil.doc(nisn).set({
+      await Siswa.profil.doc(nisn).set({
         no_telepon: updateData.no_telepon || '',
         url_foto: updateData.url_foto || '',
       })
+
+      req.body.password = undefined
 
       res.status(200).json({
         status: 'success',
@@ -138,4 +132,4 @@ const siswaController = {
   },
 }
 
-export default siswaController
+export default SiswaController

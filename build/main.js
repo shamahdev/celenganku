@@ -76,7 +76,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".bg-black {\n  --bg-opacity: 1;\n  background-color: #000;\n  background-color: rgba(0, 0, 0, var(--bg-opacity));\n}\n\n.bg-white {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n}\n\n.bg-gray-200 {\n  --bg-opacity: 1;\n  background-color: #edf2f7;\n  background-color: rgba(237, 242, 247, var(--bg-opacity));\n}\n\n.bg-red-500 {\n  --bg-opacity: 1;\n  background-color: #f56565;\n  background-color: rgba(245, 101, 101, var(--bg-opacity));\n}\n\n.bg-green-500 {\n  --bg-opacity: 1;\n  background-color: #48bb78;\n  background-color: rgba(72, 187, 120, var(--bg-opacity));\n}\n\n.bg-blue-500 {\n  --bg-opacity: 1;\n  background-color: #4299e1;\n  background-color: rgba(66, 153, 225, var(--bg-opacity));\n}\n\n.bg-primary {\n  --bg-opacity: 1;\n  background-color: #FF974B;\n  background-color: rgba(255, 151, 75, var(--bg-opacity));\n}\n\n.hover\\:bg-gray-100:hover {\n  --bg-opacity: 1;\n  background-color: #f7fafc;\n  background-color: rgba(247, 250, 252, var(--bg-opacity));\n}\n\n.focus\\:bg-gray-100:focus {\n  --bg-opacity: 1;\n  background-color: #f7fafc;\n  background-color: rgba(247, 250, 252, var(--bg-opacity));\n}\n\n.bg-opacity-50 {\n  --bg-opacity: 0.5;\n}\n\n.border-gray-300 {\n  --border-opacity: 1;\n  border-color: #e2e8f0;\n  border-color: rgba(226, 232, 240, var(--border-opacity));\n}\n\n.border-red-500 {\n  --border-opacity: 1;\n  border-color: #f56565;\n  border-color: rgba(245, 101, 101, var(--border-opacity));\n}\n\n.border-green-500 {\n  --border-opacity: 1;\n  border-color: #48bb78;\n  border-color: rgba(72, 187, 120, var(--border-opacity));\n}\n\n.focus\\:border-red-500:focus {\n  --border-opacity: 1;\n  border-color: #f56565;\n  border-color: rgba(245, 101, 101, var(--border-opacity));\n}\n\n.focus\\:border-green-500:focus {\n  --border-opacity: 1;\n  border-color: #48bb78;\n  border-color: rgba(72, 187, 120, var(--border-opacity));\n}\n\n.border-opacity-50 {\n  --border-opacity: 0.5;\n}\n\n.rounded {\n  border-radius: 0.25rem;\n}\n\n.rounded-lg {\n  border-radius: 0.5rem;\n}\n\n.rounded-full {\n  border-radius: 9999px;\n}\n\n.rounded-t-lg {\n  border-top-left-radius: 0.5rem;\n  border-top-right-radius: 0.5rem;\n}\n\n.rounded-b-lg {\n  border-bottom-right-radius: 0.5rem;\n  border-bottom-left-radius: 0.5rem;\n}\n\n.cursor-pointer {\n  cursor: pointer;\n}\n\n.disabled\\:cursor-default:disabled {\n  cursor: default;\n}\n\n.block {\n  display: block;\n}\n\n.flex {\n  display: flex;\n}\n\n.table {\n  display: table;\n}\n\n.hidden {\n  display: none;\n}\n\n.flex-row {\n  flex-direction: row;\n}\n\n.flex-row-reverse {\n  flex-direction: row-reverse;\n}\n\n.flex-col {\n  flex-direction: column;\n}\n\n.flex-wrap {\n  flex-wrap: wrap;\n}\n\n.items-center {\n  align-items: center;\n}\n\n.content-center {\n  align-content: center;\n}\n\n.justify-start {\n  justify-content: flex-start;\n}\n\n.justify-center {\n  justify-content: center;\n}\n\n.justify-between {\n  justify-content: space-between;\n}\n\n.justify-evenly {\n  justify-content: space-evenly;\n}\n\n.flex-1 {\n  flex: 1 1 0%;\n}\n\n.flex-auto {\n  flex: 1 1 auto;\n}\n\n.font-mono {\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n}\n\n.font-light {\n  font-weight: 300;\n}\n\n.font-normal {\n  font-weight: 400;\n}\n\n.font-bold {\n  font-weight: 700;\n}\n\n.h-6 {\n  height: 1.5rem;\n}\n\n.h-8 {\n  height: 2rem;\n}\n\n.h-10 {\n  height: 2.5rem;\n}\n\n.h-12 {\n  height: 3rem;\n}\n\n.h-16 {\n  height: 4rem;\n}\n\n.h-48 {\n  height: 12rem;\n}\n\n.h-full {\n  height: 100%;\n}\n\n.h-screen {\n  height: 100vh;\n}\n\n.text-sm {\n  font-size: 0.875rem;\n}\n\n.text-lg {\n  font-size: 1.125rem;\n}\n\n.text-xl {\n  font-size: 1.25rem;\n}\n\n.text-2xl {\n  font-size: 1.5rem;\n}\n\n.text-4xl {\n  font-size: 2.25rem;\n}\n\n.leading-8 {\n  line-height: 2rem;\n}\n\n.leading-tight {\n  line-height: 1.25;\n}\n\n.m-1 {\n  margin: 0.25rem;\n}\n\n.mx-1 {\n  margin-left: 0.25rem;\n  margin-right: 0.25rem;\n}\n\n.my-2 {\n  margin-top: 0.5rem;\n  margin-bottom: 0.5rem;\n}\n\n.my-4 {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.mx-auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.mt-1 {\n  margin-top: 0.25rem;\n}\n\n.mr-2 {\n  margin-right: 0.5rem;\n}\n\n.mb-2 {\n  margin-bottom: 0.5rem;\n}\n\n.mt-3 {\n  margin-top: 0.75rem;\n}\n\n.mr-3 {\n  margin-right: 0.75rem;\n}\n\n.mt-4 {\n  margin-top: 1rem;\n}\n\n.mb-4 {\n  margin-bottom: 1rem;\n}\n\n.ml-4 {\n  margin-left: 1rem;\n}\n\n.mr-5 {\n  margin-right: 1.25rem;\n}\n\n.mt-6 {\n  margin-top: 1.5rem;\n}\n\n.mt-8 {\n  margin-top: 2rem;\n}\n\n.mt-10 {\n  margin-top: 2.5rem;\n}\n\n.mb-20 {\n  margin-bottom: 5rem;\n}\n\n.mr-auto {\n  margin-right: auto;\n}\n\n.ml-auto {\n  margin-left: auto;\n}\n\n.disabled\\:opacity-50:disabled {\n  opacity: 0.5;\n}\n\n.focus\\:outline-none:focus {\n  outline: 2px solid transparent;\n  outline-offset: 2px;\n}\n\n.p-2 {\n  padding: 0.5rem;\n}\n\n.p-3 {\n  padding: 0.75rem;\n}\n\n.p-4 {\n  padding: 1rem;\n}\n\n.p-5 {\n  padding: 1.25rem;\n}\n\n.py-0 {\n  padding-top: 0;\n  padding-bottom: 0;\n}\n\n.py-1 {\n  padding-top: 0.25rem;\n  padding-bottom: 0.25rem;\n}\n\n.px-1 {\n  padding-left: 0.25rem;\n  padding-right: 0.25rem;\n}\n\n.px-2 {\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n}\n\n.py-3 {\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n}\n\n.py-4 {\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n\n.px-4 {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n\n.px-5 {\n  padding-left: 1.25rem;\n  padding-right: 1.25rem;\n}\n\n.px-6 {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\n\n.pt-0 {\n  padding-top: 0;\n}\n\n.pt-4 {\n  padding-top: 1rem;\n}\n\n.pb-6 {\n  padding-bottom: 1.5rem;\n}\n\n.placeholder-gray-500::-moz-placeholder {\n  --placeholder-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--placeholder-opacity));\n}\n\n.placeholder-gray-500:-ms-input-placeholder {\n  --placeholder-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--placeholder-opacity));\n}\n\n.placeholder-gray-500::placeholder {\n  --placeholder-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--placeholder-opacity));\n}\n\n.focus\\:placeholder-gray-400:focus::-moz-placeholder {\n  --placeholder-opacity: 1;\n  color: #cbd5e0;\n  color: rgba(203, 213, 224, var(--placeholder-opacity));\n}\n\n.focus\\:placeholder-gray-400:focus:-ms-input-placeholder {\n  --placeholder-opacity: 1;\n  color: #cbd5e0;\n  color: rgba(203, 213, 224, var(--placeholder-opacity));\n}\n\n.focus\\:placeholder-gray-400:focus::placeholder {\n  --placeholder-opacity: 1;\n  color: #cbd5e0;\n  color: rgba(203, 213, 224, var(--placeholder-opacity));\n}\n\n.static {\n  position: static;\n}\n\n.fixed {\n  position: fixed;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.relative {\n  position: relative;\n}\n\n.sticky {\n  position: -webkit-sticky;\n  position: sticky;\n}\n\n.inset-y-0 {\n  top: 0;\n  bottom: 0;\n}\n\n.top-0 {\n  top: 0;\n}\n\n.right-0 {\n  right: 0;\n}\n\n.bottom-0 {\n  bottom: 0;\n}\n\n.left-0 {\n  left: 0;\n}\n\n.disabled\\:resize-none:disabled {\n  resize: none;\n}\n\n.shadow-lg {\n  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);\n}\n\n.hover\\:shadow-lg:hover {\n  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);\n}\n\n.text-left {\n  text-align: left;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.text-right {\n  text-align: right;\n}\n\n.text-transparent {\n  color: transparent;\n}\n\n.text-white {\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n}\n\n.text-gray-500 {\n  --text-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--text-opacity));\n}\n\n.text-gray-600 {\n  --text-opacity: 1;\n  color: #718096;\n  color: rgba(113, 128, 150, var(--text-opacity));\n}\n\n.text-gray-700 {\n  --text-opacity: 1;\n  color: #4a5568;\n  color: rgba(74, 85, 104, var(--text-opacity));\n}\n\n.text-gray-800 {\n  --text-opacity: 1;\n  color: #2d3748;\n  color: rgba(45, 55, 72, var(--text-opacity));\n}\n\n.text-gray-900 {\n  --text-opacity: 1;\n  color: #1a202c;\n  color: rgba(26, 32, 44, var(--text-opacity));\n}\n\n.text-red-500 {\n  --text-opacity: 1;\n  color: #f56565;\n  color: rgba(245, 101, 101, var(--text-opacity));\n}\n\n.text-green-500 {\n  --text-opacity: 1;\n  color: #48bb78;\n  color: rgba(72, 187, 120, var(--text-opacity));\n}\n\n.text-blue-500 {\n  --text-opacity: 1;\n  color: #4299e1;\n  color: rgba(66, 153, 225, var(--text-opacity));\n}\n\n.hover\\:text-gray-900:hover {\n  --text-opacity: 1;\n  color: #1a202c;\n  color: rgba(26, 32, 44, var(--text-opacity));\n}\n\n.focus\\:text-gray-900:focus {\n  --text-opacity: 1;\n  color: #1a202c;\n  color: rgba(26, 32, 44, var(--text-opacity));\n}\n\n.disabled\\:text-gray-500:disabled {\n  --text-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--text-opacity));\n}\n\n.underline {\n  text-decoration: underline;\n}\n\n.tracking-tight {\n  letter-spacing: -0.025em;\n}\n\n.w-6 {\n  width: 1.5rem;\n}\n\n.w-8 {\n  width: 2rem;\n}\n\n.w-10 {\n  width: 2.5rem;\n}\n\n.w-12 {\n  width: 3rem;\n}\n\n.w-16 {\n  width: 4rem;\n}\n\n.w-40 {\n  width: 10rem;\n}\n\n.w-48 {\n  width: 12rem;\n}\n\n.w-56 {\n  width: 14rem;\n}\n\n.w-5\\/6 {\n  width: 83.333333%;\n}\n\n.w-10\\/12 {\n  width: 83.333333%;\n}\n\n.w-full {\n  width: 100%;\n}\n\n.gap-4 {\n  grid-gap: 1rem;\n  grid-gap: 1rem;\n  gap: 1rem;\n}\n\n.origin-top-right {\n  transform-origin: top right;\n}\n\n.transition {\n  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;\n}\n\n.ease-in-out {\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n}\n\n.duration-100 {\n  transition-duration: 100ms;\n}\n\n@-webkit-keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n@-webkit-keyframes ping {\n  75%, 100% {\n    transform: scale(2);\n    opacity: 0;\n  }\n}\n\n@keyframes ping {\n  75%, 100% {\n    transform: scale(2);\n    opacity: 0;\n  }\n}\n\n@-webkit-keyframes pulse {\n  50% {\n    opacity: .5;\n  }\n}\n\n@keyframes pulse {\n  50% {\n    opacity: .5;\n  }\n}\n\n@-webkit-keyframes bounce {\n  0%, 100% {\n    transform: translateY(-25%);\n    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);\n            animation-timing-function: cubic-bezier(0.8,0,1,1);\n  }\n\n  50% {\n    transform: none;\n    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);\n            animation-timing-function: cubic-bezier(0,0,0.2,1);\n  }\n}\n\n@keyframes bounce {\n  0%, 100% {\n    transform: translateY(-25%);\n    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);\n            animation-timing-function: cubic-bezier(0.8,0,1,1);\n  }\n\n  50% {\n    transform: none;\n    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);\n            animation-timing-function: cubic-bezier(0,0,0.2,1);\n  }\n}\n\n.w-max {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.w-24-rem {\n  max-width: 24rem;\n}\n\nbutton#settings:hover ~ #settings-dropdown {\n  display: block !important;\n}\n\n#settings-dropdown:hover {\n  display: block !important;\n}\n\n.shadow-blue {\n  box-shadow: 0 14px 28px rgba(66,153,225,0.18431), 0 10px 10px rgba(66,153,225,0.18431);\n}\n\n.shadow-green {\n  box-shadow: 0 14px 28px rgba(72,187,120,0.18431), 0 10px 10px rgba(72,187,120,0.18431);\n}\n\n.shadow-red {\n  box-shadow: 0 14px 28px rgba(245,101,101,0.18431), 0 10px 10px rgba(245,101,101,0.18431);\n}\n\n.shadow-primary, .hover\\:shadow-primary:hover {\n  box-shadow: 0 14px 28px rgba(255,151,75,0.18431), 0 10px 10px rgba(255,151,75,0.18431);\n}\n\n@media (min-width: 640px) {\n}\n\n@media (min-width: 768px) {\n  .md\\:bg-blue-500 {\n    --bg-opacity: 1;\n    background-color: #4299e1;\n    background-color: rgba(66, 153, 225, var(--bg-opacity));\n  }\n\n  .md\\:bg-primary {\n    --bg-opacity: 1;\n    background-color: #FF974B;\n    background-color: rgba(255, 151, 75, var(--bg-opacity));\n  }\n\n  .md\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .md\\:rounded-l-lg {\n    border-top-left-radius: 0.5rem;\n    border-bottom-left-radius: 0.5rem;\n  }\n\n  .md\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:block {\n    display: block;\n  }\n\n  .md\\:flex-row {\n    flex-direction: row;\n  }\n\n  .md\\:flex-col {\n    flex-direction: column;\n  }\n\n  .md\\:justify-end {\n    justify-content: flex-end;\n  }\n\n  .md\\:justify-center {\n    justify-content: center;\n  }\n\n  .md\\:h-16 {\n    height: 4rem;\n  }\n\n  .md\\:h-32 {\n    height: 8rem;\n  }\n\n  .md\\:h-auto {\n    height: auto;\n  }\n\n  .md\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .md\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .md\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .md\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .md\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .md\\:mt-2 {\n    margin-top: 0.5rem;\n  }\n\n  .md\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .md\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .md\\:mt-10 {\n    margin-top: 2.5rem;\n  }\n\n  .md\\:max-w-screen-md {\n    max-width: 768px;\n  }\n\n  .md\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .md\\:p-0 {\n    padding: 0;\n  }\n\n  .md\\:p-5 {\n    padding: 1.25rem;\n  }\n\n  .md\\:p-8 {\n    padding: 2rem;\n  }\n\n  .md\\:relative {\n    position: relative;\n  }\n\n  .md\\:text-left {\n    text-align: left;\n  }\n\n  .md\\:text-white {\n    --text-opacity: 1;\n    color: #fff;\n    color: rgba(255, 255, 255, var(--text-opacity));\n  }\n\n  .md\\:w-32 {\n    width: 8rem;\n  }\n\n  .md\\:w-auto {\n    width: auto;\n  }\n\n  .md\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .md\\:gap-8 {\n    grid-gap: 2rem;\n    grid-gap: 2rem;\n    gap: 2rem;\n  }\n}\n\n@media (min-width: 1024px) {\n  .lg\\:flex-row {\n    flex-direction: row;\n  }\n\n  .lg\\:flex-1 {\n    flex: 1 1 0%;\n  }\n\n  .lg\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .lg\\:mt-10 {\n    margin-top: 2.5rem;\n  }\n\n  .lg\\:mt-12 {\n    margin-top: 3rem;\n  }\n\n  .lg\\:max-w-screen-xl {\n    max-width: 1280px;\n  }\n\n  .lg\\:p-12 {\n    padding: 3rem;\n  }\n\n  .lg\\:pt-12 {\n    padding-top: 3rem;\n  }\n\n  .lg\\:w-1\\/3 {\n    width: 33.333333%;\n  }\n}\n\n@media (min-width: 1280px) {\n}", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/styles/utilities.css","<no source>"],"names":[],"mappings":"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AAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,MAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,WAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,cAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA,mBAAmB;IAAnB;EAAmB;AAAA;;AAAnB;EAAA;IAAA,mBAAmB;IAAnB;EAAmB;AAAA;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA,2BAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;;EAAnB;IAAA,eAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;AAAA;;AAAnB;EAAA;IAAA,2BAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;;EAAnB;IAAA,eAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;AAAA;;ACEnB;EACI,0BAAkB;EAAlB,uBAAkB;EAAlB,kBAAkB;AACtB;;AACA;EACI,gBAAgB;AACpB;;AACA;EACI,yBAAyB;AAC7B;;AACA;EACI,yBAAyB;AAC7B;;AAEA;EACI,sFAAwD;AAC5D;;AACA;EACI,sFAAwD;AAC5D;;AACA;EACI,wFAAwD;AAC5D;;AAEA;EACI,sFAAwD;AAC5D;;AC3BA;CAAA;;AAAA;EFAA;IAAA,eAAmB;IAAnB,yBAAmB;IAAnB;EAAmB;;EAAnB;IAAA,eAAmB;IAAnB,yBAAmB;IAAnB;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA,8BAAmB;IAAnB;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA,iBAAmB;IAAnB,WAAmB;IAAnB;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA,cAAmB;IAAnB,cAAmB;IAAnB;EAAmB;CEAnB;;AAAA;EFAA;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;CEAnB;;AAAA;CAAA","sourcesContent":["@tailwind utilities;\n","@import \"tailwindcss/utilities\";\r\n\r\n.w-max {\r\n    width: fit-content;\r\n}\r\n.w-24-rem {\r\n    max-width: 24rem;\r\n}\r\nbutton#settings:hover ~ #settings-dropdown {\r\n    display: block !important;\r\n}\r\n#settings-dropdown:hover {\r\n    display: block !important;\r\n}\r\n\r\n.shadow-blue {\r\n    box-shadow: 0 14px 28px #4299e12f, 0 10px 10px #4299e12f;\r\n}\r\n.shadow-green {\r\n    box-shadow: 0 14px 28px #48bb782f, 0 10px 10px #48bb782f;\r\n}\r\n.shadow-red {\r\n    box-shadow: 0 14px 28px #f565652f, 0 10px 10px #f565652f;\r\n}\r\n\r\n.shadow-primary, .hover\\:shadow-primary:hover {\r\n    box-shadow: 0 14px 28px #FF974B2f, 0 10px 10px #FF974B2f;\r\n}",null],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".bg-black {\n  --bg-opacity: 1;\n  background-color: #000;\n  background-color: rgba(0, 0, 0, var(--bg-opacity));\n}\n\n.bg-white {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n}\n\n.bg-gray-200 {\n  --bg-opacity: 1;\n  background-color: #edf2f7;\n  background-color: rgba(237, 242, 247, var(--bg-opacity));\n}\n\n.bg-red-500 {\n  --bg-opacity: 1;\n  background-color: #f56565;\n  background-color: rgba(245, 101, 101, var(--bg-opacity));\n}\n\n.bg-green-500 {\n  --bg-opacity: 1;\n  background-color: #48bb78;\n  background-color: rgba(72, 187, 120, var(--bg-opacity));\n}\n\n.bg-blue-500 {\n  --bg-opacity: 1;\n  background-color: #4299e1;\n  background-color: rgba(66, 153, 225, var(--bg-opacity));\n}\n\n.bg-primary {\n  --bg-opacity: 1;\n  background-color: #EB643F;\n  background-color: rgba(235, 100, 63, var(--bg-opacity));\n}\n\n.bg-secondary {\n  --bg-opacity: 1;\n  background-color: #3F79EB;\n  background-color: rgba(63, 121, 235, var(--bg-opacity));\n}\n\n.hover\\:bg-gray-100:hover {\n  --bg-opacity: 1;\n  background-color: #f7fafc;\n  background-color: rgba(247, 250, 252, var(--bg-opacity));\n}\n\n.focus\\:bg-gray-100:focus {\n  --bg-opacity: 1;\n  background-color: #f7fafc;\n  background-color: rgba(247, 250, 252, var(--bg-opacity));\n}\n\n.bg-opacity-50 {\n  --bg-opacity: 0.5;\n}\n\n.border-gray-300 {\n  --border-opacity: 1;\n  border-color: #e2e8f0;\n  border-color: rgba(226, 232, 240, var(--border-opacity));\n}\n\n.border-red-500 {\n  --border-opacity: 1;\n  border-color: #f56565;\n  border-color: rgba(245, 101, 101, var(--border-opacity));\n}\n\n.border-green-500 {\n  --border-opacity: 1;\n  border-color: #48bb78;\n  border-color: rgba(72, 187, 120, var(--border-opacity));\n}\n\n.focus\\:border-red-500:focus {\n  --border-opacity: 1;\n  border-color: #f56565;\n  border-color: rgba(245, 101, 101, var(--border-opacity));\n}\n\n.focus\\:border-green-500:focus {\n  --border-opacity: 1;\n  border-color: #48bb78;\n  border-color: rgba(72, 187, 120, var(--border-opacity));\n}\n\n.border-opacity-50 {\n  --border-opacity: 0.5;\n}\n\n.rounded {\n  border-radius: 0.25rem;\n}\n\n.rounded-lg {\n  border-radius: 0.5rem;\n}\n\n.rounded-full {\n  border-radius: 9999px;\n}\n\n.rounded-t-lg {\n  border-top-left-radius: 0.5rem;\n  border-top-right-radius: 0.5rem;\n}\n\n.rounded-b-lg {\n  border-bottom-right-radius: 0.5rem;\n  border-bottom-left-radius: 0.5rem;\n}\n\n.cursor-pointer {\n  cursor: pointer;\n}\n\n.disabled\\:cursor-default:disabled {\n  cursor: default;\n}\n\n.block {\n  display: block;\n}\n\n.flex {\n  display: flex;\n}\n\n.table {\n  display: table;\n}\n\n.hidden {\n  display: none;\n}\n\n.flex-row {\n  flex-direction: row;\n}\n\n.flex-row-reverse {\n  flex-direction: row-reverse;\n}\n\n.flex-col {\n  flex-direction: column;\n}\n\n.flex-wrap {\n  flex-wrap: wrap;\n}\n\n.items-center {\n  align-items: center;\n}\n\n.content-center {\n  align-content: center;\n}\n\n.justify-start {\n  justify-content: flex-start;\n}\n\n.justify-center {\n  justify-content: center;\n}\n\n.justify-between {\n  justify-content: space-between;\n}\n\n.justify-evenly {\n  justify-content: space-evenly;\n}\n\n.flex-1 {\n  flex: 1 1 0%;\n}\n\n.flex-auto {\n  flex: 1 1 auto;\n}\n\n.font-mono {\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n}\n\n.font-light {\n  font-weight: 300;\n}\n\n.font-normal {\n  font-weight: 400;\n}\n\n.font-bold {\n  font-weight: 700;\n}\n\n.h-6 {\n  height: 1.5rem;\n}\n\n.h-8 {\n  height: 2rem;\n}\n\n.h-10 {\n  height: 2.5rem;\n}\n\n.h-12 {\n  height: 3rem;\n}\n\n.h-16 {\n  height: 4rem;\n}\n\n.h-48 {\n  height: 12rem;\n}\n\n.h-full {\n  height: 100%;\n}\n\n.h-screen {\n  height: 100vh;\n}\n\n.text-sm {\n  font-size: 0.875rem;\n}\n\n.text-lg {\n  font-size: 1.125rem;\n}\n\n.text-xl {\n  font-size: 1.25rem;\n}\n\n.text-2xl {\n  font-size: 1.5rem;\n}\n\n.text-4xl {\n  font-size: 2.25rem;\n}\n\n.leading-8 {\n  line-height: 2rem;\n}\n\n.leading-tight {\n  line-height: 1.25;\n}\n\n.m-1 {\n  margin: 0.25rem;\n}\n\n.mx-1 {\n  margin-left: 0.25rem;\n  margin-right: 0.25rem;\n}\n\n.my-2 {\n  margin-top: 0.5rem;\n  margin-bottom: 0.5rem;\n}\n\n.my-4 {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.mx-auto {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.mt-1 {\n  margin-top: 0.25rem;\n}\n\n.mr-2 {\n  margin-right: 0.5rem;\n}\n\n.mb-2 {\n  margin-bottom: 0.5rem;\n}\n\n.mt-3 {\n  margin-top: 0.75rem;\n}\n\n.mr-3 {\n  margin-right: 0.75rem;\n}\n\n.mt-4 {\n  margin-top: 1rem;\n}\n\n.mb-4 {\n  margin-bottom: 1rem;\n}\n\n.ml-4 {\n  margin-left: 1rem;\n}\n\n.mr-5 {\n  margin-right: 1.25rem;\n}\n\n.mt-6 {\n  margin-top: 1.5rem;\n}\n\n.mt-8 {\n  margin-top: 2rem;\n}\n\n.mt-10 {\n  margin-top: 2.5rem;\n}\n\n.mb-20 {\n  margin-bottom: 5rem;\n}\n\n.mr-auto {\n  margin-right: auto;\n}\n\n.ml-auto {\n  margin-left: auto;\n}\n\n.disabled\\:opacity-50:disabled {\n  opacity: 0.5;\n}\n\n.focus\\:outline-none:focus {\n  outline: 2px solid transparent;\n  outline-offset: 2px;\n}\n\n.p-2 {\n  padding: 0.5rem;\n}\n\n.p-3 {\n  padding: 0.75rem;\n}\n\n.p-4 {\n  padding: 1rem;\n}\n\n.p-5 {\n  padding: 1.25rem;\n}\n\n.py-0 {\n  padding-top: 0;\n  padding-bottom: 0;\n}\n\n.py-1 {\n  padding-top: 0.25rem;\n  padding-bottom: 0.25rem;\n}\n\n.px-1 {\n  padding-left: 0.25rem;\n  padding-right: 0.25rem;\n}\n\n.px-2 {\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n}\n\n.py-3 {\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n}\n\n.py-4 {\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n\n.px-4 {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n\n.px-5 {\n  padding-left: 1.25rem;\n  padding-right: 1.25rem;\n}\n\n.px-6 {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\n\n.pt-0 {\n  padding-top: 0;\n}\n\n.pt-4 {\n  padding-top: 1rem;\n}\n\n.pb-6 {\n  padding-bottom: 1.5rem;\n}\n\n.placeholder-gray-500::-moz-placeholder {\n  --placeholder-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--placeholder-opacity));\n}\n\n.placeholder-gray-500:-ms-input-placeholder {\n  --placeholder-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--placeholder-opacity));\n}\n\n.placeholder-gray-500::placeholder {\n  --placeholder-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--placeholder-opacity));\n}\n\n.focus\\:placeholder-gray-400:focus::-moz-placeholder {\n  --placeholder-opacity: 1;\n  color: #cbd5e0;\n  color: rgba(203, 213, 224, var(--placeholder-opacity));\n}\n\n.focus\\:placeholder-gray-400:focus:-ms-input-placeholder {\n  --placeholder-opacity: 1;\n  color: #cbd5e0;\n  color: rgba(203, 213, 224, var(--placeholder-opacity));\n}\n\n.focus\\:placeholder-gray-400:focus::placeholder {\n  --placeholder-opacity: 1;\n  color: #cbd5e0;\n  color: rgba(203, 213, 224, var(--placeholder-opacity));\n}\n\n.static {\n  position: static;\n}\n\n.fixed {\n  position: fixed;\n}\n\n.absolute {\n  position: absolute;\n}\n\n.relative {\n  position: relative;\n}\n\n.sticky {\n  position: -webkit-sticky;\n  position: sticky;\n}\n\n.inset-y-0 {\n  top: 0;\n  bottom: 0;\n}\n\n.top-0 {\n  top: 0;\n}\n\n.right-0 {\n  right: 0;\n}\n\n.bottom-0 {\n  bottom: 0;\n}\n\n.left-0 {\n  left: 0;\n}\n\n.disabled\\:resize-none:disabled {\n  resize: none;\n}\n\n.shadow-lg {\n  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);\n}\n\n.hover\\:shadow-lg:hover {\n  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);\n}\n\n.text-left {\n  text-align: left;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.text-right {\n  text-align: right;\n}\n\n.text-transparent {\n  color: transparent;\n}\n\n.text-white {\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n}\n\n.text-gray-500 {\n  --text-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--text-opacity));\n}\n\n.text-gray-600 {\n  --text-opacity: 1;\n  color: #718096;\n  color: rgba(113, 128, 150, var(--text-opacity));\n}\n\n.text-gray-700 {\n  --text-opacity: 1;\n  color: #4a5568;\n  color: rgba(74, 85, 104, var(--text-opacity));\n}\n\n.text-gray-800 {\n  --text-opacity: 1;\n  color: #2d3748;\n  color: rgba(45, 55, 72, var(--text-opacity));\n}\n\n.text-gray-900 {\n  --text-opacity: 1;\n  color: #1a202c;\n  color: rgba(26, 32, 44, var(--text-opacity));\n}\n\n.text-red-500 {\n  --text-opacity: 1;\n  color: #f56565;\n  color: rgba(245, 101, 101, var(--text-opacity));\n}\n\n.text-green-500 {\n  --text-opacity: 1;\n  color: #48bb78;\n  color: rgba(72, 187, 120, var(--text-opacity));\n}\n\n.text-blue-500 {\n  --text-opacity: 1;\n  color: #4299e1;\n  color: rgba(66, 153, 225, var(--text-opacity));\n}\n\n.hover\\:text-gray-900:hover {\n  --text-opacity: 1;\n  color: #1a202c;\n  color: rgba(26, 32, 44, var(--text-opacity));\n}\n\n.focus\\:text-gray-900:focus {\n  --text-opacity: 1;\n  color: #1a202c;\n  color: rgba(26, 32, 44, var(--text-opacity));\n}\n\n.disabled\\:text-gray-500:disabled {\n  --text-opacity: 1;\n  color: #a0aec0;\n  color: rgba(160, 174, 192, var(--text-opacity));\n}\n\n.underline {\n  text-decoration: underline;\n}\n\n.tracking-tight {\n  letter-spacing: -0.025em;\n}\n\n.w-6 {\n  width: 1.5rem;\n}\n\n.w-8 {\n  width: 2rem;\n}\n\n.w-10 {\n  width: 2.5rem;\n}\n\n.w-12 {\n  width: 3rem;\n}\n\n.w-16 {\n  width: 4rem;\n}\n\n.w-40 {\n  width: 10rem;\n}\n\n.w-48 {\n  width: 12rem;\n}\n\n.w-56 {\n  width: 14rem;\n}\n\n.w-5\\/6 {\n  width: 83.333333%;\n}\n\n.w-10\\/12 {\n  width: 83.333333%;\n}\n\n.w-full {\n  width: 100%;\n}\n\n.gap-4 {\n  grid-gap: 1rem;\n  grid-gap: 1rem;\n  gap: 1rem;\n}\n\n.origin-top-right {\n  transform-origin: top right;\n}\n\n.transition {\n  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;\n}\n\n.ease-in-out {\n  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n}\n\n.duration-100 {\n  transition-duration: 100ms;\n}\n\n@-webkit-keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n@-webkit-keyframes ping {\n  75%, 100% {\n    transform: scale(2);\n    opacity: 0;\n  }\n}\n\n@keyframes ping {\n  75%, 100% {\n    transform: scale(2);\n    opacity: 0;\n  }\n}\n\n@-webkit-keyframes pulse {\n  50% {\n    opacity: .5;\n  }\n}\n\n@keyframes pulse {\n  50% {\n    opacity: .5;\n  }\n}\n\n@-webkit-keyframes bounce {\n  0%, 100% {\n    transform: translateY(-25%);\n    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);\n            animation-timing-function: cubic-bezier(0.8,0,1,1);\n  }\n\n  50% {\n    transform: none;\n    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);\n            animation-timing-function: cubic-bezier(0,0,0.2,1);\n  }\n}\n\n@keyframes bounce {\n  0%, 100% {\n    transform: translateY(-25%);\n    -webkit-animation-timing-function: cubic-bezier(0.8,0,1,1);\n            animation-timing-function: cubic-bezier(0.8,0,1,1);\n  }\n\n  50% {\n    transform: none;\n    -webkit-animation-timing-function: cubic-bezier(0,0,0.2,1);\n            animation-timing-function: cubic-bezier(0,0,0.2,1);\n  }\n}\n\n.w-max {\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.w-24-rem {\n  max-width: 24rem;\n}\n\nbutton#settings:hover ~ #settings-dropdown {\n  display: block !important;\n}\n\n#settings-dropdown:hover {\n  display: block !important;\n}\n\n.shadow-blue {\n  box-shadow: 0 14px 28px rgba(66,153,225,0.18431), 0 10px 10px rgba(66,153,225,0.18431);\n}\n\n.shadow-green {\n  box-shadow: 0 14px 28px rgba(72,187,120,0.18431), 0 10px 10px rgba(72,187,120,0.18431);\n}\n\n.shadow-red {\n  box-shadow: 0 14px 28px rgba(245,101,101,0.18431), 0 10px 10px rgba(245,101,101,0.18431);\n}\n\n.shadow-primary, .hover\\:shadow-primary:hover {\n  box-shadow: 0 14px 28px rgba(255,151,75,0.18431), 0 10px 10px rgba(255,151,75,0.18431);\n}\n\n@media (min-width: 640px) {\n}\n\n@media (min-width: 768px) {\n  .md\\:bg-blue-500 {\n    --bg-opacity: 1;\n    background-color: #4299e1;\n    background-color: rgba(66, 153, 225, var(--bg-opacity));\n  }\n\n  .md\\:bg-primary {\n    --bg-opacity: 1;\n    background-color: #EB643F;\n    background-color: rgba(235, 100, 63, var(--bg-opacity));\n  }\n\n  .md\\:rounded-none {\n    border-radius: 0;\n  }\n\n  .md\\:rounded-l-lg {\n    border-top-left-radius: 0.5rem;\n    border-bottom-left-radius: 0.5rem;\n  }\n\n  .md\\:rounded-bl-none {\n    border-bottom-left-radius: 0;\n  }\n\n  .md\\:block {\n    display: block;\n  }\n\n  .md\\:flex-row {\n    flex-direction: row;\n  }\n\n  .md\\:flex-col {\n    flex-direction: column;\n  }\n\n  .md\\:justify-end {\n    justify-content: flex-end;\n  }\n\n  .md\\:justify-center {\n    justify-content: center;\n  }\n\n  .md\\:h-16 {\n    height: 4rem;\n  }\n\n  .md\\:h-32 {\n    height: 8rem;\n  }\n\n  .md\\:h-auto {\n    height: auto;\n  }\n\n  .md\\:text-2xl {\n    font-size: 1.5rem;\n  }\n\n  .md\\:text-3xl {\n    font-size: 1.875rem;\n  }\n\n  .md\\:mr-0 {\n    margin-right: 0;\n  }\n\n  .md\\:mb-0 {\n    margin-bottom: 0;\n  }\n\n  .md\\:ml-0 {\n    margin-left: 0;\n  }\n\n  .md\\:mt-2 {\n    margin-top: 0.5rem;\n  }\n\n  .md\\:mt-6 {\n    margin-top: 1.5rem;\n  }\n\n  .md\\:mt-8 {\n    margin-top: 2rem;\n  }\n\n  .md\\:mt-10 {\n    margin-top: 2.5rem;\n  }\n\n  .md\\:max-w-screen-md {\n    max-width: 768px;\n  }\n\n  .md\\:min-h-screen {\n    min-height: 100vh;\n  }\n\n  .md\\:p-0 {\n    padding: 0;\n  }\n\n  .md\\:p-5 {\n    padding: 1.25rem;\n  }\n\n  .md\\:p-8 {\n    padding: 2rem;\n  }\n\n  .md\\:relative {\n    position: relative;\n  }\n\n  .md\\:text-left {\n    text-align: left;\n  }\n\n  .md\\:text-white {\n    --text-opacity: 1;\n    color: #fff;\n    color: rgba(255, 255, 255, var(--text-opacity));\n  }\n\n  .md\\:w-32 {\n    width: 8rem;\n  }\n\n  .md\\:w-auto {\n    width: auto;\n  }\n\n  .md\\:w-1\\/2 {\n    width: 50%;\n  }\n\n  .md\\:gap-8 {\n    grid-gap: 2rem;\n    grid-gap: 2rem;\n    gap: 2rem;\n  }\n}\n\n@media (min-width: 1024px) {\n  .lg\\:flex-row {\n    flex-direction: row;\n  }\n\n  .lg\\:flex-1 {\n    flex: 1 1 0%;\n  }\n\n  .lg\\:text-4xl {\n    font-size: 2.25rem;\n  }\n\n  .lg\\:mt-10 {\n    margin-top: 2.5rem;\n  }\n\n  .lg\\:mt-12 {\n    margin-top: 3rem;\n  }\n\n  .lg\\:max-w-screen-xl {\n    max-width: 1280px;\n  }\n\n  .lg\\:p-12 {\n    padding: 3rem;\n  }\n\n  .lg\\:pt-12 {\n    padding-top: 3rem;\n  }\n\n  .lg\\:w-1\\/3 {\n    width: 33.333333%;\n  }\n}\n\n@media (min-width: 1280px) {\n}", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/utilities.css","webpack://./src/styles/utilities.css","<no source>"],"names":[],"mappings":"AAAA;EAAA,eAAmB;EAAnB,sBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,sBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,eAAmB;EAAnB,yBAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,mBAAmB;EAAnB,qBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,mBAAmB;EAAnB,qBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,mBAAmB;EAAnB,qBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,mBAAmB;EAAnB,qBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,mBAAmB;EAAnB,qBAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,8BAAmB;EAAnB;AAAmB;;AAAnB;EAAA,kCAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,gBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,8BAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,qBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,kBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,qBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,oBAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,wBAAmB;EAAnB;AAAmB;;AAAnB;EAAA,MAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,WAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA,iBAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA,cAAmB;EAAnB,cAAmB;EAAnB;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;AAAmB;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA,mBAAmB;IAAnB;EAAmB;AAAA;;AAAnB;EAAA;IAAA,mBAAmB;IAAnB;EAAmB;AAAA;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA;EAAmB;AAAA;;AAAnB;EAAA;IAAA,2BAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;;EAAnB;IAAA,eAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;AAAA;;AAAnB;EAAA;IAAA,2BAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;;EAAnB;IAAA,eAAmB;IAAnB,0DAAmB;YAAnB;EAAmB;AAAA;;ACEnB;EACI,0BAAkB;EAAlB,uBAAkB;EAAlB,kBAAkB;AACtB;;AACA;EACI,gBAAgB;AACpB;;AACA;EACI,yBAAyB;AAC7B;;AACA;EACI,yBAAyB;AAC7B;;AAEA;EACI,sFAAwD;AAC5D;;AACA;EACI,sFAAwD;AAC5D;;AACA;EACI,wFAAwD;AAC5D;;AAEA;EACI,sFAAwD;AAC5D;;AC3BA;CAAA;;AAAA;EFAA;IAAA,eAAmB;IAAnB,yBAAmB;IAAnB;EAAmB;;EAAnB;IAAA,eAAmB;IAAnB,yBAAmB;IAAnB;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA,8BAAmB;IAAnB;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA,iBAAmB;IAAnB,WAAmB;IAAnB;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA,cAAmB;IAAnB,cAAmB;IAAnB;EAAmB;CEAnB;;AAAA;EFAA;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;;EAAnB;IAAA;EAAmB;CEAnB;;AAAA;CAAA","sourcesContent":["@tailwind utilities;\n","@import \"tailwindcss/utilities\";\r\n\r\n.w-max {\r\n    width: fit-content;\r\n}\r\n.w-24-rem {\r\n    max-width: 24rem;\r\n}\r\nbutton#settings:hover ~ #settings-dropdown {\r\n    display: block !important;\r\n}\r\n#settings-dropdown:hover {\r\n    display: block !important;\r\n}\r\n\r\n.shadow-blue {\r\n    box-shadow: 0 14px 28px #4299e12f, 0 10px 10px #4299e12f;\r\n}\r\n.shadow-green {\r\n    box-shadow: 0 14px 28px #48bb782f, 0 10px 10px #48bb782f;\r\n}\r\n.shadow-red {\r\n    box-shadow: 0 14px 28px #f565652f, 0 10px 10px #f565652f;\r\n}\r\n\r\n.shadow-primary, .hover\\:shadow-primary:hover {\r\n    box-shadow: 0 14px 28px #FF974B2f, 0 10px 10px #FF974B2f;\r\n}",null],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1509,6 +1509,16 @@ class Appbar extends HTMLElement {
     this._render()
   }
 
+  set name(name) {
+    this._name = name
+    this._render()
+  }
+
+  set avatar(avatar) {
+    this._avatar = avatar
+    this._render()
+  }
+
   _bgColor() {
     let colorClass = 'md:bg-primary'
     if (this._role === 'admin') {
@@ -1541,14 +1551,17 @@ class Appbar extends HTMLElement {
   }
 
   _render() {
+    const name = this._name
+    const avatar = this._avatar || `https://ui-avatars.com/api/?name=${name}`
     this.className = `${this._bgColor()} sticky top-0 bg-white rounded-b-lg flex flex-wrap items-center md:rounded-bl-none md:h-16 md:justify-end`
     this.innerHTML = `
           <div class="flex w-full p-4 md:p-0 md:w-auto">
-            <div class="flex relative w-10 h-10 justify-center items-center m-1 mr-2 text-xl rounded-full text-white"><img
-                class="rounded-full" alt="User Photo Profile"> </div>
+            <div class="flex relative w-10 h-10 justify-center items-center m-1 mr-2 text-xl rounded-full text-white">
+              <img class="rounded-full" src="${avatar}" alt="${name} Photo Profile">
+            </div>
             <div class="flex flex-col leading-tight mt-1 md:text-white px-1">
               <p class="font-light">Halo,</p>
-              <p id="greeting-username">Turyadi Kevin</p>
+              <p id="greeting-username">${name}</p>
             </div>
             <button id="settings" class="h-12 w-12 p-3 mr-3 md:text-white ml-auto md:ml-0">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1557,11 +1570,7 @@ class Appbar extends HTMLElement {
             </button>
             <div id="settings-dropdown" class="hidden origin-top-right absolute right-0 mt-10 mr-5 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
               <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                <a href="#/profile" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit Profil</a>
-                <a href="#/help" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Bantuan</a>
-                  <a href="#/" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
-                    Keluar
-                  </a>
+                ${this._renderLinksByRole()}
               </div>
             </div>
           </div>`
@@ -1572,31 +1581,31 @@ customElements.define('app-bar', Appbar)
 
 /***/ }),
 
-/***/ "./src/scripts/components/sidebar-nav.js":
-/*!***********************************************!*\
-  !*** ./src/scripts/components/sidebar-nav.js ***!
-  \***********************************************/
+/***/ "./src/scripts/components/sidebar.js":
+/*!*******************************************!*\
+  !*** ./src/scripts/components/sidebar.js ***!
+  \*******************************************/
 /***/ (() => {
 
 /* eslint-disable class-methods-use-this */
 class Sidebar extends HTMLElement {
-  set type(type) {
-    this._type = type
+  set role(role) {
+    this._role = role
     this._render()
   }
 
   _bgColor() {
     let colorClass = 'bg-primary'
-    if (this._type === 'admin') {
-      colorClass = 'bg-blue-500'
+    if (this._role === 'admin') {
+      colorClass = 'bg-secondary'
     }
     return colorClass
   }
 
-  _renderNavsByType() {
-    const type = this._type
+  _renderNavsByRole() {
+    const role = this._role
     let navs = ''
-    if (type === 'admin') {
+    if (role === 'admin') {
       // Admin navs
       navs = `<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg active" href="#/admin">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1651,11 +1660,132 @@ class Sidebar extends HTMLElement {
             </g>
             </svg>
         </p>
-        ${this._renderNavsByType()}
+        ${this._renderNavsByRole()}
     </div>`
   }
 }
 customElements.define('side-bar', Sidebar)
+
+
+/***/ }),
+
+/***/ "./src/scripts/data/api-data.js":
+/*!**************************************!*\
+  !*** ./src/scripts/data/api-data.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _helper_jwtparser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/jwtparser */ "./src/scripts/helper/jwtparser.js");
+/* harmony import */ var _global_endpoint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../global/endpoint */ "./src/scripts/global/endpoint.js");
+
+
+
+class APIData {
+  static async retrieveUser() {
+    try {
+      const response = await fetch('/token')
+      let token = await response.json()
+      token = await (0,_helper_jwtparser__WEBPACK_IMPORTED_MODULE_0__.default)(token.response)
+      return token
+    } catch (error) {
+      return {
+        id: null,
+        role: 'unauthorized',
+        error: true,
+        message: error,
+      }
+    }
+  }
+
+  static async getAllSiswaData() {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.LIST_DATA)
+      const responseJson = await response.json()
+      return responseJson.restaurants
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async getAllAkunSiswa() {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.LIST)
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async getDataSiswa(id) {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.DATA(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async getProfilSiswa(id) {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.PROFIL(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async getAkunSiswa(id) {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.AKUN(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async getAdmin(id) {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.ADMIN(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (APIData);
+
+
+/***/ }),
+
+/***/ "./src/scripts/global/endpoint.js":
+/*!****************************************!*\
+  !*** ./src/scripts/global/endpoint.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+const API_ENDPOINT = {
+  SISWA: {
+    LIST: 'api/siswa/',
+    LIST_DATA: 'api/siswa/data',
+    AKUN: (id) => `api/siswa/${id}`,
+    DATA: (id) => `api/siswa/${id}/data`,
+    PROFIL: (id) => `api/siswa/${id}/profil`,
+  },
+  ADMIN: (id) => `api/admin/${id}`,
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (API_ENDPOINT);
 
 
 /***/ }),
@@ -1872,48 +2002,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_base_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../styles/base.css */ "./src/styles/base.css");
 /* harmony import */ var _styles_components_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../styles/components.css */ "./src/styles/components.css");
 /* harmony import */ var _styles_utilities_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../styles/utilities.css */ "./src/styles/utilities.css");
-/* harmony import */ var _helper_jwtparser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper/jwtparser */ "./src/scripts/helper/jwtparser.js");
-/* harmony import */ var _views_app__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/app */ "./src/scripts/views/app.js");
+/* harmony import */ var _views_app__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/app */ "./src/scripts/views/app.js");
 
 
 
 
 
 
-
-
-const app = new _views_app__WEBPACK_IMPORTED_MODULE_5__.default({
+const app = new _views_app__WEBPACK_IMPORTED_MODULE_4__.default({
   content: document.querySelector('main'),
   sidebar: document.createElement('side-bar'),
   appbar: document.querySelector('app-bar'),
 })
 
-const retrieveUser = async () => {
-  try {
-    const response = await fetch('/token')
-    let token = await response.json()
-    token = await (0,_helper_jwtparser__WEBPACK_IMPORTED_MODULE_4__.default)(token.response)
-    return token
-  } catch (error) {
-    return {
-      error: true,
-      message: error,
-    }
-  }
-}
-
-const pageLoader = async () => {
-  const userRole = await retrieveUser()
-  if (userRole.error) {
-    app.loadPage('unauthorized')
-  } else if (userRole.role === 'user') {
-    app.loadPage('user')
-  } else app.loadPage('admin')
-}
-
-window.addEventListener('hashchange', pageLoader)
-
-window.addEventListener('load', pageLoader)
+window.addEventListener('hashchange', () => {
+  app.loadPage()
+})
+window.addEventListener('load', () => {
+  app.loadPage()
+})
 
 // Needed for Hot Module Replacement
 if (true) {
@@ -2048,6 +2155,42 @@ const UrlParser = {
 
 /***/ }),
 
+/***/ "./src/scripts/utils/appbar-init.js":
+/*!******************************************!*\
+  !*** ./src/scripts/utils/appbar-init.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+const Appbar = {
+  async init({ appbar }) {
+    this._appbar = appbar
+  },
+
+  setHeader(name, avatar) {
+    this._appbar.name = name
+    this._appbar.avatar = avatar
+  },
+
+  setState(state = true, role = 'user') {
+    if (state) {
+      this._appbar.classList.remove('hidden')
+      this._appbar.role = role
+    } else {
+      this._appbar.classList.add('hidden')
+    }
+  },
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Appbar);
+
+
+/***/ }),
+
 /***/ "./src/scripts/utils/modal-initializer.js":
 /*!************************************************!*\
   !*** ./src/scripts/utils/modal-initializer.js ***!
@@ -2123,10 +2266,10 @@ const ModalInitializer = {
 
 /***/ }),
 
-/***/ "./src/scripts/utils/sidebar-nav-init.js":
-/*!***********************************************!*\
-  !*** ./src/scripts/utils/sidebar-nav-init.js ***!
-  \***********************************************/
+/***/ "./src/scripts/utils/sidebar-init.js":
+/*!*******************************************!*\
+  !*** ./src/scripts/utils/sidebar-init.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2134,7 +2277,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-const SidebarNavigation = {
+const Sidebar = {
   async init({
     sidebar,
   }) {
@@ -2156,14 +2299,14 @@ const SidebarNavigation = {
   setState(state = true, role = 'user') {
     if (state) {
       this._sidebar.classList.remove('hidden')
-      this._sidebar.type = role
+      this._sidebar.role = role
     } else {
       this._sidebar.classList.add('hidden')
     }
-  }
+  },
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SidebarNavigation);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Sidebar);
 
 
 /***/ }),
@@ -2181,11 +2324,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _routes_urlparser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../routes/urlparser */ "./src/scripts/routes/urlparser.js");
 /* harmony import */ var _routes_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../routes/routes */ "./src/scripts/routes/routes.js");
-/* harmony import */ var _utils_sidebar_nav_init__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/sidebar-nav-init */ "./src/scripts/utils/sidebar-nav-init.js");
-/* harmony import */ var _components_sidebar_nav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/sidebar-nav */ "./src/scripts/components/sidebar-nav.js");
-/* harmony import */ var _components_sidebar_nav__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_sidebar_nav__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_appbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/appbar */ "./src/scripts/components/appbar.js");
-/* harmony import */ var _components_appbar__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_components_appbar__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_sidebar_init__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/sidebar-init */ "./src/scripts/utils/sidebar-init.js");
+/* harmony import */ var _utils_appbar_init__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/appbar-init */ "./src/scripts/utils/appbar-init.js");
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _components_sidebar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/sidebar */ "./src/scripts/components/sidebar.js");
+/* harmony import */ var _components_sidebar__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_components_sidebar__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_appbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/appbar */ "./src/scripts/components/appbar.js");
+/* harmony import */ var _components_appbar__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_appbar__WEBPACK_IMPORTED_MODULE_6__);
+/* eslint-disable default-case */
+
+
 
 
 
@@ -2199,61 +2347,77 @@ class App {
     this._content = content
     this._sidebar = sidebar
     this._appbar = appbar
+    this._user = null
     this._initialAppShell()
   }
 
   _initialAppShell() {
-    _utils_sidebar_nav_init__WEBPACK_IMPORTED_MODULE_2__.default.init({
+    _utils_sidebar_init__WEBPACK_IMPORTED_MODULE_2__.default.init({
       sidebar: this._sidebar,
+    })
+    _utils_appbar_init__WEBPACK_IMPORTED_MODULE_3__.default.init({
+      appbar: this._appbar,
     })
   }
 
-  async loadPage(role) {
+  async loadPage() {
+    this._content.innerHTML = this.constructor._loadPreloader()
+    this._user = await _data_api_data__WEBPACK_IMPORTED_MODULE_4__.default.retrieveUser()
+    const { role } = this._user
+
     let url = _routes_urlparser__WEBPACK_IMPORTED_MODULE_0__.default.parseActiveUrlWithCombiner()
     if (url === '') url = '/'
 
     try {
       let page
-      switch (role) {
-        case 'user':
-          page = await _routes_routes__WEBPACK_IMPORTED_MODULE_1__.default.user[url]
-          _utils_sidebar_nav_init__WEBPACK_IMPORTED_MODULE_2__.default.setState(true, role)
-          break
-        case 'admin':
-          page = await _routes_routes__WEBPACK_IMPORTED_MODULE_1__.default.admin[url]
-          _utils_sidebar_nav_init__WEBPACK_IMPORTED_MODULE_2__.default.setState(true, role)
-          break
-        default:
-          page = await _routes_routes__WEBPACK_IMPORTED_MODULE_1__.default.login
-          _utils_sidebar_nav_init__WEBPACK_IMPORTED_MODULE_2__.default.setState(false)
-          break
+      if (role !== 'unauthorized') {
+        switch (role) {
+          case 'user':
+            page = await _routes_routes__WEBPACK_IMPORTED_MODULE_1__.default.user[url]
+            break
+          case 'admin':
+            page = await _routes_routes__WEBPACK_IMPORTED_MODULE_1__.default.admin[url]
+            break
+        }
+        _utils_sidebar_init__WEBPACK_IMPORTED_MODULE_2__.default.setState(true, role)
+        _utils_appbar_init__WEBPACK_IMPORTED_MODULE_3__.default.setState(true, role)
+
+        const userInformation = await this._getUserInformation()
+        _utils_appbar_init__WEBPACK_IMPORTED_MODULE_3__.default.setHeader(userInformation.nama, userInformation.url_foto)
+      } else {
+        page = await _routes_routes__WEBPACK_IMPORTED_MODULE_1__.default.login
+        _utils_sidebar_init__WEBPACK_IMPORTED_MODULE_2__.default.setState(false)
+        _utils_appbar_init__WEBPACK_IMPORTED_MODULE_3__.default.setState(false)
       }
 
       document.body.prepend(this._sidebar)
       this._content.innerHTML = await page.render()
-      await _utils_sidebar_nav_init__WEBPACK_IMPORTED_MODULE_2__.default.highlight(url)
-      await page.afterRender()
+      _utils_sidebar_init__WEBPACK_IMPORTED_MODULE_2__.default.highlight(url)
+      page.afterRender()
     } catch (err) {
       console.log(err)
       this._content.innerHTML = this.constructor._loadPageNotFound()
     }
   }
 
-  _toggleNavigation(state = true, mode = 'user') {
-    if (state) {
-      this._appbar.classList.remove('hidden')
-      this._sidebar.classList.remove('hidden')
-      if (mode === 'admin') {
-        this._appbar.classList.add('md:bg-blue-500')
-        this._appbar.classList.remove('md:bg-primary')
-      } else {
-        this._appbar.classList.remove('md:bg-blue-500')
-        this._appbar.classList.add('md:bg-primary')
-      }
-    } else {
-      this._appbar.classList.add('hidden')
-      this._sidebar.classList.add('hidden')
+  async _getUserInformation() {
+    const { id, role } = this._user
+    const userDataArray = []
+    switch (role) {
+      case 'user':
+        userDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_4__.default.getDataSiswa(id))
+        userDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_4__.default.getProfilSiswa(id))
+        break
+      case 'admin':
+        userDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_4__.default.getAdmin(id))
+        break
     }
+    const userInformation = {}
+    userDataArray.forEach((data) => {
+      Object.assign(userInformation, data)
+    })
+
+    return userInformation
   }
 
   static async refreshPage(role) {
@@ -2266,6 +2430,14 @@ class App {
     return `
         <article id='main'>
             <h2 class='center'>Halaman tidak ditemukan</h2>
+        </article>
+      `
+  }
+
+  static _loadPreloader() {
+    return `
+        <article id='main'>
+            Loading. . .
         </article>
       `
   }
@@ -3373,7 +3545,7 @@ const Pay = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "84acc0afc8bd82073777"
+/******/ 		__webpack_require__.h = () => "29f08691bad4d4672b35"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

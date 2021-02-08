@@ -1,8 +1,11 @@
 const Appbar = {
-  async init({
-    appbar,
-  }) {
+  async init({ appbar }) {
     this._appbar = appbar
+  },
+
+  setHeader(name, avatar) {
+    this._appbar.name = name
+    this._appbar.avatar = avatar
   },
 
   setState(state = true, role = 'user') {
