@@ -41,10 +41,16 @@ const Home = {
         body: JSON.stringify(loginData),
       })
       const loginResponse = (await response.json())
-      console.log(loginResponse)
       Swal.fire({
         icon: loginResponse.status,
-        title: loginResponse.message,
+        text: loginResponse.message,
+        title: loginResponse.title,
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert',
+        },
+        buttonsStyling: false,
       })
       if (loginResponse.status === 'success') {
         window.dispatchEvent(new HashChangeEvent('hashchange'))

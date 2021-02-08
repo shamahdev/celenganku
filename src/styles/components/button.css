@@ -1,6 +1,6 @@
 .btn-nav {
-    padding: 0.8rem;
     @apply h-16 w-16 text-white transition duration-100 ease-in-out;
+    padding: 0.8rem;
 }
 .btn-nav:hover {
     @apply bg-white text-black;
@@ -10,4 +10,13 @@
 }
 .disabled-option {
     @apply bg-gray-400 shadow-none !important;
+}
+
+.btn-sweetalert {
+    @apply bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg
+    !important
+}
+.popup-sweetalert {
+    @apply rounded-lg
+    !important
 }

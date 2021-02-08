@@ -110,7 +110,8 @@ const AuthController = {
         res.status(401).json({
           status: 'error',
           error: true,
-          message: 'NISN atau Password salah',
+          title: 'NISN atau Password salah',
+          message: 'Silahkan coba lagi',
           response: req.body,
         })
       }
@@ -121,7 +122,8 @@ const AuthController = {
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
       res.status(200).json({
         status: 'success',
-        message: 'Login Berhasil',
+        title: 'Login Berhasil',
+        message: 'Mengalihkan ke halaman dashboard',
         error: false,
         response: req.body,
       })

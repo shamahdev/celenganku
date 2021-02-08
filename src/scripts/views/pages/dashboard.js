@@ -2,8 +2,8 @@ const Dashboard = {
   async render() {
     return `
         <div class="hidden md:block text-center">
-        <p class="text-xl leading-8 font-bold tracking-tight text-gray-900 md:text-3xl md:mt-2">
-          Celengan adawd
+        <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-3xl md:mt-2">
+          Celengan Shaddam Amru Hasibuan
         </p>
       </div>
       <div class="flex flex-col">
@@ -13,6 +13,14 @@ const Dashboard = {
               <div class="text-white flex flex-col flex-1">
                 <p class="-mb-2">Saldo</p>
                 <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 720.000</p>
+                <div class="flex flex-row gap-2 mt-4">
+                <a href="#/transaction" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                </a>
+                <a href="#/report" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </a>
+                </div>
               </div>
             </div>
           </div>
@@ -21,7 +29,7 @@ const Dashboard = {
               <div class="text-gray-900 flex flex-col flex-1">
                 <p class="-mb-2">Pemasukan Bulan ini</p>
                 <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
-                <a class="font-bold text-sm text-gray-300 mt-3" href="">RP 100.000 MINGGU INI</a>
+                <a class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</a>
               </div>
             </div>
           </div>
@@ -30,7 +38,7 @@ const Dashboard = {
               <div class="text-gray-900 flex flex-col flex-1">
                 <p class="-mb-2">Pengeluaran Bulan ini</p>
                 <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
-                <a class="font-bold text-sm text-gray-300 mt-3" href="">RP 100.000 MINGGU INI</a>
+                <a class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</a>
               </div>
             </div>
           </div>
