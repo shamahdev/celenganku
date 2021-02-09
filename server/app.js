@@ -5,9 +5,8 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import helmet from 'helmet'
 import hpp from 'hpp'
-import xss from 'xss-clean'
-import cookirParser from 'cookie-parser'
-
+// import xss from 'xss-clean'
+import cookieParser from 'cookie-parser'
 import siswaRoutes from './routes/siswa-routes'
 import adminRoutes from './routes/admin-routes'
 import AuthController from './controllers/auth-controller'
@@ -17,9 +16,9 @@ const HTML_FILE = path.join(__dirname, 'index.html')
 
 app.use(cors())
 app.use(helmet())
-app.use(xss())
+// app.use(xss())
 app.use(hpp())
-app.use(cookirParser())
+app.use(cookieParser())
 
 app.use(express.json({
   limit: '15kb',
