@@ -1,5 +1,5 @@
 .btn-nav {
-    @apply h-16 w-16 text-white transition duration-100 ease-in-out;
+    @apply h-16 w-16 text-white;
     padding: 0.8rem;
 }
 .btn-nav:hover {

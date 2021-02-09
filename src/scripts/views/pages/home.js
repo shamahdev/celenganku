@@ -4,7 +4,7 @@ import formValidation from '../../helper/form-validation'
 
 const Home = {
   async render() {
-    return `
+    return /* html */`
         <div class="p-4 flex flex-col flex-wrap content-center justify-center">
           <div id="loginForm" class="px-6 py-4">
           <p class="my-2">NISN</p>

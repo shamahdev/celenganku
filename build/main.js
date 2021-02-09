@@ -5178,14 +5178,31 @@ class Appbar extends HTMLElement {
   _renderLinksByRole() {
     const role = this._role
     let links = ''
-    if (role === 'admin') {
+    if (role === 'user') {
       // Admin navs
-      links = `
-        <a href="#/profile" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit Profil</a>
-        <a href="#/help" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Bantuan</a>
-          <a href="/logout" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
-            Keluar
-          </a>`
+      links = /* html */`
+        <a href="#/profile" class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          role="menuitem">
+          <i class="text-primary flex"><svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg></i>
+          <p class="flex ml-2 leading-relaxed">Lihat Profil</p>
+        </a>
+        <a href="#" class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          role="menuitem">
+          <i class="text-primary flex"><svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg></i>
+          <p class="flex ml-2 leading-relaxed">Tentang Celenganku</p>
+        </a>
+        <a href="/logout" class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          role="menuitem">
+          <i class="text-primary flex"><svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg></i>
+          <p class="flex ml-2 leading-relaxed">Keluar</p>
+        </a>
+        `
     } else {
       // User/Siswa Navs
       links = `
@@ -5255,7 +5272,7 @@ class Sidebar extends HTMLElement {
     let navs = ''
     if (role === 'admin') {
       // Admin navs
-      navs = `<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/admin">
+      navs = /* html */`<a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/admin">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                 d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -5275,16 +5292,16 @@ class Sidebar extends HTMLElement {
         </a>`
     } else {
       // User/Siswa Navs
-      navs = `
+      navs = /* html */`
         <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
         </svg>
         </a>
-        <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/pay">
+        <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/transaction">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
         </a>
-        <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/profile">
+        <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/report">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
         </a>
         <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/profile">
@@ -5292,7 +5309,8 @@ class Sidebar extends HTMLElement {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
-        </a>`
+        </a>
+        `
     }
     return navs
   }
@@ -5691,11 +5709,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _views_pages_home__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../views/pages/home */ "./src/scripts/views/pages/home.js");
-/* harmony import */ var _views_pages_dashboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../views/pages/dashboard */ "./src/scripts/views/pages/dashboard.js");
-/* harmony import */ var _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/pages/admin/dashboard */ "./src/scripts/views/pages/admin/dashboard.js");
-/* harmony import */ var _views_pages_balance__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../views/pages/balance */ "./src/scripts/views/pages/balance.js");
-/* harmony import */ var _views_pages_pay__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../views/pages/pay */ "./src/scripts/views/pages/pay.js");
-/* harmony import */ var _views_pages_about__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/pages/about */ "./src/scripts/views/pages/about.js");
+/* harmony import */ var _views_pages_user_dashboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../views/pages/user/dashboard */ "./src/scripts/views/pages/user/dashboard.js");
+/* harmony import */ var _views_pages_user_transaction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/pages/user/transaction */ "./src/scripts/views/pages/user/transaction.js");
+/* harmony import */ var _views_pages_user_profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../views/pages/user/profile */ "./src/scripts/views/pages/user/profile.js");
+/* harmony import */ var _views_pages_user_report__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../views/pages/user/report */ "./src/scripts/views/pages/user/report.js");
+/* harmony import */ var _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/pages/admin/dashboard */ "./src/scripts/views/pages/admin/dashboard.js");
 /* harmony import */ var _views_pages_admin_process__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/pages/admin/process */ "./src/scripts/views/pages/admin/process.js");
 /* harmony import */ var _views_pages_admin_users__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../views/pages/admin/users */ "./src/scripts/views/pages/admin/users.js");
 
@@ -5710,12 +5728,13 @@ __webpack_require__.r(__webpack_exports__);
 const Routes = {
   login: _views_pages_home__WEBPACK_IMPORTED_MODULE_0__.default,
   user: {
-    '/': _views_pages_dashboard__WEBPACK_IMPORTED_MODULE_1__.default,
-    '/pay': _views_pages_pay__WEBPACK_IMPORTED_MODULE_4__.default,
-    '/profile': _views_pages_about__WEBPACK_IMPORTED_MODULE_5__.default,
+    '/': _views_pages_user_dashboard__WEBPACK_IMPORTED_MODULE_1__.default,
+    '/transaction': _views_pages_user_transaction__WEBPACK_IMPORTED_MODULE_2__.default,
+    '/report': _views_pages_user_report__WEBPACK_IMPORTED_MODULE_4__.default,
+    '/profile': _views_pages_user_profile__WEBPACK_IMPORTED_MODULE_3__.default,
   },
   admin: {
-    '/admin': _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_2__.default,
+    '/admin': _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_5__.default,
     '/admin/pay': _views_pages_admin_process__WEBPACK_IMPORTED_MODULE_6__.default,
     '/admin/data': _views_pages_admin_users__WEBPACK_IMPORTED_MODULE_7__.default,
   },
@@ -6091,119 +6110,6 @@ class App {
 
 /***/ }),
 
-/***/ "./src/scripts/views/pages/about.js":
-/*!******************************************!*\
-  !*** ./src/scripts/views/pages/about.js ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
-
-
-const About = {
-  async render() {
-    return `
-    <div class="hidden md:block text-center">
-    <p class="text-xl leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
-      Profil Saya
-    </p>
-  </div>
-  <div class="flex flex-col">
-    <div class="bg-gray-200 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
-      <div class="flex-1 py-0 white rounded-lg">
-        <div class="flex flex-col md:flex-row gap-4">
-          <div class="p-3 mx-auto rounded-lg">
-            <div class="flex flex-col w-48 rounded-full text-white">
-              <img class="rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="https://i.pravatar.cc/150?u=tooryadikevin">
-              <label id="change-photo" for="file-upload" class="hidden mt-4 ml-auto mr-auto cursor-pointer w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">
-                  Ubah Foto Profil
-              </label>
-              <input class="hidden" id="file-upload" type="file"/>
-            </div>
-          </div>
-          <div class="flex-1 p-5 rounded-lg w-full">
-            <div class="py-4">
-            <p class="my-2">NISN</p>
-            <input disabled value="181113842" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
-            <p class="my-2">Nama Lengkap</p>
-            <input disabled value="Turyadi Kevin" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
-            <p class="my-2">Tentang Saya</p>
-            <textarea rows="4" type="text" class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
-            <p class="my-2">Password</p>
-            <input id="edit-password" name="Password" data-rule="required no-space" value="turyadikevin" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
-            </div>
-            <div class="flex justify-start items-center">
-            <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
-            <button id="discard-button" class="hidden w-max bg-red-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Batal</button>
-            <button id="confirm-button" class="hidden w-max bg-green-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Selesai</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-      `
-  },
-
-  async afterRender() {
-    const editButton = document.getElementById('edit-button')
-    const discardButton = document.getElementById('discard-button')
-    const confirmButton = document.getElementById('confirm-button')
-    const changePhotoButton = document.getElementById('change-photo')
-    const editableForm = document.querySelectorAll('textarea, input[type="password"]')
-    editButton.addEventListener('click', () => {
-      editableForm.forEach((input) => {
-        input.disabled = false
-        editButton.classList.add('hidden')
-        discardButton.classList.remove('hidden')
-        confirmButton.classList.remove('hidden')
-        changePhotoButton.classList.remove('hidden')
-      })
-    })
-    confirmButton.addEventListener('click', () => {
-      editableForm.forEach((input) => {
-        input.disabled = true
-        editButton.classList.remove('hidden')
-        discardButton.classList.add('hidden')
-        confirmButton.classList.add('hidden')
-        changePhotoButton.classList.add('hidden')
-      })
-    })
-    discardButton.addEventListener('click', () => {
-      editableForm[0].value = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.'
-      editableForm[1].value = 'turyadikevin'
-      editableForm.forEach((input) => {
-        editableForm[1].classList.remove('border-red-500', 'border-opacity-50', 'focus:border-red-500', 'border-green-500', 'border-opacity-50', 'focus:border-green-500')
-        const passwordInputAlert = document.getElementById('edit-password-alert')
-
-        if (typeof (passwordInputAlert) !== 'undefined' && passwordInputAlert != null) {
-          passwordInputAlert.remove()
-        }
-        input.disabled = true
-        editButton.classList.remove('hidden')
-        discardButton.classList.add('hidden')
-        confirmButton.classList.add('hidden')
-        changePhotoButton.classList.add('hidden')
-      })
-    })
-
-    _helper_form_validation__WEBPACK_IMPORTED_MODULE_0__.default.init({
-      formInputs: editableForm[1],
-      submitButton: confirmButton,
-    })
-  },
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (About);
-
-
-/***/ }),
-
 /***/ "./src/scripts/views/pages/admin/dashboard.js":
 /*!****************************************************!*\
   !*** ./src/scripts/views/pages/admin/dashboard.js ***!
@@ -6572,262 +6478,6 @@ const Users = {
 
 /***/ }),
 
-/***/ "./src/scripts/views/pages/balance.js":
-/*!********************************************!*\
-  !*** ./src/scripts/views/pages/balance.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-const Balance = {
-  async render() {
-    return `
-        <div class="hidden md:block text-center">
-        <p class="text-xl leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
-          Celengan Turyadi Kevin
-        </p>
-      </div>
-      <div class="flex flex-col">
-        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:gap-8 md:mt-6 lg:flex-row">
-          <div class="flex-1 p-5 bg-blue-500 rounded-lg">
-            <div class="flex items-center">
-              <div class="text-white flex flex-col flex-1">
-                <p class="font-light">Saldo</p>
-                <p class="text-4xl font-bold">Rp 720.000</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex-1 p-5 bg-green-500 rounded-lg">
-            <div class="flex items-center">
-              <div class="text-white flex flex-col flex-1">
-                <p class="font-light">Pemasukan Bulan ini</p>
-                <p class="text-4xl font-bold">Rp 800.000</p>
-                <a class="font-light mt-3 text-right ml-auto underline" href="">lihat detail</a>
-              </div>
-            </div>
-          </div>
-          <div class="flex-1 p-5 bg-red-500 rounded-lg">
-            <div class="flex items-center">
-              <div class="text-white flex flex-col flex-1">
-                <p class="">Pengeluaran Bulan ini</p>
-                <p class="text-4xl font-bold">Rp 80.000</p>
-                <a class="font-light mt-3 text-right ml-auto underline" href="">lihat detail</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p class="my-4 md:mt-8 lg:mt-12 text-2xl">Riwayat Transaksi</p>
-        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
-          <div class="flex-1 p-5 py-0 white rounded-lg">
-            <div class="flex items-center">
-              <div class="font-bold flex flex-row flex-1">
-                <p class="flex-1 hidden md:block">Jenis</p>
-                <p class="flex-1">Nominal</p>
-                <p class="flex-1">Metode</p>
-                <p class="flex-1 hidden md:block">Tanggal</p>
-                <a class="ml-auto h-6 w-6 text-transparent">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white flex-1 p-5 white rounded-lg">
-            <div class="flex items-center">
-              <div class="flex flex-row flex-1">
-                <p class="flex-1 hidden md:block">Penarikan</p>
-                <p class="flex-1 font-bold text-red-500">Rp 80.000</p>
-                <p class="flex-1">gopay</p>
-                <p class="flex-1 hidden md:block">17 September 2020</p>
-                <a class="ml-auto h-6 w-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white flex-1 p-5 white rounded-lg">
-            <div class="flex items-center">
-              <div class="flex flex-row flex-1">
-                <p class="flex-1 hidden md:block">Penarikan</p>
-                <p class="flex-1 font-bold text-red-500">Rp 80.000</p>
-                <p class="flex-1">gopay</p>
-                <p class="flex-1 hidden md:block">17 September 2020</p>
-                <a class="ml-auto h-6 w-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white flex-1 p-5 white rounded-lg">
-            <div class="flex items-center">
-              <div class="flex flex-row flex-1">
-                <p class="flex-1 hidden md:block">Penarikan</p>
-                <p class="flex-1 font-bold text-red-500">Rp 80.000</p>
-                <p class="flex-1">gopay</p>
-                <p class="flex-1 hidden md:block">17 September 2020</p>
-                <a class="ml-auto h-6 w-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      `
-  },
-
-  async afterRender() {
-    // Write after render here.
-  },
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Balance);
-
-
-/***/ }),
-
-/***/ "./src/scripts/views/pages/dashboard.js":
-/*!**********************************************!*\
-  !*** ./src/scripts/views/pages/dashboard.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-const Dashboard = {
-  async render() {
-    return `
-        <div class="hidden md:block text-center">
-        <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
-          Celengan Shaddam Amru
-        </p>
-      </div>
-      
-      <div class="flex flex-col">
-        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
-          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
-            <div class="flex items-center">
-              <div class="text-white flex flex-col flex-1">
-                <p class="-mb-2">Saldo</p>
-                <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 720.000</p>
-                <div class="flex flex-row gap-2 mt-4">
-                <a href="#/transaction" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                </a>
-                <a href="#/report" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
-            <div class="flex items-center">
-              <div class="flex flex-col flex-1">
-                <p class="-mb-2 text-gray-700">Pemasukan Bulan ini</p>
-                <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
-                <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
-            <div class="flex items-center">
-              <div class="flex flex-col flex-1">
-                <p class="-mb-2 text-gray-700">Pengeluaran Bulan ini</p>
-                <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
-                <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
-        <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
-          <div class="flex-1 py-0 white rounded-lg">
-          <table class="w-full text-md bg-white mb-4">
-            <tbody>
-                <tr class="">
-                    <th class="text-left p-3 px-5">Tanggal</th>
-                    <th class="text-left p-3 px-5">Transaksi</th>
-                    <th class="text-left p-3 px-5">Nominal</th>
-                    <th class="text-left p-3 px-5">Metode</th>
-                    <th class="text-left p-3 px-5">Jenis</th>
-                    <th class="text-left p-3 px-5">Status</th>
-                    <th></th>
-                </tr>
-                <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                    <td class="p-3 px-5"><input type="text" value="user.name" class="bg-transparent"></td>
-                    <td class="p-3 px-5"><input type="text" value="user.email" class="bg-transparent"></td>
-                    <td class="p-3 px-5">
-                        <select value="user.role" class="bg-transparent">
-                            <option value="user">user</option>
-                            <option value="admin">admin</option>
-                        </select>
-                    </td>
-                    <td class="p-3 px-5 flex justify-end"><button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Save</button><button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button></td>
-                </tr> 
-            </tbody>
-        </table>
-            <div class="flex items-center">
-              <div class="text-gray-700 flex flex-row flex-1">
-              <p class="flex-1">Tanggal</p>
-              <p class="flex-1 hidden md:block">ID Transaksi</p>
-              <p class="flex-1">Nominal</p>
-              <p class="flex-1 hidden md:block">Metode</p>
-              <p class="flex-1 hidden md:block">Jenis</p>
-                <p class="flex-1">Status</p>
-
-                <a class="ml-auto h-6 w-6 text-transparent">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <button class="text-left bg-white flex-1 p-5 white rounded-lg hover:shadow-lg ring-1 ring-black ring-opacity-5 transition duration-100 ease-in-out">
-          <div class="flex font-bold">
-            <div class="flex flex-row flex-1"><p class="flex-1">17 JANUARI 2021</p>
-            <p class="flex-1 hidden md:block">TWL2277972</p>
-            <p class="flex-1 text-red-500">RP 80.000</p>
-            <p class="flex-1 hidden md:block">-</p>
-            <p class="flex-1 hidden md:block">PENARIKAN</p>
-            <p class="bg-primaryDisable text-primary font-bold p-2">PEMBAYARAN</p>
-            <a class="ml-auto h-6 w-6">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </a>
-          </div>
-          </div>
-        </div>
-      </div>
-      `
-  },
-
-  async afterRender() {
-    // Write after render here.
-  },
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
-
-
-/***/ }),
-
 /***/ "./src/scripts/views/pages/home.js":
 /*!*****************************************!*\
   !*** ./src/scripts/views/pages/home.js ***!
@@ -6984,10 +6634,10 @@ const Home = {
 
 /***/ }),
 
-/***/ "./src/scripts/views/pages/pay.js":
-/*!****************************************!*\
-  !*** ./src/scripts/views/pages/pay.js ***!
-  \****************************************/
+/***/ "./src/scripts/views/pages/user/dashboard.js":
+/*!***************************************************!*\
+  !*** ./src/scripts/views/pages/user/dashboard.js ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6995,12 +6645,409 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
+const Dashboard = {
+  async render() {
+    return /* html */ `
+        <div class="hidden md:block text-center">
+          <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+            Celengan Shaddam Amru
+          </p>
+        </div>
+
+        <div class="flex flex-col">
+          <div
+            class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
+            <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
+              <div class="flex items-center">
+                <div class="text-white flex flex-col flex-1">
+                  <p class="-mb-2">Saldo</p>
+                  <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 720.000</p>
+                  <div class="flex flex-row gap-2 mt-4">
+                    <a href="#/transaction" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                      </svg>
+                    </a>
+                    <a href="#/report" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
+              <div class="flex items-center">
+                <div class="flex flex-col flex-1">
+                  <p class="-mb-2 text-gray-700">Pemasukan Bulan ini</p>
+                  <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
+                  <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
+              <div class="flex items-center">
+                <div class="flex flex-col flex-1">
+                  <p class="-mb-2 text-gray-700">Pengeluaran Bulan ini</p>
+                  <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
+                  <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
+          <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
+            <div class="flex-1 py-0 white rounded-lg">
+              <table class="w-full mb-4">
+                <tbody>
+                  <tr class="text-left text-gray-700">
+                    <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+                    <th class="font-normal pb-5 pt-0">Nominal</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
+                    <th class="font-normal pb-5 pt-0">Status</th>
+                    <th class="font-normal pb-5 pt-0 justify-end"></th>
+                  </tr>
+                  <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
+                    <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
+                    <td class="bg-white hidden lg:table-cell">TWL2277972</td>
+                    <td class="bg-white text-failed">RP 80.000</td>
+                    <td class="bg-white hidden lg:table-cell">ADMIN</td>
+                    <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
+                    <td class="bg-white">
+                      <p class="text-sm bg-primaryDisable text-primary py-2 px-3 rounded-lg w-max">PEMBAYARAN</p>
+                    </td>
+                    <td class="bg-white rounded-r-lg justify-end flex p-3">
+                      <button class="p-2 w-12 h-12 text-gray-700" id="settings">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                          </path>
+                        </svg>
+                      </button>
+                      <div id="settings-dropdown"
+                        class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                          <a href="#/profile"
+                            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            role="menuitem">
+                            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                              </svg></i>
+                            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="h-4"></tr>
+                  <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
+                    <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
+                    <td class="bg-white hidden lg:table-cell">TDD2884125</td>
+                    <td class="bg-white text-success">RP 80.0000</td>
+                    <td class="bg-white hidden lg:table-cell">GOPAY</td>
+                    <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
+                    <td class="bg-white">
+                      <p class="text-sm bg-primary text-white py-2 px-3 rounded-lg w-max">SELESAI</p>
+                    </td>
+                    <td class="bg-white rounded-r-lg justify-end flex p-3">
+                      <button class="p-2 w-12 h-12 text-gray-700" id="settings">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                          </path>
+                        </svg>
+                      </button>
+                      <div id="settings-dropdown"
+                        class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                          <a href="#/profile"
+                            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            role="menuitem">
+                            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                              </svg></i>
+                            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      `
+  },
+
+  async afterRender() {
+    // Write after render here.
+  },
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
 
 
-const Pay = {
+/***/ }),
+
+/***/ "./src/scripts/views/pages/user/profile.js":
+/*!*************************************************!*\
+  !*** ./src/scripts/views/pages/user/profile.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
+
+
+const Profile = {
   async render() {
     return `
+    <div class="hidden md:block text-center">
+    <p class="text-xl leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
+      Profil Saya
+    </p>
+  </div>
+  <div class="flex flex-col">
+    <div class="bg-gray-200 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
+      <div class="flex-1 py-0 white rounded-lg">
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="p-3 mx-auto rounded-lg">
+            <div class="flex flex-col w-48 rounded-full text-white">
+              <img class="rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="https://i.pravatar.cc/150?u=tooryadikevin">
+              <label id="change-photo" for="file-upload" class="hidden mt-4 ml-auto mr-auto cursor-pointer w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">
+                  Ubah Foto Profil
+              </label>
+              <input class="hidden" id="file-upload" type="file"/>
+            </div>
+          </div>
+          <div class="flex-1 p-5 rounded-lg w-full">
+            <div class="py-4">
+            <p class="my-2">NISN</p>
+            <input disabled value="181113842" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
+            <p class="my-2">Nama Lengkap</p>
+            <input disabled value="Turyadi Kevin" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
+            <p class="my-2">Tentang Saya</p>
+            <textarea rows="4" type="text" class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.</textarea>
+            <p class="my-2">Password</p>
+            <input id="edit-password" name="Password" data-rule="required no-space" value="turyadikevin" type="password" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+            </div>
+            <div class="flex justify-start items-center">
+            <button id="edit-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Edit Profil</button>
+            <button id="discard-button" class="hidden w-max bg-red-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Batal</button>
+            <button id="confirm-button" class="hidden w-max bg-green-500 text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Selesai</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      `
+  },
+
+  async afterRender() {
+    const editButton = document.getElementById('edit-button')
+    const discardButton = document.getElementById('discard-button')
+    const confirmButton = document.getElementById('confirm-button')
+    const changePhotoButton = document.getElementById('change-photo')
+    const editableForm = document.querySelectorAll('textarea, input[type="password"]')
+    editButton.addEventListener('click', () => {
+      editableForm.forEach((input) => {
+        input.disabled = false
+        editButton.classList.add('hidden')
+        discardButton.classList.remove('hidden')
+        confirmButton.classList.remove('hidden')
+        changePhotoButton.classList.remove('hidden')
+      })
+    })
+    confirmButton.addEventListener('click', () => {
+      editableForm.forEach((input) => {
+        input.disabled = true
+        editButton.classList.remove('hidden')
+        discardButton.classList.add('hidden')
+        confirmButton.classList.add('hidden')
+        changePhotoButton.classList.add('hidden')
+      })
+    })
+    discardButton.addEventListener('click', () => {
+      editableForm[0].value = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum molestias dolorum ea enim doloribus, voluptatem dolor recusandae quo totam delectus quae deserunt magnam.'
+      editableForm[1].value = 'turyadikevin'
+      editableForm.forEach((input) => {
+        editableForm[1].classList.remove('border-red-500', 'border-opacity-50', 'focus:border-red-500', 'border-green-500', 'border-opacity-50', 'focus:border-green-500')
+        const passwordInputAlert = document.getElementById('edit-password-alert')
+
+        if (typeof (passwordInputAlert) !== 'undefined' && passwordInputAlert != null) {
+          passwordInputAlert.remove()
+        }
+        input.disabled = true
+        editButton.classList.remove('hidden')
+        discardButton.classList.add('hidden')
+        confirmButton.classList.add('hidden')
+        changePhotoButton.classList.add('hidden')
+      })
+    })
+
+    _helper_form_validation__WEBPACK_IMPORTED_MODULE_0__.default.init({
+      formInputs: editableForm[1],
+      submitButton: confirmButton,
+    })
+  },
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Profile);
+
+
+/***/ }),
+
+/***/ "./src/scripts/views/pages/user/report.js":
+/*!************************************************!*\
+  !*** ./src/scripts/views/pages/user/report.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+const Report = {
+  async render() {
+    return /* html */`
+    <div class="hidden md:block text-center">
+    <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+      Riwayat Transaksi
+    </p>
+  </div>
+    <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
+      <div class="flex-1 py-0 white rounded-lg">
+        <table class="w-full mb-4">
+          <tbody>
+            <tr class="text-left text-gray-700">
+              <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+              <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+              <th class="font-normal pb-5 pt-0">Nominal</th>
+              <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
+              <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
+              <th class="font-normal pb-5 pt-0">Status</th>
+              <th class="font-normal pb-5 pt-0 justify-end"></th>
+            </tr>
+            <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
+              <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
+              <td class="bg-white hidden lg:table-cell">TWL2277972</td>
+              <td class="bg-white text-failed">RP 80.000</td>
+              <td class="bg-white hidden lg:table-cell">ADMIN</td>
+              <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
+              <td class="bg-white">
+                <p class="text-sm bg-primaryDisable text-primary py-2 px-3 rounded-lg w-max">PEMBAYARAN</p>
+              </td>
+              <td class="bg-white rounded-r-lg justify-end flex p-3">
+                <button class="p-2 w-12 h-12 text-gray-700" id="settings">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                    </path>
+                  </svg>
+                </button>
+                <div id="settings-dropdown"
+                  class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                    <a href="#/profile"
+                      class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg></i>
+                      <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr class="h-4"></tr>
+            <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
+              <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
+              <td class="bg-white hidden lg:table-cell">TDD2884125</td>
+              <td class="bg-white text-success">RP 80.0000</td>
+              <td class="bg-white hidden lg:table-cell">GOPAY</td>
+              <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
+              <td class="bg-white">
+                <p class="text-sm bg-primary text-white py-2 px-3 rounded-lg w-max">SELESAI</p>
+              </td>
+              <td class="bg-white rounded-r-lg justify-end flex p-3">
+                <button class="p-2 w-12 h-12 text-gray-700" id="settings">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                    </path>
+                  </svg>
+                </button>
+                <div id="settings-dropdown"
+                  class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                    <a href="#/profile"
+                      class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg></i>
+                      <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+      `
+  },
+
+  async afterRender() {
+    // //
+  },
+
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Report);
+
+
+/***/ }),
+
+/***/ "./src/scripts/views/pages/user/transaction.js":
+/*!*****************************************************!*\
+  !*** ./src/scripts/views/pages/user/transaction.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
+
+
+const Transaction = {
+  async render() {
+    return /* html */`
         <div class="hidden md:block text-center">
           <p class="text-xl leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
             Buat Transaksi
@@ -7124,7 +7171,7 @@ const Pay = {
   },
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Pay);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Transaction);
 
 
 /***/ })
@@ -7207,7 +7254,7 @@ const Pay = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "81dd03f8c21b5bfa7369"
+/******/ 		__webpack_require__.h = () => "fd674942028dc15d7238"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

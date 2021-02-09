@@ -31,8 +31,8 @@ button#settings:hover ~ #settings-dropdown {
     height: 6rem;
     width: 6rem;
     border-top-color: #EB643F;
-    -webkit-animation: spinner 1.5s linear infinite;
-    animation: spinner 1.5s linear infinite;
+    -webkit-animation: spinner 1s ease-in-out infinite;
+    animation: spinner 1s ease-in-out infinite;
   }
   
   @-webkit-keyframes spinner {
