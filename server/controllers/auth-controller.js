@@ -1,10 +1,11 @@
+/* eslint-disable no-new */
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import Siswa from '../models/siswa-model'
 import SiswaController from './siswa-controller'
-import db from '../global/firebase'
+import { db, storage } from '../global/firebase'
 
 dotenv.config()
 const maxAge = 3 * 24 * 60 * 60
@@ -131,6 +132,7 @@ const AuthController = {
       next(err)
     }
   },
+
   logout: (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 })
     res.redirect('/')
@@ -148,12 +150,40 @@ const AuthController = {
       response: req.body,
     })
   },
+
   retrieveToken: async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       error: false,
       response: req.cookies.jwt,
     })
+  },
+
+  uploadPhoto: async (req, res, next) => {
+    const drainStream = (stream) => {
+      new Promise((resolve, reject) => {
+        const dataParts = [Buffer.alloc(0)]
+        // this is so Buffer.concat doesn’t error if nothing comes;
+        stream.on('data', (d) => dataParts.push(d))
+        stream.on('error', reject)
+        stream.on('close', () => {
+          resolve(Buffer.concat(dataParts))
+        })
+      })
+    }
+
+    try {
+      const file = await drainStream(req)
+      const storageRef = storage.ref(`user/${file.name}`)
+      storageRef.put(file)
+
+      res.status(200).json({
+        status: 'success',
+        error: false,
+      })
+    } catch (err) {
+      next(err)
+    }
   },
 }
 

@@ -1,4 +1,4 @@
-import db from '../global/firebase'
+import { db } from '../global/firebase'
 
 const Siswa = {
   data: db.collection('data_siswa'),

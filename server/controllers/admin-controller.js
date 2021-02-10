@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import BaseController from './base-controller'
 import Siswa from '../models/siswa-model'
-import db from '../global/firebase'
+import { db } from '../global/firebase'
 
 const Admin = db.collection('akun_admin')
 const AdminController = {

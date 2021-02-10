@@ -7,7 +7,7 @@ const Report = {
     </p>
     <div class="flex flex-row mt-4 md:mt-6 ">
       <div class="flex flex-row">
-      <button id="user-login-button" class="w-max bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
+      <button id="user-login-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
       <p class="mt-3 ml-4">Total Transaksi: Rp 880.000</p>
       </div>
       <div class="flex flex-row ml-auto">

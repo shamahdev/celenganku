@@ -34,6 +34,10 @@ button#settings:hover ~ #settings-dropdown {
     -webkit-animation: spinner 1s ease-in-out infinite;
     animation: spinner 1s ease-in-out infinite;
   }
+.loader-mini {
+    height: 4rem !important;
+    width: 4rem !important;
+}
   
   @-webkit-keyframes spinner {
     0% { -webkit-transform: rotate(0deg); }

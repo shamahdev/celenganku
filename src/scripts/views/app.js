@@ -30,7 +30,7 @@ class App {
   async loadPage() {
     this._content.innerHTML = this.constructor._loadPreloader()
     this._user = await APIData.retrieveUser()
-    const { role } = this._user
+    const { id, role } = this._user
 
     let url = UrlParser.parseActiveUrlWithCombiner()
     if (url === '') url = '/'
@@ -49,7 +49,7 @@ class App {
         Sidebar.setState(true, role)
         Appbar.setState(true, role)
 
-        const userInformation = await this._getUserInformation()
+        const userInformation = await this.constructor.getUserInformation(id, role)
         Appbar.setHeader(userInformation.nama, userInformation.url_foto)
       } else {
         page = await Routes.login
@@ -67,8 +67,7 @@ class App {
     }
   }
 
-  async _getUserInformation() {
-    const { id, role } = this._user
+  static async getUserInformation(id, role) {
     const userDataArray = []
     switch (role) {
       case 'user':

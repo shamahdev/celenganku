@@ -1,8 +1,10 @@
 /* eslint-disable prefer-destructuring */
 const formValidation = {
-  async init({ formInputs, submitButton }) {
+  async init({ formInputs, submitButton, isEdit = false }) {
     this._formInputs = formInputs
     this._submitButton = submitButton
+    this._isEdit = isEdit
+    this._inputTemp = {}
     await this._createEvent()
   },
 
@@ -12,6 +14,7 @@ const formValidation = {
     if (formInputs.length !== undefined) {
       formInputs.forEach((input) => {
         this._showPasswordToggle(input)
+        if (this._isEdit) this._setTemp(input)
         input.addEventListener('keyup', (event) => {
           event.preventDefault()
           this._validateInput(input)
@@ -19,11 +22,16 @@ const formValidation = {
       })
     } else {
       this._showPasswordToggle(formInputs)
+      if (this._isEdit) this._setTemp(formInputs)
       formInputs.addEventListener('keyup', (event) => {
         event.preventDefault()
         this._validateInput(formInputs)
       })
     }
+  },
+
+  async _setTemp(input) {
+    this._inputTemp[input.name] = input.value
   },
 
   async _showPasswordToggle(input) {
@@ -115,8 +123,28 @@ const formValidation = {
       })
     }
 
+    const toggleSubmitButton = () => {
+      if (this._isEdit) {
+        this._submitButton.disabled = false
+      } else {
+        const validatedCounts = document.querySelectorAll('input.border-green-500')
+        if (this._formInputs.length !== undefined) {
+          if (validatedCounts.length === this._formInputs.length) {
+            this._submitButton.disabled = false
+          } else {
+            this._submitButton.disabled = true
+          }
+        } else if (this._formInputs.className.includes(...successInputClasss)) {
+          this._submitButton.disabled = false
+        } else {
+          this._submitButton.disabled = true
+        }
+      }
+    }
+
     const checkElement = document.getElementById(`${input.id}-alert`)
     if (alertText.length > 0) {
+      this._submitButton.disabled = true
       input.classList.add(...errorInputClasss)
       input.classList.remove(...successInputClasss)
       if (typeof (checkElement) !== 'undefined' && checkElement != null) {
@@ -139,20 +167,7 @@ const formValidation = {
       } catch (error) {
         // return null
       }
-    }
-
-    const validatedCounts = document.querySelectorAll('input.border-green-500')
-
-    if (this._formInputs.length !== undefined) {
-      if (validatedCounts.length === this._formInputs.length) {
-        this._submitButton.disabled = false
-      } else {
-        this._submitButton.disabled = true
-      }
-    } else if (this._formInputs.className.includes(...successInputClasss)) {
-      this._submitButton.disabled = false
-    } else {
-      this._submitButton.disabled = true
+      toggleSubmitButton()
     }
   },
 }
