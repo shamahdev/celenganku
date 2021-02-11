@@ -18,6 +18,45 @@ class APIData {
     }
   }
 
+  static async uploadFile(file) {
+    try {
+      const formData = new FormData()
+      formData.append('avatar', file)
+      console.log(formData)
+
+      const response = await fetch(API_ENDPOINT.UPLOAD_FILE, {
+        method: 'POST',
+        body: formData,
+      })
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async deleteFile(url) {
+    try {
+      const first = url.search('%2F')
+      const end = url.search('alt')
+      const fileName = url.slice(first + 3, end - 1)
+      const fileData = {
+        url,
+        name: fileName,
+      }
+
+      const response = await fetch(API_ENDPOINT.DELETE_FILE, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fileData),
+      })
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
   static async getAllSiswaData() {
     try {
       const response = await fetch(API_ENDPOINT.SISWA.LIST_DATA)
@@ -58,6 +97,21 @@ class APIData {
   static async getAkunSiswa(id) {
     try {
       const response = await fetch(API_ENDPOINT.SISWA.AKUN(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async updateAkunSiswa(id, newData) {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.AKUN(id), {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newData),
+      })
       return response.json()
     } catch (err) {
       return {}

@@ -13,8 +13,7 @@
 }
 
 .btn-sweetalert {
-    @apply bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg
-    !important
+    @apply bg-primary text-white mx-1 py-3 px-8 rounded-lg
 }
 .popup-sweetalert {
     @apply rounded-lg

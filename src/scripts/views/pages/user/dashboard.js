@@ -1,3 +1,5 @@
+import APIData from '../../../data/api-data'
+
 const Dashboard = {
   async render() {
     return /* html */ `
@@ -12,9 +14,14 @@ const Dashboard = {
             class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
               <div class="flex items-center">
-                <div class="text-white flex flex-col flex-1">
+
+                <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
+                  <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                </div>
+
+                <div id="balance-card" class="hidden text-white flex flex-col flex-1">
                   <p class="-mb-2">Saldo</p>
-                  <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 720.000</p>
+                  <p id="bal" class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp</p>
                   <div class="flex flex-row gap-2 mt-4">
                     <a href="#/transaction" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
                       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +42,12 @@ const Dashboard = {
             </div>
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
               <div class="flex items-center">
-                <div class="flex flex-col flex-1">
+
+                <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
+                  <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                </div>
+
+                <div id="deposit-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pemasukan Bulan ini</p>
                   <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
                   <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
@@ -44,7 +56,12 @@ const Dashboard = {
             </div>
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
               <div class="flex items-center">
-                <div class="flex flex-col flex-1">
+
+                <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
+                  <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                </div>
+
+                <div id="withdraw-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pengeluaran Bulan ini</p>
                   <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
                   <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
@@ -54,8 +71,11 @@ const Dashboard = {
           </div>
           <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
           <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
-            <div class="flex-1 py-0 white rounded-lg">
-              <table class="w-full mb-4">
+            <div class="flex-1 py-0 white rounded-lg mx-auto">
+              <div class="preloader p-4 flex mt-auto mb-auto mx-auto">
+                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+              </div>
+              <table class="hidden w-full mb-4">
                 <tbody>
                   <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
@@ -143,7 +163,33 @@ const Dashboard = {
   },
 
   async afterRender() {
-    // Write after render here.
+    // Remove Preloders
+    const preloaders = document.querySelectorAll('.preloader')
+    const balanceCard = document.getElementById('balance-card')
+    const depositCard = document.getElementById('deposit-card')
+    const withdrawCard = document.getElementById('withdraw-card')
+
+    this._ballance = 0
+    this._deposit = 0
+    this._withdraw = 0
+
+    const responseData = await APIData.retrieveUser()
+    this._userId = responseData.id
+
+    const accountData = await APIData.getAkunSiswa(this._userId)
+    console.log(accountData.saldo)
+    this._ballance = accountData.saldo
+
+    const balanceText = document.getElementById('bal')
+    balanceText.innerHTML = `Rp ${this._ballance}`
+
+    // Remove Preloaders
+    balanceCard.classList.remove('hidden')
+    depositCard.classList.remove('hidden')
+    withdrawCard.classList.remove('hidden')
+    preloaders.forEach((preloader) => {
+      preloader.remove()
+    })
   },
 }
 

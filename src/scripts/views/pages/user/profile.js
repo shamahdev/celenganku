@@ -1,7 +1,7 @@
-/* eslint-disable import/no-cycle */
-import App from '../../app'
-import formValidation from '../../../helper/form-validation'
+/* eslint-disable max-len */
+import Swal from 'sweetalert2'
 import APIData from '../../../data/api-data'
+import formValidation from '../../../helper/form-validation'
 
 const Profile = {
   async render() {
@@ -20,7 +20,7 @@ const Profile = {
         <div id="account-form" class="hidden flex flex-col gap-4">
           <div class="p-3 mx-auto mt-4 rounded-lg">
             <div class="flex flex-col w-48 rounded-full text-white">
-              <img id="photo-profile" class="rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="http://ui-avatars.com/api/background=fff&color=fff">
+              <img id="photo-profile" class="object-cover rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="http://ui-avatars.com/api/background=fff&color=fff">
               <div id="change-photo" class="hidden flex flex-row">
               <label for="file-upload" class="p-3 mt-4 mr-1 ml-auto cursor-pointer w-max bg-primary text-white mx-1 rounded-lg disabled:opacity-50">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
@@ -78,6 +78,7 @@ const Profile = {
     this._accountInput = ''
     this._profileInput = ''
     const responseData = await APIData.retrieveUser()
+    this._userId = responseData.id
     const user = await this._getProfileData(responseData.id)
 
     const allInputForms = document.querySelectorAll('[id^="input"]')
@@ -93,7 +94,7 @@ const Profile = {
 
   async _initialize() {
     // Remove Preloders
-    const preloders = document.querySelectorAll('.preloader')
+    const preloaders = document.querySelectorAll('.preloader')
     const profileForm = document.getElementById('profile-form')
     const accountForm = document.getElementById('account-form')
 
@@ -101,9 +102,9 @@ const Profile = {
     const editButton = document.getElementById('edit-button')
     const discardButton = document.getElementById('discard-button')
     const confirmButton = document.getElementById('confirm-button')
-    
+
     // Photos
-    let uploadedFile = ''
+    let newPhoto = ''
     const photoContainer = document.getElementById('change-photo')
     const photoProfile = document.getElementById('photo-profile')
     const deletePhotoButton = document.getElementById('delete-photo')
@@ -118,6 +119,8 @@ const Profile = {
     const emailTemp = email.value
     const passwordTemp = password.value
     const nomorTeleponTemp = nomorTelepon.value
+
+    if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
 
     const toggleEditable = (option) => {
       if (option) {
@@ -141,19 +144,53 @@ const Profile = {
       })
     })
 
-    confirmButton.addEventListener('click', () => {
-      editableForm.forEach((input) => {
-        this._updateProfile(uploadedFile, email, password, nomorTelepon)
-        input.disabled = true
-        toggleEditable(false)
-      })
+    confirmButton.addEventListener('click', async () => {
+      let confirmUpdate = true
+      if (password.value !== passwordTemp) {
+        confirmUpdate = false
+        const result = await Swal.fire({
+          icon: 'warning',
+          text: 'Tekan pilihan untuk mengkonfirmasi',
+          title: 'Apakah benar ingin mengubah password?',
+          showCancelButton: true,
+          confirmButtonText: 'Benar',
+          cancelButtonText: 'Tidak',
+          customClass: {
+            popup: 'popup-sweetalert',
+            confirmButton: 'btn-sweetalert bg-success',
+            cancelButton: 'btn-sweetalert bg-failed',
+          },
+          buttonsStyling: false,
+        })
+
+        if (result.isConfirmed) {
+          confirmUpdate = true
+        }
+      }
+
+      if (confirmUpdate) {
+        this._updateProfile(email.value, password.value, nomorTelepon.value, newPhoto, photoProfileTemp)
+        editableForm.forEach((input) => {
+          input.disabled = true
+          toggleEditable(false)
+        })
+      }
     })
 
     discardButton.addEventListener('click', () => {
+      const elementAlerts = document.querySelectorAll('span[id*="-alert"]')
+      if (elementAlerts.length > 0) {
+        elementAlerts.forEach((element) => {
+          element.remove()
+        })
+      } else if (elementAlerts.length !== 0) {
+        elementAlerts.remove()
+      }
       photoProfile.src = photoProfileTemp
       email.value = emailTemp
       password.value = passwordTemp
       nomorTelepon.value = nomorTeleponTemp
+      if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
 
       editableForm.forEach((input) => {
         input.classList.remove('border-red-500', 'border-opacity-50', 'focus:border-red-500', 'border-green-500', 'border-opacity-50', 'focus:border-green-500')
@@ -162,21 +199,23 @@ const Profile = {
       })
     })
 
-    photoUploadButton.addEventListener('change', (event) => {
+    photoUploadButton.addEventListener('change', async (event) => {
       // eslint-disable-next-line prefer-destructuring
-      uploadedFile = event.target.files[0]
+      newPhoto = event.target.files[0]
       const reader = new FileReader()
-      photoProfile.title = uploadedFile.name
+      photoProfile.title = newPhoto.name
 
       reader.onload = (e) => {
         photoProfile.src = e.target.result
       }
-      reader.readAsDataURL(uploadedFile)
+      reader.readAsDataURL(newPhoto)
+      deletePhotoButton.disabled = false
     })
 
     deletePhotoButton.addEventListener('click', () => {
-      uploadedFile = ''
+      newPhoto = 'default'
       photoProfile.src = `http://ui-avatars.com/api/?name=${emailTemp}&background=fff`
+      deletePhotoButton.disabled = true
     })
 
     formValidation.init({
@@ -188,7 +227,7 @@ const Profile = {
     // Remove preloader
     profileForm.classList.remove('hidden')
     accountForm.classList.remove('hidden')
-    preloders.forEach((preloader) => {
+    preloaders.forEach((preloader) => {
       preloader.remove()
     })
   },
@@ -207,8 +246,28 @@ const Profile = {
     return profileData
   },
 
-  async _updateProfile(uploadedFile, email, password, nomorTelepon) {
-    console.log(uploadedFile, email, password, nomorTelepon)
+  async _updateProfile(email, password, noTelepon, newPhoto, photoProfileTemp) {
+    const newData = {
+      email,
+      password,
+      no_telepon: noTelepon,
+      url_foto: photoProfileTemp,
+    }
+
+    if (newPhoto !== '') {
+      if (photoProfileTemp !== '' && !(photoProfileTemp.includes('ui-avatars.com'))) {
+        await APIData.deleteFile(photoProfileTemp)
+      }
+      if (newPhoto === 'default') {
+        newData.url_foto = ''
+      } else {
+        const photo = await APIData.uploadFile(newPhoto)
+        newData.url_foto = photo.url
+      }
+    }
+
+    const response = await APIData.updateAkunSiswa(this._userId, newData)
+    console.log(response)
   },
 }
 

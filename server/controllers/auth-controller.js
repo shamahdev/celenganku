@@ -7,6 +7,8 @@ import Siswa from '../models/siswa-model'
 import SiswaController from './siswa-controller'
 import { db, storage } from '../global/firebase'
 
+global.XMLHttpRequest = require('xhr2')
+
 dotenv.config()
 const maxAge = 3 * 24 * 60 * 60
 const Admin = db.collection('akun_admin')
@@ -159,24 +161,26 @@ const AuthController = {
     })
   },
 
-  uploadPhoto: async (req, res, next) => {
-    const drainStream = (stream) => {
-      new Promise((resolve, reject) => {
-        const dataParts = [Buffer.alloc(0)]
-        // this is so Buffer.concat doesn’t error if nothing comes;
-        stream.on('data', (d) => dataParts.push(d))
-        stream.on('error', reject)
-        stream.on('close', () => {
-          resolve(Buffer.concat(dataParts))
-        })
-      })
-    }
-
+  uploadFile: async (req, res, next) => {
     try {
-      const file = await drainStream(req)
-      const storageRef = storage.ref(`user/${file.name}`)
-      storageRef.put(file)
+      const { file } = req
+      const storageRef = storage.ref(`upload/${file.originalname}`)
+      await storageRef.put(file.buffer)
+      const url = await storageRef.getDownloadURL()
+      res.status(200).json({
+        status: 'success',
+        url,
+      })
+    } catch (err) {
+      next(err)
+    }
+  },
 
+  deleteFile: async (req, res, next) => {
+    try {
+      const { url, name } = req.body
+      const storageRef = storage.ref(`upload/${name}`)
+      storageRef.delete()
       res.status(200).json({
         status: 'success',
         error: false,

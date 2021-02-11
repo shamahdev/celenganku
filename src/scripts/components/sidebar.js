@@ -62,7 +62,7 @@ class Sidebar extends HTMLElement {
   }
 
   _render() {
-    this.className = `${this._bgColor()} fixed bottom-0 w-full md:relative md:w-auto md:h-auto md:min-h-screen`
+    this.className = `${this._bgColor()} z-50 fixed bottom-0 w-full md:relative md:w-auto md:h-auto md:min-h-screen`
     this.innerHTML = `
     <div id="navs" class="sticky top-0 flex flex-row justify-evenly md:flex-col">
         <p class="h-16 w-16 p-4 text-white">
