@@ -25,7 +25,8 @@ const TransactionController = {
       res.status(200).json({
         status: 'success',
         error: false,
-        transactionData,
+        results: transactionData.length,
+        data: transactionData,
       })
       return { success: true }
     } catch (error) {

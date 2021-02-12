@@ -4,7 +4,7 @@ import API_ENDPOINT from '../global/endpoint'
 class APIData {
   static async retrieveUser() {
     try {
-      const response = await fetch('/token')
+      const response = await fetch(API_ENDPOINT.TOKEN)
       let token = await response.json()
       token = await JWTParser(token.response)
       return token
@@ -97,6 +97,15 @@ class APIData {
   static async getAkunSiswa(id) {
     try {
       const response = await fetch(API_ENDPOINT.SISWA.AKUN(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async getTransaksiSiswa(id) {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.TRANSAKSI(id))
       return response.json()
     } catch (err) {
       return {}

@@ -10,7 +10,7 @@ siswaRoutes.use(bodyParser.json())
 siswaRoutes.post('/register', AuthController.register)
 siswaRoutes.post('/login', AuthController.login)
 
-siswaRoutes.use(AuthController.requireAuth)
+// siswaRoutes.use(AuthController.requireAuth)
 
 siswaRoutes.route('/')
   .get(SiswaController.getAllAkunSiswa)

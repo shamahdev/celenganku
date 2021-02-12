@@ -9,7 +9,7 @@ adminRoutes.use(bodyParser.json())
 
 adminRoutes.post('/login', AuthController.adminLogin)
 
-adminRoutes.use(AuthController.requireAuth)
+// adminRoutes.use(AuthController.requireAuth)
 
 adminRoutes.route('/')
   .get(AdminController.getAdmin)

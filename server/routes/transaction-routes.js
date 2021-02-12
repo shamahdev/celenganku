@@ -7,7 +7,7 @@ const transactionRoutes = express.Router()
 
 transactionRoutes.use(bodyParser.json())
 
-transactionRoutes.use(AuthController.requireAuth)
+// transactionRoutes.use(AuthController.requireAuth)
 
 transactionRoutes.route('/:id')
   .get(TransactionController.getTransactionById)

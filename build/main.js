@@ -5355,7 +5355,7 @@ __webpack_require__.r(__webpack_exports__);
 class APIData {
   static async retrieveUser() {
     try {
-      const response = await fetch('/token')
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.TOKEN)
       let token = await response.json()
       token = await (0,_helper_jwtparser__WEBPACK_IMPORTED_MODULE_0__.default)(token.response)
       return token
@@ -5454,6 +5454,15 @@ class APIData {
     }
   }
 
+  static async getTransaksiSiswa(id) {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.TRANSAKSI(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
   static async updateAkunSiswa(id, newData) {
     try {
       const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.AKUN(id), {
@@ -5496,12 +5505,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 const API_ENDPOINT = {
+  TOKEN: 'api/token/',
   SISWA: {
     LIST: 'api/siswa/',
     LIST_DATA: 'api/siswa/data',
     AKUN: (id) => `api/siswa/${id}`,
     DATA: (id) => `api/siswa/${id}/data`,
     PROFIL: (id) => `api/siswa/${id}/profil`,
+    TRANSAKSI: (id) => `api/transaction/nisn/${id}`,
 
   },
   ADMIN: (id) => `api/admin/${id}`,
@@ -7563,7 +7574,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "726d84e48c7eaa761af9"
+/******/ 		__webpack_require__.h = () => "770c5991c2898d033e5e"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
