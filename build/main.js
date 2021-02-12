@@ -49,7 +49,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container {\n  width: 100%;\n}\n\n@media (min-width: 640px) {\n  .container {\n    max-width: 640px;\n  }\n}\n\n@media (min-width: 768px) {\n  .container {\n    max-width: 768px;\n  }\n}\n\n@media (min-width: 1024px) {\n  .container {\n    max-width: 1024px;\n  }\n}\n\n@media (min-width: 1280px) {\n  .container {\n    max-width: 1280px;\n  }\n}\n\n.btn-nav {\n  height: 4rem;\n  width: 4rem;\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n  padding: 0.8rem;\n}\n\n.btn-nav:hover {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.btn-nav.active {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.disabled-option {\n  --bg-opacity: 1 !important;\n  background-color: #cbd5e0 !important;\n  background-color: rgba(203, 213, 224, var(--bg-opacity)) !important;\n  box-shadow: none !important;\n}\n\n.btn-sweetalert {\n  --bg-opacity: 1 !important;\n  background-color: #EB643F !important;\n  background-color: rgba(235, 100, 63, var(--bg-opacity)) !important;\n  --text-opacity: 1 !important;\n  color: #fff !important;\n  color: rgba(255, 255, 255, var(--text-opacity)) !important;\n  margin-left: 0.25rem !important;\n  margin-right: 0.25rem !important;\n  font-weight: 300 !important;\n  padding-top: 0.75rem !important;\n  padding-bottom: 0.75rem !important;\n  padding-left: 1.25rem !important;\n  padding-right: 1.25rem !important;\n  border-radius: 0.5rem !important\n}\n\n.popup-sweetalert {\n  border-radius: 0.5rem !important\n}\n\n@media (min-width: 640px) {\n  .sm\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 640px) and (min-width: 640px) {\n    .sm\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 768px) {\n    .sm\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1024px) {\n    .sm\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1280px) {\n    .sm\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 768px) {\n  .md\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 768px) and (min-width: 640px) {\n    .md\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 768px) {\n    .md\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1024px) {\n    .md\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1280px) {\n    .md\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1024px) {\n  .lg\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1024px) and (min-width: 640px) {\n    .lg\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 768px) {\n    .lg\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1024px) {\n    .lg\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1280px) {\n    .lg\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1280px) {\n  .xl\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1280px) and (min-width: 640px) {\n    .xl\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 768px) {\n    .xl\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1024px) {\n    .xl\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1280px) {\n    .xl\\:container {\n      max-width: 1280px;\n    }\n  }", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/components.css","webpack://./src/styles/components/button.css","<no source>"],"names":[],"mappings":"AAAA;EAAA;AAAoB;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;ACApB;ECAA,aAAA;EAAA,YAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,gDAAA;EDEI,eAAe;AACnB;;AACA;ECJA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADMA;;AACA;ECPA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADSA;;AACA;ECVA,2BAAA;EAAA,qCAAA;EAAA,oEAAA;EAAA,4BAAA;ADYA;;AAEA;ECdA,2BAAA;EAAA,qCAAA;EAAA,mEAAA;EAAA,6BAAA;EAAA,uBAAA;EAAA,2DAAA;EAAA,gCAAA;EAAA,iCAAA;EAAA,4BAAA;EAAA,gCAAA;EAAA,mCAAA;EAAA,iCAAA;EAAA,kCAAA;EAAA;ADiBA;;AACA;EClBA;ADqBA;;ACrBA;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA","sourcesContent":["@tailwind components;\n",".btn-nav {\r\n    @apply h-16 w-16 text-white;\r\n    padding: 0.8rem;\r\n}\r\n.btn-nav:hover {\r\n    @apply bg-white text-black;\r\n}\r\n.btn-nav.active {\r\n    @apply bg-white text-black;\r\n}\r\n.disabled-option {\r\n    @apply bg-gray-400 shadow-none !important;\r\n}\r\n\r\n.btn-sweetalert {\r\n    @apply bg-primary text-white mx-1 font-light py-3 px-5 rounded-lg\r\n    !important\r\n}\r\n.popup-sweetalert {\r\n    @apply rounded-lg\r\n    !important\r\n}\r\n",null],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container {\n  width: 100%;\n}\n\n@media (min-width: 640px) {\n  .container {\n    max-width: 640px;\n  }\n}\n\n@media (min-width: 768px) {\n  .container {\n    max-width: 768px;\n  }\n}\n\n@media (min-width: 1024px) {\n  .container {\n    max-width: 1024px;\n  }\n}\n\n@media (min-width: 1280px) {\n  .container {\n    max-width: 1280px;\n  }\n}\n\n.btn-nav {\n  height: 4rem;\n  width: 4rem;\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n  padding: 0.8rem;\n}\n\n.btn-nav:hover {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.btn-nav.active {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.disabled-option {\n  --bg-opacity: 1 !important;\n  background-color: #cbd5e0 !important;\n  background-color: rgba(203, 213, 224, var(--bg-opacity)) !important;\n  box-shadow: none !important;\n}\n\n.btn-sweetalert {\n  --bg-opacity: 1;\n  background-color: #EB643F;\n  background-color: rgba(235, 100, 63, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n  margin-left: 0.25rem;\n  margin-right: 0.25rem;\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n  padding-left: 2rem;\n  padding-right: 2rem;\n  border-radius: 0.5rem\n}\n\n.popup-sweetalert {\n  border-radius: 0.5rem !important\n}\n\n@media (min-width: 640px) {\n  .sm\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 640px) and (min-width: 640px) {\n    .sm\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 768px) {\n    .sm\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1024px) {\n    .sm\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1280px) {\n    .sm\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 768px) {\n  .md\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 768px) and (min-width: 640px) {\n    .md\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 768px) {\n    .md\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1024px) {\n    .md\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1280px) {\n    .md\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1024px) {\n  .lg\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1024px) and (min-width: 640px) {\n    .lg\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 768px) {\n    .lg\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1024px) {\n    .lg\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1280px) {\n    .lg\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1280px) {\n  .xl\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1280px) and (min-width: 640px) {\n    .xl\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 768px) {\n    .xl\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1024px) {\n    .xl\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1280px) {\n    .xl\\:container {\n      max-width: 1280px;\n    }\n  }", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/components.css","webpack://./src/styles/components/button.css","<no source>"],"names":[],"mappings":"AAAA;EAAA;AAAoB;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;ACApB;ECAA,aAAA;EAAA,YAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,gDAAA;EDEI,eAAe;AACnB;;AACA;ECJA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADMA;;AACA;ECPA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADSA;;AACA;ECVA,2BAAA;EAAA,qCAAA;EAAA,oEAAA;EAAA,4BAAA;ADYA;;AAEA;ECdA,gBAAA;EAAA,0BAAA;EAAA,wDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,gDAAA;EAAA,qBAAA;EAAA,sBAAA;EAAA,qBAAA;EAAA,wBAAA;EAAA,mBAAA;EAAA,oBAAA;EAAA;ADgBA;;AACA;ECjBA;ADoBA;;ACpBA;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA","sourcesContent":["@tailwind components;\n",".btn-nav {\r\n    @apply h-16 w-16 text-white;\r\n    padding: 0.8rem;\r\n}\r\n.btn-nav:hover {\r\n    @apply bg-white text-black;\r\n}\r\n.btn-nav.active {\r\n    @apply bg-white text-black;\r\n}\r\n.disabled-option {\r\n    @apply bg-gray-400 shadow-none !important;\r\n}\r\n\r\n.btn-sweetalert {\r\n    @apply bg-primary text-white mx-1 py-3 px-8 rounded-lg\r\n}\r\n.popup-sweetalert {\r\n    @apply rounded-lg\r\n    !important\r\n}\r\n",null],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5208,7 +5208,7 @@ class Appbar extends HTMLElement {
       links = `
         <a href="#/profile" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit Profil</a>
         <a href="#/help" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Bantuan</a>
-          <a href="/logout" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
+          <a href="api/logout" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
             Keluar
           </a>`
     }
@@ -5218,11 +5218,11 @@ class Appbar extends HTMLElement {
   _render() {
     const name = this._name
     const avatar = this._avatar || `http://ui-avatars.com/api/?name=${name}&background=fff`
-    this.className = `${this._bgColor()} sticky top-0 bg-white rounded-b-lg flex flex-wrap items-center md:rounded-bl-none md:h-16 pt-2 pb-2 md:justify-end`
-    this.innerHTML = `
+    this.className = `${this._bgColor()} z-50 sticky top-0 bg-white rounded-b-lg flex flex-wrap items-center md:rounded-bl-none md:h-16 pt-2 pb-2 md:justify-end`
+    this.innerHTML = /* html */`
           <div class="flex w-full p-4 md:p-0 md:w-auto">
             <div class="flex relative w-10 h-10 justify-center items-center m-1 mr-2 text-xl rounded-full text-white">
-              <img class="rounded-full" src="${avatar}" alt="${name} Photo Profile">
+              <img class="w-10 h-10 rounded-full object-cover" src="${avatar}" alt="${name} Photo Profile">
             </div>
             <div class="flex flex-col leading-tight mt-1 md:text-white px-1">
               <p class="font-light">Halo,</p>
@@ -5316,7 +5316,7 @@ class Sidebar extends HTMLElement {
   }
 
   _render() {
-    this.className = `${this._bgColor()} fixed bottom-0 w-full md:relative md:w-auto md:h-auto md:min-h-screen`
+    this.className = `${this._bgColor()} z-50 fixed bottom-0 w-full md:relative md:w-auto md:h-auto md:min-h-screen`
     this.innerHTML = `
     <div id="navs" class="sticky top-0 flex flex-row justify-evenly md:flex-col">
         <p class="h-16 w-16 p-4 text-white">
@@ -5505,8 +5505,8 @@ const API_ENDPOINT = {
 
   },
   ADMIN: (id) => `api/admin/${id}`,
-  UPLOAD_FILE: '/upload',
-  DELETE_FILE: '/delete',
+  UPLOAD_FILE: 'api/upload',
+  DELETE_FILE: 'api/delete',
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (API_ENDPOINT);
@@ -6716,6 +6716,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+
+
 const Dashboard = {
   async render() {
     return /* html */ `
@@ -6730,9 +6733,14 @@ const Dashboard = {
             class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
               <div class="flex items-center">
-                <div class="text-white flex flex-col flex-1">
+
+                <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
+                  <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                </div>
+
+                <div id="balance-card" class="hidden text-white flex flex-col flex-1">
                   <p class="-mb-2">Saldo</p>
-                  <p class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp 720.000</p>
+                  <p id="bal" class="text-4xl md:text-2xl lg:text-4xl font-bold">Rp</p>
                   <div class="flex flex-row gap-2 mt-4">
                     <a href="#/transaction" class="w-10 h-10 p-1 bg-primaryLight text-primary font-light rounded-lg">
                       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -6753,7 +6761,12 @@ const Dashboard = {
             </div>
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
               <div class="flex items-center">
-                <div class="flex flex-col flex-1">
+
+                <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
+                  <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                </div>
+
+                <div id="deposit-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pemasukan Bulan ini</p>
                   <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
                   <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
@@ -6762,7 +6775,12 @@ const Dashboard = {
             </div>
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-white rounded-lg shadow-lg">
               <div class="flex items-center">
-                <div class="flex flex-col flex-1">
+
+                <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
+                  <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                </div>
+
+                <div id="withdraw-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pengeluaran Bulan ini</p>
                   <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
                   <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
@@ -6772,8 +6790,11 @@ const Dashboard = {
           </div>
           <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
           <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
-            <div class="flex-1 py-0 white rounded-lg">
-              <table class="w-full mb-4">
+            <div class="flex-1 py-0 white rounded-lg mx-auto">
+              <div class="preloader p-4 flex mt-auto mb-auto mx-auto">
+                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+              </div>
+              <table class="hidden w-full mb-4">
                 <tbody>
                   <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
@@ -6861,7 +6882,34 @@ const Dashboard = {
   },
 
   async afterRender() {
-    // Write after render here.
+    // Remove Preloders
+    const preloaders = document.querySelectorAll('.preloader')
+    const balanceCard = document.getElementById('balance-card')
+    const depositCard = document.getElementById('deposit-card')
+    const withdrawCard = document.getElementById('withdraw-card')
+
+    this._ballance = 0
+    this._deposit = 0
+    this._withdraw = 0
+
+    // Fetch Data
+    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.retrieveUser()
+    this._userId = responseData.id
+    const accountData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getAkunSiswa(this._userId)
+    this._ballance = accountData.saldo
+    const transactionData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getTransaksiSiswa(this._userId)
+    console.log(transactionData)
+
+    const balanceText = document.getElementById('bal')
+    balanceText.innerHTML = `Rp ${this._ballance}`
+
+    // Remove Preloaders
+    balanceCard.classList.remove('hidden')
+    depositCard.classList.remove('hidden')
+    withdrawCard.classList.remove('hidden')
+    preloaders.forEach((preloader) => {
+      preloader.remove()
+    })
   },
 }
 
@@ -6881,9 +6929,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
-/* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
 /* eslint-disable max-len */
+
 
 
 
@@ -6904,7 +6955,7 @@ const Profile = {
         <div id="account-form" class="hidden flex flex-col gap-4">
           <div class="p-3 mx-auto mt-4 rounded-lg">
             <div class="flex flex-col w-48 rounded-full text-white">
-              <img id="photo-profile" class="rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="http://ui-avatars.com/api/background=fff&color=fff">
+              <img id="photo-profile" class="object-cover rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="http://ui-avatars.com/api/background=fff&color=fff">
               <div id="change-photo" class="hidden flex flex-row">
               <label for="file-upload" class="p-3 mt-4 mr-1 ml-auto cursor-pointer w-max bg-primary text-white mx-1 rounded-lg disabled:opacity-50">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
@@ -6961,7 +7012,7 @@ const Profile = {
   async afterRender() {
     this._accountInput = ''
     this._profileInput = ''
-    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.retrieveUser()
+    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.retrieveUser()
     this._userId = responseData.id
     const user = await this._getProfileData(responseData.id)
 
@@ -6972,14 +7023,13 @@ const Profile = {
       input.value = user[inputValue]
     })
 
-    console.log(user)
     photoProfile.src = user.url_foto || `http://ui-avatars.com/api/?name=${user.nama}&background=fff`
     this._initialize()
   },
 
   async _initialize() {
     // Remove Preloders
-    const preloders = document.querySelectorAll('.preloader')
+    const preloaders = document.querySelectorAll('.preloader')
     const profileForm = document.getElementById('profile-form')
     const accountForm = document.getElementById('account-form')
 
@@ -7005,6 +7055,8 @@ const Profile = {
     const passwordTemp = password.value
     const nomorTeleponTemp = nomorTelepon.value
 
+    if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
+
     const toggleEditable = (option) => {
       if (option) {
         editButton.classList.add('hidden')
@@ -7027,19 +7079,53 @@ const Profile = {
       })
     })
 
-    confirmButton.addEventListener('click', () => {
-      this._updateProfile(email.value, password.value, nomorTelepon.value, newPhoto, photoProfileTemp)
-      editableForm.forEach((input) => {
-        input.disabled = true
-        toggleEditable(false)
-      })
+    confirmButton.addEventListener('click', async () => {
+      let confirmUpdate = true
+      if (password.value !== passwordTemp) {
+        confirmUpdate = false
+        const result = await sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+          icon: 'warning',
+          text: 'Tekan pilihan untuk mengkonfirmasi',
+          title: 'Apakah benar ingin mengubah password?',
+          showCancelButton: true,
+          confirmButtonText: 'Benar',
+          cancelButtonText: 'Tidak',
+          customClass: {
+            popup: 'popup-sweetalert',
+            confirmButton: 'btn-sweetalert bg-success',
+            cancelButton: 'btn-sweetalert bg-failed',
+          },
+          buttonsStyling: false,
+        })
+
+        if (result.isConfirmed) {
+          confirmUpdate = true
+        }
+      }
+
+      if (confirmUpdate) {
+        this._updateProfile(email.value, password.value, nomorTelepon.value, newPhoto, photoProfileTemp)
+        editableForm.forEach((input) => {
+          input.disabled = true
+          toggleEditable(false)
+        })
+      }
     })
 
     discardButton.addEventListener('click', () => {
+      const elementAlerts = document.querySelectorAll('span[id*="-alert"]')
+      if (elementAlerts.length > 0) {
+        elementAlerts.forEach((element) => {
+          element.remove()
+        })
+      } else if (elementAlerts.length !== 0) {
+        elementAlerts.remove()
+      }
       photoProfile.src = photoProfileTemp
       email.value = emailTemp
       password.value = passwordTemp
       nomorTelepon.value = nomorTeleponTemp
+      if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
 
       editableForm.forEach((input) => {
         input.classList.remove('border-red-500', 'border-opacity-50', 'focus:border-red-500', 'border-green-500', 'border-opacity-50', 'focus:border-green-500')
@@ -7058,14 +7144,16 @@ const Profile = {
         photoProfile.src = e.target.result
       }
       reader.readAsDataURL(newPhoto)
+      deletePhotoButton.disabled = false
     })
 
     deletePhotoButton.addEventListener('click', () => {
       newPhoto = 'default'
       photoProfile.src = `http://ui-avatars.com/api/?name=${emailTemp}&background=fff`
+      deletePhotoButton.disabled = true
     })
 
-    _helper_form_validation__WEBPACK_IMPORTED_MODULE_1__.default.init({
+    _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__.default.init({
       formInputs: editableForm,
       submitButton: confirmButton,
       isEdit: true,
@@ -7074,16 +7162,16 @@ const Profile = {
     // Remove preloader
     profileForm.classList.remove('hidden')
     accountForm.classList.remove('hidden')
-    preloders.forEach((preloader) => {
+    preloaders.forEach((preloader) => {
       preloader.remove()
     })
   },
 
   async _getProfileData(id) {
     const profileDataArray = []
-    profileDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getAkunSiswa(id))
-    profileDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getProfilSiswa(id))
-    profileDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getDataSiswa(id))
+    profileDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getAkunSiswa(id))
+    profileDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getProfilSiswa(id))
+    profileDataArray.push(await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getDataSiswa(id))
 
     const profileData = {}
     profileDataArray.forEach((data) => {
@@ -7098,24 +7186,22 @@ const Profile = {
       email,
       password,
       no_telepon: noTelepon,
+      url_foto: photoProfileTemp,
     }
 
     if (newPhoto !== '') {
       if (photoProfileTemp !== '' && !(photoProfileTemp.includes('ui-avatars.com'))) {
-        const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.deleteFile(photoProfileTemp)
-        console.log(response)
+        await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.deleteFile(photoProfileTemp)
       }
       if (newPhoto === 'default') {
         newData.url_foto = ''
       } else {
-        const photo = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.uploadFile(newPhoto)
-        console.log(photo)
+        const photo = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.uploadFile(newPhoto)
         newData.url_foto = photo.url
       }
     }
 
-    console.log(newData)
-    const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateAkunSiswa(this._userId, newData)
+    const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.updateAkunSiswa(this._userId, newData)
     console.log(response)
   },
 }
@@ -7477,7 +7563,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "99e7e6d96daec752f5cc"
+/******/ 		__webpack_require__.h = () => "726d84e48c7eaa761af9"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

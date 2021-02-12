@@ -8,8 +8,8 @@ const API_ENDPOINT = {
 
   },
   ADMIN: (id) => `api/admin/${id}`,
-  UPLOAD_FILE: '/upload',
-  DELETE_FILE: '/delete',
+  UPLOAD_FILE: 'api/upload',
+  DELETE_FILE: 'api/delete',
 }
 
 export default API_ENDPOINT

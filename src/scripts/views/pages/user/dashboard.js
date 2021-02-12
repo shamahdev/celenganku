@@ -173,12 +173,13 @@ const Dashboard = {
     this._deposit = 0
     this._withdraw = 0
 
+    // Fetch Data
     const responseData = await APIData.retrieveUser()
     this._userId = responseData.id
-
     const accountData = await APIData.getAkunSiswa(this._userId)
-    console.log(accountData.saldo)
     this._ballance = accountData.saldo
+    const transactionData = await APIData.getTransaksiSiswa(this._userId)
+    console.log(transactionData)
 
     const balanceText = document.getElementById('bal')
     balanceText.innerHTML = `Rp ${this._ballance}`

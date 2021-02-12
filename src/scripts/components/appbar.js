@@ -56,7 +56,7 @@ class Appbar extends HTMLElement {
       links = `
         <a href="#/profile" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit Profil</a>
         <a href="#/help" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Bantuan</a>
-          <a href="/logout" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
+          <a href="api/logout" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
             Keluar
           </a>`
     }
@@ -67,10 +67,10 @@ class Appbar extends HTMLElement {
     const name = this._name
     const avatar = this._avatar || `http://ui-avatars.com/api/?name=${name}&background=fff`
     this.className = `${this._bgColor()} z-50 sticky top-0 bg-white rounded-b-lg flex flex-wrap items-center md:rounded-bl-none md:h-16 pt-2 pb-2 md:justify-end`
-    this.innerHTML = `
+    this.innerHTML = /* html */`
           <div class="flex w-full p-4 md:p-0 md:w-auto">
             <div class="flex relative w-10 h-10 justify-center items-center m-1 mr-2 text-xl rounded-full text-white">
-              <img class="rounded-full object-cover" src="${avatar}" alt="${name} Photo Profile">
+              <img class="w-10 h-10 rounded-full object-cover" src="${avatar}" alt="${name} Photo Profile">
             </div>
             <div class="flex flex-col leading-tight mt-1 md:text-white px-1">
               <p class="font-light">Halo,</p>
