@@ -6888,49 +6888,51 @@ const Dashboard = {
     console.log(transactionData)
 
     const transactionTemplate = (transaction) => {
-      for (const [key, value] of Object.entries(transaction)) {
-        if ((typeof key === 'object')) {
-          key.toDateString()
-          try {
-            console.log(`${key}: ${value.toUpperCase()}`)
-          } catch (err) {
-            console.log(key)
-          }
-        } else if (key === 'nominal') {
-          value = _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(value)
-        } else {
-          console.log(`${key}: ${value.toUpperCase()}`)
-        }
-      }
+      // for (const [key, value] of Object.entries(transaction)) {
+      //   if ((typeof key === 'object')) {
+      //     key.toDateString()
+      //     try {
+      //       console.log(`${key}: ${value.toUpperCase()}`)
+      //     } catch (err) {
+      //       console.log(key)
+      //     }
+      //   } else if (key === 'nominal') {
+      //     value = StringFormater.convertToCashFormat(value)
+      //   } else {
+      //     console.log(`${key}: ${value.toUpperCase()}`)
+      //   }
+      // }
 
       Object.keys(transaction).forEach((key) => {
-        if ((typeof key === 'object')) {
-          transaction[key].toDateString()
+        if (typeof transaction[key] === 'object') {
+          console.log(new Date(transaction[key].seconds * 1000))
         } else if (key === 'nominal') {
           transaction[key] = _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(transaction[key])
         } else {
-          transaction[key].toUpperCase()
+          transaction[key] = transaction[key].toString().toUpperCase()
         }
       })
 
-      const timeStamp = transaction.tenggat_waktu_pembayaran
-      console.log(timeStamp)
+      console.log(transaction)
+
+      const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
       const jenisTransaksi = transaction.jenis_transaksi
+      const transactionDate = timeStamp.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
 
       // Classes
       const nominalColor = () => {
-        if (jenisTransaksi === 'pemasukan') return 'text-success'
+        if (jenisTransaksi.toLowerCase() === 'pemasukan') return 'text-success'
         return 'text-failed'
       }
 
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-      <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${timeStamp}</td>
+      <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
       <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
       <td class="bg-white">
-        <p class="text-sm ${nominalColor(jenisTransaksi)} text-white py-2 px-3 rounded-lg w-max">${transaction.status_transaksi}</p>
+        <p class="text-sm bg-primary text-white py-2 px-3 rounded-lg w-max">${transaction.status_transaksi}</p>
       </td>
       <td class="bg-white rounded-r-lg justify-end flex p-3">
         <button class="p-2 w-12 h-12 text-gray-700" id="settings">
@@ -7617,7 +7619,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "52c4674253ee524630e9"
+/******/ 		__webpack_require__.h = () => "a383ba944cc031159c1c"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import StringFormater from '../../../helper/string-formater'
+import DateFormater from '../../../helper/date-formater'
 import APIData from '../../../data/api-data'
 
 const Dashboard = {
@@ -77,7 +78,7 @@ const Dashboard = {
               <div class="preloader p-4 flex mt-auto mb-auto mx-auto">
                 <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
               </div>
-              <table id="transaction-table" class="w-full mb-4">
+              <table id="transaction-table" class="table-auto w-full mb-4">
                 <tbody>
                 <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
@@ -129,7 +130,7 @@ const Dashboard = {
     const tableElement = document.getElementById('transaction-table')
     const tableBody = tableElement.querySelector('tbody')
     const transactionData = await APIData.getTransaksiSiswa(this._userId)
-    console.log(transactionData)
+    // console.log(transactionData)
 
     const transactionTemplate = (transaction) => {
       // for (const [key, value] of Object.entries(transaction)) {
@@ -149,7 +150,7 @@ const Dashboard = {
 
       Object.keys(transaction).forEach((key) => {
         if (typeof transaction[key] === 'object') {
-          console.log(new Date(transaction[key].seconds * 1000))
+          // console.log(new Date(transaction[key].seconds * 1000))
         } else if (key === 'nominal') {
           transaction[key] = StringFormater.convertToCashFormat(transaction[key])
         } else {
@@ -157,28 +158,49 @@ const Dashboard = {
         }
       })
 
-      console.log(transaction)
+      // console.log(transaction)
 
       const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
       const jenisTransaksi = transaction.jenis_transaksi
       const transactionDate = timeStamp.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+      const transactionDateMini = timeStamp.toLocaleDateString('id-ID')
 
       // Classes
-      const nominalColor = () => {
-        if (jenisTransaksi.toLowerCase() === 'pemasukan') return 'text-success'
+      const nominalColor = (jenis) => {
+        if (jenis.toLowerCase() === 'pemasukan') return 'text-success'
         return 'text-failed'
       }
 
+      const statusColor = (status) => {
+        if (status.toLowerCase() === 'selesai') return 'bg-primary text-white'
+        return 'bg-primaryDisable text-primary'
+      }
+
+      if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+        setInterval(() => {
+          const {
+            distance, hours, minutes, seconds,
+          } = DateFormater.getTimeCounter(timeStamp)
+          const counterText = `${hours}j ${minutes}m ${seconds}d`
+          const counterReminder = `Silahkan lakukan pembayaran sebelum <br><b>${counterText}</b>`
+          const reminderElement = document.getElementById('reminder-element')
+          reminderElement.innerHTML = counterReminder
+          console.log(distance)
+        }, 1000)
+      }
+
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-      <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
+      <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
+      <td class="table-cell md:hidden p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
       <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
       <td class="bg-white">
-        <p class="text-sm bg-primary text-white py-2 px-3 rounded-lg w-max">${transaction.status_transaksi}</p>
+        <p class="hidden sm:table-cell text-sm ${statusColor(transaction.status_transaksi)} py-2 px-3 rounded-lg w-max">${transaction.status_transaksi}</p>
+        <p class="table-cell sm:hidden text-sm ${statusColor(transaction.status_transaksi)} py-2 px-3 rounded-lg w-max">0</p>
       </td>
-      <td class="bg-white rounded-r-lg justify-end flex p-3">
+      <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
         <button class="p-2 w-12 h-12 text-gray-700" id="settings">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -189,6 +211,7 @@ const Dashboard = {
         <div id="settings-dropdown"
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+          <p class='p-4 text-sm font-normal' id="reminder-element"></p>
             <a href="#/profile"
               class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               role="menuitem">
@@ -207,7 +230,6 @@ const Dashboard = {
     }
 
     transactionData.data.forEach((transaction) => {
-      console.log('loop')
       tableBody.innerHTML += transactionTemplate(transaction)
     })
   },
