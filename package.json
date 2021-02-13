@@ -37,6 +37,7 @@
     "helmet": "^4.4.1",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "multer": "^1.4.2",
     "nodemon-webpack-plugin": "^4.4.4",
     "particlesjs": "^2.2.3",

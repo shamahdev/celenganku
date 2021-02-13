@@ -10,7 +10,7 @@ import { db, storage } from '../global/firebase'
 global.XMLHttpRequest = require('xhr2')
 
 dotenv.config()
-const maxAge = 3 * 24 * 60 * 60
+const maxAge = 30 * 24 * 60 * 60
 const Admin = db.collection('akun_admin')
 const createToken = (id) => {
   let role = 'user'
@@ -37,13 +37,13 @@ const AuthController = {
       jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
         if (err) {
           console.log(err.message)
-          res.redirect('/login')
+          res.redirect('/api/logout')
         } else {
           next()
         }
       })
     } else {
-      res.redirect('/login')
+      res.redirect('/api/logout')
     }
   },
 

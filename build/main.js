@@ -5739,6 +5739,31 @@ const JWTParser = (token) => {
 
 /***/ }),
 
+/***/ "./src/scripts/helper/string-formater.js":
+/*!***********************************************!*\
+  !*** ./src/scripts/helper/string-formater.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+const StringFormater = {
+  convertToCashFormat: (string) => {
+    const reverse = string.toString().split('').reverse().join('')
+    let cash = reverse.match(/\d{1,3}/g)
+    cash = cash.join('.').split('').reverse().join('')
+
+    return cash
+  },
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StringFormater);
+
+
+/***/ }),
+
 /***/ "./src/scripts/index.js":
 /*!******************************!*\
   !*** ./src/scripts/index.js ***!
@@ -6727,7 +6752,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helper/string-formater */ "./src/scripts/helper/string-formater.js");
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* eslint-disable no-restricted-syntax */
+
 
 
 const Dashboard = {
@@ -6801,13 +6829,13 @@ const Dashboard = {
           </div>
           <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
           <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
-            <div class="flex-1 py-0 white rounded-lg mx-auto">
+            <div class="flex-1 py-0 white rounded-lg">
               <div class="preloader p-4 flex mt-auto mb-auto mx-auto">
                 <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
               </div>
-              <table class="hidden w-full mb-4">
+              <table id="transaction-table" class="w-full mb-4">
                 <tbody>
-                  <tr class="text-left text-gray-700">
+                <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
                     <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
                     <th class="font-normal pb-5 pt-0">Nominal</th>
@@ -6815,75 +6843,6 @@ const Dashboard = {
                     <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
                     <th class="font-normal pb-5 pt-0">Status</th>
                     <th class="font-normal pb-5 pt-0 justify-end"></th>
-                  </tr>
-                  <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-                    <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
-                    <td class="bg-white hidden lg:table-cell">TWL2277972</td>
-                    <td class="bg-white text-failed">RP 80.000</td>
-                    <td class="bg-white hidden lg:table-cell">ADMIN</td>
-                    <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
-                    <td class="bg-white">
-                      <p class="text-sm bg-primaryDisable text-primary py-2 px-3 rounded-lg w-max">PEMBAYARAN</p>
-                    </td>
-                    <td class="bg-white rounded-r-lg justify-end flex p-3">
-                      <button class="p-2 w-12 h-12 text-gray-700" id="settings">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                          </path>
-                        </svg>
-                      </button>
-                      <div id="settings-dropdown"
-                        class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                          <a href="#/profile"
-                            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                            role="menuitem">
-                            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                              </svg></i>
-                            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
-                          </a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="h-4"></tr>
-                  <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-                    <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
-                    <td class="bg-white hidden lg:table-cell">TDD2884125</td>
-                    <td class="bg-white text-success">RP 80.0000</td>
-                    <td class="bg-white hidden lg:table-cell">GOPAY</td>
-                    <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
-                    <td class="bg-white">
-                      <p class="text-sm bg-primary text-white py-2 px-3 rounded-lg w-max">SELESAI</p>
-                    </td>
-                    <td class="bg-white rounded-r-lg justify-end flex p-3">
-                      <button class="p-2 w-12 h-12 text-gray-700" id="settings">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                          </path>
-                        </svg>
-                      </button>
-                      <div id="settings-dropdown"
-                        class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                          <a href="#/profile"
-                            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                            role="menuitem">
-                            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                              </svg></i>
-                            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
-                          </a>
-                        </div>
-                      </div>
-                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -6904,22 +6863,106 @@ const Dashboard = {
     this._withdraw = 0
 
     // Fetch Data
-    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.retrieveUser()
+    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.retrieveUser()
     this._userId = responseData.id
-    const accountData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getAkunSiswa(this._userId)
+    const accountData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getAkunSiswa(this._userId)
     this._ballance = accountData.saldo
-    const transactionData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getTransaksiSiswa(this._userId)
-    console.log(transactionData)
 
     const balanceText = document.getElementById('bal')
     balanceText.innerHTML = `Rp ${this._ballance}`
 
+    await this._renderTable()
     // Remove Preloaders
     balanceCard.classList.remove('hidden')
     depositCard.classList.remove('hidden')
     withdrawCard.classList.remove('hidden')
     preloaders.forEach((preloader) => {
       preloader.remove()
+    })
+  },
+
+  async _renderTable() {
+    const tableElement = document.getElementById('transaction-table')
+    const tableBody = tableElement.querySelector('tbody')
+    const transactionData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getTransaksiSiswa(this._userId)
+    console.log(transactionData)
+
+    const transactionTemplate = (transaction) => {
+      for (const [key, value] of Object.entries(transaction)) {
+        if ((typeof key === 'object')) {
+          key.toDateString()
+          try {
+            console.log(`${key}: ${value.toUpperCase()}`)
+          } catch (err) {
+            console.log(key)
+          }
+        } else if (key === 'nominal') {
+          value = _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(value)
+        } else {
+          console.log(`${key}: ${value.toUpperCase()}`)
+        }
+      }
+
+      Object.keys(transaction).forEach((key) => {
+        if ((typeof key === 'object')) {
+          transaction[key].toDateString()
+        } else if (key === 'nominal') {
+          transaction[key] = _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(transaction[key])
+        } else {
+          transaction[key].toUpperCase()
+        }
+      })
+
+      const timeStamp = transaction.tenggat_waktu_pembayaran
+      console.log(timeStamp)
+      const jenisTransaksi = transaction.jenis_transaksi
+
+      // Classes
+      const nominalColor = () => {
+        if (jenisTransaksi === 'pemasukan') return 'text-success'
+        return 'text-failed'
+      }
+
+      return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
+      <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${timeStamp}</td>
+      <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
+      <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
+      <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
+      <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
+      <td class="bg-white">
+        <p class="text-sm ${nominalColor(jenisTransaksi)} text-white py-2 px-3 rounded-lg w-max">${transaction.status_transaksi}</p>
+      </td>
+      <td class="bg-white rounded-r-lg justify-end flex p-3">
+        <button class="p-2 w-12 h-12 text-gray-700" id="settings">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+            </path>
+          </svg>
+        </button>
+        <div id="settings-dropdown"
+          class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <a href="#/profile"
+              class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem">
+              <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg></i>
+              <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
+            </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr class="h-4"></tr>`
+    }
+
+    transactionData.data.forEach((transaction) => {
+      console.log('loop')
+      tableBody.innerHTML += transactionTemplate(transaction)
     })
   },
 }
@@ -7574,7 +7617,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "770c5991c2898d033e5e"
+/******/ 		__webpack_require__.h = () => "52c4674253ee524630e9"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
