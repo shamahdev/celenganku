@@ -5525,6 +5525,39 @@ const API_ENDPOINT = {
 
 /***/ }),
 
+/***/ "./src/scripts/helper/date-formater.js":
+/*!*********************************************!*\
+  !*** ./src/scripts/helper/date-formater.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+const DateFormater = {
+  getTimeCounter: (date) => {
+    const now = new Date().getTime()
+
+    // Find the distance between now and the count down date
+    const distance = date - now
+
+    // Time calculations for days, hours, minutes and seconds
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+    return {
+      distance, hours, minutes, seconds,
+    }
+  },
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DateFormater);
+
+
+/***/ }),
+
 /***/ "./src/scripts/helper/form-validation.js":
 /*!***********************************************!*\
   !*** ./src/scripts/helper/form-validation.js ***!
@@ -6753,8 +6786,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helper/string-formater */ "./src/scripts/helper/string-formater.js");
-/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
 /* eslint-disable no-restricted-syntax */
+
 
 
 
@@ -6833,7 +6868,7 @@ const Dashboard = {
               <div class="preloader p-4 flex mt-auto mb-auto mx-auto">
                 <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
               </div>
-              <table id="transaction-table" class="w-full mb-4">
+              <table id="transaction-table" class="table-auto w-full mb-4">
                 <tbody>
                 <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
@@ -6863,13 +6898,13 @@ const Dashboard = {
     this._withdraw = 0
 
     // Fetch Data
-    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.retrieveUser()
+    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_2__.default.retrieveUser()
     this._userId = responseData.id
-    const accountData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getAkunSiswa(this._userId)
+    const accountData = await _data_api_data__WEBPACK_IMPORTED_MODULE_2__.default.getAkunSiswa(this._userId)
     this._ballance = accountData.saldo
 
     const balanceText = document.getElementById('bal')
-    balanceText.innerHTML = `Rp ${this._ballance}`
+    balanceText.innerHTML = `Rp ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(this._ballance)}`
 
     await this._renderTable()
     // Remove Preloaders
@@ -6884,28 +6919,12 @@ const Dashboard = {
   async _renderTable() {
     const tableElement = document.getElementById('transaction-table')
     const tableBody = tableElement.querySelector('tbody')
-    const transactionData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getTransaksiSiswa(this._userId)
-    console.log(transactionData)
+    const transactionData = await _data_api_data__WEBPACK_IMPORTED_MODULE_2__.default.getTransaksiSiswa(this._userId)
 
     const transactionTemplate = (transaction) => {
-      // for (const [key, value] of Object.entries(transaction)) {
-      //   if ((typeof key === 'object')) {
-      //     key.toDateString()
-      //     try {
-      //       console.log(`${key}: ${value.toUpperCase()}`)
-      //     } catch (err) {
-      //       console.log(key)
-      //     }
-      //   } else if (key === 'nominal') {
-      //     value = StringFormater.convertToCashFormat(value)
-      //   } else {
-      //     console.log(`${key}: ${value.toUpperCase()}`)
-      //   }
-      // }
-
       Object.keys(transaction).forEach((key) => {
         if (typeof transaction[key] === 'object') {
-          console.log(new Date(transaction[key].seconds * 1000))
+          //
         } else if (key === 'nominal') {
           transaction[key] = _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(transaction[key])
         } else {
@@ -6913,29 +6932,86 @@ const Dashboard = {
         }
       })
 
-      console.log(transaction)
-
       const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
       const jenisTransaksi = transaction.jenis_transaksi
-      const transactionDate = timeStamp.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+      const timeCreated = new Date()
+      timeCreated.setDate(timeStamp.getDate() - 1)
+      const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+      const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
 
       // Classes
-      const nominalColor = () => {
-        if (jenisTransaksi.toLowerCase() === 'pemasukan') return 'text-success'
+      const nominalColor = (jenis) => {
+        if (jenis.toLowerCase() === 'pemasukan') return 'text-success'
         return 'text-failed'
       }
 
+      const statusColor = (status) => {
+        if (status.toLowerCase() === 'selesai') return 'bg-primary text-white'
+        return 'bg-primaryDisable text-primary'
+      }
+
+      const renderStatusIcon = (status) => {
+        if (status.toLowerCase() === 'selesai') return 'M5 13l4 4L19 7'
+        return 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+      }
+
+      const getStatusAction = (status) => {
+        if (status.toLowerCase() === 'selesai') {
+          return `
+          <a href="#/profile"
+            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg></i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
+          </a>`
+        }
+        return `
+          <a href="#/profile"
+            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg></i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Batalkan Transaksi</p>
+          </a>`
+      }
+
+      if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+        setInterval(() => {
+          const {
+            distance, hours, minutes,
+          } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_1__.default.getTimeCounter(timeStamp)
+          const counterText = `${hours} jam ${minutes} menit`
+          const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
+          const reminderElement = document.getElementById('reminder-element')
+          reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
+          reminderElement.innerHTML = counterReminder
+
+          if (distance < 0) console.log('telat bang')
+        }, 1000)
+      }
+
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-      <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
+      <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
+      <td class="table-cell md:hidden p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
       <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
       <td class="bg-white">
-        <p class="text-sm bg-primary text-white py-2 px-3 rounded-lg w-max">${transaction.status_transaksi}</p>
+        <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} py-2 px-2 rounded-lg w-max">
+        <p class="hidden md:inline">${transaction.status_transaksi}</p>
+        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
+        </div>
       </td>
-      <td class="bg-white rounded-r-lg justify-end flex p-3">
-        <button class="p-2 w-12 h-12 text-gray-700" id="settings">
+      <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
+        <button class="w-8 md:p-2 md:w-12 h-12 text-gray-700" id="settings">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
@@ -6945,16 +7021,8 @@ const Dashboard = {
         <div id="settings-dropdown"
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-            <a href="#/profile"
-              class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem">
-              <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
-                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                </svg></i>
-              <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
-            </a>
+          <p id="reminder-element"></p>
+            ${getStatusAction(transaction.status_transaksi)}
           </div>
         </div>
       </td>
@@ -6963,7 +7031,6 @@ const Dashboard = {
     }
 
     transactionData.data.forEach((transaction) => {
-      console.log('loop')
       tableBody.innerHTML += transactionTemplate(transaction)
     })
   },
@@ -7619,7 +7686,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "a383ba944cc031159c1c"
+/******/ 		__webpack_require__.h = () => "17b0645b6a2a5bfa1435"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
