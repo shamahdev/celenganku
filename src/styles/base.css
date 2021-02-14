@@ -24,6 +24,6 @@ input, textarea {
 }
 
 textarea:focus, input:focus {   
-  border-color: #ff964be7;
+  border-color: #EB643F;
     outline: 0 none;
 }

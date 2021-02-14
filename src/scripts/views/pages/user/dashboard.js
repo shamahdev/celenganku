@@ -6,15 +6,15 @@ import APIData from '../../../data/api-data'
 const Dashboard = {
   async render() {
     return /* html */ `
-        <div class="hidden md:block text-center">
+        <div class="text-center">
           <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
-            Celengan Shaddam Amru
+            Celenganku
           </p>
         </div>
 
         <div class="flex flex-col">
           <div
-            class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
+            class="bg-gray-200 gap-4 p-5 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
               <div class="flex items-center">
 
@@ -52,8 +52,8 @@ const Dashboard = {
 
                 <div id="deposit-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pemasukan Bulan ini</p>
-                  <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
-                  <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                  <p id="monthly-withdraw" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
+                  <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
                 </div>
               </div>
             </div>
@@ -66,19 +66,16 @@ const Dashboard = {
 
                 <div id="withdraw-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pengeluaran Bulan ini</p>
-                  <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
-                  <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                  <p id="monthly-deposit" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
+                  <p id="weekly-deposit" class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
                 </div>
               </div>
             </div>
           </div>
           <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
-          <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
+          <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-6 md:p-8">
             <div class="flex-1 py-0 white rounded-lg">
-              <div class="preloader p-4 flex mt-auto mb-auto mx-auto">
-                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
-              </div>
-              <table id="transaction-table" class="table-auto w-full mb-4">
+              <table id="transaction-table" class="table-auto w-full">
                 <tbody>
                 <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
@@ -91,6 +88,9 @@ const Dashboard = {
                   </tr>
                 </tbody>
               </table>
+              <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
+                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+              </div>
             </div>
           </div>
       `
@@ -105,7 +105,9 @@ const Dashboard = {
 
     this._ballance = 0
     this._deposit = 0
+    this._weeklyDeposit = 0
     this._withdraw = 0
+    this._weeklyWithdraw = 0
 
     // Fetch Data
     const responseData = await APIData.retrieveUser()
@@ -114,9 +116,19 @@ const Dashboard = {
     this._ballance = accountData.saldo
 
     const balanceText = document.getElementById('bal')
+    const withdrawText = document.getElementById('monthly-withdraw')
+    const weekWithdrawText = document.getElementById('weekly-withdraw')
+    const depositText = document.getElementById('monthly-deposit')
+    const weekDepositText = document.getElementById('weekly-deposit')
     balanceText.innerHTML = `Rp ${StringFormater.convertToCashFormat(this._ballance)}`
 
     await this._renderTable()
+    // Render Cards
+    withdrawText.innerHTML = `Rp ${StringFormater.convertToCashFormat(this._withdraw)}`
+    weekWithdrawText.innerHTML = `RP ${StringFormater.convertToCashFormat(this._weeklyWithdraw)} MINGGU INI`
+    depositText.innerHTML = `Rp ${StringFormater.convertToCashFormat(this._deposit)}`
+    weekDepositText.innerHTML = `RP ${StringFormater.convertToCashFormat(this._weeklyDeposit)} MINGGU INI`
+
     // Remove Preloaders
     balanceCard.classList.remove('hidden')
     depositCard.classList.remove('hidden')
@@ -148,6 +160,20 @@ const Dashboard = {
       timeCreated.setDate(timeStamp.getDate() - 1)
       const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
       const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
+
+      if (timeCreated.getMonth() === new Date().getMonth()) {
+        if (jenisTransaksi.toLowerCase() === 'pemasukan') {
+          this._withdraw += StringFormater.convertCasttoInt(transaction.nominal)
+          if (DateFormater.isDateInThisWeek(timeCreated.getMonth())) {
+            this._weeklyWithdraw += StringFormater.convertCasttoInt(transaction.nominal)
+          }
+        } else {
+          this._deposit += StringFormater.convertCasttoInt(transaction.nominal)
+          if (DateFormater.isDateInThisWeek(timeCreated.getMonth())) {
+            this._weeklyDeposit += StringFormater.convertCasttoInt(transaction.nominal)
+          }
+        }
+      }
 
       // Classes
       const nominalColor = (jenis) => {
@@ -194,16 +220,20 @@ const Dashboard = {
 
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
         setInterval(() => {
-          const {
-            distance, hours, minutes,
-          } = DateFormater.getTimeCounter(timeStamp)
-          const counterText = `${hours} jam ${minutes} menit`
-          const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
-          const reminderElement = document.getElementById('reminder-element')
-          reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
-          reminderElement.innerHTML = counterReminder
+          try {
+            const {
+              distance, hours, minutes,
+            } = DateFormater.getTimeCounter(timeStamp)
+            const counterText = `${hours} jam ${minutes} menit`
+            const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
+            const reminderElement = document.getElementById('reminder-element')
+            reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
+            reminderElement.innerHTML = counterReminder
 
-          if (distance < 0) console.log('telat bang')
+          // if (distance < 0) console.log('telat bang')
+          } catch (error) {
+            // console.log('')
+          }
         }, 1000)
       }
 
@@ -215,9 +245,9 @@ const Dashboard = {
       <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
       <td class="bg-white">
-        <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} py-2 px-2 rounded-lg w-max">
+        <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} p-1 md:py-2 md:px-6 rounded-lg w-max">
         <p class="hidden md:inline">${transaction.status_transaksi}</p>
-        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
+        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
         </div>
       </td>
       <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">

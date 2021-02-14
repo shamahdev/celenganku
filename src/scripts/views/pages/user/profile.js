@@ -6,19 +6,19 @@ import formValidation from '../../../helper/form-validation'
 const Profile = {
   async render() {
     return /* html */`
-    <div class="hidden md:block text-center">
+    <div class="text-center">
     <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
       Profil Saya
     </p>
   </div>
   <div class="flex flex-col lg:flex-row">
-    <div class="p-4 rounded-lg flex flex-row  md:flex-col flex-1 mt-4">
-      <div class="bg-gray-200 flex flex-col py-0 white rounded-lg p-4">
+    <div class="p-5 rounded-lg flex flex-row md:flex-col flex-1 md:mt-4">
+      <div class="bg-gray-200 p-5 md:p-8 flex flex-1 flex-col white rounded-lg">
       <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
         <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
         </div>
         <div id="account-form" class="hidden flex flex-col gap-4">
-          <div class="p-3 mx-auto mt-4 rounded-lg">
+          <div class="mx-auto mt-4 rounded-lg">
             <div class="flex flex-col w-48 rounded-full text-white">
               <img id="photo-profile" class="object-cover rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="http://ui-avatars.com/api/background=fff&color=fff">
               <div id="change-photo" class="hidden flex flex-row">
@@ -32,34 +32,34 @@ const Profile = {
               </div>
             </div>
           </div>
-          <div class="flex-1 p-5 pt-0 rounded-lg w-full">
-        <div class="pb-4">
+          <div class="flex-1 pt-0 rounded-lg w-full">
+        <div class="">
         <p class="mb-2">NISN</p>
         <input id="input-nisn" name="NISN" disabled value="" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500">
         <p class="mb-2 mt-4">Email</p>
         <input id="input-email" name="Email" disabled value="" type="email" data-rule="required no-space email" class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
-        <p class="mb-2 mt-4">Password</p>
+        <p class="mt-4">Password</p>
         <input id="input-password" name="Password" disabled value="" type="password" data-rule="required no-space" class="editable block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
         </div>
     </div>
       </div>
     </div>
     </div>
-    <div class="p-4 rounded-lg flex flex-col flex-1 md:mt-4">
+    <div class="p-5 rounded-lg flex flex-col flex-1 md:mt-4">
     <p class="mb-4 text-lg text-center md:text-left">Informasi Siswa</p>
-      <div class="bg-gray-200 p-4 flex-col py-0 white rounded-lg">
+      <div class="bg-gray-200 p-5 md:p-8 flex-col white rounded-lg">
       <div class="preloader justify-center p-4 flex mt-auto mb-auto ml-auto mr-auto">
         <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
         </div>
-        <div id="profile-form" class="hidden flex flex-col gap-4">
-          <div class="flex-1 p-5 rounded-lg w-full">
+        <div id="profile-form" class="hidden flex flex-col">
+          <div class="flex-1 rounded-lg w-full">
             <div class="">
-              <p class="mb-2 mt-4">Nama Lengkap</p>
+              <p class="mb-2">Nama Lengkap</p>
               <input id="input-nama" name="Nama" disabled value="" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
               <p class="mb-2 mt-4">Alamat</p>
               <textarea id="input-alamat" name="Alamat" rows="4" type="text" class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500" disabled></textarea>
               <p class="mb-2 mt-4">Nomor Telepon</p>
-              <input id="input-no_telepon" name="Nomer Telepon" data-rule="required no-space" value="" type="number" class="editable mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+              <input id="input-no_telepon" name="Nomer Telepon" data-rule="required no-space" value="" type="number" class="editable text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
             </div>
           </div>
         </div>

@@ -6,5 +6,11 @@ const StringFormater = {
 
     return cash
   },
+  convertCasttoInt: (cash) => {
+    let integer = cash.replace('.', '')
+    // eslint-disable-next-line radix
+    integer = +integer
+    return integer
+  },
 }
 export default StringFormater
