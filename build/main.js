@@ -5349,6 +5349,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _helper_jwtparser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/jwtparser */ "./src/scripts/helper/jwtparser.js");
 /* harmony import */ var _global_endpoint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../global/endpoint */ "./src/scripts/global/endpoint.js");
+/* eslint-disable quote-props */
 
 
 
@@ -5366,6 +5367,25 @@ class APIData {
         error: true,
         message: error,
       }
+    }
+  }
+
+  static async getMidtransToken(transactionDetails) {
+    try {
+      const SERVER_KEY = 'SB-Mid-server-XmFoI8_j9MpEyaNvbE1-sQiN:'
+      const AUTH_STRING = btoa(SERVER_KEY)
+
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.MIDTRANS, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${AUTH_STRING}`,
+        },
+        body: JSON.stringify(transactionDetails),
+      })
+      return response.json()
+    } catch (err) {
+      return err
     }
   }
 
@@ -5506,6 +5526,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const API_ENDPOINT = {
   TOKEN: 'api/token/',
+  MIDTRANS: 'https://cors-anywhere.herokuapp.com/https://app.sandbox.midtrans.com/snap/v1/transactions',
   SISWA: {
     LIST: 'api/siswa/',
     LIST_DATA: 'api/siswa/data',
@@ -7783,9 +7804,44 @@ const Transaction = {
     })
 
     nextButton.addEventListener('click', () => {
-      if (this._paymentOption === 'luring') this._initPayMethodForm()
-      else console.log('dery')
+      if (this._paymentOption === 'luring') this._adminPaymentInit()
+      else this._midtransPaymentInit()
     })
+  },
+
+  async _midtransPaymentInit() {
+    const data = {
+      transaction_details: {
+        order_id: `${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)}`,
+        gross_amount: 10000,
+      },
+      callbacks: {
+        finish: '/',
+      },
+    }
+    const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getMidtransToken(data)
+    console.log(response)
+    // eslint-disable-next-line no-undef
+    snap.pay(response.token, {
+      onSuccess: (result) => {
+        /* You may add your own implementation here */
+        alert('payment success!'); console.log(result)
+      },
+      onPending(result) {
+        /* You may add your own implementation here */
+        alert('wating your payment!'); console.log(result)
+      },
+      onError(result) {
+        /* You may add your own implementation here */
+        alert('payment failed!'); console.log(result)
+      },
+      onClose() {
+        /* You may add your own implementation here */
+        alert('you closed the popup without finishing the payment')
+      },
+    })
+    window.location.search = ''
+    window.location.hash = '#/transaction'
   },
 
   _selectTransactionOption(optionButton, optionId) {
@@ -7799,39 +7855,15 @@ const Transaction = {
     this._transactionOption = optionId.replace('-option', '')
   },
 
-  _initPayMethodForm() {
+  _adminPaymentInit() {
     _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_1__.default.init({
-      title: 'Metode Pembayaran',
+      title: 'Kode Transaksi',
       content:
         `<div class="px-6 py-4">
-          <p class="my-2">Nominal</p>
-          <input disabled value="180000" type="number" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
-          <p class="my-2">Pilih Metode Pembayaran</p>
-          <div class='flex flex-col'>
-            <button class="flex-1 my-2 bg-primary rounded-lg shadow-blue">
-              <div class="flex items-center">
-                <div class="text-white flex flex-col flex-1">
-                  <p class="p-5 absolute">Admin</p>
-                  <img class="w-10/12 ml-auto" src="./images/payment-method-admin.png" alt="Admin 3D Ilustration">
-                </div>
-              </div>
-            </button>
-            <button class="flex-1 my-2 bg-white rounded-lg shadow-lg">
-              <div class="flex items-center">
-                <div class="flex flex-col flex-1">
-                  <p class="p-5 absolute">Gopay</p>
-                  <img class="w-10/12 ml-auto" src="./images/payment-method-gopay.png" alt="Admin 3D Ilustration">
-                </div>
-              </div>
-            </button>
-            <button class="flex-1 my-2 bg-blue-500 rounded-lg shadow-blue">
-              <div class="flex items-center">
-                <div class="text-white flex flex-col flex-1">
-                  <p class="p-5 absolute">Bank</p>
-                  <img class="w-10/12 ml-auto" src="./images/payment-method-bank.png" alt="Admin 3D Ilustration">
-                </div>
-              </div>
-            </button>
+          <p class="my-2">Kode Transaksi kamu adalah</p>
+          <p class="my-2 text-2xl">TWL2277972</p>
+          <p class="mt-4 text-gray-500">Silahkan lakukan pembayaran dengan cara menghubungi Admin/TU Sekolahmu sebelum automatis dibatalkan dalam</p>
+          <p class="mt-4 text-primary">23 jam 58 menit</p>
           </div>
         </div>`,
     })
@@ -7939,7 +7971,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "27e88ac4d1d3732156d0"
+/******/ 		__webpack_require__.h = () => "ef5ec8033355e24c6ce0"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

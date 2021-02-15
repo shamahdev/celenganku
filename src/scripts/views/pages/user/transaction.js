@@ -102,12 +102,12 @@ const Transaction = {
     })
 
     nextButton.addEventListener('click', () => {
-      if (this._paymentOption === 'luring') this._initPayMethodForm()
-      else this._midtransInit()
+      if (this._paymentOption === 'luring') this._adminPaymentInit()
+      else this._midtransPaymentInit()
     })
   },
 
-  async _midtransInit() {
+  async _midtransPaymentInit() {
     const data = {
       transaction_details: {
         order_id: `${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)}`,
@@ -153,39 +153,19 @@ const Transaction = {
     this._transactionOption = optionId.replace('-option', '')
   },
 
-  _initPayMethodForm() {
+  _adminPaymentInit() {
     ModalInitializer.init({
-      title: 'Metode Pembayaran',
+      title: 'Kode Transaksi',
       content:
-        `<div class="px-6 py-4">
-          <p class="my-2">Nominal</p>
-          <input disabled value="180000" type="number" class="mb-4 text-md block px-5 py-3 rounded-lg w-full bg-gray-200 border-gray-300">
-          <p class="my-2">Pilih Metode Pembayaran</p>
-          <div class='flex flex-col'>
-            <button class="flex-1 my-2 bg-primary rounded-lg shadow-blue">
-              <div class="flex items-center">
-                <div class="text-white flex flex-col flex-1">
-                  <p class="p-5 absolute">Admin</p>
-                  <img class="w-10/12 ml-auto" src="./images/payment-method-admin.png" alt="Admin 3D Ilustration">
-                </div>
-              </div>
-            </button>
-            <button class="flex-1 my-2 bg-white rounded-lg shadow-lg">
-              <div class="flex items-center">
-                <div class="flex flex-col flex-1">
-                  <p class="p-5 absolute">Gopay</p>
-                  <img class="w-10/12 ml-auto" src="./images/payment-method-gopay.png" alt="Admin 3D Ilustration">
-                </div>
-              </div>
-            </button>
-            <button class="flex-1 my-2 bg-blue-500 rounded-lg shadow-blue">
-              <div class="flex items-center">
-                <div class="text-white flex flex-col flex-1">
-                  <p class="p-5 absolute">Bank</p>
-                  <img class="w-10/12 ml-auto" src="./images/payment-method-bank.png" alt="Admin 3D Ilustration">
-                </div>
-              </div>
-            </button>
+        `<div class="px-10 py-6">
+          <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
+          <p class="my-2 text-3xl font-bold">TWL2277972</p>
+          <p class="mt-4 text-gray-500">Transaksi ini akan automatis dibatalkan dalam</p>
+          <p class="mt-4 text-primary">23 jam 58 menit</p>
+          <div class="flex justify-end items-center w-100 mt-4">
+          <button role="button" id="user-login-button" class="w-max text-primary mx-1 font-light p-2">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
+          <button role="button" id="user-login-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
           </div>
         </div>`,
     })
