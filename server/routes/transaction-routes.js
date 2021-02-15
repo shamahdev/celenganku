@@ -11,6 +11,8 @@ transactionRoutes.use(bodyParser.json())
 
 transactionRoutes.route('/:id')
   .get(TransactionController.getTransactionById)
+transactionRoutes.route('/:id/midtrans')
+  .get(TransactionController.getMidtransToken)
 transactionRoutes.route('/nisn/:id')
   .get(TransactionController.getTransactionByNisn)
 

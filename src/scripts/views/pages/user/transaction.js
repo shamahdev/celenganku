@@ -23,7 +23,7 @@ const Transaction = {
               <input id="input-nominal" name="Nominal" data-rule="required" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
             </div>
               <div class="flex flex-col gap-6 items-center">
-                <button id="online-option" class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                <button id="luring-option" class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
                   <div class="flex md:justify-center">
                     <div class="text-white flex flex-1 flex-row">
                       <div data-option class="mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg">
@@ -38,7 +38,7 @@ const Transaction = {
                     </div>
                   </div>
                 </button>
-                <button id="offline-option" class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                <button id="daring-option" class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
                   <div class="flex md:justify-center">
                     <div class="text-white flex flex-1 flex-row">
                       <div data-option class="mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg">
@@ -70,6 +70,8 @@ const Transaction = {
     this._transactionOption = 'withdraw'
     this._paymentOption = 'luring'
 
+    const paymentOptionButton = document.querySelectorAll('#daring-option, #luring-option')
+    const transactionOptionButton = document.querySelectorAll('#withdraw-option, #deposit-option')
     const nominalInput = document.getElementById('input-nominal')
     const nextButton = document.getElementById('next-button')
 
@@ -78,24 +80,66 @@ const Transaction = {
       submitButton: nextButton,
     })
 
-    const transactionOptionButton = document.querySelectorAll('#withdraw-option, #deposit-option')
     transactionOptionButton.forEach((option) => {
       option.addEventListener('click', () => {
         this._selectTransactionOption(transactionOptionButton, option.id)
-        if (this._transactionOption === 'withdraw') nominalInput.dataset.rule += ` value-more-than-${this._ballance}`
-        else nominalInput.dataset.rule = 'required'
+        if (this._transactionOption === 'withdraw') {
+          nominalInput.dataset.rule += ` value-more-than-${this._ballance}`
+          this._selectPaymentOption(paymentOptionButton, paymentOptionButton[0].id)
+          paymentOptionButton[1].style.display = 'none'
+        } else {
+          nominalInput.dataset.rule = 'required'
+          paymentOptionButton[1].style.display = ''
+        }
         EventHelper.triggerEvent(nominalInput, 'keyup')
       })
     })
-    const paymentOptionButton = document.querySelectorAll('#online-option, #offline-option')
+
     paymentOptionButton.forEach((option) => {
       option.addEventListener('click', () => {
         this._selectPaymentOption(paymentOptionButton, option.id)
       })
     })
+
     nextButton.addEventListener('click', () => {
-      this._initPayMethodForm()
+      if (this._paymentOption === 'luring') this._initPayMethodForm()
+      else this._midtransInit()
     })
+  },
+
+  async _midtransInit() {
+    const data = {
+      transaction_details: {
+        order_id: `${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)}`,
+        gross_amount: 10000,
+      },
+      callbacks: {
+        finish: '/',
+      },
+    }
+    const response = await APIData.getMidtransToken(data)
+    console.log(response)
+    // eslint-disable-next-line no-undef
+    snap.pay(response.token, {
+      onSuccess: (result) => {
+        /* You may add your own implementation here */
+        alert('payment success!'); console.log(result)
+      },
+      onPending(result) {
+        /* You may add your own implementation here */
+        alert('wating your payment!'); console.log(result)
+      },
+      onError(result) {
+        /* You may add your own implementation here */
+        alert('payment failed!'); console.log(result)
+      },
+      onClose() {
+        /* You may add your own implementation here */
+        alert('you closed the popup without finishing the payment')
+      },
+    })
+    window.location.search = ''
+    window.location.hash = '#/transaction'
   },
 
   _selectTransactionOption(optionButton, optionId) {
@@ -161,6 +205,8 @@ const Transaction = {
         optionIcon.className = nonSelectedClass
       }
     })
+    this._paymentOption = optionId.replace('-option', '')
+    console.log(this._paymentOption)
   },
 }
 

@@ -6,8 +6,8 @@ import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-// import helmet from 'helmet'
-// import hpp from 'hpp'
+import helmet from 'helmet'
+import hpp from 'hpp'
 import cookieParser from 'cookie-parser'
 import config from '../webpack.dev'
 import CONFIG from './global/config'
@@ -32,8 +32,8 @@ app.use(webpackHotMiddleware(compiler))
 //
 
 app.use(cors())
-// app.use(helmet())
-// app.use(hpp())
+app.use(helmet())
+app.use(hpp())
 app.use(cookieParser())
 
 app.use(express.json({

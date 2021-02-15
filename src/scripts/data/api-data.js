@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 import JWTParser from '../helper/jwtparser'
 import API_ENDPOINT from '../global/endpoint'
 
@@ -15,6 +16,25 @@ class APIData {
         error: true,
         message: error,
       }
+    }
+  }
+
+  static async getMidtransToken(transactionDetails) {
+    try {
+      const SERVER_KEY = 'SB-Mid-server-XmFoI8_j9MpEyaNvbE1-sQiN:'
+      const AUTH_STRING = btoa(SERVER_KEY)
+
+      const response = await fetch(API_ENDPOINT.MIDTRANS, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${AUTH_STRING}`,
+        },
+        body: JSON.stringify(transactionDetails),
+      })
+      return response.json()
+    } catch (err) {
+      return err
     }
   }
 

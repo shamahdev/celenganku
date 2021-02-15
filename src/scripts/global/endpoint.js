@@ -1,5 +1,6 @@
 const API_ENDPOINT = {
   TOKEN: 'api/token/',
+  MIDTRANS: 'https://cors-anywhere.herokuapp.com/https://app.sandbox.midtrans.com/snap/v1/transactions',
   SISWA: {
     LIST: 'api/siswa/',
     LIST_DATA: 'api/siswa/data',
