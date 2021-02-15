@@ -9,10 +9,11 @@ transactionRoutes.use(bodyParser.json())
 
 // transactionRoutes.use(AuthController.requireAuth)
 
+transactionRoutes.route('/create')
+  .get(TransactionController.createTransaction)
 transactionRoutes.route('/:id')
   .get(TransactionController.getTransactionById)
-transactionRoutes.route('/:id/midtrans')
-  .get(TransactionController.getMidtransToken)
+  .delete(TransactionController.deleteTransactionById)
 transactionRoutes.route('/nisn/:id')
   .get(TransactionController.getTransactionByNisn)
 

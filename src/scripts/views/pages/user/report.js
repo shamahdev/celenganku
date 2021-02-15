@@ -1,6 +1,8 @@
+import sortBy from 'lodash/sortBy'
 import StringFormater from '../../../helper/string-formater'
 import DateFormater from '../../../helper/date-formater'
 import APIData from '../../../data/api-data'
+import ModalInitializer from '../../../utils/modal-initializer'
 
 const Report = {
   async render() {
@@ -65,7 +67,8 @@ const Report = {
   async _renderTable() {
     const tableElement = document.getElementById('transaction-table')
     const tableBody = tableElement.querySelector('tbody')
-    const transactionData = await APIData.getTransaksiSiswa(this._userId)
+    const unsortedTransactionData = await APIData.getTransaksiSiswa(this._userId)
+    const transactionData = sortBy(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     const transactionTemplate = (transaction) => {
       Object.keys(transaction).forEach((key) => {
@@ -84,8 +87,6 @@ const Report = {
       timeCreated.setDate(timeStamp.getDate() - 1)
       const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
       const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
-
-      this._totalTransaction += StringFormater.convertCasttoInt(transaction.nominal)
 
       // Classes
       const nominalColor = (jenis) => {
@@ -107,7 +108,7 @@ const Report = {
         if (status.toLowerCase() === 'selesai') {
           return `
           <a href="#/profile"
-            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            class="flex w-full flex-1  px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
             <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -118,8 +119,8 @@ const Report = {
           </a>`
         }
         return `
-          <a href="#/profile"
-            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          <button id="cancel-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
             <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -127,10 +128,72 @@ const Report = {
                   d="M6 18L18 6M6 6l12 12"></path>
               </svg></i>
             <p class="flex ml-2 mt-1 leading-relaxed">Batalkan Transaksi</p>
-          </a>`
+          </button>`
+      }
+
+      const _cancelButtonInit = (cancelButton) => {
+        cancelButton.addEventListener('click', async (event) => {
+          event.stopPropagation()
+          const result = await Swal.fire({
+            icon: 'warning',
+            text: 'Tekan pilihan untuk mengkonfirmasi',
+            title: 'Apakah benar ingin membatalkan transaksi?',
+            showCancelButton: true,
+            confirmButtonText: 'Benar',
+            cancelButtonText: 'Tidak',
+            customClass: {
+              popup: 'popup-sweetalert',
+              confirmButton: 'btn-sweetalert bg-success',
+              cancelButton: 'btn-sweetalert bg-failed',
+            },
+            buttonsStyling: false,
+          })
+
+          if (result.isConfirmed) {
+            const response = await APIData.deleteTransaksiSiswa(transaction.id_transaksi)
+            console.log(response)
+            this._renderTable()
+          }
+        })
+        return true
+      }
+
+      const _showTransactionModalInit = (showButton) => {
+        showButton.addEventListener('click', () => {
+          ModalInitializer.init({
+            title: 'Kode Transaksi',
+            content:
+            `<div class="px-10 py-6">
+              <div id="modal-content">
+                <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
+                <p class="my-2 text-3xl font-bold">${transaction.id_transaksi}</p>
+              </div>
+              <div class="flex justify-end items-center w-100 mt-4">
+                <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
+                <button role="button" id="close-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
+              </div>
+            </div>`,
+          })
+          const modal = document.getElementById('modal-kode-transaksi')
+          const modalContent = document.getElementById('modal-content')
+          const thisContent = modalContent.innerHTML
+          const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
+          const showQRButton = document.getElementById('show-qr-button')
+          const closeButton = document.getElementById('close-button')
+          showQRButton.addEventListener('click', (event) => {
+            if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
+            else modalContent.innerHTML = thisContent
+          })
+          closeButton.addEventListener('click', () => {
+            modal.remove()
+          })
+        })
+        return true
       }
 
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+        let delayTime = 1000
         setInterval(() => {
           try {
             const {
@@ -138,16 +201,34 @@ const Report = {
             } = DateFormater.getTimeCounter(timeStamp)
             const counterText = `${hours} jam ${minutes} menit`
             const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
-            const reminderElement = document.getElementById('reminder-element')
+            const reminderElement = document.getElementById(`reminder-element-${transaction.id_transaksi}`)
             reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
             reminderElement.innerHTML = counterReminder
 
-          // if (distance < 0) console.log('telat bang')
+            // if (distance < 0) console.log('telat bang')
+            let initialized = false
+            while (!initialized) {
+              const cancelButton = document.getElementById(`cancel-transaction-button-${transaction.id_transaksi}`)
+              initialized = _cancelButtonInit(cancelButton)
+              delayTime = 60000
+            }
           } catch (error) {
             // console.log('')
           }
-        }, 1000)
+        }, delayTime)
       }
+
+      setInterval(() => {
+        try {
+          let initialized = false
+          while (!initialized) {
+            const showButton = document.getElementById(`show-transaction-button-${transaction.id_transaksi}`)
+            initialized = _showTransactionModalInit(showButton)
+          }
+        } catch (error) {
+          // console.log('')
+        }
+      }, 1000)
 
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
@@ -159,7 +240,7 @@ const Report = {
       <td class="bg-white">
         <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} p-1 md:py-2 md:px-6 rounded-lg w-max">
         <p class="hidden md:inline">${transaction.status_transaksi}</p>
-        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
+        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
         </div>
       </td>
       <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
@@ -173,7 +254,15 @@ const Report = {
         <div id="settings-dropdown"
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-          <p id="reminder-element"></p>
+          <p id="reminder-element-${transaction.id_transaksi}"></p>
+          <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
+          </button>
             ${getStatusAction(transaction.status_transaksi)}
           </div>
         </div>
@@ -182,7 +271,17 @@ const Report = {
     <tr class="h-4"></tr>`
     }
 
-    transactionData.data.forEach((transaction) => {
+    tableBody.innerHTML = `
+      <tr class="text-left text-gray-700">
+        <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+        <th class="font-normal pb-5 pt-0">Nominal</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
+        <th class="font-normal pb-5 pt-0">Status</th>
+        <th class="font-normal pb-5 pt-0 justify-end"></th>
+      </tr>`
+    transactionData.forEach((transaction) => {
       tableBody.innerHTML += transactionTemplate(transaction)
     })
     this._createTableEvent()

@@ -8,7 +8,10 @@ const API_ENDPOINT = {
     DATA: (id) => `api/siswa/${id}/data`,
     PROFIL: (id) => `api/siswa/${id}/profil`,
     TRANSAKSI: (id) => `api/transaction/nisn/${id}`,
+  },
 
+  TRANSAKSI: {
+    ID: (id) => `api/transaction/${id}`,
   },
   ADMIN: (id) => `api/admin/${id}`,
   UPLOAD_FILE: 'api/upload',

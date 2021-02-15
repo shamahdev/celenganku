@@ -1,59 +1,12 @@
 /* eslint-disable camelcase */
-import midtransClient from 'midtrans-client'
+import * as firebase from 'firebase/app'
 import BaseController from './base-controller'
 import { db } from '../global/firebase'
-import CONFIG from '../global/config'
 
 const Transaction = db.collection('transaksi')
 const TransactionController = {
-  getMidtransToken: async (req, res, next) => {
-    const data = `${CONFIG.MIDTRANS_SERVER_KEY}:`
-    const base64data = Buffer.from(data).toString('base64')
-    res.status(200).json({
-      status: 'success',
-      error: false,
-      response: base64data,
-    })
-    // const snap = new midtransClient.Snap({
-    //   isProduction: false,
-    //   serverKey: CONFIG.MIDTRANS_SERVER_KEY,
-    //   clientKey: CONFIG.MIDTRANS_CLIENT_KEY,
-    // })
-
-    // // prepare Snap API parameter ( refer to: https://snap-docs.midtrans.com ) minimum parameter example:
-    // const parameter = {
-    //   transaction_details: {
-    //     order_id: req.params.id,
-    //     gross_amount: 1,
-    //   },
-    //   credit_card: {
-    //     secure: true,
-    //   },
-    // }
-
-    // // create transaction
-    // snap.createTransaction(parameter)
-    //   .then((transaction) => {
-    //     // transaction token
-    //     const transactionToken = transaction.token
-    //     console.log('transactionToken:', transactionToken)
-
-    //     // transaction redirect url
-    //     const transactionRedirectUrl = transaction.redirect_url
-    //     console.log('transactionRedirectUrl:', transactionRedirectUrl)
-
-    //     res.status(201).json({
-    //       status: 'success',
-    //       error: false,
-    //       token: transactionToken,
-    //       redirect_url: transactionRedirectUrl,
-    //     })
-    //   })
-    //   .catch((e) => {
-    //     console.log('Error occured:', e.message)
-    //   })
-  },
   getTransactionById: BaseController.getOne(Transaction),
+  deleteTransactionById: BaseController.deleteOne(Transaction),
   getTransactionByNisn: async (req, res, next) => {
     console.log(req.params)
     try {
@@ -85,6 +38,77 @@ const TransactionController = {
       //   error: true,
       //   response: error,
       // })
+    }
+  },
+  createTransaction: async (req, res, next) => {
+    try {
+      const {
+        nominal, metode_pembayaran, jenis_transaksi, nisn,
+      } = req.body
+
+      // Check if req.body is not empty
+      if (!nominal || !metode_pembayaran || !jenis_transaksi || !nisn) {
+        return res.status(404).json({
+          status: 'failed',
+          error: true,
+          message: 'Something wrong when creating a transaction',
+          response: req.body,
+        })
+      }
+
+      const metodeLetter = metode_pembayaran[0].toUpperCase()
+      let jenisLetter = ''
+      if (jenis_transaksi === 'pemasukan') jenisLetter = 'D'
+      else jenisLetter = 'W'
+
+      const allTransaction = []
+      const snapshot = await Transaction.get()
+      snapshot.forEach((doc) => {
+        allTransaction.push(doc.data())
+      })
+
+      const allTransactionId = []
+      allTransaction.forEach((transaction) => {
+        allTransactionId.push(transaction.id_transaksi)
+      })
+
+      let generatedNumber = Math.floor(1000000 + Math.random() * 9000000)
+      let id_transaksi = `T${jenisLetter + metodeLetter + generatedNumber.toString()}`
+      while (allTransactionId.includes(id_transaksi)) {
+        generatedNumber = Math.floor(1000000 + Math.random() * 9000000)
+        id_transaksi = `T${jenisLetter + metodeLetter + generatedNumber.toString()}`
+      }
+
+      const dateCreated = new Date()
+      dateCreated.setDate(dateCreated.getDate() + 1)
+      const time = firebase.firestore.Timestamp.fromDate(dateCreated)
+      const transactionResponse = {
+        id_transaksi,
+        nominal,
+        metode_pembayaran,
+        jenis_transaksi,
+        nisn,
+        status_transaksi: 'pembayaran',
+        tenggat_waktu_pembayaran: time,
+
+      }
+
+      await Transaction.doc(id_transaksi).set(transactionResponse)
+
+      res.status(200).json({
+        status: 'success',
+        error: false,
+        response: {
+          ...transactionResponse,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
     }
   },
 }
