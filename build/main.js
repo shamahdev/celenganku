@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\n\n/* Document\n   ========================================================================== */\n\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in iOS.\n */\n\nhtml {\n  line-height: 1.15; /* 1 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n}\n\n/* Sections\n   ========================================================================== */\n\n/**\n * Remove the margin in all browsers.\n */\n\nbody {\n  margin: 0;\n}\n\n/**\n * Render the `main` element consistently in IE.\n */\n\nmain {\n  display: block;\n}\n\n/**\n * Correct the font size and margin on `h1` elements within `section` and\n * `article` contexts in Chrome, Firefox, and Safari.\n */\n\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/* Grouping content\n   ========================================================================== */\n\n/**\n * 1. Add the correct box sizing in Firefox.\n * 2. Show the overflow in Edge and IE.\n */\n\nhr {\n  box-sizing: content-box; /* 1 */\n  height: 0; /* 1 */\n  overflow: visible; /* 2 */\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\npre {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/* Text-level semantics\n   ========================================================================== */\n\n/**\n * Remove the gray background on active links in IE 10.\n */\n\na {\n  background-color: transparent;\n}\n\n/**\n * 1. Remove the bottom border in Chrome 57-\n * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n */\n\nabbr[title] {\n  border-bottom: none; /* 1 */\n  text-decoration: underline; /* 2 */\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted; /* 2 */\n}\n\n/**\n * Add the correct font weight in Chrome, Edge, and Safari.\n */\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/**\n * Add the correct font size in all browsers.\n */\n\nsmall {\n  font-size: 80%;\n}\n\n/**\n * Prevent `sub` and `sup` elements from affecting the line height in\n * all browsers.\n */\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n   ========================================================================== */\n\n/**\n * Remove the border on images inside links in IE 10.\n */\n\nimg {\n  border-style: none;\n}\n\n/* Forms\n   ========================================================================== */\n\n/**\n * 1. Change the font styles in all browsers.\n * 2. Remove the margin in Firefox and Safari.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit; /* 1 */\n  font-size: 100%; /* 1 */\n  line-height: 1.15; /* 1 */\n  margin: 0; /* 2 */\n}\n\n/**\n * Show the overflow in IE.\n * 1. Show the overflow in Edge.\n */\n\nbutton,\ninput { /* 1 */\n  overflow: visible;\n}\n\n/**\n * Remove the inheritance of text transform in Edge, Firefox, and IE.\n * 1. Remove the inheritance of text transform in Firefox.\n */\n\nbutton,\nselect { /* 1 */\n  text-transform: none;\n}\n\n/**\n * Correct the inability to style clickable types in iOS and Safari.\n */\n\nbutton,\n[type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button;\n}\n\n/**\n * Remove the inner border and padding in Firefox.\n */\n\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n * Restore the focus styles unset by the previous rule.\n */\n\nbutton:-moz-focusring,\n[type=\"button\"]:-moz-focusring,\n[type=\"reset\"]:-moz-focusring,\n[type=\"submit\"]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n * Correct the padding in Firefox.\n */\n\nfieldset {\n  padding: 0.35em 0.75em 0.625em;\n}\n\n/**\n * 1. Correct the text wrapping in Edge and IE.\n * 2. Correct the color inheritance from `fieldset` elements in IE.\n * 3. Remove the padding so developers are not caught out when they zero out\n *    `fieldset` elements in all browsers.\n */\n\nlegend {\n  box-sizing: border-box; /* 1 */\n  color: inherit; /* 2 */\n  display: table; /* 1 */\n  max-width: 100%; /* 1 */\n  padding: 0; /* 3 */\n  white-space: normal; /* 1 */\n}\n\n/**\n * Add the correct vertical alignment in Chrome, Firefox, and Opera.\n */\n\nprogress {\n  vertical-align: baseline;\n}\n\n/**\n * Remove the default vertical scrollbar in IE 10+.\n */\n\ntextarea {\n  overflow: auto;\n}\n\n/**\n * 1. Add the correct box sizing in IE 10.\n * 2. Remove the padding in IE 10.\n */\n\n[type=\"checkbox\"],\n[type=\"radio\"] {\n  box-sizing: border-box; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Correct the cursor style of increment and decrement buttons in Chrome.\n */\n\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n * 1. Correct the odd appearance in Chrome and Safari.\n * 2. Correct the outline style in Safari.\n */\n\n[type=\"search\"] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/**\n * Remove the inner padding in Chrome and Safari on macOS.\n */\n\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n * 1. Correct the inability to style clickable types in iOS and Safari.\n * 2. Change font properties to `inherit` in Safari.\n */\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/* Interactive\n   ========================================================================== */\n\n/*\n * Add the correct display in Edge, IE 10+, and Firefox.\n */\n\ndetails {\n  display: block;\n}\n\n/*\n * Add the correct display in all browsers.\n */\n\nsummary {\n  display: list-item;\n}\n\n/* Misc\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 10+.\n */\n\ntemplate {\n  display: none;\n}\n\n/**\n * Add the correct display in IE 10.\n */\n\n[hidden] {\n  display: none;\n}\n\n/**\n * Manually forked from SUIT CSS Base: https://github.com/suitcss/base\n * A thin layer on top of normalize.css that provides a starting point more\n * suitable for web applications.\n */\n\n/**\n * Removes the default spacing and border for appropriate elements.\n */\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nhr,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nbutton {\n  background-color: transparent;\n  background-image: none;\n}\n\n/**\n * Work around a Firefox/IE bug where the transparent `button` background\n * results in a loss of the default `button` focus styles.\n */\n\nbutton:focus {\n  outline: 1px dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nol,\nul {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n/**\n * Tailwind custom reset styles\n */\n\n/**\n * 1. Use the user's configured `sans` font-family (with Tailwind's default\n *    sans-serif font stack as a fallback) as a sane default.\n * 2. Use Tailwind's default \"normal\" line-height so the user isn't forced\n *    to override it to ensure consistency even when using the default theme.\n */\n\nhtml {\n  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"; /* 1 */\n  line-height: 1.5; /* 2 */\n}\n\n/**\n * 1. Prevent padding and border from affecting element width.\n *\n *    We used to set this in the html element and inherit from\n *    the parent element for everything else. This caused issues\n *    in shadow-dom-enhanced elements like <details> where the content\n *    is wrapped by a div with box-sizing set to `content-box`.\n *\n *    https://github.com/mozdevs/cssremedy/issues/4\n *\n *\n * 2. Allow adding a border to an element by just adding a border-width.\n *\n *    By default, the way the browser specifies that an element should have no\n *    border is by setting it's border-style to `none` in the user-agent\n *    stylesheet.\n *\n *    In order to easily add borders to elements by just setting the `border-width`\n *    property, we change the default border-style for all elements to `solid`, and\n *    use border-width to hide them instead. This way our `border` utilities only\n *    need to set the `border-width` property instead of the entire `border`\n *    shorthand, making our border utilities much more straightforward to compose.\n *\n *    https://github.com/tailwindcss/tailwindcss/pull/116\n */\n\n*,\n::before,\n::after {\n  box-sizing: border-box; /* 1 */\n  border-width: 0; /* 2 */\n  border-style: solid; /* 2 */\n  border-color: #e2e8f0; /* 2 */\n}\n\n/*\n * Ensure horizontal rules are visible by default\n */\n\nhr {\n  border-top-width: 1px;\n}\n\n/**\n * Undo the `border-style: none` reset that Normalize applies to images so that\n * our `border-{width}` utilities have the expected effect.\n *\n * The Normalize reset is unnecessary for us since we default the border-width\n * to 0 on all elements.\n *\n * https://github.com/tailwindcss/tailwindcss/issues/362\n */\n\nimg {\n  border-style: solid;\n}\n\ntextarea {\n  resize: vertical;\n}\n\ninput::-moz-placeholder, textarea::-moz-placeholder {\n  color: #a0aec0;\n}\n\ninput:-ms-input-placeholder, textarea:-ms-input-placeholder {\n  color: #a0aec0;\n}\n\ninput::placeholder,\ntextarea::placeholder {\n  color: #a0aec0;\n}\n\nbutton,\n[role=\"button\"] {\n  cursor: pointer;\n}\n\ntable {\n  border-collapse: collapse;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: inherit;\n}\n\n/**\n * Reset links to optimize for opt-in styling instead of\n * opt-out.\n */\n\na {\n  color: inherit;\n  text-decoration: inherit;\n}\n\n/**\n * Reset form element properties that are easy to forget to\n * style explicitly so you don't inadvertently introduce\n * styles that deviate from your design system. These styles\n * supplement a partial reset that is already applied by\n * normalize.css.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  padding: 0;\n  line-height: inherit;\n  color: inherit;\n}\n\n/**\n * Use the configured 'mono' font family for elements that\n * are expected to be rendered with a monospace font, falling\n * back to the system monospace stack if there is no configured\n * 'mono' font family.\n */\n\npre,\ncode,\nkbd,\nsamp {\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n}\n\n/**\n * Make replaced elements `display: block` by default as that's\n * the behavior you want almost all of the time. Inspired by\n * CSS Remedy, with `svg` added as well.\n *\n * https://github.com/mozdevs/cssremedy/issues/14\n */\n\nimg,\nsvg,\nvideo,\ncanvas,\naudio,\niframe,\nembed,\nobject {\n  display: block;\n  vertical-align: middle;\n}\n\n/**\n * Constrain images and videos to the parent width and preserve\n * their instrinsic aspect ratio.\n *\n * https://github.com/mozdevs/cssremedy/issues/14\n */\n\nimg,\nvideo {\n  max-width: 100%;\n  height: auto;\n}\n\nhtml, body {\n  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n  scroll-behavior: smooth;\n}\n\n/* Chrome, Safari, Edge, Opera */\n\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\n\n/* Firefox */\n\ninput[type=number] {\n  -moz-appearance: textfield;\n}\n\ninput, textarea {\n  border-color: transparent;\n  border-width: 2px;\n}\n\ntextarea:focus, input:focus {\n  border-color: rgba(255,150,75,0.90588);\n  outline: 0 none;\n}", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./src/styles/base.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n","@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap');\r\n@import \"tailwindcss/base\";\r\n\r\nhtml, body {\r\n    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    scroll-behavior: smooth;\r\n}\r\n\r\n/* Chrome, Safari, Edge, Opera */\r\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\r\n  -webkit-appearance: none;\r\n  margin: 0;\r\n}\r\n\r\n/* Firefox */\r\ninput[type=number] {\r\n  -moz-appearance: textfield;\r\n}\r\n\r\ninput, textarea {\r\n    border-color: transparent;\r\n    border-width: 2px;\r\n}\r\n\r\ntextarea:focus, input:focus {   \r\n  border-color: #ff964be7;\r\n    outline: 0 none;\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */\n\n/* Document\n   ========================================================================== */\n\n/**\n * 1. Correct the line height in all browsers.\n * 2. Prevent adjustments of font size after orientation changes in iOS.\n */\n\nhtml {\n  line-height: 1.15; /* 1 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n}\n\n/* Sections\n   ========================================================================== */\n\n/**\n * Remove the margin in all browsers.\n */\n\nbody {\n  margin: 0;\n}\n\n/**\n * Render the `main` element consistently in IE.\n */\n\nmain {\n  display: block;\n}\n\n/**\n * Correct the font size and margin on `h1` elements within `section` and\n * `article` contexts in Chrome, Firefox, and Safari.\n */\n\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n\n/* Grouping content\n   ========================================================================== */\n\n/**\n * 1. Add the correct box sizing in Firefox.\n * 2. Show the overflow in Edge and IE.\n */\n\nhr {\n  box-sizing: content-box; /* 1 */\n  height: 0; /* 1 */\n  overflow: visible; /* 2 */\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\npre {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/* Text-level semantics\n   ========================================================================== */\n\n/**\n * Remove the gray background on active links in IE 10.\n */\n\na {\n  background-color: transparent;\n}\n\n/**\n * 1. Remove the bottom border in Chrome 57-\n * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.\n */\n\nabbr[title] {\n  border-bottom: none; /* 1 */\n  text-decoration: underline; /* 2 */\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted; /* 2 */\n}\n\n/**\n * Add the correct font weight in Chrome, Edge, and Safari.\n */\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/**\n * 1. Correct the inheritance and scaling of font size in all browsers.\n * 2. Correct the odd `em` font sizing in all browsers.\n */\n\ncode,\nkbd,\nsamp {\n  font-family: monospace, monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/**\n * Add the correct font size in all browsers.\n */\n\nsmall {\n  font-size: 80%;\n}\n\n/**\n * Prevent `sub` and `sup` elements from affecting the line height in\n * all browsers.\n */\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/* Embedded content\n   ========================================================================== */\n\n/**\n * Remove the border on images inside links in IE 10.\n */\n\nimg {\n  border-style: none;\n}\n\n/* Forms\n   ========================================================================== */\n\n/**\n * 1. Change the font styles in all browsers.\n * 2. Remove the margin in Firefox and Safari.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit; /* 1 */\n  font-size: 100%; /* 1 */\n  line-height: 1.15; /* 1 */\n  margin: 0; /* 2 */\n}\n\n/**\n * Show the overflow in IE.\n * 1. Show the overflow in Edge.\n */\n\nbutton,\ninput { /* 1 */\n  overflow: visible;\n}\n\n/**\n * Remove the inheritance of text transform in Edge, Firefox, and IE.\n * 1. Remove the inheritance of text transform in Firefox.\n */\n\nbutton,\nselect { /* 1 */\n  text-transform: none;\n}\n\n/**\n * Correct the inability to style clickable types in iOS and Safari.\n */\n\nbutton,\n[type=\"button\"],\n[type=\"reset\"],\n[type=\"submit\"] {\n  -webkit-appearance: button;\n}\n\n/**\n * Remove the inner border and padding in Firefox.\n */\n\nbutton::-moz-focus-inner,\n[type=\"button\"]::-moz-focus-inner,\n[type=\"reset\"]::-moz-focus-inner,\n[type=\"submit\"]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\n\n/**\n * Restore the focus styles unset by the previous rule.\n */\n\nbutton:-moz-focusring,\n[type=\"button\"]:-moz-focusring,\n[type=\"reset\"]:-moz-focusring,\n[type=\"submit\"]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/**\n * Correct the padding in Firefox.\n */\n\nfieldset {\n  padding: 0.35em 0.75em 0.625em;\n}\n\n/**\n * 1. Correct the text wrapping in Edge and IE.\n * 2. Correct the color inheritance from `fieldset` elements in IE.\n * 3. Remove the padding so developers are not caught out when they zero out\n *    `fieldset` elements in all browsers.\n */\n\nlegend {\n  box-sizing: border-box; /* 1 */\n  color: inherit; /* 2 */\n  display: table; /* 1 */\n  max-width: 100%; /* 1 */\n  padding: 0; /* 3 */\n  white-space: normal; /* 1 */\n}\n\n/**\n * Add the correct vertical alignment in Chrome, Firefox, and Opera.\n */\n\nprogress {\n  vertical-align: baseline;\n}\n\n/**\n * Remove the default vertical scrollbar in IE 10+.\n */\n\ntextarea {\n  overflow: auto;\n}\n\n/**\n * 1. Add the correct box sizing in IE 10.\n * 2. Remove the padding in IE 10.\n */\n\n[type=\"checkbox\"],\n[type=\"radio\"] {\n  box-sizing: border-box; /* 1 */\n  padding: 0; /* 2 */\n}\n\n/**\n * Correct the cursor style of increment and decrement buttons in Chrome.\n */\n\n[type=\"number\"]::-webkit-inner-spin-button,\n[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/**\n * 1. Correct the odd appearance in Chrome and Safari.\n * 2. Correct the outline style in Safari.\n */\n\n[type=\"search\"] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/**\n * Remove the inner padding in Chrome and Safari on macOS.\n */\n\n[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/**\n * 1. Correct the inability to style clickable types in iOS and Safari.\n * 2. Change font properties to `inherit` in Safari.\n */\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/* Interactive\n   ========================================================================== */\n\n/*\n * Add the correct display in Edge, IE 10+, and Firefox.\n */\n\ndetails {\n  display: block;\n}\n\n/*\n * Add the correct display in all browsers.\n */\n\nsummary {\n  display: list-item;\n}\n\n/* Misc\n   ========================================================================== */\n\n/**\n * Add the correct display in IE 10+.\n */\n\ntemplate {\n  display: none;\n}\n\n/**\n * Add the correct display in IE 10.\n */\n\n[hidden] {\n  display: none;\n}\n\n/**\n * Manually forked from SUIT CSS Base: https://github.com/suitcss/base\n * A thin layer on top of normalize.css that provides a starting point more\n * suitable for web applications.\n */\n\n/**\n * Removes the default spacing and border for appropriate elements.\n */\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nhr,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nbutton {\n  background-color: transparent;\n  background-image: none;\n}\n\n/**\n * Work around a Firefox/IE bug where the transparent `button` background\n * results in a loss of the default `button` focus styles.\n */\n\nbutton:focus {\n  outline: 1px dotted;\n  outline: 5px auto -webkit-focus-ring-color;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nol,\nul {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n/**\n * Tailwind custom reset styles\n */\n\n/**\n * 1. Use the user's configured `sans` font-family (with Tailwind's default\n *    sans-serif font stack as a fallback) as a sane default.\n * 2. Use Tailwind's default \"normal\" line-height so the user isn't forced\n *    to override it to ensure consistency even when using the default theme.\n */\n\nhtml {\n  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"; /* 1 */\n  line-height: 1.5; /* 2 */\n}\n\n/**\n * 1. Prevent padding and border from affecting element width.\n *\n *    We used to set this in the html element and inherit from\n *    the parent element for everything else. This caused issues\n *    in shadow-dom-enhanced elements like <details> where the content\n *    is wrapped by a div with box-sizing set to `content-box`.\n *\n *    https://github.com/mozdevs/cssremedy/issues/4\n *\n *\n * 2. Allow adding a border to an element by just adding a border-width.\n *\n *    By default, the way the browser specifies that an element should have no\n *    border is by setting it's border-style to `none` in the user-agent\n *    stylesheet.\n *\n *    In order to easily add borders to elements by just setting the `border-width`\n *    property, we change the default border-style for all elements to `solid`, and\n *    use border-width to hide them instead. This way our `border` utilities only\n *    need to set the `border-width` property instead of the entire `border`\n *    shorthand, making our border utilities much more straightforward to compose.\n *\n *    https://github.com/tailwindcss/tailwindcss/pull/116\n */\n\n*,\n::before,\n::after {\n  box-sizing: border-box; /* 1 */\n  border-width: 0; /* 2 */\n  border-style: solid; /* 2 */\n  border-color: #e2e8f0; /* 2 */\n}\n\n/*\n * Ensure horizontal rules are visible by default\n */\n\nhr {\n  border-top-width: 1px;\n}\n\n/**\n * Undo the `border-style: none` reset that Normalize applies to images so that\n * our `border-{width}` utilities have the expected effect.\n *\n * The Normalize reset is unnecessary for us since we default the border-width\n * to 0 on all elements.\n *\n * https://github.com/tailwindcss/tailwindcss/issues/362\n */\n\nimg {\n  border-style: solid;\n}\n\ntextarea {\n  resize: vertical;\n}\n\ninput::-moz-placeholder, textarea::-moz-placeholder {\n  color: #a0aec0;\n}\n\ninput:-ms-input-placeholder, textarea:-ms-input-placeholder {\n  color: #a0aec0;\n}\n\ninput::placeholder,\ntextarea::placeholder {\n  color: #a0aec0;\n}\n\nbutton,\n[role=\"button\"] {\n  cursor: pointer;\n}\n\ntable {\n  border-collapse: collapse;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: inherit;\n}\n\n/**\n * Reset links to optimize for opt-in styling instead of\n * opt-out.\n */\n\na {\n  color: inherit;\n  text-decoration: inherit;\n}\n\n/**\n * Reset form element properties that are easy to forget to\n * style explicitly so you don't inadvertently introduce\n * styles that deviate from your design system. These styles\n * supplement a partial reset that is already applied by\n * normalize.css.\n */\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  padding: 0;\n  line-height: inherit;\n  color: inherit;\n}\n\n/**\n * Use the configured 'mono' font family for elements that\n * are expected to be rendered with a monospace font, falling\n * back to the system monospace stack if there is no configured\n * 'mono' font family.\n */\n\npre,\ncode,\nkbd,\nsamp {\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n}\n\n/**\n * Make replaced elements `display: block` by default as that's\n * the behavior you want almost all of the time. Inspired by\n * CSS Remedy, with `svg` added as well.\n *\n * https://github.com/mozdevs/cssremedy/issues/14\n */\n\nimg,\nsvg,\nvideo,\ncanvas,\naudio,\niframe,\nembed,\nobject {\n  display: block;\n  vertical-align: middle;\n}\n\n/**\n * Constrain images and videos to the parent width and preserve\n * their instrinsic aspect ratio.\n *\n * https://github.com/mozdevs/cssremedy/issues/14\n */\n\nimg,\nvideo {\n  max-width: 100%;\n  height: auto;\n}\n\nhtml, body {\n  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\n  scroll-behavior: smooth;\n}\n\n/* Chrome, Safari, Edge, Opera */\n\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\n\n/* Firefox */\n\ninput[type=number] {\n  -moz-appearance: textfield;\n}\n\ninput, textarea {\n  border-color: transparent;\n  border-width: 2px;\n}\n\ntextarea:focus, input:focus {\n  border-color: #EB643F;\n  outline: 0 none;\n}", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/base.css","webpack://./src/styles/base.css"],"names":[],"mappings":"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","sourcesContent":["@tailwind base;\n","@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap');\r\n@import \"tailwindcss/base\";\r\n\r\nhtml, body {\r\n    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    scroll-behavior: smooth;\r\n}\r\n\r\n/* Chrome, Safari, Edge, Opera */\r\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\r\n  -webkit-appearance: none;\r\n  margin: 0;\r\n}\r\n\r\n/* Firefox */\r\ninput[type=number] {\r\n  -moz-appearance: textfield;\r\n}\r\n\r\ninput, textarea {\r\n    border-color: transparent;\r\n    border-width: 2px;\r\n}\r\n\r\ntextarea:focus, input:focus {   \r\n  border-color: #EB643F;\r\n    outline: 0 none;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -49,7 +49,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container {\n  width: 100%;\n}\n\n@media (min-width: 640px) {\n  .container {\n    max-width: 640px;\n  }\n}\n\n@media (min-width: 768px) {\n  .container {\n    max-width: 768px;\n  }\n}\n\n@media (min-width: 1024px) {\n  .container {\n    max-width: 1024px;\n  }\n}\n\n@media (min-width: 1280px) {\n  .container {\n    max-width: 1280px;\n  }\n}\n\n.btn-nav {\n  height: 4rem;\n  width: 4rem;\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n  padding: 0.8rem;\n}\n\n.btn-nav:hover {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.btn-nav.active {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.disabled-option {\n  --bg-opacity: 1 !important;\n  background-color: #cbd5e0 !important;\n  background-color: rgba(203, 213, 224, var(--bg-opacity)) !important;\n  box-shadow: none !important;\n}\n\n.btn-sweetalert {\n  --bg-opacity: 1;\n  background-color: #EB643F;\n  background-color: rgba(235, 100, 63, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n  margin-left: 0.25rem;\n  margin-right: 0.25rem;\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n  padding-left: 2rem;\n  padding-right: 2rem;\n  border-radius: 0.5rem\n}\n\n.popup-sweetalert {\n  border-radius: 0.5rem !important\n}\n\n@media (min-width: 640px) {\n  .sm\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 640px) and (min-width: 640px) {\n    .sm\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 768px) {\n    .sm\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1024px) {\n    .sm\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1280px) {\n    .sm\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 768px) {\n  .md\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 768px) and (min-width: 640px) {\n    .md\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 768px) {\n    .md\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1024px) {\n    .md\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1280px) {\n    .md\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1024px) {\n  .lg\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1024px) and (min-width: 640px) {\n    .lg\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 768px) {\n    .lg\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1024px) {\n    .lg\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1280px) {\n    .lg\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1280px) {\n  .xl\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1280px) and (min-width: 640px) {\n    .xl\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 768px) {\n    .xl\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1024px) {\n    .xl\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1280px) {\n    .xl\\:container {\n      max-width: 1280px;\n    }\n  }", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/components.css","webpack://./src/styles/components/button.css","<no source>"],"names":[],"mappings":"AAAA;EAAA;AAAoB;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;ACApB;ECAA,aAAA;EAAA,YAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,gDAAA;EDEI,eAAe;AACnB;;AACA;ECJA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADMA;;AACA;ECPA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADSA;;AACA;ECVA,2BAAA;EAAA,qCAAA;EAAA,oEAAA;EAAA,4BAAA;ADYA;;AAEA;ECdA,gBAAA;EAAA,0BAAA;EAAA,wDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,gDAAA;EAAA,qBAAA;EAAA,sBAAA;EAAA,qBAAA;EAAA,wBAAA;EAAA,mBAAA;EAAA,oBAAA;EAAA;ADgBA;;AACA;ECjBA;ADoBA;;ACpBA;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA","sourcesContent":["@tailwind components;\n",".btn-nav {\r\n    @apply h-16 w-16 text-white;\r\n    padding: 0.8rem;\r\n}\r\n.btn-nav:hover {\r\n    @apply bg-white text-black;\r\n}\r\n.btn-nav.active {\r\n    @apply bg-white text-black;\r\n}\r\n.disabled-option {\r\n    @apply bg-gray-400 shadow-none !important;\r\n}\r\n\r\n.btn-sweetalert {\r\n    @apply bg-primary text-white mx-1 py-3 px-8 rounded-lg\r\n}\r\n.popup-sweetalert {\r\n    @apply rounded-lg\r\n    !important\r\n}\r\n",null],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container {\n  width: 100%;\n}\n\n@media (min-width: 640px) {\n  .container {\n    max-width: 640px;\n  }\n}\n\n@media (min-width: 768px) {\n  .container {\n    max-width: 768px;\n  }\n}\n\n@media (min-width: 1024px) {\n  .container {\n    max-width: 1024px;\n  }\n}\n\n@media (min-width: 1280px) {\n  .container {\n    max-width: 1280px;\n  }\n}\n\n.btn-nav {\n  height: 4rem;\n  width: 4rem;\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n  padding: 0.8rem;\n}\n\n.btn-nav:hover {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.btn-nav.active {\n  --bg-opacity: 1;\n  background-color: #fff;\n  background-color: rgba(255, 255, 255, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #000;\n  color: rgba(0, 0, 0, var(--text-opacity));\n}\n\n.disabled-option {\n  border-width: 2px !important;\n  --border-opacity: 1 !important;\n  border-color: #EB643F !important;\n  border-color: rgba(235, 100, 63, var(--border-opacity)) !important;\n}\n\n.btn-sweetalert {\n  --bg-opacity: 1;\n  background-color: #EB643F;\n  background-color: rgba(235, 100, 63, var(--bg-opacity));\n  --text-opacity: 1;\n  color: #fff;\n  color: rgba(255, 255, 255, var(--text-opacity));\n  margin-left: 0.25rem;\n  margin-right: 0.25rem;\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n  padding-left: 2rem;\n  padding-right: 2rem;\n  border-radius: 0.5rem\n}\n\n.popup-sweetalert {\n  border-radius: 0.5rem !important\n}\n\n@media (min-width: 640px) {\n  .sm\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 640px) and (min-width: 640px) {\n    .sm\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 768px) {\n    .sm\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1024px) {\n    .sm\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 640px) and (min-width: 1280px) {\n    .sm\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 768px) {\n  .md\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 768px) and (min-width: 640px) {\n    .md\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 768px) {\n    .md\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1024px) {\n    .md\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 768px) and (min-width: 1280px) {\n    .md\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1024px) {\n  .lg\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1024px) and (min-width: 640px) {\n    .lg\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 768px) {\n    .lg\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1024px) {\n    .lg\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1024px) and (min-width: 1280px) {\n    .lg\\:container {\n      max-width: 1280px;\n    }\n  }\n\n@media (min-width: 1280px) {\n  .xl\\:container {\n    width: 100%;\n  }\n}\n\n@media (min-width: 1280px) and (min-width: 640px) {\n    .xl\\:container {\n      max-width: 640px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 768px) {\n    .xl\\:container {\n      max-width: 768px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1024px) {\n    .xl\\:container {\n      max-width: 1024px;\n    }\n  }\n\n@media (min-width: 1280px) and (min-width: 1280px) {\n    .xl\\:container {\n      max-width: 1280px;\n    }\n  }", "",{"version":3,"sources":["webpack://./node_modules/tailwindcss/components.css","webpack://./src/styles/components/button.css","<no source>"],"names":[],"mappings":"AAAA;EAAA;AAAoB;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;AAApB;EAAA;IAAA;EAAoB;AAAA;;ACApB;ECAA,aAAA;EAAA,YAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,gDAAA;EDEI,eAAe;AACnB;;AACA;ECJA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADMA;;AACA;ECPA,gBAAA;EAAA,uBAAA;EAAA,yDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,0CAAA;ADSA;;AACA;ECVA,6BAAA;EAAA,+BAAA;EAAA,iCAAA;EAAA,mEAAA;ADYA;;AAEA;ECdA,gBAAA;EAAA,0BAAA;EAAA,wDAAA;EAAA,kBAAA;EAAA,YAAA;EAAA,gDAAA;EAAA,qBAAA;EAAA,sBAAA;EAAA,qBAAA;EAAA,wBAAA;EAAA,mBAAA;EAAA,oBAAA;EAAA;ADgBA;;AACA;ECjBA;ADoBA;;ACpBA;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AEApB;EFAA;IAAA;EAAoB;CEApB;;AFAA;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA;;AAApB;IAAA;MAAA;IAAoB;EAAA","sourcesContent":["@tailwind components;\n",".btn-nav {\r\n    @apply h-16 w-16 text-white;\r\n    padding: 0.8rem;\r\n}\r\n.btn-nav:hover {\r\n    @apply bg-white text-black;\r\n}\r\n.btn-nav.active {\r\n    @apply bg-white text-black;\r\n}\r\n.disabled-option {\r\n    @apply border-2 border-primary !important;\r\n}\r\n\r\n.btn-sweetalert {\r\n    @apply bg-primary text-white mx-1 py-3 px-8 rounded-lg\r\n}\r\n.popup-sweetalert {\r\n    @apply rounded-lg\r\n    !important\r\n}\r\n",null],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -5195,7 +5195,7 @@ class Appbar extends HTMLElement {
           </svg></i>
           <p class="flex ml-2 leading-relaxed">Tentang Celenganku</p>
         </a>
-        <a href="/logout" class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+        <a href="/api/logout" class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
           role="menuitem">
           <i class="text-primary flex"><svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -5205,10 +5205,10 @@ class Appbar extends HTMLElement {
         `
     } else {
       // User/Siswa Navs
-      links = `
+      links = /* html */`
         <a href="#/profile" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Edit Profil</a>
         <a href="#/help" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Bantuan</a>
-          <a href="api/logout" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
+          <a href="/api/logout" class="block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
             Keluar
           </a>`
     }
@@ -5552,6 +5552,22 @@ const DateFormater = {
       distance, hours, minutes, seconds,
     }
   },
+
+  isDateInThisWeek: (date) => {
+    const todayObj = new Date()
+    const todayDate = todayObj.getDate()
+    const todayDay = todayObj.getDay()
+
+    // get first date of week
+    const firstDayOfWeek = new Date(todayObj.setDate(todayDate - todayDay))
+
+    // get last date of week
+    const lastDayOfWeek = new Date(firstDayOfWeek)
+    lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 6)
+
+    // if date is equal or within the first and last dates of the week
+    return date >= firstDayOfWeek && date <= lastDayOfWeek
+  },
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DateFormater);
 
@@ -5790,6 +5806,12 @@ const StringFormater = {
     cash = cash.join('.').split('').reverse().join('')
 
     return cash
+  },
+  convertCasttoInt: (cash) => {
+    let integer = cash.replace('.', '')
+    // eslint-disable-next-line radix
+    integer = +integer
+    return integer
   },
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StringFormater);
@@ -6796,15 +6818,15 @@ __webpack_require__.r(__webpack_exports__);
 const Dashboard = {
   async render() {
     return /* html */ `
-        <div class="hidden md:block text-center">
+        <div class="text-center">
           <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
-            Celengan Shaddam Amru
+            Celenganku
           </p>
         </div>
 
         <div class="flex flex-col">
           <div
-            class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
+            class="bg-gray-200 gap-4 p-5 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
               <div class="flex items-center">
 
@@ -6842,8 +6864,8 @@ const Dashboard = {
 
                 <div id="deposit-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pemasukan Bulan ini</p>
-                  <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
-                  <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                  <p id="monthly-withdraw" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
+                  <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
                 </div>
               </div>
             </div>
@@ -6856,19 +6878,16 @@ const Dashboard = {
 
                 <div id="withdraw-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pengeluaran Bulan ini</p>
-                  <p class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
-                  <p class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                  <p id="monthly-deposit" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
+                  <p id="weekly-deposit" class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
                 </div>
               </div>
             </div>
           </div>
           <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
-          <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
+          <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-6 md:p-8">
             <div class="flex-1 py-0 white rounded-lg">
-              <div class="preloader p-4 flex mt-auto mb-auto mx-auto">
-                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
-              </div>
-              <table id="transaction-table" class="table-auto w-full mb-4">
+              <table id="transaction-table" class="table-auto w-full">
                 <tbody>
                 <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
@@ -6881,6 +6900,9 @@ const Dashboard = {
                   </tr>
                 </tbody>
               </table>
+              <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
+                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+              </div>
             </div>
           </div>
       `
@@ -6895,7 +6917,9 @@ const Dashboard = {
 
     this._ballance = 0
     this._deposit = 0
+    this._weeklyDeposit = 0
     this._withdraw = 0
+    this._weeklyWithdraw = 0
 
     // Fetch Data
     const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_2__.default.retrieveUser()
@@ -6904,9 +6928,19 @@ const Dashboard = {
     this._ballance = accountData.saldo
 
     const balanceText = document.getElementById('bal')
+    const withdrawText = document.getElementById('monthly-withdraw')
+    const weekWithdrawText = document.getElementById('weekly-withdraw')
+    const depositText = document.getElementById('monthly-deposit')
+    const weekDepositText = document.getElementById('weekly-deposit')
     balanceText.innerHTML = `Rp ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(this._ballance)}`
 
     await this._renderTable()
+    // Render Cards
+    withdrawText.innerHTML = `Rp ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(this._withdraw)}`
+    weekWithdrawText.innerHTML = `RP ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(this._weeklyWithdraw)} MINGGU INI`
+    depositText.innerHTML = `Rp ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(this._deposit)}`
+    weekDepositText.innerHTML = `RP ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(this._weeklyDeposit)} MINGGU INI`
+
     // Remove Preloaders
     balanceCard.classList.remove('hidden')
     depositCard.classList.remove('hidden')
@@ -6938,6 +6972,20 @@ const Dashboard = {
       timeCreated.setDate(timeStamp.getDate() - 1)
       const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
       const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
+
+      if (timeCreated.getMonth() === new Date().getMonth()) {
+        if (jenisTransaksi.toLowerCase() === 'pemasukan') {
+          this._withdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertCasttoInt(transaction.nominal)
+          if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_1__.default.isDateInThisWeek(timeCreated.getMonth())) {
+            this._weeklyWithdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertCasttoInt(transaction.nominal)
+          }
+        } else {
+          this._deposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertCasttoInt(transaction.nominal)
+          if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_1__.default.isDateInThisWeek(timeCreated.getMonth())) {
+            this._weeklyDeposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertCasttoInt(transaction.nominal)
+          }
+        }
+      }
 
       // Classes
       const nominalColor = (jenis) => {
@@ -6984,16 +7032,20 @@ const Dashboard = {
 
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
         setInterval(() => {
-          const {
-            distance, hours, minutes,
-          } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_1__.default.getTimeCounter(timeStamp)
-          const counterText = `${hours} jam ${minutes} menit`
-          const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
-          const reminderElement = document.getElementById('reminder-element')
-          reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
-          reminderElement.innerHTML = counterReminder
+          try {
+            const {
+              distance, hours, minutes,
+            } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_1__.default.getTimeCounter(timeStamp)
+            const counterText = `${hours} jam ${minutes} menit`
+            const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
+            const reminderElement = document.getElementById('reminder-element')
+            reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
+            reminderElement.innerHTML = counterReminder
 
-          if (distance < 0) console.log('telat bang')
+          // if (distance < 0) console.log('telat bang')
+          } catch (error) {
+            // console.log('')
+          }
         }, 1000)
       }
 
@@ -7005,9 +7057,9 @@ const Dashboard = {
       <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
       <td class="bg-white">
-        <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} py-2 px-2 rounded-lg w-max">
+        <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} p-1 md:py-2 md:px-6 rounded-lg w-max">
         <p class="hidden md:inline">${transaction.status_transaksi}</p>
-        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
+        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
         </div>
       </td>
       <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
@@ -7064,19 +7116,19 @@ __webpack_require__.r(__webpack_exports__);
 const Profile = {
   async render() {
     return /* html */`
-    <div class="hidden md:block text-center">
+    <div class="text-center">
     <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
       Profil Saya
     </p>
   </div>
   <div class="flex flex-col lg:flex-row">
-    <div class="p-4 rounded-lg flex flex-row  md:flex-col flex-1 mt-4">
-      <div class="bg-gray-200 flex flex-col py-0 white rounded-lg p-4">
+    <div class="p-5 rounded-lg flex flex-row md:flex-col flex-1 md:mt-4">
+      <div class="bg-gray-200 p-5 md:p-8 flex flex-1 flex-col white rounded-lg">
       <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
         <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
         </div>
         <div id="account-form" class="hidden flex flex-col gap-4">
-          <div class="p-3 mx-auto mt-4 rounded-lg">
+          <div class="mx-auto mt-4 rounded-lg">
             <div class="flex flex-col w-48 rounded-full text-white">
               <img id="photo-profile" class="object-cover rounded-full w-full h-48 mx-auto" alt="User Photo Profile" src="http://ui-avatars.com/api/background=fff&color=fff">
               <div id="change-photo" class="hidden flex flex-row">
@@ -7090,34 +7142,34 @@ const Profile = {
               </div>
             </div>
           </div>
-          <div class="flex-1 p-5 pt-0 rounded-lg w-full">
-        <div class="pb-4">
+          <div class="flex-1 pt-0 rounded-lg w-full">
+        <div class="">
         <p class="mb-2">NISN</p>
         <input id="input-nisn" name="NISN" disabled value="" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500">
         <p class="mb-2 mt-4">Email</p>
         <input id="input-email" name="Email" disabled value="" type="email" data-rule="required no-space email" class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
-        <p class="mb-2 mt-4">Password</p>
+        <p class="mt-4">Password</p>
         <input id="input-password" name="Password" disabled value="" type="password" data-rule="required no-space" class="editable block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
         </div>
     </div>
       </div>
     </div>
     </div>
-    <div class="p-4 rounded-lg flex flex-col flex-1 md:mt-4">
+    <div class="p-5 rounded-lg flex flex-col flex-1 md:mt-4">
     <p class="mb-4 text-lg text-center md:text-left">Informasi Siswa</p>
-      <div class="bg-gray-200 p-4 flex-col py-0 white rounded-lg">
+      <div class="bg-gray-200 p-5 md:p-8 flex-col white rounded-lg">
       <div class="preloader justify-center p-4 flex mt-auto mb-auto ml-auto mr-auto">
         <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
         </div>
-        <div id="profile-form" class="hidden flex flex-col gap-4">
-          <div class="flex-1 p-5 rounded-lg w-full">
+        <div id="profile-form" class="hidden flex flex-col">
+          <div class="flex-1 rounded-lg w-full">
             <div class="">
-              <p class="mb-2 mt-4">Nama Lengkap</p>
+              <p class="mb-2">Nama Lengkap</p>
               <input id="input-nama" name="Nama" disabled value="" type="text" class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
               <p class="mb-2 mt-4">Alamat</p>
               <textarea id="input-alamat" name="Alamat" rows="4" type="text" class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500" disabled></textarea>
               <p class="mb-2 mt-4">Nomor Telepon</p>
-              <input id="input-no_telepon" name="Nomer Telepon" data-rule="required no-space" value="" type="number" class="editable mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
+              <input id="input-no_telepon" name="Nomer Telepon" data-rule="required no-space" value="" type="number" class="editable text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400" disabled>
             </div>
           </div>
         </div>
@@ -7345,115 +7397,224 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helper/string-formater */ "./src/scripts/helper/string-formater.js");
+/* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+
+
+
+
 const Report = {
   async render() {
     return /* html */`
-    <div class="hidden md:block text-center">
+    <div class="text-center">
     <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
       Riwayat Transaksi
     </p>
     <div class="flex flex-row mt-4 md:mt-6 ">
       <div class="flex flex-row">
-      <button id="user-login-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
-      <p class="mt-3 ml-4">Total Transaksi: Rp 880.000</p>
+        <button id="user-login-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
+        <p id="total-transaction" class="hidden md:inline mt-3 ml-4 text-gray-700">Total Transaksi:</p>
       </div>
-      <div class="flex flex-row ml-auto">
-      <input placeholder="Cari tanggal, nominal, dll" value="" type="text" class="text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+      <div class="flex flex-1 md:flex-initial ml-4 md:ml-auto flex-row ">
+      <input id="search-input" placeholder="Cari tanggal, nominal, dll" value="" type="text" class="text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
       <svg class="w-8 h-8 mt-auto mb-auto ml-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </div>
     </div>
   </div>
-    <div class="bg-gray-200 gap-4 p-4 rounded-lg flex flex-col mt-6 md:p-8">
+    <div class="bg-gray-200 gap-5 p-4 rounded-lg flex flex-col mt-6 md:p-8">
       <div class="flex-1 py-0 white rounded-lg">
-        <table class="w-full mb-4">
-          <tbody>
-            <tr class="text-left text-gray-700">
-              <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
-              <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
-              <th class="font-normal pb-5 pt-0">Nominal</th>
-              <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
-              <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
-              <th class="font-normal pb-5 pt-0">Status</th>
-              <th class="font-normal pb-5 pt-0 justify-end"></th>
-            </tr>
-            <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-              <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
-              <td class="bg-white hidden lg:table-cell">TWL2277972</td>
-              <td class="bg-white text-failed">RP 80.000</td>
-              <td class="bg-white hidden lg:table-cell">ADMIN</td>
-              <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
-              <td class="bg-white">
-                <p class="text-sm bg-primaryDisable text-primary py-2 px-3 rounded-lg w-max">PEMBAYARAN</p>
-              </td>
-              <td class="bg-white rounded-r-lg justify-end flex p-3">
-                <button class="p-2 w-12 h-12 text-gray-700" id="settings">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                    </path>
-                  </svg>
-                </button>
-                <div id="settings-dropdown"
-                  class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                  <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <a href="#/profile"
-                      class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      role="menuitem">
-                      <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
-                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg></i>
-                      <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
-                    </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr class="h-4"></tr>
-            <tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-              <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">17 JANUARI 2021</td>
-              <td class="bg-white hidden lg:table-cell">TDD2884125</td>
-              <td class="bg-white text-success">RP 80.0000</td>
-              <td class="bg-white hidden lg:table-cell">GOPAY</td>
-              <td class="bg-white hidden lg:table-cell">PENARIKAN</td>
-              <td class="bg-white">
-                <p class="text-sm bg-primary text-white py-2 px-3 rounded-lg w-max">SELESAI</p>
-              </td>
-              <td class="bg-white rounded-r-lg justify-end flex p-3">
-                <button class="p-2 w-12 h-12 text-gray-700" id="settings">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
-                    </path>
-                  </svg>
-                </button>
-                <div id="settings-dropdown"
-                  class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                  <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <a href="#/profile"
-                      class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      role="menuitem">
-                      <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
-                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg></i>
-                      <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
-                    </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <table id="transaction-table" class="table-auto w-full">
+      <tbody>
+      <tr class="text-left text-gray-700">
+          <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+          <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+          <th class="font-normal pb-5 pt-0">Nominal</th>
+          <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
+          <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
+          <th class="font-normal pb-5 pt-0">Status</th>
+          <th class="font-normal pb-5 pt-0 justify-end"></th>
+        </tr>
+      </tbody>
+    </table>
+      <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
+        <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+      </div>
       </div>
     </div>
       `
   },
 
   async afterRender() {
-    // //
+    // Remove Preloders
+    this._totalTransaction = 0
+    const totalTransactionElement = document.getElementById('total-transaction')
+    const preloaders = document.querySelectorAll('.preloader')
+
+    // Fetch Data
+    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_2__.default.retrieveUser()
+    this._userId = responseData.id
+    const accountData = await _data_api_data__WEBPACK_IMPORTED_MODULE_2__.default.getAkunSiswa(this._userId)
+    this._ballance = accountData.saldo
+
+    await this._renderTable()
+    totalTransactionElement.innerHTML = `Total Transaksi: Rp ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(this._totalTransaction)}`
+    preloaders.forEach((preloader) => {
+      preloader.remove()
+    })
+  },
+
+  async _renderTable() {
+    const tableElement = document.getElementById('transaction-table')
+    const tableBody = tableElement.querySelector('tbody')
+    const transactionData = await _data_api_data__WEBPACK_IMPORTED_MODULE_2__.default.getTransaksiSiswa(this._userId)
+
+    const transactionTemplate = (transaction) => {
+      Object.keys(transaction).forEach((key) => {
+        if (typeof transaction[key] === 'object') {
+          //
+        } else if (key === 'nominal') {
+          transaction[key] = _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertToCashFormat(transaction[key])
+        } else {
+          transaction[key] = transaction[key].toString().toUpperCase()
+        }
+      })
+
+      const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
+      const jenisTransaksi = transaction.jenis_transaksi
+      const timeCreated = new Date()
+      timeCreated.setDate(timeStamp.getDate() - 1)
+      const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+      const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
+
+      this._totalTransaction += _helper_string_formater__WEBPACK_IMPORTED_MODULE_0__.default.convertCasttoInt(transaction.nominal)
+
+      // Classes
+      const nominalColor = (jenis) => {
+        if (jenis.toLowerCase() === 'pemasukan') return 'text-success'
+        return 'text-failed'
+      }
+
+      const statusColor = (status) => {
+        if (status.toLowerCase() === 'selesai') return 'bg-primary text-white'
+        return 'bg-primaryDisable text-primary'
+      }
+
+      const renderStatusIcon = (status) => {
+        if (status.toLowerCase() === 'selesai') return 'M5 13l4 4L19 7'
+        return 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+      }
+
+      const getStatusAction = (status) => {
+        if (status.toLowerCase() === 'selesai') {
+          return `
+          <a href="#/profile"
+            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg></i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
+          </a>`
+        }
+        return `
+          <a href="#/profile"
+            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"></path>
+              </svg></i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Batalkan Transaksi</p>
+          </a>`
+      }
+
+      if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+        setInterval(() => {
+          try {
+            const {
+              distance, hours, minutes,
+            } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_1__.default.getTimeCounter(timeStamp)
+            const counterText = `${hours} jam ${minutes} menit`
+            const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
+            const reminderElement = document.getElementById('reminder-element')
+            reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
+            reminderElement.innerHTML = counterReminder
+
+          // if (distance < 0) console.log('telat bang')
+          } catch (error) {
+            // console.log('')
+          }
+        }, 1000)
+      }
+
+      return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
+      <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
+      <td class="table-cell md:hidden p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
+      <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
+      <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
+      <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
+      <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
+      <td class="bg-white">
+        <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} p1 md:py-2 md:px-6 rounded-lg w-max">
+        <p class="hidden md:inline">${transaction.status_transaksi}</p>
+        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
+        </div>
+      </td>
+      <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
+        <button class="w-8 md:p-2 md:w-12 h-12 text-gray-700" id="settings">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+            </path>
+          </svg>
+        </button>
+        <div id="settings-dropdown"
+          class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+          <p id="reminder-element"></p>
+            ${getStatusAction(transaction.status_transaksi)}
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr class="h-4"></tr>`
+    }
+
+    transactionData.data.forEach((transaction) => {
+      tableBody.innerHTML += transactionTemplate(transaction)
+    })
+    this._createTableEvent()
+  },
+
+  async _createTableEvent() {
+    const searchInput = document.getElementById('search-input')
+    const table = document.getElementById('transaction-table')
+
+    searchInput.addEventListener('keyup', (event) => {
+      const filter = event.target.value.toUpperCase()
+      const transaction = table.querySelectorAll('tr[class*="hover:shadow-lg"]')
+      event.preventDefault()
+
+      transaction.forEach((row) => {
+        const rowData = row.querySelectorAll('td')
+        if (rowData.length) {
+          const textArray = []
+          rowData.forEach((data) => {
+            textArray.push(data.textContent.toUpperCase() || data.innerText.toUpperCase())
+          })
+          const textValue = textArray.toString()
+          if (textValue.indexOf(filter) > -1) {
+            row.style.display = ''
+          } else {
+            row.style.display = 'none'
+          }
+        }
+      })
+    })
   },
 
 }
@@ -7480,74 +7641,85 @@ __webpack_require__.r(__webpack_exports__);
 const Transaction = {
   async render() {
     return /* html */`
-        <div class="hidden md:block text-center">
-          <p class="text-xl leading-8 font-normal tracking-tight text-gray-900 md:text-3xl md:mt-2">
-            Buat Transaksi
+        <div class="text-center">
+          <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+            Transaksi
           </p>
         </div>
-        <div class="flex flex-col">
-          <div class="bg-gray-200 p-4 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
-            <p class="mb-4 text-xl text-center md:text-left md:text-2xl">Pilih Aksi</p>
+        <div class="flex flex-col w-full md:w-8/12 lg:w-6/12 mx-auto">
+          <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
+            <div class="flex flex-row mx-auto mb-4">
+            <button id="deposit-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
+              <button id="withdraw-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
+            </div>
             <div class="flex-1 py-0 white rounded-lg">
-              <div class="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
-                <button id="withdraw-balance" class="flex-1 p-5 bg-red-500 shadow-red rounded-lg w-full transition duration-100 ease-in-out">
-                  <div class="flex items-center md:justify-center">
-                    <div class="text-white flex  flex-row-reverse md:flex-col text-center items-center">
-                      <p class="text-2xl font-bold">tarik saldo</p>
-                      <svg class="w-16 h-16 p-2 md:w-32 md:h-32 md:p-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z" />
-                      </svg>
+            <p class="mb-2">Nominal</p>
+            <input id="input-nominal" name="Nominal" value="" type="number" class="mb-6 block px-5 py-3 rounded-lg w-full bg-white">
+              <div class="flex flex-col gap-6 items-center">
+                <button id="online-option" class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                  <div class="flex md:justify-center">
+                    <div class="text-white flex flex-1 flex-row">
+                      <div data-option class="mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg">
+                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                      </div>
+                      <div class="flex flex-col flex-1 text-left ml-4">
+                        <p class="md:-mb-2 text-gray-700">Pembayaran secara luring</p>
+                        <p id="monthly-withdraw" class="text-gray-800 text-2xl lg:text-4xl font-bold">Melalui Admin/TU</p>
+                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA ADMIN</p>
+                      </div>
                     </div>
                   </div>
                 </button>
-                <button id="deposit-balance" class="flex-1 p-5 bg-green-500 shadow-green rounded-lg w-full transition duration-100 ease-in-out">
-                  <div class="flex items-center md:justify-center">
-                    <div class="text-white flex flex-row-reverse md:flex-col text-center items-center">
-                      <p class="text-2xl font-bold">isi saldo</p>
-                      <svg class="w-16 h-16 p-2 md:w-32 md:h-32 md:p-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
-                      </svg>
-                    </div>
-                  </div>
-                </button>
-                <button id="print-report" class="flex-1 p-5 bg-blue-500 shadow-blue rounded-lg w-full transition duration-100 ease-in-out">
-                  <div class="flex items-center md:justify-center">
-                    <div class="text-white flex flex-row-reverse md:flex-col text-center items-center">
-                      <p class="text-2xl font-bold">cetak report</p>
-                      <svg class="w-16 h-16 p-2 md:w-32 md:h-32 md:p-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                <button id="offline-option" class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                  <div class="flex md:justify-center">
+                    <div class="text-white flex flex-1 flex-row">
+                      <div data-option class="mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg">
+                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                      </div>
+                      <div class="flex flex-col flex-1 text-left ml-4">
+                        <p class="md:-mb-1 text-gray-700">Pembayaran secara daring</p>
+                        <p id="monthly-withdraw" class="text-gray-800 text-xl md:text-2xl font-bold lg:mr-8">Melalui e-Wallets, Bank, Indomaret, dll</p>
+                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA TAMBAHAN</p>
+                      </div>
                     </div>
                   </div>
                 </button>
               </div>
             </div>
-            <div id="nominal-form" class="py-4 hidden transition duration-100 ease-in-out">
-              <p class="my-2">Nominal</p>
-              <input placeholder="Masukkan Nominal" type="text" class="mb-2 text-md block px-5 py-3 rounded-lg w-full bg-white text-gray-800 placeholder-gray-500 focus:placeholder-gray-400">
-              <div class="flex justify-start items-center w-100 pt-4">
-              <button id='pay-button' class="w-max bg-primary text-white font-light py-3 px-5 rounded-lg">Lanjut ke pembayaran</button>
-              </div>
             </div>
+            <button disabled id="edit-button" class="w-max bg-primary text-white py-3 px-8 rounded-lg disabled:opacity-50 mx-auto mt-4">Lanjut</button>
             </div>
         </div>
       `
   },
 
   async afterRender() {
-    const optionButton = document.querySelectorAll('#deposit-balance, #withdraw-balance, #print-report')
-    const payButton = document.getElementById('pay-button')
-    optionButton.forEach((option) => {
+    const transactionOptionButton = document.querySelectorAll('#withdraw-option, #deposit-option')
+    transactionOptionButton.forEach((option) => {
       option.addEventListener('click', () => {
-        this._selectTransactionOption(optionButton, option.id)
+        this._selectTransactionOption(transactionOptionButton, option.id)
       })
     })
-    payButton.addEventListener('click', () => {
-      this._initPayMethodForm()
+    const paymentOptionButton = document.querySelectorAll('#online-option, #offline-option')
+    paymentOptionButton.forEach((option) => {
+      option.addEventListener('click', () => {
+        this._selectPaymentOption(paymentOptionButton, option.id)
+      })
+    })
+    // payButton.addEventListener('click', () => {
+    //   this._initPayMethodForm()
+    // })
+  },
+
+  _selectTransactionOption(optionButton, optionId) {
+    optionButton.forEach((option) => {
+      if (option.id === optionId) {
+        option.disabled = true
+      } else {
+        option.disabled = false
+      }
     })
   },
 
@@ -7589,17 +7761,20 @@ const Transaction = {
     })
   },
 
-  _selectTransactionOption(optionButton, optionId) {
+  _selectPaymentOption(optionButton, optionId) {
     window.scrollTo(0, document.body.scrollHeight)
+    const selectedClass = 'mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg'
+    const nonSelectedClass = 'mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg'
     optionButton.forEach((option) => {
-      if (option.id !== optionId) {
-        option.classList.add('disabled-option')
+      const optionIcon = option.querySelector('div[data-option]')
+      if (option.id === optionId) {
+        option.classList.add('border-2', 'border-primary')
+        optionIcon.className = selectedClass
       } else {
-        option.classList.remove('disabled-option')
+        option.classList.remove('border-2', 'border-primary')
+        optionIcon.className = nonSelectedClass
       }
     })
-    const nominalForm = document.getElementById('nominal-form')
-    nominalForm.classList.remove('hidden')
   },
 }
 
@@ -7686,7 +7861,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "17b0645b6a2a5bfa1435"
+/******/ 		__webpack_require__.h = () => "6e116424fe4289d2d5c2"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

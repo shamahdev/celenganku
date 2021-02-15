@@ -105,6 +105,14 @@ const formValidation = {
           } else if (alertText.includes(`${input.name} harus berisikan ${mustNumber} digit angka`)) {
             alertText.splice(alertText.indexOf(`${input.name} harus berisi ${mustNumber} digit angka`), 1)
           }
+        } else if (rule.includes('value-more-than-')) {
+          const moreThanValue = parseInt(rule.replace('value-more-than-', ''), 10)
+
+          if (parseInt(input.value, 10) < moreThanValue) {
+            alertText.push(`${input.name} harus lebih dari jumlah saldo`)
+          } else if (alertText.includes(`${input.name} harus lebih dari jumlah saldo`)) {
+            alertText.splice(alertText.indexOf(`${input.name} harus lebih dari jumlah saldo`), 1)
+          }
         } else if (rule.includes('email')) {
           if (!(input.value.includes('@') && (input.value.split('@')[1]).includes('.'))) {
             alertText.push(`${input.name} harus berisikan format: your@email.com`)

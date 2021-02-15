@@ -27,6 +27,7 @@ module.exports = {
     resize: ({ after }) => after(['disabled']),
     opacity: ({ after }) => after(['disabled']),
     cursor: ({ after }) => after(['disabled']),
+    backgroundColor: ({ after }) => after(['disabled']),
   },
   plugins: [],
 }
