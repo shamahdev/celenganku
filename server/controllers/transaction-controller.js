@@ -90,7 +90,7 @@ const TransactionController = {
         nisn,
         status_transaksi: 'pembayaran',
         tenggat_waktu_pembayaran: time,
-
+        token: '',
       }
 
       await Transaction.doc(id_transaksi).set(transactionResponse)
@@ -102,6 +102,50 @@ const TransactionController = {
           ...transactionResponse,
         },
       })
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
+    }
+  },
+
+  updateTransaction: async (req, res, next) => {
+    try {
+      const { token, status_transaksi } = req.body
+      const id_transaksi = req.params.id
+
+      const transaction = await Transaction.doc(id_transaksi).get()
+      if (!transaction.exists) {
+        res.status(401).json({
+          status: 'failed',
+          error: true,
+          message: 'Transaction with this ID doesn\'t exist',
+          response: req.body,
+        })
+      }
+
+      const transactionData = transaction.data()
+
+      const updateData = {
+        status_transaksi: status_transaksi || transactionData.status_transaksi,
+        token: token || transactionData.token,
+      }
+
+      // Check for existed document
+      await Transaction.doc(id_transaksi).update({
+        status_transaksi: updateData.status_transaksi,
+        token: updateData.token,
+      })
+
+      res.status(200).json({
+        status: 'success',
+        error: false,
+        response: req.body,
+      })
+      return { success: true }
     } catch (error) {
       console.log(error)
       res.status(502).json({

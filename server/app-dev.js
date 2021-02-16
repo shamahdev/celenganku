@@ -1,13 +1,11 @@
+import 'regenerator-runtime'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import 'regenerator-runtime'
 import express from 'express'
 import path from 'path'
+import cors from 'cors'
 import bodyParser from 'body-parser'
-// import cors from 'cors'
-// import helmet from 'helmet'
-// import hpp from 'hpp'
 import cookieParser from 'cookie-parser'
 import config from '../webpack.dev'
 import CONFIG from './global/config'
@@ -31,15 +29,12 @@ app.use(webpackHotMiddleware(compiler))
 //
 //
 
-// app.use(cors())
-// app.use(helmet())
-// app.use(hpp())
+app.use(cors())
+app.options('*', cors())
 app.use(cookieParser())
-
 app.use(express.json({
   limit: '15kb',
 }))
-
 app.use(bodyParser.urlencoded({
   extended: true,
 }))
@@ -48,7 +43,6 @@ app.use('/api', appRoutes)
 app.use('/api/siswa', siswaRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/transaction', transactionRoutes)
-
 app.use(express.static(__dirname))
 app.use('/', (req, res) => res.sendFile(HTML_FILE))
 
@@ -68,4 +62,5 @@ app.get('*', (req, res, next) => {
 // Webpack Middleware
 //
 //
+
 export default app

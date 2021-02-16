@@ -10359,6 +10359,23 @@ class APIData {
     }
   }
 
+  static async createTransaction(transactionData) {
+    try {
+      console.log(transactionData)
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.TRANSAKSI.CREATE, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transactionData),
+      })
+      return response.json()
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
+
   static async uploadFile(file) {
     try {
       const formData = new FormData()
@@ -10519,6 +10536,7 @@ const API_ENDPOINT = {
 
   TRANSAKSI: {
     ID: (id) => `api/transaction/${id}`,
+    CREATE: 'api/transaction/create',
   },
   ADMIN: (id) => `api/admin/${id}`,
   UPLOAD_FILE: 'api/upload',
@@ -10622,6 +10640,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* eslint-disable max-len */
 /* eslint-disable prefer-destructuring */
 const formValidation = {
   async init({ formInputs, submitButton, isEdit = false }) {
@@ -10733,9 +10752,25 @@ const formValidation = {
           const moreThanValue = parseInt(rule.replace('value-more-than-', ''), 10)
 
           if (parseInt(input.value, 10) < moreThanValue) {
-            alertText.push(`${input.name} harus lebih dari jumlah saldo`)
-          } else if (alertText.includes(`${input.name} harus lebih dari jumlah saldo`)) {
-            alertText.splice(alertText.indexOf(`${input.name} harus lebih dari jumlah saldo`), 1)
+            alertText.push(`Minimal ${input.name} adalah ${moreThanValue + 1}`)
+          } else if (alertText.includes(`Minimal ${input.name} adalah ${moreThanValue + 1}`)) {
+            alertText.splice(alertText.indexOf(`Minimal ${input.name} adalah ${moreThanValue + 1}`), 1)
+          }
+        } else if (rule.includes('multiple-of-')) {
+          const multipleValue = parseInt(rule.replace('multiple-of-', ''), 10)
+
+          if ((parseInt(input.value, 10) % multipleValue) !== 0) {
+            alertText.push(`${input.name} merupakan kelipatan ${multipleValue}`)
+          } else if (alertText.includes(`${input.name} merupakan kelipatan ${multipleValue}`)) {
+            alertText.splice(alertText.indexOf(`${input.name} merupakan kelipatan ${multipleValue}`), 1)
+          }
+        } else if (rule.includes('cannot-more-than-')) {
+          const moreThanValue = parseInt(rule.replace('cannot-more-than-', ''), 10)
+
+          if (parseInt(input.value, 10) > moreThanValue) {
+            alertText.push(`${input.name} tidak bisa lebih dari jumlah saldo`)
+          } else if (alertText.includes(`${input.name} tidak bisa lebih dari jumlah saldo`)) {
+            alertText.splice(alertText.indexOf(`${input.name} tidak bisa lebih dari jumlah saldo`), 1)
           }
         } else if (rule.includes('email')) {
           if (!(input.value.includes('@') && (input.value.split('@')[1]).includes('.'))) {
@@ -11859,7 +11894,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/string-formater */ "./src/scripts/helper/string-formater.js");
 /* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
 /* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
+/* eslint-disable max-len */
 /* eslint-disable no-restricted-syntax */
+
 
 
 
@@ -11928,7 +11966,7 @@ const Dashboard = {
                 </div>
 
                 <div id="withdraw-card" class="hidden flex flex-col flex-1">
-                  <p class="-mb-2 text-gray-700">Pengeluaran Bulan ini</p>
+                  <p class="-mb-2 text-gray-700">Penarikan Bulan ini</p>
                   <p id="monthly-deposit" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
                   <p id="weekly-deposit" class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
                 </div>
@@ -12059,7 +12097,7 @@ const Dashboard = {
         if (status.toLowerCase() === 'selesai') {
           return `
           <a href="#/profile"
-            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            class="flex w-full flex-1  px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
             <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -12071,7 +12109,7 @@ const Dashboard = {
         }
         return `
           <button id="cancel-transaction-button-${transaction.id_transaksi}"
-            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
             <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -12109,13 +12147,48 @@ const Dashboard = {
         return true
       }
 
+      const _showTransactionModalInit = (showButton) => {
+        showButton.addEventListener('click', () => {
+          _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_5__.default.init({
+            title: 'Kode Transaksi',
+            content:
+            `<div class="px-10 py-6">
+              <div id="modal-content">
+                <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
+                <p class="my-2 text-3xl font-bold">${transaction.id_transaksi}</p>
+              </div>
+              <div class="flex justify-end items-center w-100 mt-4">
+                <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
+                <button role="button" id="close-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
+              </div>
+            </div>`,
+          })
+          const modal = document.getElementById('modal-kode-transaksi')
+          const modalContent = document.getElementById('modal-content')
+          const thisContent = modalContent.innerHTML
+          const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
+          const showQRButton = document.getElementById('show-qr-button')
+          const closeButton = document.getElementById('close-button')
+          showQRButton.addEventListener('click', (event) => {
+            if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
+            else modalContent.innerHTML = thisContent
+          })
+          closeButton.addEventListener('click', () => {
+            modal.remove()
+          })
+        })
+        return true
+      }
+
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+        let delayTime = 1000
         setInterval(() => {
           try {
             const {
-              distance, hours, minutes, seconds,
+              distance, hours, minutes,
             } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.getTimeCounter(timeStamp)
-            const counterText = `${hours} jam ${minutes} menit ${seconds} detik`
+            const counterText = `${hours} jam ${minutes} menit`
             const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
             const reminderElement = document.getElementById(`reminder-element-${transaction.id_transaksi}`)
             reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
@@ -12126,12 +12199,25 @@ const Dashboard = {
             while (!initialized) {
               const cancelButton = document.getElementById(`cancel-transaction-button-${transaction.id_transaksi}`)
               initialized = _cancelButtonInit(cancelButton)
+              delayTime = 60000
             }
           } catch (error) {
             // console.log('')
           }
-        }, 1000)
+        }, delayTime)
       }
+
+      setInterval(() => {
+        try {
+          let initialized = false
+          while (!initialized) {
+            const showButton = document.getElementById(`show-transaction-button-${transaction.id_transaksi}`)
+            initialized = _showTransactionModalInit(showButton)
+          }
+        } catch (error) {
+          // console.log('')
+        }
+      }, 1000)
 
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
@@ -12158,6 +12244,14 @@ const Dashboard = {
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
           <p id="reminder-element-${transaction.id_transaksi}"></p>
+          <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
+          </button>
             ${getStatusAction(transaction.status_transaksi)}
           </div>
         </div>
@@ -12166,6 +12260,16 @@ const Dashboard = {
     <tr class="h-4"></tr>`
     }
 
+    tableBody.innerHTML = `
+      <tr class="text-left text-gray-700">
+        <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+        <th class="font-normal pb-5 pt-0">Nominal</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
+        <th class="font-normal pb-5 pt-0">Status</th>
+        <th class="font-normal pb-5 pt-0 justify-end"></th>
+      </tr>`
     transactionData.forEach((transaction) => {
       tableBody.innerHTML += transactionTemplate(transaction)
     })
@@ -12486,6 +12590,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_string_formater__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helper/string-formater */ "./src/scripts/helper/string-formater.js");
 /* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
 /* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
+
 
 
 
@@ -12575,8 +12681,6 @@ const Report = {
       const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
       const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
 
-      this._totalTransaction += _helper_string_formater__WEBPACK_IMPORTED_MODULE_1__.default.convertCasttoInt(transaction.nominal)
-
       // Classes
       const nominalColor = (jenis) => {
         if (jenis.toLowerCase() === 'pemasukan') return 'text-success'
@@ -12597,7 +12701,7 @@ const Report = {
         if (status.toLowerCase() === 'selesai') {
           return `
           <a href="#/profile"
-            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            class="flex w-full flex-1  px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
             <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -12608,8 +12712,8 @@ const Report = {
           </a>`
         }
         return `
-          <a href="#/profile"
-            class="flex px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          <button id="cancel-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
             <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -12617,10 +12721,72 @@ const Report = {
                   d="M6 18L18 6M6 6l12 12"></path>
               </svg></i>
             <p class="flex ml-2 mt-1 leading-relaxed">Batalkan Transaksi</p>
-          </a>`
+          </button>`
+      }
+
+      const _cancelButtonInit = (cancelButton) => {
+        cancelButton.addEventListener('click', async (event) => {
+          event.stopPropagation()
+          const result = await Swal.fire({
+            icon: 'warning',
+            text: 'Tekan pilihan untuk mengkonfirmasi',
+            title: 'Apakah benar ingin membatalkan transaksi?',
+            showCancelButton: true,
+            confirmButtonText: 'Benar',
+            cancelButtonText: 'Tidak',
+            customClass: {
+              popup: 'popup-sweetalert',
+              confirmButton: 'btn-sweetalert bg-success',
+              cancelButton: 'btn-sweetalert bg-failed',
+            },
+            buttonsStyling: false,
+          })
+
+          if (result.isConfirmed) {
+            const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_3__.default.deleteTransaksiSiswa(transaction.id_transaksi)
+            console.log(response)
+            this._renderTable()
+          }
+        })
+        return true
+      }
+
+      const _showTransactionModalInit = (showButton) => {
+        showButton.addEventListener('click', () => {
+          _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_4__.default.init({
+            title: 'Kode Transaksi',
+            content:
+            `<div class="px-10 py-6">
+              <div id="modal-content">
+                <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
+                <p class="my-2 text-3xl font-bold">${transaction.id_transaksi}</p>
+              </div>
+              <div class="flex justify-end items-center w-100 mt-4">
+                <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
+                <button role="button" id="close-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
+              </div>
+            </div>`,
+          })
+          const modal = document.getElementById('modal-kode-transaksi')
+          const modalContent = document.getElementById('modal-content')
+          const thisContent = modalContent.innerHTML
+          const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
+          const showQRButton = document.getElementById('show-qr-button')
+          const closeButton = document.getElementById('close-button')
+          showQRButton.addEventListener('click', (event) => {
+            if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
+            else modalContent.innerHTML = thisContent
+          })
+          closeButton.addEventListener('click', () => {
+            modal.remove()
+          })
+        })
+        return true
       }
 
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+        let delayTime = 1000
         setInterval(() => {
           try {
             const {
@@ -12632,12 +12798,30 @@ const Report = {
             reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
             reminderElement.innerHTML = counterReminder
 
-          // if (distance < 0) console.log('telat bang')
+            // if (distance < 0) console.log('telat bang')
+            let initialized = false
+            while (!initialized) {
+              const cancelButton = document.getElementById(`cancel-transaction-button-${transaction.id_transaksi}`)
+              initialized = _cancelButtonInit(cancelButton)
+              delayTime = 60000
+            }
           } catch (error) {
             // console.log('')
           }
-        }, 1000)
+        }, delayTime)
       }
+
+      setInterval(() => {
+        try {
+          let initialized = false
+          while (!initialized) {
+            const showButton = document.getElementById(`show-transaction-button-${transaction.id_transaksi}`)
+            initialized = _showTransactionModalInit(showButton)
+          }
+        } catch (error) {
+          // console.log('')
+        }
+      }, 1000)
 
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
@@ -12649,7 +12833,7 @@ const Report = {
       <td class="bg-white">
         <div class="ml-2 md:ml-0 text-sm ${statusColor(transaction.status_transaksi)} p-1 md:py-2 md:px-6 rounded-lg w-max">
         <p class="hidden md:inline">${transaction.status_transaksi}</p>
-        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
+        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="${renderStatusIcon(transaction.status_transaksi)}"></path></svg></p>
         </div>
       </td>
       <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
@@ -12664,6 +12848,14 @@ const Report = {
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
           <p id="reminder-element-${transaction.id_transaksi}"></p>
+          <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
+          </button>
             ${getStatusAction(transaction.status_transaksi)}
           </div>
         </div>
@@ -12672,6 +12864,16 @@ const Report = {
     <tr class="h-4"></tr>`
     }
 
+    tableBody.innerHTML = `
+      <tr class="text-left text-gray-700">
+        <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+        <th class="font-normal pb-5 pt-0">Nominal</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
+        <th class="font-normal pb-5 pt-0">Status</th>
+        <th class="font-normal pb-5 pt-0 justify-end"></th>
+      </tr>`
     transactionData.forEach((transaction) => {
       tableBody.innerHTML += transactionTemplate(transaction)
     })
@@ -12727,6 +12929,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
 /* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
 /* harmony import */ var _helper_event_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../helper/event-helper */ "./src/scripts/helper/event-helper.js");
+/* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
+/* eslint-disable no-undef */
+
 
 
 
@@ -12743,13 +12948,13 @@ const Transaction = {
         <div class="flex flex-col w-full md:w-8/12 lg:w-6/12 mx-auto">
           <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
             <div class="flex flex-row mx-auto mb-4">
-            <button id="deposit-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
-              <button id="withdraw-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
+            <button id="pemasukan-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
+              <button id="penarikan-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
             </div>
             <div class="flex-1 py-0 white rounded-lg">
             <div class="mb-6">
               <p class="mb-2">Nominal</p>
-              <input id="input-nominal" name="Nominal" data-rule="required" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
+              <input id="input-nominal" name="Nominal" data-rule="required value-more-than-999 multiple-of-1000" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
             </div>
               <div class="flex flex-col gap-6 items-center">
                 <button id="luring-option" class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
@@ -12794,13 +12999,14 @@ const Transaction = {
   async afterRender() {
     const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.retrieveUser()
     this._userId = responseData.id
-    const accountData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getAkunSiswa(this._userId)
-    this._ballance = accountData.saldo
-    this._transactionOption = 'withdraw'
+    const userAccount = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getAkunSiswa(this._userId)
+    this._userAccount = userAccount
+    this._ballance = userAccount.saldo
+    this._transactionOption = 'pemasukan'
     this._paymentOption = 'luring'
 
     const paymentOptionButton = document.querySelectorAll('#daring-option, #luring-option')
-    const transactionOptionButton = document.querySelectorAll('#withdraw-option, #deposit-option')
+    const transactionOptionButton = document.querySelectorAll('#penarikan-option, #pemasukan-option')
     const nominalInput = document.getElementById('input-nominal')
     const nextButton = document.getElementById('next-button')
 
@@ -12812,12 +13018,12 @@ const Transaction = {
     transactionOptionButton.forEach((option) => {
       option.addEventListener('click', () => {
         this._selectTransactionOption(transactionOptionButton, option.id)
-        if (this._transactionOption === 'withdraw') {
-          nominalInput.dataset.rule += ` value-more-than-${this._ballance}`
+        if (this._transactionOption === 'penarikan') {
+          nominalInput.dataset.rule += ` cannot-more-than-${this._ballance}`
           this._selectPaymentOption(paymentOptionButton, paymentOptionButton[0].id)
           paymentOptionButton[1].style.display = 'none'
         } else {
-          nominalInput.dataset.rule = 'required'
+          nominalInput.dataset.rule = 'required value-more-than-999 multiple-of-1000'
           paymentOptionButton[1].style.display = ''
         }
         _helper_event_helper__WEBPACK_IMPORTED_MODULE_3__.default.triggerEvent(nominalInput, 'keyup')
@@ -12830,17 +13036,46 @@ const Transaction = {
       })
     })
 
-    nextButton.addEventListener('click', () => {
-      if (this._paymentOption === 'luring') this._adminPaymentInit()
-      else this._midtransPaymentInit()
+    nextButton.addEventListener('click', async () => {
+      try {
+        const transactionData = {
+          nisn: this._userId,
+          nominal: nominalInput.value,
+          jenis_transaksi: this._transactionOption,
+          metode_pembayaran: this._paymentOption,
+        }
+
+        const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.createTransaction(transactionData)
+        console.log(response)
+
+        if (this._paymentOption === 'luring') this._adminPaymentInit(response)
+        else this._midtransPaymentInit(response)
+      } catch (error) {
+        console.log(error)
+      }
     })
   },
 
-  async _midtransPaymentInit() {
+  async _midtransPaymentInit(transactionData) {
+    snap.show()
+    const dataResponse = transactionData.response
+    const userData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getDataSiswa(this._userId)
+
     const data = {
       transaction_details: {
-        order_id: `${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)}`,
-        gross_amount: 10000,
+        order_id: dataResponse.id_transaksi,
+        gross_amount: dataResponse.nominal,
+      },
+      item_details: [{
+        id: dataResponse.id_transaksi,
+        price: dataResponse.nominal,
+        quantity: 1,
+        name: `${dataResponse.jenis_transaksi.charAt(0).toUpperCase() + dataResponse.jenis_transaksi.slice(1)} Saldo`,
+        brand: 'Celenganku',
+      }],
+      customer_details: {
+        first_name: userData.nama,
+        email: this._userAccount.email,
       },
       callbacks: {
         finish: '/',
@@ -12848,7 +13083,6 @@ const Transaction = {
     }
     const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getMidtransToken(data)
     console.log(response)
-    // eslint-disable-next-line no-undef
     snap.pay(response.token, {
       onSuccess: (result) => {
         /* You may add your own implementation here */
@@ -12856,15 +13090,9 @@ const Transaction = {
       },
       onPending(result) {
         /* You may add your own implementation here */
-        alert('wating your payment!'); console.log(result)
-      },
-      onError(result) {
-        /* You may add your own implementation here */
-        alert('payment failed!'); console.log(result)
+        window.location.hash = '#'
       },
       onClose() {
-        /* You may add your own implementation here */
-        alert('you closed the popup without finishing the payment')
       },
     })
   },
@@ -12880,17 +13108,20 @@ const Transaction = {
     this._transactionOption = optionId.replace('-option', '')
   },
 
-  _adminPaymentInit() {
+  _adminPaymentInit(transaction) {
     window.location.hash = '#'
     _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_1__.default.init({
       title: 'Kode Transaksi',
       content:
       `<div class="px-10 py-6">
-        <div id="modal-content">
+        <div class="preloader p-4 flex justify-center m-auto">
+          <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+        </div>
+        <div class="hidden" id="modal-content">
           <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
-          <p class="my-2 text-3xl font-bold">TWL2277972</p>
+          <p class="my-2 text-3xl font-bold">${transaction.response.id_transaksi}</p>
           <p class="mt-4 text-gray-500">Transaksi ini akan automatis dibatalkan dalam</p>
-          <p class="mt-1 text-primary">23 jam 58 menit</p>
+          <p id="time-count" class="mt-1 text-primary"></p>
         </div>
         <div class="flex justify-end items-center w-100 mt-4">
           <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
@@ -12899,19 +13130,44 @@ const Transaction = {
         </div>
       </div>`,
     })
+    const preloader = document.querySelector('.preloader')
     const modal = document.getElementById('modal-kode-transaksi')
     const modalContent = document.getElementById('modal-content')
     const thisContent = modalContent.innerHTML
-    const qrContent = '<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Example"></img>'
+    const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.response.id_transaksi}"></img>`
     const showQRButton = document.getElementById('show-qr-button')
     const closeButton = document.getElementById('close-button')
+
+    const timeStamp = new Date(transaction.response.tenggat_waktu_pembayaran.seconds * 1000)
+    const timeCountInterval = setInterval(() => {
+      try {
+        const timeCounter = document.getElementById('time-count')
+        const {
+          hours, minutes, seconds,
+        } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_4__.default.getTimeCounter(timeStamp)
+        const counterText = `${hours} jam ${minutes} menit ${seconds} detik`
+        timeCounter.innerHTML = counterText
+      } catch (error) {
+        // console.log(error)
+      }
+    }, 1000)
+
+    this._toggleQR = false
     showQRButton.addEventListener('click', (event) => {
-      if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
+      event.stopPropagation()
+      this._toggleQR = !this._toggleQR
+      if (this._toggleQR) modalContent.innerHTML = qrContent
       else modalContent.innerHTML = thisContent
     })
     closeButton.addEventListener('click', () => {
       modal.remove()
+      clearInterval(timeCountInterval)
     })
+
+    setTimeout(() => {
+      preloader.remove()
+      modalContent.classList.remove('hidden')
+    }, 500)
   },
 
   _selectPaymentOption(optionButton, optionId) {
@@ -13018,7 +13274,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "979252f742242c6d3d74"
+/******/ 		__webpack_require__.h = () => "71bfdf7cb0e5241101e0"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

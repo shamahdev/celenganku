@@ -38,6 +38,38 @@ class APIData {
     }
   }
 
+  static async createTransaction(transactionData) {
+    try {
+      const response = await fetch(API_ENDPOINT.TRANSAKSI.CREATE, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transactionData),
+      })
+      return response.json()
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
+
+  static async updateTransaction(id, transactionData) {
+    try {
+      const response = await fetch(API_ENDPOINT.TRANSAKSI.ID(id), {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transactionData),
+      })
+      return response.json()
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
+
   static async uploadFile(file) {
     try {
       const formData = new FormData()

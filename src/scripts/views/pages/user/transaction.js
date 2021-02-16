@@ -1,7 +1,9 @@
+/* eslint-disable no-undef */
 import APIData from '../../../data/api-data'
 import ModalInitializer from '../../../utils/modal-initializer'
 import formValidation from '../../../helper/form-validation'
 import EventHelper from '../../../helper/event-helper'
+import DateFormater from '../../../helper/date-formater'
 
 const Transaction = {
   async render() {
@@ -14,13 +16,13 @@ const Transaction = {
         <div class="flex flex-col w-full md:w-8/12 lg:w-6/12 mx-auto">
           <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
             <div class="flex flex-row mx-auto mb-4">
-            <button id="deposit-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
-              <button id="withdraw-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
+            <button id="pemasukan-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
+              <button id="penarikan-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
             </div>
             <div class="flex-1 py-0 white rounded-lg">
             <div class="mb-6">
               <p class="mb-2">Nominal</p>
-              <input id="input-nominal" name="Nominal" data-rule="required" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
+              <input id="input-nominal" name="Nominal" data-rule="required value-more-than-999 multiple-of-1000" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
             </div>
               <div class="flex flex-col gap-6 items-center">
                 <button id="luring-option" class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
@@ -65,13 +67,14 @@ const Transaction = {
   async afterRender() {
     const responseData = await APIData.retrieveUser()
     this._userId = responseData.id
-    const accountData = await APIData.getAkunSiswa(this._userId)
-    this._ballance = accountData.saldo
-    this._transactionOption = 'withdraw'
+    const userAccount = await APIData.getAkunSiswa(this._userId)
+    this._userAccount = userAccount
+    this._ballance = userAccount.saldo
+    this._transactionOption = 'pemasukan'
     this._paymentOption = 'luring'
 
     const paymentOptionButton = document.querySelectorAll('#daring-option, #luring-option')
-    const transactionOptionButton = document.querySelectorAll('#withdraw-option, #deposit-option')
+    const transactionOptionButton = document.querySelectorAll('#penarikan-option, #pemasukan-option')
     const nominalInput = document.getElementById('input-nominal')
     const nextButton = document.getElementById('next-button')
 
@@ -83,12 +86,12 @@ const Transaction = {
     transactionOptionButton.forEach((option) => {
       option.addEventListener('click', () => {
         this._selectTransactionOption(transactionOptionButton, option.id)
-        if (this._transactionOption === 'withdraw') {
-          nominalInput.dataset.rule += ` value-more-than-${this._ballance}`
+        if (this._transactionOption === 'penarikan') {
+          nominalInput.dataset.rule += ` cannot-more-than-${this._ballance}`
           this._selectPaymentOption(paymentOptionButton, paymentOptionButton[0].id)
           paymentOptionButton[1].style.display = 'none'
         } else {
-          nominalInput.dataset.rule = 'required'
+          nominalInput.dataset.rule = 'required value-more-than-999 multiple-of-1000'
           paymentOptionButton[1].style.display = ''
         }
         EventHelper.triggerEvent(nominalInput, 'keyup')
@@ -101,41 +104,68 @@ const Transaction = {
       })
     })
 
-    nextButton.addEventListener('click', () => {
-      if (this._paymentOption === 'luring') this._adminPaymentInit()
-      else this._midtransPaymentInit()
+    nextButton.addEventListener('click', async () => {
+      try {
+        const transactionData = {
+          nisn: this._userId,
+          nominal: nominalInput.value,
+          jenis_transaksi: this._transactionOption,
+          metode_pembayaran: this._paymentOption,
+        }
+
+        const response = await APIData.createTransaction(transactionData)
+        console.log(response)
+
+        if (this._paymentOption === 'luring') this._adminPaymentInit(response)
+        else this._midtransPaymentInit(response)
+      } catch (error) {
+        console.log(error)
+      }
     })
   },
 
-  async _midtransPaymentInit() {
+  async _midtransPaymentInit(transactionData) {
+    snap.show()
+    const dataResponse = transactionData.response
+    const userData = await APIData.getDataSiswa(this._userId)
+
     const data = {
       transaction_details: {
-        order_id: `${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)}`,
-        gross_amount: 10000,
+        order_id: dataResponse.id_transaksi,
+        gross_amount: dataResponse.nominal,
+      },
+      item_details: [{
+        id: dataResponse.id_transaksi,
+        price: dataResponse.nominal,
+        quantity: 1,
+        name: `${dataResponse.jenis_transaksi.charAt(0).toUpperCase() + dataResponse.jenis_transaksi.slice(1)} Saldo`,
+        brand: 'Celenganku',
+      }],
+      customer_details: {
+        first_name: userData.nama,
+        email: this._userAccount.email,
       },
       callbacks: {
         finish: '/',
       },
     }
     const response = await APIData.getMidtransToken(data)
-    console.log(response)
-    // eslint-disable-next-line no-undef
+    await APIData.updateTransaction(dataResponse.id_transaksi, {
+      token: response.token,
+    })
     snap.pay(response.token, {
-      onSuccess: (result) => {
-        /* You may add your own implementation here */
-        alert('payment success!'); console.log(result)
+      onSuccess: async () => {
+        await APIData.updateTransaction(dataResponse.id_transaksi, {
+          status_transaksi: 'selesai',
+        })
+        window.location.hash = '#'
       },
-      onPending(result) {
+      onPending() {
         /* You may add your own implementation here */
-        alert('wating your payment!'); console.log(result)
-      },
-      onError(result) {
-        /* You may add your own implementation here */
-        alert('payment failed!'); console.log(result)
+        window.location.hash = '#'
       },
       onClose() {
-        /* You may add your own implementation here */
-        alert('you closed the popup without finishing the payment')
+        window.location.hash = '#'
       },
     })
   },
@@ -151,17 +181,20 @@ const Transaction = {
     this._transactionOption = optionId.replace('-option', '')
   },
 
-  _adminPaymentInit() {
+  _adminPaymentInit(transaction) {
     window.location.hash = '#'
     ModalInitializer.init({
       title: 'Kode Transaksi',
       content:
       `<div class="px-10 py-6">
-        <div id="modal-content">
+        <div class="preloader p-4 flex justify-center m-auto">
+          <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+        </div>
+        <div class="hidden" id="modal-content">
           <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
-          <p class="my-2 text-3xl font-bold">TWL2277972</p>
+          <p class="my-2 text-3xl font-bold">${transaction.response.id_transaksi}</p>
           <p class="mt-4 text-gray-500">Transaksi ini akan automatis dibatalkan dalam</p>
-          <p class="mt-1 text-primary">23 jam 58 menit</p>
+          <p id="time-count" class="mt-1 text-primary"></p>
         </div>
         <div class="flex justify-end items-center w-100 mt-4">
           <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
@@ -170,19 +203,44 @@ const Transaction = {
         </div>
       </div>`,
     })
+    const preloader = document.querySelector('.preloader')
     const modal = document.getElementById('modal-kode-transaksi')
     const modalContent = document.getElementById('modal-content')
     const thisContent = modalContent.innerHTML
-    const qrContent = '<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=Example"></img>'
+    const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.response.id_transaksi}"></img>`
     const showQRButton = document.getElementById('show-qr-button')
     const closeButton = document.getElementById('close-button')
+
+    const timeStamp = new Date(transaction.response.tenggat_waktu_pembayaran.seconds * 1000)
+    const timeCountInterval = setInterval(() => {
+      try {
+        const timeCounter = document.getElementById('time-count')
+        const {
+          hours, minutes, seconds,
+        } = DateFormater.getTimeCounter(timeStamp)
+        const counterText = `${hours} jam ${minutes} menit ${seconds} detik`
+        timeCounter.innerHTML = counterText
+      } catch (error) {
+        // console.log(error)
+      }
+    }, 1000)
+
+    this._toggleQR = false
     showQRButton.addEventListener('click', (event) => {
-      if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
+      event.stopPropagation()
+      this._toggleQR = !this._toggleQR
+      if (this._toggleQR) modalContent.innerHTML = qrContent
       else modalContent.innerHTML = thisContent
     })
     closeButton.addEventListener('click', () => {
       modal.remove()
+      clearInterval(timeCountInterval)
     })
+
+    setTimeout(() => {
+      preloader.remove()
+      modalContent.classList.remove('hidden')
+    }, 500)
   },
 
   _selectPaymentOption(optionButton, optionId) {

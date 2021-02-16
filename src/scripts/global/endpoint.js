@@ -12,6 +12,7 @@ const API_ENDPOINT = {
 
   TRANSAKSI: {
     ID: (id) => `api/transaction/${id}`,
+    CREATE: 'api/transaction/create',
   },
   ADMIN: (id) => `api/admin/${id}`,
   UPLOAD_FILE: 'api/upload',

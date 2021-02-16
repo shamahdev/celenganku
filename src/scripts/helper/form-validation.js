@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable prefer-destructuring */
 const formValidation = {
   async init({ formInputs, submitButton, isEdit = false }) {
@@ -109,9 +110,25 @@ const formValidation = {
           const moreThanValue = parseInt(rule.replace('value-more-than-', ''), 10)
 
           if (parseInt(input.value, 10) < moreThanValue) {
-            alertText.push(`${input.name} harus lebih dari jumlah saldo`)
-          } else if (alertText.includes(`${input.name} harus lebih dari jumlah saldo`)) {
-            alertText.splice(alertText.indexOf(`${input.name} harus lebih dari jumlah saldo`), 1)
+            alertText.push(`Minimal ${input.name} adalah ${moreThanValue + 1}`)
+          } else if (alertText.includes(`Minimal ${input.name} adalah ${moreThanValue + 1}`)) {
+            alertText.splice(alertText.indexOf(`Minimal ${input.name} adalah ${moreThanValue + 1}`), 1)
+          }
+        } else if (rule.includes('multiple-of-')) {
+          const multipleValue = parseInt(rule.replace('multiple-of-', ''), 10)
+
+          if ((parseInt(input.value, 10) % multipleValue) !== 0) {
+            alertText.push(`${input.name} merupakan kelipatan ${multipleValue}`)
+          } else if (alertText.includes(`${input.name} merupakan kelipatan ${multipleValue}`)) {
+            alertText.splice(alertText.indexOf(`${input.name} merupakan kelipatan ${multipleValue}`), 1)
+          }
+        } else if (rule.includes('cannot-more-than-')) {
+          const moreThanValue = parseInt(rule.replace('cannot-more-than-', ''), 10)
+
+          if (parseInt(input.value, 10) > moreThanValue) {
+            alertText.push(`${input.name} tidak bisa lebih dari jumlah saldo`)
+          } else if (alertText.includes(`${input.name} tidak bisa lebih dari jumlah saldo`)) {
+            alertText.splice(alertText.indexOf(`${input.name} tidak bisa lebih dari jumlah saldo`), 1)
           }
         } else if (rule.includes('email')) {
           if (!(input.value.includes('@') && (input.value.split('@')[1]).includes('.'))) {
