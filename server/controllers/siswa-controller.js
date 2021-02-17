@@ -130,6 +130,46 @@ const SiswaController = {
       })
     }
   },
+  updateSaldoSiswa: async (req, res, next) => {
+    try {
+      const nisn = req.params.id
+
+      const account = await Siswa.akun.doc(nisn).get()
+      if (!account.exists) {
+        res.status(401).json({
+          status: 'failed',
+          error: true,
+          message: 'Account with this NISN doesn\'t exist',
+          response: req.body,
+        })
+      }
+      const accountData = account.data()
+      const { saldo, jenis } = req.body
+
+      let newSaldo = 0
+      if (jenis === 'pemasukan') newSaldo = +accountData.saldo + +saldo
+      else newSaldo = +accountData.saldo - +saldo
+
+      // Check for existed document
+      await Siswa.akun.doc(nisn).update({
+        saldo: newSaldo,
+      })
+
+      res.status(200).json({
+        status: 'success',
+        error: false,
+        response: req.body,
+      })
+      return { success: true }
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
+    }
+  },
 }
 
 export default SiswaController

@@ -155,6 +155,26 @@ class APIData {
     }
   }
 
+  static async updateSaldo(id, saldo, jenis) {
+    const saldoObject = {
+      saldo,
+      jenis,
+    }
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.SALDO(id), {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(saldoObject),
+      })
+      return response.json()
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
+
   static async getTransaksiSiswa(id) {
     try {
       const response = await fetch(API_ENDPOINT.SISWA.TRANSAKSI(id))

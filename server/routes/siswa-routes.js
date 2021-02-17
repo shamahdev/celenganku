@@ -29,4 +29,7 @@ siswaRoutes.route('/:id/profil')
 siswaRoutes.route('/:id/data')
   .get(SiswaController.getDataSiswa)
 
+siswaRoutes.route('/:id/saldo')
+  .patch(SiswaController.updateSaldoSiswa)
+
 export default siswaRoutes

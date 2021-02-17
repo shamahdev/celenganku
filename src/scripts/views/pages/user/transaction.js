@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 import APIData from '../../../data/api-data'
 import ModalInitializer from '../../../utils/modal-initializer'
@@ -158,6 +159,7 @@ const Transaction = {
         await APIData.updateTransaction(dataResponse.id_transaksi, {
           status_transaksi: 'selesai',
         })
+        await APIData.updateSaldo(dataResponse.nisn, dataResponse.nominal, dataResponse.jenis_transaksi)
         window.location.hash = '#'
       },
       onPending() {

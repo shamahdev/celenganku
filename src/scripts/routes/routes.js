@@ -3,6 +3,7 @@ import Dashboard from '../views/pages/user/dashboard'
 import Transaction from '../views/pages/user/transaction'
 import Profile from '../views/pages/user/profile'
 import Report from '../views/pages/user/report'
+import ReportPreview from '../views/pages/user/report-preview'
 import AdminDashboard from '../views/pages/admin/dashboard'
 import Process from '../views/pages/admin/process'
 import Users from '../views/pages/admin/users'
@@ -13,6 +14,7 @@ const Routes = {
     '/': Dashboard,
     '/transaction': Transaction,
     '/report': Report,
+    '/report/:slug': ReportPreview,
     '/profile': Profile,
   },
   admin: {

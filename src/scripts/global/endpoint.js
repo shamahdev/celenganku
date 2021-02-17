@@ -7,6 +7,7 @@ const API_ENDPOINT = {
     AKUN: (id) => `api/siswa/${id}`,
     DATA: (id) => `api/siswa/${id}/data`,
     PROFIL: (id) => `api/siswa/${id}/profil`,
+    SALDO: (id) => `api/siswa/${id}/saldo`,
     TRANSAKSI: (id) => `api/transaction/nisn/${id}`,
   },
 

@@ -13,7 +13,7 @@ const Report = {
     </p>
     <div class="flex flex-row mt-4 md:mt-6 ">
       <div class="flex flex-row">
-        <button id="user-login-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
+        <button id="print-report-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
         <p id="total-transaction" class="hidden md:inline mt-3 ml-4 text-gray-700">Total Transaksi:</p>
       </div>
       <div class="flex flex-1 md:flex-initial ml-4 md:ml-auto flex-row ">
@@ -50,6 +50,7 @@ const Report = {
     this._totalTransaction = 0
     const totalTransactionElement = document.getElementById('total-transaction')
     const preloaders = document.querySelectorAll('.preloader')
+    const printReportButton = document.getElementById('print-report-button')
 
     // Fetch Data
     const responseData = await APIData.retrieveUser()
@@ -58,10 +59,78 @@ const Report = {
     this._ballance = accountData.saldo
 
     await this._renderTable()
+    await this._createPrintEvent(printReportButton)
     totalTransactionElement.innerHTML = `Total Transaksi: Rp ${StringFormater.convertToCashFormat(this._totalTransaction)}`
     preloaders.forEach((preloader) => {
       preloader.remove()
     })
+  },
+
+  async _createPrintEvent(printButton) {
+    printButton.addEventListener('click', () => {
+      ModalInitializer.init({
+        title: 'Laporan',
+        content:
+        `<div class="px-10 py-6">
+          <div id="modal-content">
+            <p class="mt-2 mb-1">Pilih Jangka Waktu</p>
+            <div class="my-4 flex flex-col gap-4 md:flex-row">
+            <button id="monthly-option" class="w-full p-4 border-2 border-primary bg-white shadow-lg rounded-lg focus:outline-none ">
+              <div class="flex flex-1 md:justify-center">
+                <div class="text-white flex flex-1 flex-row">
+                  <div data-option class="mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg">
+                  <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                  </div>
+                  <p class="text-gray-700 mt-1">Bulan Ini</p>
+                </div>
+              </div>
+            </button>
+            <button id="yearly-option" class="w-full p-4 bg-white shadow-lg rounded-lg focus:outline-none ">
+              <div class="flex flex-1 md:justify-center">
+                <div class="text-white flex flex-1 flex-row">
+                  <div data-option class="mx-2 my-auto text-sm bg-gray-300 text-gray-300 p-1 rounded-lg">
+                  <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                  </div>
+                  <p class="text-gray-700 mt-1">Tahun Ini</p>
+                </div>
+              </div>
+            </button>
+            </div>
+          </div>
+          <div class="flex justify-end items-center w-100 mt-4">
+            <button role="button" id="print-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Cetak</button>
+          </div>
+        </div>`,
+      })
+
+      this._frequenctOption = 'monthly'
+      const frequencyOptionButton = document.querySelectorAll('#monthly-option, #yearly-option')
+      const printButon = document.getElementById('print-button')
+
+      frequencyOptionButton.forEach((option) => {
+        option.addEventListener('click', () => {
+          this._selectReportOption(frequencyOptionButton, option.id)
+        })
+      })
+    })
+  },
+
+  _selectReportOption(optionButton, optionId) {
+    const selectedClass = 'mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg'
+    const nonSelectedClass = 'mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg'
+    optionButton.forEach((option) => {
+      const optionIcon = option.querySelector('div[data-option]')
+      if (option.id === optionId) {
+        option.classList.add('border-2', 'border-primary')
+        optionIcon.className = selectedClass
+      } else {
+        option.classList.remove('border-2', 'border-primary')
+        optionIcon.className = nonSelectedClass
+      }
+    })
+    this._frequencyOption = optionId.replace('-option', '')
   },
 
   async _renderTable() {
@@ -71,6 +140,8 @@ const Report = {
     const transactionData = sortBy(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     const transactionTemplate = (transaction) => {
+      if (transaction.status_transaksi.toLowerCase() === 'selesai') this._totalTransaction += +transaction.nominal
+
       Object.keys(transaction).forEach((key) => {
         if (typeof transaction[key] === 'object') {
           //

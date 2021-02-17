@@ -10361,9 +10361,24 @@ class APIData {
 
   static async createTransaction(transactionData) {
     try {
-      console.log(transactionData)
       const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.TRANSAKSI.CREATE, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transactionData),
+      })
+      return response.json()
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
+
+  static async updateTransaction(id, transactionData) {
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.TRANSAKSI.ID(id), {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -10461,6 +10476,26 @@ class APIData {
     }
   }
 
+  static async updateSaldo(id, saldo, jenis) {
+    const saldoObject = {
+      saldo,
+      jenis,
+    }
+    try {
+      const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.SALDO(id), {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(saldoObject),
+      })
+      return response.json()
+    } catch (err) {
+      console.log(err)
+      return err
+    }
+  }
+
   static async getTransaksiSiswa(id) {
     try {
       const response = await fetch(_global_endpoint__WEBPACK_IMPORTED_MODULE_1__.default.SISWA.TRANSAKSI(id))
@@ -10531,6 +10566,7 @@ const API_ENDPOINT = {
     AKUN: (id) => `api/siswa/${id}`,
     DATA: (id) => `api/siswa/${id}/data`,
     PROFIL: (id) => `api/siswa/${id}/profil`,
+    SALDO: (id) => `api/siswa/${id}/saldo`,
     TRANSAKSI: (id) => `api/transaction/nisn/${id}`,
   },
 
@@ -11895,6 +11931,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
 /* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
 /* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
+/* eslint-disable no-undef */
 /* eslint-disable max-len */
 /* eslint-disable no-restricted-syntax */
 
@@ -12096,18 +12133,24 @@ const Dashboard = {
       const getStatusAction = (status) => {
         if (status.toLowerCase() === 'selesai') {
           return `
-          <a href="#/profile"
-            class="flex w-full flex-1  px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
-            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-              </svg></i>
-            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
-          </a>`
+            <i class="text-primary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
+          </button>`
         }
         return `
+        <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Bayar Transaksi</p>
+          </button>
           <button id="cancel-transaction-button-${transaction.id_transaksi}"
             class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
@@ -12149,6 +12192,28 @@ const Dashboard = {
 
       const _showTransactionModalInit = (showButton) => {
         showButton.addEventListener('click', () => {
+          if (transaction.metode_pembayaran.toLowerCase() === 'daring' && transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+            snap.pay(transaction.token.toLowerCase(), {
+              onSuccess: async (result) => {
+              /* You may add your own implementation here */
+                console.log(result)
+                const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_4__.default.updateTransaction(transaction.id_transaksi, {
+                  status_transaksi: 'selesai',
+                })
+                console.log(response)
+                window.dispatchEvent(new HashChangeEvent('hashchange'))
+              },
+              onPending() {
+                /* You may add your own implementation here */
+                // window.location.hash = '#'
+              },
+              onClose() {
+                //
+              },
+            })
+            return true
+          }
+
           _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_5__.default.init({
             title: 'Kode Transaksi',
             content:
@@ -12244,14 +12309,6 @@ const Dashboard = {
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
           <p id="reminder-element-${transaction.id_transaksi}"></p>
-          <button id="show-transaction-button-${transaction.id_transaksi}"
-            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            role="menuitem">
-            <i class="text-primary flex">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-            </i>
-            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
-          </button>
             ${getStatusAction(transaction.status_transaksi)}
           </div>
         </div>
@@ -13082,17 +13139,23 @@ const Transaction = {
       },
     }
     const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getMidtransToken(data)
-    console.log(response)
+    await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateTransaction(dataResponse.id_transaksi, {
+      token: response.token,
+    })
     snap.pay(response.token, {
-      onSuccess: (result) => {
-        /* You may add your own implementation here */
-        alert('payment success!'); console.log(result)
+      onSuccess: async () => {
+        await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateTransaction(dataResponse.id_transaksi, {
+          status_transaksi: 'selesai',
+        })
+        await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateSaldo(dataResponse.nisn, dataResponse.nominal, dataResponse.jenis_transaksi)
+        window.location.hash = '#'
       },
-      onPending(result) {
+      onPending() {
         /* You may add your own implementation here */
         window.location.hash = '#'
       },
       onClose() {
+        window.location.hash = '#'
       },
     })
   },
@@ -13274,7 +13337,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "71bfdf7cb0e5241101e0"
+/******/ 		__webpack_require__.h = () => "9db15e0f26638c916d12"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

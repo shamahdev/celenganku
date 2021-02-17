@@ -167,16 +167,18 @@ const Dashboard = {
       const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
       const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
 
-      if (timeCreated.getMonth() === new Date().getMonth()) {
-        if (jenisTransaksi.toLowerCase() === 'pemasukan') {
-          this._withdraw += StringFormater.convertCasttoInt(transaction.nominal)
-          if (DateFormater.isDateInThisWeek(timeCreated)) {
-            this._weeklyWithdraw += StringFormater.convertCasttoInt(transaction.nominal)
-          }
-        } else {
-          this._deposit += StringFormater.convertCasttoInt(transaction.nominal)
-          if (DateFormater.isDateInThisWeek(timeCreated)) {
-            this._weeklyDeposit += StringFormater.convertCasttoInt(transaction.nominal)
+      if (transaction.status_transaksi.toLowerCase() === 'selesai') {
+        if (timeCreated.getMonth() === new Date().getMonth()) {
+          if (jenisTransaksi.toLowerCase() === 'pemasukan') {
+            this._withdraw += StringFormater.convertCasttoInt(transaction.nominal)
+            if (DateFormater.isDateInThisWeek(timeCreated)) {
+              this._weeklyWithdraw += StringFormater.convertCasttoInt(transaction.nominal)
+            }
+          } else {
+            this._deposit += StringFormater.convertCasttoInt(transaction.nominal)
+            if (DateFormater.isDateInThisWeek(timeCreated)) {
+              this._weeklyDeposit += StringFormater.convertCasttoInt(transaction.nominal)
+            }
           }
         }
       }
@@ -315,7 +317,7 @@ const Dashboard = {
 
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
         let delayTime = 1000
-        setInterval(() => {
+        setInterval(async () => {
           try {
             const {
               distance, hours, minutes,
@@ -325,6 +327,11 @@ const Dashboard = {
             const reminderElement = document.getElementById(`reminder-element-${transaction.id_transaksi}`)
             reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
             reminderElement.innerHTML = counterReminder
+
+            if (distance < 0) {
+              await APIData.deleteTransaksiSiswa(transaction.id_transaksi)
+              this._renderTable()
+            }
 
             // if (distance < 0) console.log('telat bang')
             let initialized = false
