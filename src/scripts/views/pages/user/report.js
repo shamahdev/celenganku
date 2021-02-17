@@ -100,19 +100,24 @@ const Report = {
             </div>
           </div>
           <div class="flex justify-end items-center w-100 mt-4">
-            <button role="button" id="print-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Cetak</button>
+            <button role="button" id="next-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Cetak</button>
           </div>
         </div>`,
       })
+      const modal = document.getElementById('modal-laporan')
 
-      this._frequenctOption = 'monthly'
+      this._frequencyOption = 'monthly'
       const frequencyOptionButton = document.querySelectorAll('#monthly-option, #yearly-option')
-      const printButon = document.getElementById('print-button')
+      const nextButton = document.getElementById('next-button')
 
       frequencyOptionButton.forEach((option) => {
         option.addEventListener('click', () => {
           this._selectReportOption(frequencyOptionButton, option.id)
         })
+      })
+      nextButton.addEventListener('click', () => {
+        window.location.hash = `#/report/${this._frequencyOption}`
+        modal.remove()
       })
     })
   },

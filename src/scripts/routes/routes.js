@@ -14,7 +14,7 @@ const Routes = {
     '/': Dashboard,
     '/transaction': Transaction,
     '/report': Report,
-    '/report/:slug': ReportPreview,
+    '/report/:id': ReportPreview,
     '/profile': Profile,
   },
   admin: {

@@ -162,21 +162,22 @@ const Dashboard = {
 
       const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
       const jenisTransaksi = transaction.jenis_transaksi
-      const timeCreated = new Date()
-      timeCreated.setDate(timeStamp.getDate() - 1)
-      const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
-      const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
+      const timeLeft = new Date()
+      timeLeft.setDate(timeStamp.getDate())
+      timeStamp.setDate(timeStamp.getDate() - 1)
+      const transactionDate = timeStamp.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+      const transactionDateMini = timeStamp.toLocaleDateString('id-ID')
 
       if (transaction.status_transaksi.toLowerCase() === 'selesai') {
-        if (timeCreated.getMonth() === new Date().getMonth()) {
+        if (timeStamp.getMonth() === new Date().getMonth()) {
           if (jenisTransaksi.toLowerCase() === 'pemasukan') {
             this._withdraw += StringFormater.convertCasttoInt(transaction.nominal)
-            if (DateFormater.isDateInThisWeek(timeCreated)) {
+            if (DateFormater.isDateInThisWeek(timeStamp)) {
               this._weeklyWithdraw += StringFormater.convertCasttoInt(transaction.nominal)
             }
           } else {
             this._deposit += StringFormater.convertCasttoInt(transaction.nominal)
-            if (DateFormater.isDateInThisWeek(timeCreated)) {
+            if (DateFormater.isDateInThisWeek(timeStamp)) {
               this._weeklyDeposit += StringFormater.convertCasttoInt(transaction.nominal)
             }
           }
@@ -321,7 +322,7 @@ const Dashboard = {
           try {
             const {
               distance, hours, minutes,
-            } = DateFormater.getTimeCounter(timeStamp)
+            } = DateFormater.getTimeCounter(timeLeft)
             const counterText = `${hours} jam ${minutes} menit`
             const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
             const reminderElement = document.getElementById(`reminder-element-${transaction.id_transaksi}`)

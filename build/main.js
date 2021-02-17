@@ -10992,9 +10992,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_pages_user_transaction__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/pages/user/transaction */ "./src/scripts/views/pages/user/transaction.js");
 /* harmony import */ var _views_pages_user_profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../views/pages/user/profile */ "./src/scripts/views/pages/user/profile.js");
 /* harmony import */ var _views_pages_user_report__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../views/pages/user/report */ "./src/scripts/views/pages/user/report.js");
-/* harmony import */ var _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/pages/admin/dashboard */ "./src/scripts/views/pages/admin/dashboard.js");
-/* harmony import */ var _views_pages_admin_process__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/pages/admin/process */ "./src/scripts/views/pages/admin/process.js");
-/* harmony import */ var _views_pages_admin_users__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../views/pages/admin/users */ "./src/scripts/views/pages/admin/users.js");
+/* harmony import */ var _views_pages_user_report_preview__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/pages/user/report-preview */ "./src/scripts/views/pages/user/report-preview.js");
+/* harmony import */ var _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/pages/admin/dashboard */ "./src/scripts/views/pages/admin/dashboard.js");
+/* harmony import */ var _views_pages_admin_process__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../views/pages/admin/process */ "./src/scripts/views/pages/admin/process.js");
+/* harmony import */ var _views_pages_admin_users__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../views/pages/admin/users */ "./src/scripts/views/pages/admin/users.js");
+
 
 
 
@@ -11010,12 +11012,13 @@ const Routes = {
     '/': _views_pages_user_dashboard__WEBPACK_IMPORTED_MODULE_1__.default,
     '/transaction': _views_pages_user_transaction__WEBPACK_IMPORTED_MODULE_2__.default,
     '/report': _views_pages_user_report__WEBPACK_IMPORTED_MODULE_4__.default,
+    '/report/:slug': _views_pages_user_report_preview__WEBPACK_IMPORTED_MODULE_5__.default,
     '/profile': _views_pages_user_profile__WEBPACK_IMPORTED_MODULE_3__.default,
   },
   admin: {
-    '/admin': _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_5__.default,
-    '/admin/pay': _views_pages_admin_process__WEBPACK_IMPORTED_MODULE_6__.default,
-    '/admin/data': _views_pages_admin_users__WEBPACK_IMPORTED_MODULE_7__.default,
+    '/admin': _views_pages_admin_dashboard__WEBPACK_IMPORTED_MODULE_6__.default,
+    '/admin/pay': _views_pages_admin_process__WEBPACK_IMPORTED_MODULE_7__.default,
+    '/admin/data': _views_pages_admin_users__WEBPACK_IMPORTED_MODULE_8__.default,
   },
 }
 
@@ -12100,16 +12103,18 @@ const Dashboard = {
       const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
       const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
 
-      if (timeCreated.getMonth() === new Date().getMonth()) {
-        if (jenisTransaksi.toLowerCase() === 'pemasukan') {
-          this._withdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
-          if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeCreated)) {
-            this._weeklyWithdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
-          }
-        } else {
-          this._deposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
-          if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeCreated)) {
-            this._weeklyDeposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+      if (transaction.status_transaksi.toLowerCase() === 'selesai') {
+        if (timeCreated.getMonth() === new Date().getMonth()) {
+          if (jenisTransaksi.toLowerCase() === 'pemasukan') {
+            this._withdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+            if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeCreated)) {
+              this._weeklyWithdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+            }
+          } else {
+            this._deposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+            if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeCreated)) {
+              this._weeklyDeposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+            }
           }
         }
       }
@@ -12248,7 +12253,7 @@ const Dashboard = {
 
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
         let delayTime = 1000
-        setInterval(() => {
+        setInterval(async () => {
           try {
             const {
               distance, hours, minutes,
@@ -12258,6 +12263,11 @@ const Dashboard = {
             const reminderElement = document.getElementById(`reminder-element-${transaction.id_transaksi}`)
             reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
             reminderElement.innerHTML = counterReminder
+
+            if (distance < 0) {
+              await _data_api_data__WEBPACK_IMPORTED_MODULE_4__.default.deleteTransaksiSiswa(transaction.id_transaksi)
+              this._renderTable()
+            }
 
             // if (distance < 0) console.log('telat bang')
             let initialized = false
@@ -12631,6 +12641,292 @@ const Profile = {
 
 /***/ }),
 
+/***/ "./src/scripts/views/pages/user/report-preview.js":
+/*!********************************************************!*\
+  !*** ./src/scripts/views/pages/user/report-preview.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
+/* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
+/* harmony import */ var _helper_event_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../helper/event-helper */ "./src/scripts/helper/event-helper.js");
+/* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
+/* eslint-disable max-len */
+/* eslint-disable no-undef */
+
+
+
+
+
+
+const ReportPreview = {
+  async render() {
+    return /* html */`
+        <div class="text-center">
+          <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+            Transaksi
+          </p>
+        </div>
+        <div class="flex flex-col w-full md:w-8/12 lg:w-6/12 mx-auto">
+          <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
+            <div class="flex flex-row mx-auto mb-4">
+            <button id="pemasukan-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
+              <button id="penarikan-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
+            </div>
+            <div class="flex-1 py-0 white rounded-lg">
+            <div class="mb-6">
+              <p class="mb-2">Nominal</p>
+              <input id="input-nominal" name="Nominal" data-rule="required value-more-than-999 multiple-of-1000" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
+            </div>
+              <div class="flex flex-col gap-6 items-center">
+                <button id="luring-option" class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                  <div class="flex md:justify-center">
+                    <div class="text-white flex flex-1 flex-row">
+                      <div data-option class="mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg">
+                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                      </div>
+                      <div class="flex flex-col flex-1 text-left ml-4">
+                        <p class="md:-mb-2 text-gray-700">Pembayaran secara luring</p>
+                        <p id="monthly-withdraw" class="text-gray-800 text-2xl lg:text-4xl font-bold">Melalui Admin/TU</p>
+                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA ADMIN</p>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+                <button id="daring-option" class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                  <div class="flex md:justify-center">
+                    <div class="text-white flex flex-1 flex-row">
+                      <div data-option class="mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg">
+                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                      </div>
+                      <div class="flex flex-col flex-1 text-left ml-4">
+                        <p class="md:-mb-1 text-gray-700">Pembayaran secara daring</p>
+                        <p id="monthly-withdraw" class="text-gray-800 text-xl md:text-2xl font-bold lg:mr-8">Melalui e-Wallets, Bank, Indomaret, dll</p>
+                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA TAMBAHAN</p>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+            </div>
+            <button disabled id="next-button" class="w-max bg-primary text-white py-3 px-8 rounded-lg disabled:opacity-50 mx-auto mt-4">Lanjut</button>
+            </div>
+        </div>
+      `
+  },
+
+  async afterRender() {
+    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.retrieveUser()
+    this._userId = responseData.id
+    const userAccount = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getAkunSiswa(this._userId)
+    this._userAccount = userAccount
+    this._ballance = userAccount.saldo
+    this._transactionOption = 'pemasukan'
+    this._paymentOption = 'luring'
+
+    const paymentOptionButton = document.querySelectorAll('#daring-option, #luring-option')
+    const transactionOptionButton = document.querySelectorAll('#penarikan-option, #pemasukan-option')
+    const nominalInput = document.getElementById('input-nominal')
+    const nextButton = document.getElementById('next-button')
+
+    _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__.default.init({
+      formInputs: nominalInput,
+      submitButton: nextButton,
+    })
+
+    transactionOptionButton.forEach((option) => {
+      option.addEventListener('click', () => {
+        this._selectTransactionOption(transactionOptionButton, option.id)
+        if (this._transactionOption === 'penarikan') {
+          nominalInput.dataset.rule += ` cannot-more-than-${this._ballance}`
+          this._selectPaymentOption(paymentOptionButton, paymentOptionButton[0].id)
+          paymentOptionButton[1].style.display = 'none'
+        } else {
+          nominalInput.dataset.rule = 'required value-more-than-999 multiple-of-1000'
+          paymentOptionButton[1].style.display = ''
+        }
+        _helper_event_helper__WEBPACK_IMPORTED_MODULE_3__.default.triggerEvent(nominalInput, 'keyup')
+      })
+    })
+
+    paymentOptionButton.forEach((option) => {
+      option.addEventListener('click', () => {
+        this._selectPaymentOption(paymentOptionButton, option.id)
+      })
+    })
+
+    nextButton.addEventListener('click', async () => {
+      try {
+        const transactionData = {
+          nisn: this._userId,
+          nominal: nominalInput.value,
+          jenis_transaksi: this._transactionOption,
+          metode_pembayaran: this._paymentOption,
+        }
+
+        const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.createTransaction(transactionData)
+        console.log(response)
+
+        if (this._paymentOption === 'luring') this._adminPaymentInit(response)
+        else this._midtransPaymentInit(response)
+      } catch (error) {
+        console.log(error)
+      }
+    })
+  },
+
+  async _midtransPaymentInit(transactionData) {
+    snap.show()
+    const dataResponse = transactionData.response
+    const userData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getDataSiswa(this._userId)
+
+    const data = {
+      transaction_details: {
+        order_id: dataResponse.id_transaksi,
+        gross_amount: dataResponse.nominal,
+      },
+      item_details: [{
+        id: dataResponse.id_transaksi,
+        price: dataResponse.nominal,
+        quantity: 1,
+        name: `${dataResponse.jenis_transaksi.charAt(0).toUpperCase() + dataResponse.jenis_transaksi.slice(1)} Saldo`,
+        brand: 'Celenganku',
+      }],
+      customer_details: {
+        first_name: userData.nama,
+        email: this._userAccount.email,
+      },
+      callbacks: {
+        finish: '/',
+      },
+    }
+    const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getMidtransToken(data)
+    await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateTransaction(dataResponse.id_transaksi, {
+      token: response.token,
+    })
+    snap.pay(response.token, {
+      onSuccess: async () => {
+        await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateTransaction(dataResponse.id_transaksi, {
+          status_transaksi: 'selesai',
+        })
+        await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateSaldo(dataResponse.nisn, dataResponse.nominal, dataResponse.jenis_transaksi)
+        window.location.hash = '#'
+      },
+      onPending() {
+        /* You may add your own implementation here */
+        window.location.hash = '#'
+      },
+      onClose() {
+        window.location.hash = '#'
+      },
+    })
+  },
+
+  _selectTransactionOption(optionButton, optionId) {
+    optionButton.forEach((option) => {
+      if (option.id === optionId) {
+        option.disabled = true
+      } else {
+        option.disabled = false
+      }
+    })
+    this._transactionOption = optionId.replace('-option', '')
+  },
+
+  _adminPaymentInit(transaction) {
+    window.location.hash = '#'
+    _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_1__.default.init({
+      title: 'Kode Transaksi',
+      content:
+      `<div class="px-10 py-6">
+        <div class="preloader p-4 flex justify-center m-auto">
+          <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+        </div>
+        <div class="hidden" id="modal-content">
+          <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
+          <p class="my-2 text-3xl font-bold">${transaction.response.id_transaksi}</p>
+          <p class="mt-4 text-gray-500">Transaksi ini akan automatis dibatalkan dalam</p>
+          <p id="time-count" class="mt-1 text-primary"></p>
+        </div>
+        <div class="flex justify-end items-center w-100 mt-4">
+          <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
+          <button role="button" id="close-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
+        </div>
+      </div>`,
+    })
+    const preloader = document.querySelector('.preloader')
+    const modal = document.getElementById('modal-kode-transaksi')
+    const modalContent = document.getElementById('modal-content')
+    const thisContent = modalContent.innerHTML
+    const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.response.id_transaksi}"></img>`
+    const showQRButton = document.getElementById('show-qr-button')
+    const closeButton = document.getElementById('close-button')
+
+    const timeStamp = new Date(transaction.response.tenggat_waktu_pembayaran.seconds * 1000)
+    const timeCountInterval = setInterval(() => {
+      try {
+        const timeCounter = document.getElementById('time-count')
+        const {
+          hours, minutes, seconds,
+        } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_4__.default.getTimeCounter(timeStamp)
+        const counterText = `${hours} jam ${minutes} menit ${seconds} detik`
+        timeCounter.innerHTML = counterText
+      } catch (error) {
+        // console.log(error)
+      }
+    }, 1000)
+
+    this._toggleQR = false
+    showQRButton.addEventListener('click', (event) => {
+      event.stopPropagation()
+      this._toggleQR = !this._toggleQR
+      if (this._toggleQR) modalContent.innerHTML = qrContent
+      else modalContent.innerHTML = thisContent
+    })
+    closeButton.addEventListener('click', () => {
+      modal.remove()
+      clearInterval(timeCountInterval)
+    })
+
+    setTimeout(() => {
+      preloader.remove()
+      modalContent.classList.remove('hidden')
+    }, 500)
+  },
+
+  _selectPaymentOption(optionButton, optionId) {
+    window.scrollTo(0, document.body.scrollHeight)
+    const selectedClass = 'mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg'
+    const nonSelectedClass = 'mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg'
+    optionButton.forEach((option) => {
+      const optionIcon = option.querySelector('div[data-option]')
+      if (option.id === optionId) {
+        option.classList.add('border-2', 'border-primary')
+        optionIcon.className = selectedClass
+      } else {
+        option.classList.remove('border-2', 'border-primary')
+        optionIcon.className = nonSelectedClass
+      }
+    })
+    this._paymentOption = optionId.replace('-option', '')
+  },
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ReportPreview);
+
+
+/***/ }),
+
 /***/ "./src/scripts/views/pages/user/report.js":
 /*!************************************************!*\
   !*** ./src/scripts/views/pages/user/report.js ***!
@@ -12663,7 +12959,7 @@ const Report = {
     </p>
     <div class="flex flex-row mt-4 md:mt-6 ">
       <div class="flex flex-row">
-        <button id="user-login-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
+        <button id="print-report-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
         <p id="total-transaction" class="hidden md:inline mt-3 ml-4 text-gray-700">Total Transaksi:</p>
       </div>
       <div class="flex flex-1 md:flex-initial ml-4 md:ml-auto flex-row ">
@@ -12700,6 +12996,7 @@ const Report = {
     this._totalTransaction = 0
     const totalTransactionElement = document.getElementById('total-transaction')
     const preloaders = document.querySelectorAll('.preloader')
+    const printReportButton = document.getElementById('print-report-button')
 
     // Fetch Data
     const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_3__.default.retrieveUser()
@@ -12708,10 +13005,78 @@ const Report = {
     this._ballance = accountData.saldo
 
     await this._renderTable()
+    await this._createPrintEvent(printReportButton)
     totalTransactionElement.innerHTML = `Total Transaksi: Rp ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_1__.default.convertToCashFormat(this._totalTransaction)}`
     preloaders.forEach((preloader) => {
       preloader.remove()
     })
+  },
+
+  async _createPrintEvent(printButton) {
+    printButton.addEventListener('click', () => {
+      _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_4__.default.init({
+        title: 'Laporan',
+        content:
+        `<div class="px-10 py-6">
+          <div id="modal-content">
+            <p class="mt-2 mb-1">Pilih Jangka Waktu</p>
+            <div class="my-4 flex flex-col gap-4 md:flex-row">
+            <button id="monthly-option" class="w-full p-4 border-2 border-primary bg-white shadow-lg rounded-lg focus:outline-none ">
+              <div class="flex flex-1 md:justify-center">
+                <div class="text-white flex flex-1 flex-row">
+                  <div data-option class="mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg">
+                  <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                  </div>
+                  <p class="text-gray-700 mt-1">Bulan Ini</p>
+                </div>
+              </div>
+            </button>
+            <button id="yearly-option" class="w-full p-4 bg-white shadow-lg rounded-lg focus:outline-none ">
+              <div class="flex flex-1 md:justify-center">
+                <div class="text-white flex flex-1 flex-row">
+                  <div data-option class="mx-2 my-auto text-sm bg-gray-300 text-gray-300 p-1 rounded-lg">
+                  <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                  </div>
+                  <p class="text-gray-700 mt-1">Tahun Ini</p>
+                </div>
+              </div>
+            </button>
+            </div>
+          </div>
+          <div class="flex justify-end items-center w-100 mt-4">
+            <button role="button" id="print-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Cetak</button>
+          </div>
+        </div>`,
+      })
+
+      this._frequenctOption = 'monthly'
+      const frequencyOptionButton = document.querySelectorAll('#monthly-option, #yearly-option')
+      const printButon = document.getElementById('print-button')
+
+      frequencyOptionButton.forEach((option) => {
+        option.addEventListener('click', () => {
+          this._selectReportOption(frequencyOptionButton, option.id)
+        })
+      })
+    })
+  },
+
+  _selectReportOption(optionButton, optionId) {
+    const selectedClass = 'mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg'
+    const nonSelectedClass = 'mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg'
+    optionButton.forEach((option) => {
+      const optionIcon = option.querySelector('div[data-option]')
+      if (option.id === optionId) {
+        option.classList.add('border-2', 'border-primary')
+        optionIcon.className = selectedClass
+      } else {
+        option.classList.remove('border-2', 'border-primary')
+        optionIcon.className = nonSelectedClass
+      }
+    })
+    this._frequencyOption = optionId.replace('-option', '')
   },
 
   async _renderTable() {
@@ -12721,6 +13086,8 @@ const Report = {
     const transactionData = lodash_sortBy__WEBPACK_IMPORTED_MODULE_0___default()(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     const transactionTemplate = (transaction) => {
+      if (transaction.status_transaksi.toLowerCase() === 'selesai') this._totalTransaction += +transaction.nominal
+
       Object.keys(transaction).forEach((key) => {
         if (typeof transaction[key] === 'object') {
           //
@@ -12987,6 +13354,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
 /* harmony import */ var _helper_event_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../helper/event-helper */ "./src/scripts/helper/event-helper.js");
 /* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
+/* eslint-disable max-len */
 /* eslint-disable no-undef */
 
 
@@ -13337,7 +13705,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "9db15e0f26638c916d12"
+/******/ 		__webpack_require__.h = () => "729dc49ea11092b5ed03"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
