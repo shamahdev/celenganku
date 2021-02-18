@@ -7,6 +7,7 @@ import StringFormater from '../../../helper/string-formater'
 import DateFormater from '../../../helper/date-formater'
 import APIData from '../../../data/api-data'
 import ModalInitializer from '../../../utils/modal-initializer'
+import EventHelper from '../../../helper/event-helper'
 
 const Dashboard = {
   async render() {
@@ -290,7 +291,12 @@ const Dashboard = {
             `<div class="px-10 py-6">
               <div id="modal-content">
                 <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
-                <p class="my-2 text-3xl font-bold">${transaction.id_transaksi}</p>
+                <div class="flex flex-row">
+                <p id="id-transaksi" class="my-2 text-3xl select-all font-bold">${transaction.id_transaksi}</p>
+                <button role="button" id="copy-button" class="w-max text-primary ml-2 font-light p-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                </button>
+                </div>
               </div>
               <div class="flex justify-end items-center w-100 mt-4">
                 <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
@@ -305,6 +311,12 @@ const Dashboard = {
           const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
           const showQRButton = document.getElementById('show-qr-button')
           const closeButton = document.getElementById('close-button')
+          const copyButton = document.getElementById('copy-button')
+          const copyText = document.getElementById('id-transaksi')
+          copyButton.addEventListener('click', () => {
+            EventHelper.copyTextToClipboard(transaction.id_transaksi)
+            copyText.focus()
+          })
           showQRButton.addEventListener('click', (event) => {
             if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
             else modalContent.innerHTML = thisContent
@@ -362,7 +374,7 @@ const Dashboard = {
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
       <td class="table-cell md:hidden p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
-      <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
+      <td class="bg-white select-all hidden lg:table-cell">${transaction.id_transaksi}</td>
       <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>

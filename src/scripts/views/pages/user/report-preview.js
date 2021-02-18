@@ -21,7 +21,7 @@ const ReportPreview = {
         </div>
         <div class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg text-gray-800 mb-24">
         <div id="report" class="p-8 md:p-12 rounded-lg flex flex-col">
-          <img class="w-32 md:w-64 mb-8 ml-auto" src="./images/celenganku-logo.png"></img>
+          <img class="w-48 mb-10" src="./images/celenganku-logo.png">
           <p id="name" class="text-2xl font-bold"></p>
           <p id="nisn"class="mb-2 text-lg"></p>
           <p id="alamat" class="text-gray-600"><p>
@@ -49,9 +49,11 @@ const ReportPreview = {
           </div>
           </div>
         </div>
+        <div>
         <button id="download-button" role="button" class="hidden fixed w-max bg-primary text-white p-4 rounded-full right-0 bottom-0 mb-24 mr-8 md:mr-16 md:mb-16">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
         </button>
+        </div>
       `
   },
 
@@ -90,10 +92,10 @@ const ReportPreview = {
     downloadButton.addEventListener('click', () => {
       const quality = 1 // Higher the better but larger file
       html2canvas(reportElement,
-        { scale: quality, windowWidth: '640p' }).then((canvas) => {
-        const pdf = new jsPDF('p', 'pt', [canvas.width, canvas.height])
+        { scale: quality }).then((canvas) => {
+        const pdf = new jsPDF('p', 'pt', 'a4')
         const pdfWidth = pdf.internal.pageSize.getWidth()
-        const img = canvas.toDataURL('image/jpeg', 0.75)
+        const img = canvas.toDataURL('image/jpeg', 1)
         const imgProps = pdf.getImageProperties(img)
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width
         pdf.addImage(img, 'PNG', 0, 0, pdfWidth, pdfHeight)
@@ -133,7 +135,6 @@ const ReportPreview = {
     const transactionData = sortBy(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     let thisSaldo = this._ballance
-    console.log(thisSaldo)
     const transactionTemplate = (transaction) => {
       Object.keys(transaction).forEach((key) => {
         if (typeof transaction[key] === 'object') {

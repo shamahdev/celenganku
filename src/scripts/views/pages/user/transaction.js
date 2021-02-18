@@ -59,7 +59,7 @@ const Transaction = {
               </div>
             </div>
             </div>
-            <button disabled id="next-button" class="w-max bg-primary text-white py-3 px-8 rounded-lg disabled:opacity-50 mx-auto mt-4">Lanjut</button>
+            <button disabled id="next-button" class="disabled:cursor-default w-max bg-primary text-white py-3 px-8 rounded-lg disabled:opacity-50 mx-auto mt-4">Lanjut</button>
             </div>
         </div>
       `
@@ -194,7 +194,12 @@ const Transaction = {
         </div>
         <div class="hidden" id="modal-content">
           <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
-          <p class="my-2 text-3xl font-bold">${transaction.response.id_transaksi}</p>
+          <div class="flex flex-row">
+            <p id="id-transaksi" class="my-2 text-3xl select-all font-bold">${transaction.response.id_transaksi}</p>
+            <button role="button" id="copy-button" class="w-max text-primary ml-2 font-light p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            </button>
+          </div>
           <p class="mt-4 text-gray-500">Transaksi ini akan automatis dibatalkan dalam</p>
           <p id="time-count" class="mt-1 text-primary"></p>
         </div>
@@ -212,6 +217,12 @@ const Transaction = {
     const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.response.id_transaksi}"></img>`
     const showQRButton = document.getElementById('show-qr-button')
     const closeButton = document.getElementById('close-button')
+    const copyButton = document.getElementById('copy-button')
+    const copyText = document.getElementById('id-transaksi')
+    copyButton.addEventListener('click', () => {
+      EventHelper.copyTextToClipboard(transaction.response.d_transaksi)
+      copyText.focus()
+    })
 
     const timeStamp = new Date(transaction.response.tenggat_waktu_pembayaran.seconds * 1000)
     const timeCountInterval = setInterval(() => {

@@ -145,8 +145,6 @@ const Report = {
     const transactionData = sortBy(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     const transactionTemplate = (transaction) => {
-      if (transaction.status_transaksi.toLowerCase() === 'selesai') this._totalTransaction += +transaction.nominal
-
       Object.keys(transaction).forEach((key) => {
         if (typeof transaction[key] === 'object') {
           //
@@ -159,10 +157,15 @@ const Report = {
 
       const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
       const jenisTransaksi = transaction.jenis_transaksi
-      const timeCreated = new Date()
-      timeCreated.setDate(timeStamp.getDate() - 1)
-      const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
-      const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
+      const timeLeft = new Date()
+      timeLeft.setDate(timeStamp.getDate())
+      timeStamp.setDate(timeStamp.getDate() - 1)
+      const transactionDate = timeStamp.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+      const transactionDateMini = timeStamp.toLocaleDateString('id-ID')
+
+      if (transaction.status_transaksi.toLowerCase() === 'selesai') {
+        this._totalTransaction += StringFormater.convertCasttoInt(transaction.nominal)
+      }
 
       // Classes
       const nominalColor = (jenis) => {
@@ -183,18 +186,24 @@ const Report = {
       const getStatusAction = (status) => {
         if (status.toLowerCase() === 'selesai') {
           return `
-          <a href="#/profile"
-            class="flex w-full flex-1  px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
-            <i class="text-primary flex"><svg class="w-8 h-8" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-              </svg></i>
-            <p class="flex ml-2 mt-1 leading-relaxed">Transaksi Lagi</p>
-          </a>`
+            <i class="text-primary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
+          </button>`
         }
         return `
+        <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-primary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Bayar Transaksi</p>
+          </button>
           <button id="cancel-transaction-button-${transaction.id_transaksi}"
             class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
@@ -236,13 +245,40 @@ const Report = {
 
       const _showTransactionModalInit = (showButton) => {
         showButton.addEventListener('click', () => {
+          if (transaction.metode_pembayaran.toLowerCase() === 'daring' && transaction.status_transaksi.toLowerCase() === 'pembayaran') {
+            snap.pay(transaction.token.toLowerCase(), {
+              onSuccess: async (result) => {
+              /* You may add your own implementation here */
+                console.log(result)
+                const response = await APIData.updateTransaction(transaction.id_transaksi, {
+                  status_transaksi: 'selesai',
+                })
+                console.log(response)
+                window.dispatchEvent(new HashChangeEvent('hashchange'))
+              },
+              onPending() {
+                /* You may add your own implementation here */
+                // window.location.hash = '#'
+              },
+              onClose() {
+                //
+              },
+            })
+            return true
+          }
+
           ModalInitializer.init({
             title: 'Kode Transaksi',
             content:
             `<div class="px-10 py-6">
               <div id="modal-content">
                 <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
-                <p class="my-2 text-3xl font-bold">${transaction.id_transaksi}</p>
+                <div class="flex flex-row">
+                <p id="id-transaksi" class="my-2 text-3xl select-all font-bold">${transaction.id_transaksi}</p>
+                <button role="button" id="copy-button" class="w-max text-primary ml-2 font-light p-2">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                </button>
+                </div>
               </div>
               <div class="flex justify-end items-center w-100 mt-4">
                 <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
@@ -257,6 +293,12 @@ const Report = {
           const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
           const showQRButton = document.getElementById('show-qr-button')
           const closeButton = document.getElementById('close-button')
+          const copyButton = document.getElementById('copy-button')
+          const copyText = document.getElementById('id-transaksi')
+          copyButton.addEventListener('click', () => {
+            EventHelper.copyTextToClipboard(transaction.id_transaksi)
+            copyText.focus()
+          })
           showQRButton.addEventListener('click', (event) => {
             if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
             else modalContent.innerHTML = thisContent
@@ -270,16 +312,21 @@ const Report = {
 
       if (transaction.status_transaksi.toLowerCase() === 'pembayaran') {
         let delayTime = 1000
-        setInterval(() => {
+        setInterval(async () => {
           try {
             const {
               distance, hours, minutes,
-            } = DateFormater.getTimeCounter(timeStamp)
+            } = DateFormater.getTimeCounter(timeLeft)
             const counterText = `${hours} jam ${minutes} menit`
             const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
             const reminderElement = document.getElementById(`reminder-element-${transaction.id_transaksi}`)
             reminderElement.className = 'p-5 text-sm font-normal text-gray-600'
             reminderElement.innerHTML = counterReminder
+
+            if (distance < 0) {
+              await APIData.deleteTransaksiSiswa(transaction.id_transaksi)
+              this._renderTable()
+            }
 
             // if (distance < 0) console.log('telat bang')
             let initialized = false
@@ -309,7 +356,7 @@ const Report = {
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
       <td class="table-cell md:hidden p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
-      <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
+      <td class="bg-white select-all hidden lg:table-cell">${transaction.id_transaksi}</td>
       <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
       <td class="bg-white hidden lg:table-cell">${transaction.metode_pembayaran}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
@@ -331,14 +378,6 @@ const Report = {
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
           <p id="reminder-element-${transaction.id_transaksi}"></p>
-          <button id="show-transaction-button-${transaction.id_transaksi}"
-            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            role="menuitem">
-            <i class="text-primary flex">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-            </i>
-            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
-          </button>
             ${getStatusAction(transaction.status_transaksi)}
           </div>
         </div>

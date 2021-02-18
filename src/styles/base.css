@@ -6,6 +6,10 @@ html, body {
     scroll-behavior: smooth;
 }
 
+*:focus:not(.focus-visible) {  
+  outline: 2px solid #FF9678;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -25,5 +29,5 @@ input, textarea {
 
 textarea:focus, input:focus {   
   border-color: #EB643F;
-    outline: 0 none;
+  outline: 0 none !important;
 }

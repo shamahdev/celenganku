@@ -10,9 +10,12 @@ const Sidebar = {
     const navLinks = this._sidebar.querySelectorAll('a.btn-nav')
     if (page === '/') page = ''
     navLinks.forEach((navElement) => {
-      navElement.classList.remove('active')
-      if (page === navElement.hash.substring(1)) {
+      if (page === '') navLinks[0].classList.add('active')
+      else if (page !== '' && page.includes(navElement.hash.substring(1))) {
+        navLinks[0].classList.remove('active')
         navElement.classList.add('active')
+      } else {
+        navElement.classList.remove('active')
       }
     })
   },
