@@ -11012,7 +11012,7 @@ const Routes = {
     '/': _views_pages_user_dashboard__WEBPACK_IMPORTED_MODULE_1__.default,
     '/transaction': _views_pages_user_transaction__WEBPACK_IMPORTED_MODULE_2__.default,
     '/report': _views_pages_user_report__WEBPACK_IMPORTED_MODULE_4__.default,
-    '/report/:slug': _views_pages_user_report_preview__WEBPACK_IMPORTED_MODULE_5__.default,
+    '/report/:id': _views_pages_user_report_preview__WEBPACK_IMPORTED_MODULE_5__.default,
     '/profile': _views_pages_user_profile__WEBPACK_IMPORTED_MODULE_3__.default,
   },
   admin: {
@@ -11088,15 +11088,17 @@ const UrlParser = {
     const urlsSplits = url.split('/')
     return {
       resource: urlsSplits[1] || null,
-      slug: urlsSplits[2] || null,
+      id: urlsSplits[2] || null,
       verb: urlsSplits[3] || null,
     }
   },
 
   _urlCombiner(splitedUrl) {
-    return (splitedUrl.resource ? `/${splitedUrl.resource}` : '/')
-      + (splitedUrl.slug ? `/${splitedUrl.slug}` : '')
+    return (
+      (splitedUrl.resource ? `/${splitedUrl.resource}` : '/')
+      + (splitedUrl.id ? '/:id' : '')
       + (splitedUrl.verb ? `/${splitedUrl.verb}` : '')
+    )
   },
 }
 
@@ -12098,21 +12100,22 @@ const Dashboard = {
 
       const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
       const jenisTransaksi = transaction.jenis_transaksi
-      const timeCreated = new Date()
-      timeCreated.setDate(timeStamp.getDate() - 1)
-      const transactionDate = timeCreated.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
-      const transactionDateMini = timeCreated.toLocaleDateString('id-ID')
+      const timeLeft = new Date()
+      timeLeft.setDate(timeStamp.getDate())
+      timeStamp.setDate(timeStamp.getDate() - 1)
+      const transactionDate = timeStamp.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
+      const transactionDateMini = timeStamp.toLocaleDateString('id-ID')
 
       if (transaction.status_transaksi.toLowerCase() === 'selesai') {
-        if (timeCreated.getMonth() === new Date().getMonth()) {
+        if (timeStamp.getMonth() === new Date().getMonth()) {
           if (jenisTransaksi.toLowerCase() === 'pemasukan') {
             this._withdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
-            if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeCreated)) {
+            if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeStamp)) {
               this._weeklyWithdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
             }
           } else {
             this._deposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
-            if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeCreated)) {
+            if (_helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.isDateInThisWeek(timeStamp)) {
               this._weeklyDeposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
             }
           }
@@ -12257,7 +12260,7 @@ const Dashboard = {
           try {
             const {
               distance, hours, minutes,
-            } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.getTimeCounter(timeStamp)
+            } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_3__.default.getTimeCounter(timeLeft)
             const counterText = `${hours} jam ${minutes} menit`
             const counterReminder = `Transaksi ini akan automatis dibatalkan dalam <br><b class="flex mt-3 text-primary">${counterText}</b>`
             const reminderElement = document.getElementById(`reminder-element-${transaction.id_transaksi}`)
@@ -12652,13 +12655,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
-/* harmony import */ var _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/modal-initializer */ "./src/scripts/utils/modal-initializer.js");
-/* harmony import */ var _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/form-validation */ "./src/scripts/helper/form-validation.js");
-/* harmony import */ var _helper_event_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../helper/event-helper */ "./src/scripts/helper/event-helper.js");
-/* harmony import */ var _helper_date_formater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../helper/date-formater */ "./src/scripts/helper/date-formater.js");
-/* eslint-disable max-len */
-/* eslint-disable no-undef */
+/* harmony import */ var lodash_sortBy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/sortBy */ "./node_modules/lodash/sortBy.js");
+/* harmony import */ var lodash_sortBy__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_sortBy__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _data_api_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../data/api-data */ "./src/scripts/data/api-data.js");
+/* harmony import */ var _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../helper/string-formater */ "./src/scripts/helper/string-formater.js");
+/* harmony import */ var _routes_slugparser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../routes/slugparser */ "./src/scripts/routes/slugparser.js");
+/* harmony import */ var _routes_urlparser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../routes/urlparser */ "./src/scripts/routes/urlparser.js");
 
 
 
@@ -12668,257 +12670,157 @@ __webpack_require__.r(__webpack_exports__);
 const ReportPreview = {
   async render() {
     return /* html */`
-        <div class="text-center">
+        <div class="text-center relative">
+          <a href="#/report" class="-mt-4 w-max absolute left-0 text-primary mx-1 p-4">
+          <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          </a>
           <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
-            Transaksi
+            Preview Laporan
           </p>
         </div>
-        <div class="flex flex-col w-full md:w-8/12 lg:w-6/12 mx-auto">
-          <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
-            <div class="flex flex-row mx-auto mb-4">
-            <button id="pemasukan-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
-              <button id="penarikan-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
-            </div>
-            <div class="flex-1 py-0 white rounded-lg">
-            <div class="mb-6">
-              <p class="mb-2">Nominal</p>
-              <input id="input-nominal" name="Nominal" data-rule="required value-more-than-999 multiple-of-1000" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
-            </div>
-              <div class="flex flex-col gap-6 items-center">
-                <button id="luring-option" class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
-                  <div class="flex md:justify-center">
-                    <div class="text-white flex flex-1 flex-row">
-                      <div data-option class="mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg">
-                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
-                      </div>
-                      <div class="flex flex-col flex-1 text-left ml-4">
-                        <p class="md:-mb-2 text-gray-700">Pembayaran secara luring</p>
-                        <p id="monthly-withdraw" class="text-gray-800 text-2xl lg:text-4xl font-bold">Melalui Admin/TU</p>
-                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA ADMIN</p>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-                <button id="daring-option" class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
-                  <div class="flex md:justify-center">
-                    <div class="text-white flex flex-1 flex-row">
-                      <div data-option class="mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg">
-                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
-                      </div>
-                      <div class="flex flex-col flex-1 text-left ml-4">
-                        <p class="md:-mb-1 text-gray-700">Pembayaran secara daring</p>
-                        <p id="monthly-withdraw" class="text-gray-800 text-xl md:text-2xl font-bold lg:mr-8">Melalui e-Wallets, Bank, Indomaret, dll</p>
-                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA TAMBAHAN</p>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            </div>
-            </div>
-            <button disabled id="next-button" class="w-max bg-primary text-white py-3 px-8 rounded-lg disabled:opacity-50 mx-auto mt-4">Lanjut</button>
-            </div>
+        <div class="flex flex-col w-full p-4 md:p-8 pt-0 rounded-lg shadow-lg mx-auto md:mt-4 text-gray-800">
+        <div class="p-4 rounded-lg flex flex-col">
+          <p id="name" class="text-2xl font-bold"></p>
+          <p id="nisn"class="mb-2 text-lg"></p>
+          <p id="alamat" class="text-gray-600"><p>
+          <p id="periode" class="mt-4 mb-6 text-sm text-primary"></p>
+          <div class="flex-1 py-0 white rounded-lg">
+          <table id="transaction-table" class="table-auto w-full">
+          <tbody>
+          <tr class="text-left text-gray-700">
+              <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+              <th class="font-normal pb-5 pt-0 hidden md:table-cell">Jenis Transaksi</th>
+              <th class="font-normal pb-5 pt-0">Nominal</th>
+              <th class="font-normal pb-5 pt-0 ">Saldo</th>
+          </tr>
+          </tbody>
+        </table>
+          <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
+            <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+          </div>
+          </div>
+          <div class="text-right mt-4">
+          <p id="first-balance" class="mb-2 flex">Saldo Awal:</p>
+          <p id="deposit-text" class="mb-2 flex">Pemasukan Saldo:</p>
+          <p id="withdraw-text" class="mb-2 flex">Pengeluaran Saldo:</p>
+          <p id="last-balance" class="mb-2 flex">Saldo Akhir:</p>
+          </div>
+          </div>
         </div>
       `
   },
 
   async afterRender() {
-    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.retrieveUser()
+    const preloaders = document.querySelectorAll('.preloader')
+    const url = _routes_urlparser__WEBPACK_IMPORTED_MODULE_4__.default.parseActiveUrlWithoutCombiner()
+    const title = _routes_slugparser__WEBPACK_IMPORTED_MODULE_3__.default.parseToText(url.id)
+
+    this._reportTime = title
+
+    // Fetch Data
+    const responseData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.retrieveUser()
     this._userId = responseData.id
-    const userAccount = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getAkunSiswa(this._userId)
-    this._userAccount = userAccount
+    const userAccount = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getAkunSiswa(this._userId)
+    const userData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getDataSiswa(this._userId)
     this._ballance = userAccount.saldo
-    this._transactionOption = 'pemasukan'
-    this._paymentOption = 'luring'
 
-    const paymentOptionButton = document.querySelectorAll('#daring-option, #luring-option')
-    const transactionOptionButton = document.querySelectorAll('#penarikan-option, #pemasukan-option')
-    const nominalInput = document.getElementById('input-nominal')
-    const nextButton = document.getElementById('next-button')
+    // Values
+    this._withdraw = 0
+    this._deposit = 0
 
-    _helper_form_validation__WEBPACK_IMPORTED_MODULE_2__.default.init({
-      formInputs: nominalInput,
-      submitButton: nextButton,
-    })
+    // Elements
+    const nameText = document.getElementById('name')
+    const nisnText = document.getElementById('nisn')
+    const alamatText = document.getElementById('alamat')
+    const periodeText = document.getElementById('periode')
 
-    transactionOptionButton.forEach((option) => {
-      option.addEventListener('click', () => {
-        this._selectTransactionOption(transactionOptionButton, option.id)
-        if (this._transactionOption === 'penarikan') {
-          nominalInput.dataset.rule += ` cannot-more-than-${this._ballance}`
-          this._selectPaymentOption(paymentOptionButton, paymentOptionButton[0].id)
-          paymentOptionButton[1].style.display = 'none'
-        } else {
-          nominalInput.dataset.rule = 'required value-more-than-999 multiple-of-1000'
-          paymentOptionButton[1].style.display = ''
-        }
-        _helper_event_helper__WEBPACK_IMPORTED_MODULE_3__.default.triggerEvent(nominalInput, 'keyup')
-      })
-    })
+    const firstBalanceText = document.getElementById('first-balance')
+    const lastBalanceText = document.getElementById('last-balance')
+    const withdrawText = document.getElementById('withdraw-text')
+    const depositText = document.getElementById('deposit-text')
 
-    paymentOptionButton.forEach((option) => {
-      option.addEventListener('click', () => {
-        this._selectPaymentOption(paymentOptionButton, option.id)
-      })
-    })
+    await this._renderTable(this._reportTime)
 
-    nextButton.addEventListener('click', async () => {
-      try {
-        const transactionData = {
-          nisn: this._userId,
-          nominal: nominalInput.value,
-          jenis_transaksi: this._transactionOption,
-          metode_pembayaran: this._paymentOption,
-        }
+    nameText.innerHTML = userData.nama
+    nisnText.innerHTML = userData.nisn
+    alamatText.innerHTML = userData.alamat
 
-        const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.createTransaction(transactionData)
-        console.log(response)
+    const date = new Date()
+    const y = date.getFullYear()
+    const m = date.getMonth()
+    const firstDay = new Date(y, m, 1)
+    const lastDay = new Date(y, m + 1, 0)
+    if (this._reportTime === 'Monthly') periodeText.innerHTML = `Periode: ${firstDay.toLocaleDateString('id-ID')} s/d ${lastDay.toLocaleDateString('id-ID')}`
+    else periodeText.innerHTML = `Periode: 1/1/${y} s/d  31/1/${y}`
 
-        if (this._paymentOption === 'luring') this._adminPaymentInit(response)
-        else this._midtransPaymentInit(response)
-      } catch (error) {
-        console.log(error)
-      }
-    })
-  },
-
-  async _midtransPaymentInit(transactionData) {
-    snap.show()
-    const dataResponse = transactionData.response
-    const userData = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getDataSiswa(this._userId)
-
-    const data = {
-      transaction_details: {
-        order_id: dataResponse.id_transaksi,
-        gross_amount: dataResponse.nominal,
-      },
-      item_details: [{
-        id: dataResponse.id_transaksi,
-        price: dataResponse.nominal,
-        quantity: 1,
-        name: `${dataResponse.jenis_transaksi.charAt(0).toUpperCase() + dataResponse.jenis_transaksi.slice(1)} Saldo`,
-        brand: 'Celenganku',
-      }],
-      customer_details: {
-        first_name: userData.nama,
-        email: this._userAccount.email,
-      },
-      callbacks: {
-        finish: '/',
-      },
-    }
-    const response = await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.getMidtransToken(data)
-    await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateTransaction(dataResponse.id_transaksi, {
-      token: response.token,
-    })
-    snap.pay(response.token, {
-      onSuccess: async () => {
-        await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateTransaction(dataResponse.id_transaksi, {
-          status_transaksi: 'selesai',
-        })
-        await _data_api_data__WEBPACK_IMPORTED_MODULE_0__.default.updateSaldo(dataResponse.nisn, dataResponse.nominal, dataResponse.jenis_transaksi)
-        window.location.hash = '#'
-      },
-      onPending() {
-        /* You may add your own implementation here */
-        window.location.hash = '#'
-      },
-      onClose() {
-        window.location.hash = '#'
-      },
-    })
-  },
-
-  _selectTransactionOption(optionButton, optionId) {
-    optionButton.forEach((option) => {
-      if (option.id === optionId) {
-        option.disabled = true
-      } else {
-        option.disabled = false
-      }
-    })
-    this._transactionOption = optionId.replace('-option', '')
-  },
-
-  _adminPaymentInit(transaction) {
-    window.location.hash = '#'
-    _utils_modal_initializer__WEBPACK_IMPORTED_MODULE_1__.default.init({
-      title: 'Kode Transaksi',
-      content:
-      `<div class="px-10 py-6">
-        <div class="preloader p-4 flex justify-center m-auto">
-          <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
-        </div>
-        <div class="hidden" id="modal-content">
-          <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
-          <p class="my-2 text-3xl font-bold">${transaction.response.id_transaksi}</p>
-          <p class="mt-4 text-gray-500">Transaksi ini akan automatis dibatalkan dalam</p>
-          <p id="time-count" class="mt-1 text-primary"></p>
-        </div>
-        <div class="flex justify-end items-center w-100 mt-4">
-          <button role="button" id="show-qr-button" class="w-max text-primary mx-1 font-light p-2">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
-          <button role="button" id="close-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
-        </div>
-      </div>`,
-    })
-    const preloader = document.querySelector('.preloader')
-    const modal = document.getElementById('modal-kode-transaksi')
-    const modalContent = document.getElementById('modal-content')
-    const thisContent = modalContent.innerHTML
-    const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.response.id_transaksi}"></img>`
-    const showQRButton = document.getElementById('show-qr-button')
-    const closeButton = document.getElementById('close-button')
-
-    const timeStamp = new Date(transaction.response.tenggat_waktu_pembayaran.seconds * 1000)
-    const timeCountInterval = setInterval(() => {
-      try {
-        const timeCounter = document.getElementById('time-count')
-        const {
-          hours, minutes, seconds,
-        } = _helper_date_formater__WEBPACK_IMPORTED_MODULE_4__.default.getTimeCounter(timeStamp)
-        const counterText = `${hours} jam ${minutes} menit ${seconds} detik`
-        timeCounter.innerHTML = counterText
-      } catch (error) {
-        // console.log(error)
-      }
-    }, 1000)
-
-    this._toggleQR = false
-    showQRButton.addEventListener('click', (event) => {
-      event.stopPropagation()
-      this._toggleQR = !this._toggleQR
-      if (this._toggleQR) modalContent.innerHTML = qrContent
-      else modalContent.innerHTML = thisContent
-    })
-    closeButton.addEventListener('click', () => {
-      modal.remove()
-      clearInterval(timeCountInterval)
-    })
-
-    setTimeout(() => {
+    firstBalanceText.innerHTML = `Saldo Awal: <p class="flex ml-auto">${document.querySelector('.saldo').textContent}</p>`
+    lastBalanceText.innerHTML = `Saldo Akhir: <p class="flex ml-auto">${document.querySelectorAll('.saldo')[document.querySelectorAll('.saldo').length - 1].textContent}</p>`
+    depositText.innerHTML = `Pemasukan Saldo: <p class="flex ml-auto">RP ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertToCashFormat(this._deposit)}</p>`
+    withdrawText.innerHTML = `Pengeluaran Saldo: <p class="flex ml-auto">RP ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertToCashFormat(this._withdraw)}</p>`
+    preloaders.forEach((preloader) => {
       preloader.remove()
-      modalContent.classList.remove('hidden')
-    }, 500)
-  },
-
-  _selectPaymentOption(optionButton, optionId) {
-    window.scrollTo(0, document.body.scrollHeight)
-    const selectedClass = 'mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg'
-    const nonSelectedClass = 'mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg'
-    optionButton.forEach((option) => {
-      const optionIcon = option.querySelector('div[data-option]')
-      if (option.id === optionId) {
-        option.classList.add('border-2', 'border-primary')
-        optionIcon.className = selectedClass
-      } else {
-        option.classList.remove('border-2', 'border-primary')
-        optionIcon.className = nonSelectedClass
-      }
     })
-    this._paymentOption = optionId.replace('-option', '')
+  },
+  async _renderTable(reportTime) {
+    const tableElement = document.getElementById('transaction-table')
+    const tableBody = tableElement.querySelector('tbody')
+    const unsortedTransactionData = await _data_api_data__WEBPACK_IMPORTED_MODULE_1__.default.getTransaksiSiswa(this._userId)
+    const transactionData = lodash_sortBy__WEBPACK_IMPORTED_MODULE_0___default()(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
+
+    let thisSaldo = this._ballance
+    const transactionTemplate = (transaction) => {
+      Object.keys(transaction).forEach((key) => {
+        if (typeof transaction[key] === 'object') {
+          //
+        } else if (key === 'nominal') {
+          transaction[key] = _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertToCashFormat(transaction[key])
+        } else {
+          transaction[key] = transaction[key].toString().toUpperCase()
+        }
+      })
+
+      if (transaction.status_transaksi.toLowerCase() === 'pembayaran') return ''
+
+      const timeStamp = new Date(transaction.tenggat_waktu_pembayaran.seconds * 1000)
+      if (reportTime === 'Monthly') {
+        if (timeStamp.getMonth() !== new Date().getMonth()) return ''
+      }
+      const jenisTransaksi = transaction.jenis_transaksi
+      timeStamp.setDate(timeStamp.getDate() - 1)
+      const transactionDateMini = timeStamp.toLocaleDateString('id-ID')
+
+      if (jenisTransaksi.toLowerCase() === 'pemasukan') {
+        thisSaldo -= _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+        this._withdraw += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+      } else {
+        thisSaldo += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+        this._deposit += _helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertCasttoInt(transaction.nominal)
+      }
+
+      return /* html */`<tr class="font-bold text-gray-800 mb-5">
+      <td class="p-5 pr-0 text-gray-500 bg-gray-200 rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
+      <td class="bg-gray-200 hidden md:table-cell">${transaction.jenis_transaksi}</td>
+      <td class="bg-gray-200 ">RP ${transaction.nominal}</td>
+      <td class="saldo bg-gray-200 rounded-r-lg">RP ${_helper_string_formater__WEBPACK_IMPORTED_MODULE_2__.default.convertToCashFormat(thisSaldo)}</td>
+      </td>
+    </tr>
+    <tr class="h-4"></tr>`
+    }
+
+    tableBody.innerHTML = `
+    <tr class="text-left text-gray-700">
+      <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+      <th class="font-normal pb-5 pt-0 hidden md:table-cell">Jenis Transaksi</th>
+      <th class="font-normal pb-5 pt-0">Nominal</th>
+      <th class="font-normal pb-5 pt-0 ">Saldo</th>
+    </tr>`
+    const transactionElementArray = []
+    let transactionRowTemplate = []
+    transactionData.forEach((transaction) => {
+      transactionElementArray.push(transactionTemplate(transaction))
+    })
+    transactionRowTemplate = transactionElementArray.reverse()
+    tableBody.innerHTML += transactionRowTemplate.join('')
   },
 }
 
@@ -13046,19 +12948,24 @@ const Report = {
             </div>
           </div>
           <div class="flex justify-end items-center w-100 mt-4">
-            <button role="button" id="print-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Cetak</button>
+            <button role="button" id="next-button" class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Cetak</button>
           </div>
         </div>`,
       })
+      const modal = document.getElementById('modal-laporan')
 
-      this._frequenctOption = 'monthly'
+      this._frequencyOption = 'monthly'
       const frequencyOptionButton = document.querySelectorAll('#monthly-option, #yearly-option')
-      const printButon = document.getElementById('print-button')
+      const nextButton = document.getElementById('next-button')
 
       frequencyOptionButton.forEach((option) => {
         option.addEventListener('click', () => {
           this._selectReportOption(frequencyOptionButton, option.id)
         })
+      })
+      nextButton.addEventListener('click', () => {
+        window.location.hash = `#/report/${this._frequencyOption}`
+        modal.remove()
       })
     })
   },
@@ -13705,7 +13612,7 @@ const Transaction = {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => "729dc49ea11092b5ed03"
+/******/ 		__webpack_require__.h = () => "25ea1849c892169657d3"
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

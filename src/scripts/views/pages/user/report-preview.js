@@ -1,3 +1,7 @@
+/* eslint-disable new-cap */
+/* eslint-disable max-len */
+import html2canvas from 'html2canvas'
+import { jsPDF } from 'jspdf'
 import sortBy from 'lodash/sortBy'
 import APIData from '../../../data/api-data'
 import StringFormater from '../../../helper/string-formater'
@@ -15,8 +19,9 @@ const ReportPreview = {
             Preview Laporan
           </p>
         </div>
-        <div class="flex flex-col w-full p-4 md:p-8 pt-0 rounded-lg shadow-lg mx-auto md:mt-4 text-gray-800">
-        <div class="p-4 rounded-lg flex flex-col">
+        <div class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg text-gray-800 mb-24">
+        <div id="report" class="p-8 md:p-12 rounded-lg flex flex-col">
+          <img class="w-32 md:w-64 mb-8 ml-auto" src="./images/celenganku-logo.png"></img>
           <p id="name" class="text-2xl font-bold"></p>
           <p id="nisn"class="mb-2 text-lg"></p>
           <p id="alamat" class="text-gray-600"><p>
@@ -38,12 +43,15 @@ const ReportPreview = {
           </div>
           <div class="text-right mt-4">
           <p id="first-balance" class="mb-2 flex">Saldo Awal:</p>
-          <p id="deposit-text" class="mb-2 flex">Pemasukan Saldo:</p>
-          <p id="withdraw-text" class="mb-2 flex">Pengeluaran Saldo:</p>
+          <p id="withdraw-text" class="mb-2 flex">Pemasukan Saldo:</p>
+          <p id="deposit-text" class="mb-2 flex">Penarikan Saldo:</p>
           <p id="last-balance" class="mb-2 flex">Saldo Akhir:</p>
           </div>
           </div>
         </div>
+        <button id="download-button" role="button" class="hidden fixed w-max bg-primary text-white p-4 rounded-full right-0 bottom-0 mb-24 mr-8 md:mr-16 md:mb-16">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        </button>
       `
   },
 
@@ -77,6 +85,21 @@ const ReportPreview = {
     const depositText = document.getElementById('deposit-text')
 
     await this._renderTable(this._reportTime)
+    const downloadButton = document.getElementById('download-button')
+    const reportElement = document.querySelector('#report')
+    downloadButton.addEventListener('click', () => {
+      const quality = 1 // Higher the better but larger file
+      html2canvas(reportElement,
+        { scale: quality, windowWidth: '640p' }).then((canvas) => {
+        const pdf = new jsPDF('p', 'pt', [canvas.width, canvas.height])
+        const pdfWidth = pdf.internal.pageSize.getWidth()
+        const img = canvas.toDataURL('image/jpeg', 0.75)
+        const imgProps = pdf.getImageProperties(img)
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width
+        pdf.addImage(img, 'PNG', 0, 0, pdfWidth, pdfHeight)
+        pdf.output('dataurlnewwindow')
+      })
+    })
 
     nameText.innerHTML = userData.nama
     nisnText.innerHTML = userData.nisn
@@ -90,13 +113,18 @@ const ReportPreview = {
     if (this._reportTime === 'Monthly') periodeText.innerHTML = `Periode: ${firstDay.toLocaleDateString('id-ID')} s/d ${lastDay.toLocaleDateString('id-ID')}`
     else periodeText.innerHTML = `Periode: 1/1/${y} s/d  31/1/${y}`
 
-    firstBalanceText.innerHTML = `Saldo Awal: <p class="flex ml-auto">${document.querySelector('.saldo').textContent}</p>`
-    lastBalanceText.innerHTML = `Saldo Akhir: <p class="flex ml-auto">${document.querySelectorAll('.saldo')[document.querySelectorAll('.saldo').length - 1].textContent}</p>`
+    const firstDeposit = document.querySelector('.nominal').textContent.replace('RP ', '')
+    let firstBalance = document.querySelector('.saldo').textContent.replace('RP ', '')
+    firstBalance = StringFormater.convertCasttoInt(firstBalance) - StringFormater.convertCasttoInt(firstDeposit)
+
+    firstBalanceText.innerHTML = `Saldo Awal: <p class="flex ml-auto">RP ${StringFormater.convertToCashFormat(firstBalance)}</p>`
     depositText.innerHTML = `Pemasukan Saldo: <p class="flex ml-auto">RP ${StringFormater.convertToCashFormat(this._deposit)}</p>`
-    withdrawText.innerHTML = `Pengeluaran Saldo: <p class="flex ml-auto">RP ${StringFormater.convertToCashFormat(this._withdraw)}</p>`
+    withdrawText.innerHTML = `Penarikan Saldo: <p class="flex ml-auto">RP ${StringFormater.convertToCashFormat(this._withdraw)}</p>`
+    lastBalanceText.innerHTML = `Saldo Akhir: <p class="flex ml-auto font-bold text-primary">${document.querySelectorAll('.saldo')[document.querySelectorAll('.saldo').length - 1].textContent}</p>`
     preloaders.forEach((preloader) => {
       preloader.remove()
     })
+    downloadButton.classList.remove('hidden')
   },
   async _renderTable(reportTime) {
     const tableElement = document.getElementById('transaction-table')
@@ -105,6 +133,7 @@ const ReportPreview = {
     const transactionData = sortBy(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     let thisSaldo = this._ballance
+    console.log(thisSaldo)
     const transactionTemplate = (transaction) => {
       Object.keys(transaction).forEach((key) => {
         if (typeof transaction[key] === 'object') {
@@ -126,6 +155,8 @@ const ReportPreview = {
       timeStamp.setDate(timeStamp.getDate() - 1)
       const transactionDateMini = timeStamp.toLocaleDateString('id-ID')
 
+      const fixedSaldo = thisSaldo
+
       if (jenisTransaksi.toLowerCase() === 'pemasukan') {
         thisSaldo -= StringFormater.convertCasttoInt(transaction.nominal)
         this._withdraw += StringFormater.convertCasttoInt(transaction.nominal)
@@ -137,8 +168,8 @@ const ReportPreview = {
       return /* html */`<tr class="font-bold text-gray-800 mb-5">
       <td class="p-5 pr-0 text-gray-500 bg-gray-200 rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
       <td class="bg-gray-200 hidden md:table-cell">${transaction.jenis_transaksi}</td>
-      <td class="bg-gray-200 ">RP ${transaction.nominal}</td>
-      <td class="saldo bg-gray-200 rounded-r-lg">RP ${StringFormater.convertToCashFormat(thisSaldo)}</td>
+      <td class="nominal bg-gray-200 ">RP ${transaction.nominal}</td>
+      <td class="saldo bg-gray-200 rounded-r-lg">RP ${StringFormater.convertToCashFormat(fixedSaldo)}</td>
       </td>
     </tr>
     <tr class="h-4"></tr>`
