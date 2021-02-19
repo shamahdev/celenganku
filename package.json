@@ -51,6 +51,7 @@
     "styled-components": "^5.2.1",
     "sweetalert2": "^10.14.0",
     "terser-webpack-plugin": "^5.1.1",
+    "webpack-bundle-analyzer": "^4.4.0",
     "xhr2": "^0.2.1",
     "xss-clean": "^0.1.1"
   },
