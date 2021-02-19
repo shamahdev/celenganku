@@ -220,7 +220,7 @@ const Transaction = {
     const copyButton = document.getElementById('copy-button')
     const copyText = document.getElementById('id-transaksi')
     copyButton.addEventListener('click', () => {
-      EventHelper.copyTextToClipboard(transaction.response.d_transaksi)
+      EventHelper.copyTextToClipboard(transaction.response.id_transaksi)
       copyText.focus()
     })
 

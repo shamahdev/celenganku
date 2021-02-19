@@ -141,7 +141,6 @@ const AuthController = {
   },
   register: async (req, res, next) => {
     const { nisn } = await SiswaController.createAkunSiswa(req, res, next)
-    console.log(nisn)
 
     const token = createToken(nisn)
     req.body.password = undefined

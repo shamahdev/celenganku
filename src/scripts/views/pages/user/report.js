@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 import sortBy from 'lodash/sortBy'
 import StringFormater from '../../../helper/string-formater'
 import DateFormater from '../../../helper/date-formater'

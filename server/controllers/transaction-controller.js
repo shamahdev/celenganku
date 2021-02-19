@@ -8,7 +8,6 @@ const TransactionController = {
   getTransactionById: BaseController.getOne(Transaction),
   deleteTransactionById: BaseController.deleteOne(Transaction),
   getTransactionByNisn: async (req, res, next) => {
-    console.log(req.params)
     try {
       const snapshot = await Transaction.where('nisn', '==', req.params.id).get()
       if (snapshot.empty) {
@@ -33,11 +32,11 @@ const TransactionController = {
       return { success: true }
     } catch (error) {
       console.log(error)
-      // res.status(502).json({
-      //   status: 'success',
-      //   error: true,
-      //   response: error,
-      // })
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
     }
   },
   createTransaction: async (req, res, next) => {

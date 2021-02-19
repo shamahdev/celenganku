@@ -73,7 +73,7 @@ const SiswaController = {
     } catch (error) {
       console.log(error)
       res.status(502).json({
-        status: 'success',
+        status: 'failed',
         error: true,
         response: error,
       })
