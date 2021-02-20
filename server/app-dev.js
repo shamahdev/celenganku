@@ -17,7 +17,7 @@ import transactionRoutes from './routes/transaction-routes'
 const app = express()
 const HTML_FILE = path.join(__dirname, 'index.html')
 
-app.use(cors())
+app.use(cors({ origin: true }))
 app.options('*', cors())
 
 //
@@ -38,6 +38,12 @@ app.use(express.json({
 app.use(bodyParser.urlencoded({
   extended: true,
 }))
+
+app.all('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  next()
+})
 
 app.use('/api', appRoutes)
 app.use('/api/siswa', siswaRoutes)
