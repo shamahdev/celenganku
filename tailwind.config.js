@@ -6,7 +6,7 @@ module.exports = {
     // standardFontWeights: true
   },
   purge: {
-    enabled: true,
+    // enabled: true,
     content: ['./src/**/*.html', './src/**/*.js'],
   },
   theme: {
@@ -21,8 +21,8 @@ module.exports = {
         primaryDisable: '#FFC7B8',
         secondary: '#3F79EB',
         secondaryDisable: '#CCDDFF',
-        success: '#46D65D',
-        failed: '#FB5555',
+        success: '#39C16C',
+        failed: '#ee4949',
       },
     },
   },

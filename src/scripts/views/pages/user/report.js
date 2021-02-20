@@ -8,41 +8,51 @@ import ModalInitializer from '../../../utils/modal-initializer'
 const Report = {
   async render() {
     return /* html */`
-    <div class="text-center">
-    <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
-      Riwayat Transaksi
-    </p>
-    <div class="flex flex-row mt-4 md:mt-6 ">
-      <div class="flex flex-row">
-        <button id="print-report-button" class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
-        <p id="total-transaction" class="hidden md:inline mt-3 ml-4 text-gray-700">Total Transaksi:</p>
+      <div class="p-4 pt-0 md:p-8 md:pt=8 lg:p-12 lg:pt-12 h-full">
+        <div class="flex flex-col h-full mb-20 md:mb-0 md:max-w-screen-md lg:max-w-screen-xl mx-auto">
+          <div class="text-center">
+            <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+              Riwayat Transaksi
+            </p>
+            <div class="flex flex-row mt-4 md:mt-6 ">
+              <div class="flex flex-row">
+                <button id="print-report-button"
+                  class="w-max bg-primary text-white mx-1 py-3 px-5 rounded-lg disabled:opacity-50">Cetak Laporan</button>
+                <p id="total-transaction" class="hidden md:inline mt-3 ml-4 text-gray-700">Total Transaksi:</p>
+              </div>
+              <div class="flex flex-1 md:flex-initial ml-4 md:ml-auto flex-row ">
+                <input id="search-input" placeholder="Cari tanggal, nominal, dll" value="" type="text"
+                  class="text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
+                <svg class="w-8 h-8 mt-auto mb-auto ml-4 text-primary" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-200 gap-5 p-4 rounded-lg flex flex-col mt-6 md:p-8">
+            <div class="flex-1 py-0 white rounded-lg">
+              <table id="transaction-table" class="table-auto w-full">
+                <tbody>
+                  <tr class="text-left text-gray-700">
+                    <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+                    <th class="font-normal pb-5 pt-0">Nominal</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
+                    <th class="font-normal pb-5 pt-0">Status</th>
+                    <th class="font-normal pb-5 pt-0 justify-end"></th>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
+                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-1 md:flex-initial ml-4 md:ml-auto flex-row ">
-      <input id="search-input" placeholder="Cari tanggal, nominal, dll" value="" type="text" class="text-md block px-5 py-3 rounded-lg w-full bg-gray-200">
-      <svg class="w-8 h-8 mt-auto mb-auto ml-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </div>
-    </div>
-  </div>
-    <div class="bg-gray-200 gap-5 p-4 rounded-lg flex flex-col mt-6 md:p-8">
-      <div class="flex-1 py-0 white rounded-lg">
-      <table id="transaction-table" class="table-auto w-full">
-      <tbody>
-      <tr class="text-left text-gray-700">
-          <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
-          <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
-          <th class="font-normal pb-5 pt-0">Nominal</th>
-          <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
-          <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
-          <th class="font-normal pb-5 pt-0">Status</th>
-          <th class="font-normal pb-5 pt-0 justify-end"></th>
-        </tr>
-      </tbody>
-    </table>
-      <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
-        <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
-      </div>
-      </div>
-    </div>
       `
   },
 

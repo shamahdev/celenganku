@@ -12,6 +12,8 @@ import EventHelper from '../../../helper/event-helper'
 const Dashboard = {
   async render() {
     return /* html */ `
+    <div class="p-4 pt-0 md:p-8 md:pt=8 lg:p-12 lg:pt-12 h-full">
+      <div class="flex flex-col h-full mb-20 md:mb-0 md:max-w-screen-md lg:max-w-screen-xl mx-auto">
         <div class="text-center">
           <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
             Celenganku
@@ -19,8 +21,7 @@ const Dashboard = {
         </div>
 
         <div class="flex flex-col">
-          <div
-            class="bg-gray-200 gap-4 p-5 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
+          <div class="bg-gray-200 gap-4 p-5 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
             <div class="flex-grow-1 flex-auto lg:flex-1 p-5 bg-primary rounded-lg shadow-primary">
               <div class="flex items-center">
 
@@ -83,7 +84,7 @@ const Dashboard = {
             <div class="flex-1 py-0 white rounded-lg">
               <table id="transaction-table" class="table-auto w-full">
                 <tbody>
-                <tr class="text-left text-gray-700">
+                  <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
                     <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
                     <th class="font-normal pb-5 pt-0">Nominal</th>
@@ -99,6 +100,8 @@ const Dashboard = {
               </div>
             </div>
           </div>
+        </div>
+      </div>
       `
   },
 
@@ -244,6 +247,16 @@ const Dashboard = {
             showCancelButton: true,
             confirmButtonText: 'Benar',
             cancelButtonText: 'Tidak',
+            showLoaderOnConfirm: true,
+            preConfirm: async () => {
+              try {
+                await APIData.deleteTransaksiSiswa(transaction.id_transaksi)
+              } catch (error) {
+                Swal.showValidationMessage(
+                  `Request failed: ${error}`,
+                )
+              }
+            },
             customClass: {
               popup: 'popup-sweetalert',
               confirmButton: 'btn-sweetalert bg-success',
@@ -253,8 +266,6 @@ const Dashboard = {
           })
 
           if (result.isConfirmed) {
-            const response = await APIData.deleteTransaksiSiswa(transaction.id_transaksi)
-            console.log(response)
             this._renderTable()
           }
         })

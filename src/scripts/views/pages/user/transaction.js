@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable no-undef */
 import Swal from 'sweetalert2'
 import APIData from '../../../data/api-data'
 import ModalInitializer from '../../../utils/modal-initializer'
@@ -10,59 +9,81 @@ import DateFormater from '../../../helper/date-formater'
 const Transaction = {
   async render() {
     return /* html */`
-        <div class="text-center">
-          <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
-            Transaksi
-          </p>
-        </div>
-        <div class="flex flex-col w-full md:w-8/12 lg:w-6/12 mx-auto">
-          <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
-            <div class="flex flex-row mx-auto mb-4">
-            <button id="pemasukan-option" disabled class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi Saldo</button>
-              <button id="penarikan-option" class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik Saldo</button>
-            </div>
-            <div class="flex-1 py-0 white rounded-lg">
-            <div class="mb-6">
-              <p class="mb-2">Nominal</p>
-              <input id="input-nominal" name="Nominal" data-rule="required value-more-than-999 multiple-of-1000" value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
-            </div>
-              <div class="flex flex-col gap-6 items-center">
-                <button id="luring-option" class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
-                  <div class="flex md:justify-center">
-                    <div class="text-white flex flex-1 flex-row">
-                      <div data-option class="mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg">
-                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
-                      </div>
-                      <div class="flex flex-col flex-1 text-left ml-4">
-                        <p class="md:-mb-2 text-gray-700">Pembayaran secara luring</p>
-                        <p id="monthly-withdraw" class="text-gray-800 text-2xl lg:text-4xl font-bold">Melalui Admin/TU</p>
-                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA ADMIN</p>
+      <div class="p-4 pt-0 md:p-8 md:pt=8 lg:p-12 lg:pt-12 h-full">
+        <div class="flex flex-col h-full mb-20 md:mb-0 md:max-w-screen-md lg:max-w-screen-xl mx-auto">
+          <div class="text-center">
+            <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+              Transaksi
+            </p>
+          </div>
+          <div class="flex flex-col w-full md:w-8/12 lg:w-6/12 mx-auto">
+            <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-4 md:p-8 md:mt-6">
+              <div class="flex flex-row mx-auto mb-4">
+                <button id="pemasukan-option" disabled
+                  class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Isi
+                  Saldo</button>
+                <button id="penarikan-option"
+                  class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-l-none disabled:bg-white disabled:text-gray-500 disabled:cursor-default">Tarik
+                  Saldo</button>
+              </div>
+              <div class="flex-1 py-0 white rounded-lg">
+                <div class="mb-6">
+                  <p class="mb-2">Nominal</p>
+                  <input id="input-nominal" name="Nominal" data-rule="required value-more-than-999 multiple-of-1000"
+                    value="" type="number" class="block px-5 py-3 rounded-lg w-full bg-white">
+                </div>
+                <div class="flex flex-col gap-6 items-center">
+                  <button id="luring-option"
+                    class="flex-1 p-5 pb-8 border-2 border-primary bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                    <div class="flex md:justify-center">
+                      <div class="text-white flex flex-1 flex-row">
+                        <div data-option class="mx-2 my-auto text-sm bg-primary text-white p-1 rounded-lg">
+                          <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7">
+                              </path>
+                            </svg></p>
+                        </div>
+                        <div class="flex flex-col flex-1 text-left ml-4">
+                          <p class="md:-mb-2 text-gray-700">Pembayaran secara luring</p>
+                          <p id="monthly-withdraw" class="text-gray-800 text-2xl lg:text-4xl font-bold">Melalui Admin/TU
+                          </p>
+                          <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT
+                            BIAYA ADMIN</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
-                <button id="daring-option" class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
-                  <div class="flex md:justify-center">
-                    <div class="text-white flex flex-1 flex-row">
-                      <div data-option class="mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg">
-                      <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
-                      </div>
-                      <div class="flex flex-col flex-1 text-left ml-4">
-                        <p class="md:-mb-1 text-gray-700">Pembayaran secara daring</p>
-                        <p id="monthly-withdraw" class="text-gray-800 text-xl md:text-2xl font-bold lg:mr-8">Melalui e-Wallets, Bank, Indomaret, dll</p>
-                        <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT BIAYA TAMBAHAN</p>
+                  </button>
+                  <button id="daring-option"
+                    class="flex-1 p-5 pb-8 bg-white shadow-lg rounded-lg w-full focus:outline-none ">
+                    <div class="flex md:justify-center">
+                      <div class="text-white flex flex-1 flex-row">
+                        <div data-option class="mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg">
+                          <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7">
+                              </path>
+                            </svg></p>
+                        </div>
+                        <div class="flex flex-col flex-1 text-left ml-4">
+                          <p class="md:-mb-1 text-gray-700">Pembayaran secara daring</p>
+                          <p id="monthly-withdraw" class="text-gray-800 text-xl md:text-2xl font-bold lg:mr-8">Melalui
+                            e-Wallets, Bank, Indomaret, dll</p>
+                          <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">TIDAK DIPUNGUT
+                            BIAYA TAMBAHAN</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
+                  </button>
+                </div>
               </div>
             </div>
-            </div>
-            <button disabled id="next-button" class="disabled:cursor-default w-max bg-primary text-white py-3 px-8 rounded-lg disabled:opacity-50 mx-auto mt-4">Lanjut</button>
-            </div>
+            <button disabled id="next-button"
+              class="disabled:cursor-default w-max bg-primary text-white py-3 px-8 rounded-lg disabled:opacity-50 mx-auto mt-4">Lanjut</button>
+          </div>
         </div>
+      </div>
+      </div>
       `
   },
 
@@ -127,6 +148,7 @@ const Transaction = {
   },
 
   async _midtransPaymentInit(transactionData) {
+    // eslint-disable-next-line no-undef
     snap.show()
     const dataResponse = transactionData.response
     const userData = await APIData.getDataSiswa(this._userId)
@@ -157,6 +179,7 @@ const Transaction = {
       await APIData.updateTransaction(dataResponse.id_transaksi, {
         token: response.token,
       })
+      // eslint-disable-next-line no-undef
       snap.pay(response.token, {
         onSuccess: async () => {
           await APIData.updateTransaction(dataResponse.id_transaksi, {
@@ -169,11 +192,19 @@ const Transaction = {
         /* You may add your own implementation here */
           window.location.hash = '#'
         },
+        onError(result) {
+          // eslint-disable-next-line no-undef
+          console.log(result)
+          // eslint-disable-next-line no-undef
+          snap.hide()
+        },
         onClose() {
           window.location.hash = '#'
         },
       })
     } catch (error) {
+      // eslint-disable-next-line no-undef
+      snap.hide()
       await APIData.deleteTransaksiSiswa(dataResponse.id_transaksi)
       await Swal.fire({
         icon: 'error',

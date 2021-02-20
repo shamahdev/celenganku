@@ -9,49 +9,65 @@ import UrlParser from '../../../routes/urlparser'
 const ReportPreview = {
   async render() {
     return /* html */`
-        <div class="text-center relative print:hidden">
-          <a href="#/report" class="print:hidden -mt-4 w-max absolute left-0 text-primary mx-1 p-4">
-          <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          </a>
-          <p class="print:hidden text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
-            Preview Laporan
-          </p>
+      <div class="p-4 pt-0 md:p-8 md:pt=8 lg:p-12 lg:pt-12 h-full">
+        <div class="flex flex-col h-full mb-20 md:mb-0 md:max-w-screen-md lg:max-w-screen-xl mx-auto">
+          <div class="text-center relative print:hidden">
+            <a href="#/report" class="print:hidden -mt-4 w-max absolute left-0 text-primary mx-1 p-4">
+              <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                </path>
+              </svg>
+            </a>
+            <p class="print:hidden text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+              Preview Laporan
+            </p>
+          </div>
+          <div
+            class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg print:shadow-none text-gray-800 mb-24">
+            <div id="report" class="p-8 md:p-12 rounded-lg flex flex-col">
+              <img class="w-48 mb-10" src="./images/celenganku-logo.png">
+              <p id="name" class="text-2xl font-bold"></p>
+              <p id="nisn" class="mb-2 text-lg"></p>
+              <p id="alamat" class="text-gray-600">
+                <p>
+                  <p id="periode" class="mt-4 mb-6 text-sm text-primary"></p>
+                  <div class="flex-1 py-0 white rounded-lg">
+                    <table id="transaction-table" class="table-auto w-full">
+                      <tbody>
+                        <tr class="text-left text-gray-700">
+                          <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
+                          <th class="font-normal pb-5 pt-0 hidden md:table-cell">Jenis Transaksi</th>
+                          <th class="font-normal pb-5 pt-0">Nominal</th>
+                          <th class="font-normal pb-5 pt-0 ">Saldo</th>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
+                      <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                    </div>
+                  </div>
+                  <div class="text-right mt-4">
+                    <p id="first-balance" class="mb-2 flex">Saldo Awal:</p>
+                    <p id="withdraw-text" class="mb-2 flex">Pemasukan Saldo:</p>
+                    <p id="deposit-text" class="mb-2 flex">Penarikan Saldo:</p>
+                    <p id="last-balance" class="mb-2 flex">Saldo Akhir:</p>
+                  </div>
+            </div>
+          </div>
+          <div>
+            <button id="download-button" role="button"
+              class="hidden fixed w-max bg-primary text-white p-4 rounded-full right-0 bottom-0 mb-24 mr-8 md:mr-16 md:mb-16 print:hidden">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z">
+                </path>
+              </svg>
+            </button>
+          </div>
         </div>
-        <div class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg print:shadow-none text-gray-800 mb-24">
-        <div id="report" class="p-8 md:p-12 rounded-lg flex flex-col">
-          <img class="w-48 mb-10" src="./images/celenganku-logo.png">
-          <p id="name" class="text-2xl font-bold"></p>
-          <p id="nisn"class="mb-2 text-lg"></p>
-          <p id="alamat" class="text-gray-600"><p>
-          <p id="periode" class="mt-4 mb-6 text-sm text-primary"></p>
-          <div class="flex-1 py-0 white rounded-lg">
-          <table id="transaction-table" class="table-auto w-full">
-          <tbody>
-          <tr class="text-left text-gray-700">
-              <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
-              <th class="font-normal pb-5 pt-0 hidden md:table-cell">Jenis Transaksi</th>
-              <th class="font-normal pb-5 pt-0">Nominal</th>
-              <th class="font-normal pb-5 pt-0 ">Saldo</th>
-          </tr>
-          </tbody>
-        </table>
-          <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
-            <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
-          </div>
-          </div>
-          <div class="text-right mt-4">
-          <p id="first-balance" class="mb-2 flex">Saldo Awal:</p>
-          <p id="withdraw-text" class="mb-2 flex">Pemasukan Saldo:</p>
-          <p id="deposit-text" class="mb-2 flex">Penarikan Saldo:</p>
-          <p id="last-balance" class="mb-2 flex">Saldo Akhir:</p>
-          </div>
-          </div>
-        </div>
-        <div>
-        <button id="download-button" role="button" class="hidden fixed w-max bg-primary text-white p-4 rounded-full right-0 bottom-0 mb-24 mr-8 md:mr-16 md:mb-16 print:hidden">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-        </button>
-        </div>
+      </div>
       `
   },
 

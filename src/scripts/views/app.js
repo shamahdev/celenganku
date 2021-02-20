@@ -59,7 +59,7 @@ class App {
 
       document.body.prepend(this._sidebar)
       this._content.innerHTML = await page.render()
-      Sidebar.highlight(url)
+      Sidebar.highlight('url')
       page.afterRender()
     } catch (err) {
       console.log(err)
@@ -88,7 +88,7 @@ class App {
 
   static _loadPageNotFound() {
     return `
-    <div id='preloader' class="flex mt-auto mb-auto ml-auto mr-auto">
+    <div id='preloader' class="flex h-full w-full m-auto">
     <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
     </div>
       `
@@ -96,8 +96,10 @@ class App {
 
   static _loadPreloader() {
     return `
-        <div id='preloader' class="flex mt-auto mb-auto ml-auto mr-auto">
-        <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+        <div id='preloader' class="flex h-full w-full">
+          <div class="flex m-auto">
+            <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+          </div>
         </div>
       `
   }
