@@ -1,7 +1,5 @@
 /* eslint-disable new-cap */
 /* eslint-disable max-len */
-import html2canvas from 'html2canvas'
-import { jsPDF } from 'jspdf'
 import sortBy from 'lodash/sortBy'
 import APIData from '../../../data/api-data'
 import StringFormater from '../../../helper/string-formater'
@@ -11,15 +9,15 @@ import UrlParser from '../../../routes/urlparser'
 const ReportPreview = {
   async render() {
     return /* html */`
-        <div class="text-center relative">
-          <a href="#/report" class="-mt-4 w-max absolute left-0 text-primary mx-1 p-4">
+        <div class="text-center relative print:hidden">
+          <a href="#/report" class="print:hidden -mt-4 w-max absolute left-0 text-primary mx-1 p-4">
           <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
           </a>
-          <p class="text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
+          <p class="print:hidden text-xl leading-8 font-bold tracking-tight text-gray-800 md:text-2xl md:mt-2">
             Preview Laporan
           </p>
         </div>
-        <div class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg text-gray-800 mb-24">
+        <div class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg print:shadow-none text-gray-800 mb-24">
         <div id="report" class="p-8 md:p-12 rounded-lg flex flex-col">
           <img class="w-48 mb-10" src="./images/celenganku-logo.png">
           <p id="name" class="text-2xl font-bold"></p>
@@ -50,8 +48,8 @@ const ReportPreview = {
           </div>
         </div>
         <div>
-        <button id="download-button" role="button" class="hidden fixed w-max bg-primary text-white p-4 rounded-full right-0 bottom-0 mb-24 mr-8 md:mr-16 md:mb-16">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        <button id="download-button" role="button" class="hidden fixed w-max bg-primary text-white p-4 rounded-full right-0 bottom-0 mb-24 mr-8 md:mr-16 md:mb-16 print:hidden">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
         </button>
         </div>
       `
@@ -88,19 +86,9 @@ const ReportPreview = {
 
     await this._renderTable(this._reportTime)
     const downloadButton = document.getElementById('download-button')
-    const reportElement = document.querySelector('#report')
+    // const reportElement = document.querySelector('#report')
     downloadButton.addEventListener('click', () => {
-      const quality = 1 // Higher the better but larger file
-      html2canvas(reportElement,
-        { scale: quality }).then((canvas) => {
-        const pdf = new jsPDF('p', 'pt', 'a4')
-        const pdfWidth = pdf.internal.pageSize.getWidth()
-        const img = canvas.toDataURL('image/jpeg', 1)
-        const imgProps = pdf.getImageProperties(img)
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width
-        pdf.addImage(img, 'PNG', 0, 0, pdfWidth, pdfHeight)
-        pdf.output('dataurlnewwindow')
-      })
+      window.print()
     })
 
     nameText.innerHTML = userData.nama

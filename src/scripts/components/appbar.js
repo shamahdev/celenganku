@@ -66,7 +66,7 @@ class Appbar extends HTMLElement {
   _render() {
     const name = this._name
     const avatar = this._avatar || `http://ui-avatars.com/api/?name=${name}&background=fff`
-    this.className = `${this._bgColor()} z-50 sticky top-0 bg-white rounded-b-lg flex flex-wrap items-center md:rounded-bl-none md:h-16 pt-2 pb-2 md:justify-end`
+    this.className = `${this._bgColor()} print:hidden z-50 sticky top-0 bg-white rounded-b-lg flex flex-wrap items-center md:rounded-bl-none md:h-16 pt-2 pb-2 md:justify-end`
     this.innerHTML = /* html */`
           <div class="flex w-full p-4 md:p-0 md:w-auto">
             <div class="flex relative w-10 h-10 justify-center items-center m-1 mr-2 text-xl rounded-full text-white">

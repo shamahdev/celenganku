@@ -9,9 +9,8 @@ import siswaRoutes from './routes/siswa-routes'
 import adminRoutes from './routes/admin-routes'
 import transactionRoutes from './routes/transaction-routes'
 
-const app = express()
 const HTML_FILE = path.join(__dirname, 'index.html')
-
+const app = express()
 app.use(cors())
 app.options('*', cors())
 app.use(cookieParser())

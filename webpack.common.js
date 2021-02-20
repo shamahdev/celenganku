@@ -1,7 +1,6 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
   entry: {
@@ -55,6 +54,5 @@ module.exports = {
       filename: './index.html',
       excludeChunks: ['server'],
     }),
-    new BundleAnalyzerPlugin(),
   ],
 }

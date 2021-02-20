@@ -17,6 +17,9 @@ import transactionRoutes from './routes/transaction-routes'
 const app = express()
 const HTML_FILE = path.join(__dirname, 'index.html')
 
+app.use(cors())
+app.options('*', cors())
+
 //
 //
 // Webpack Middleware
@@ -28,9 +31,6 @@ app.use(webpackHotMiddleware(compiler))
 // Webpack Middleware
 //
 //
-
-app.use(cors())
-app.options('*', cors())
 app.use(cookieParser())
 app.use(express.json({
   limit: '15kb',

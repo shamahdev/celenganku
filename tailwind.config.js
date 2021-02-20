@@ -11,6 +11,10 @@ module.exports = {
   },
   theme: {
     extend: {
+      screens: {
+        print: { raw: 'print' },
+        // => @media print { ... }
+      },
       colors: {
         primary: '#EB643F',
         primaryLight: '#FF9678',
