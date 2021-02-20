@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable no-undef */
+import Swal from 'sweetalert2'
 import APIData from '../../../data/api-data'
 import ModalInitializer from '../../../utils/modal-initializer'
 import formValidation from '../../../helper/form-validation'
@@ -150,26 +151,42 @@ const Transaction = {
         finish: '/',
       },
     }
-    const response = await APIData.getMidtransToken(data)
-    await APIData.updateTransaction(dataResponse.id_transaksi, {
-      token: response.token,
-    })
-    snap.pay(response.token, {
-      onSuccess: async () => {
-        await APIData.updateTransaction(dataResponse.id_transaksi, {
-          status_transaksi: 'selesai',
-        })
-        await APIData.updateSaldo(dataResponse.nisn, dataResponse.nominal, dataResponse.jenis_transaksi)
-        window.location.hash = '#'
-      },
-      onPending() {
+    try {
+      const response = await APIData.getMidtransToken(data)
+
+      await APIData.updateTransaction(dataResponse.id_transaksi, {
+        token: response.token,
+      })
+      snap.pay(response.token, {
+        onSuccess: async () => {
+          await APIData.updateTransaction(dataResponse.id_transaksi, {
+            status_transaksi: 'selesai',
+          })
+          await APIData.updateSaldo(dataResponse.nisn, dataResponse.nominal, dataResponse.jenis_transaksi)
+          window.location.hash = '#'
+        },
+        onPending() {
         /* You may add your own implementation here */
-        window.location.hash = '#'
-      },
-      onClose() {
-        window.location.hash = '#'
-      },
-    })
+          window.location.hash = '#'
+        },
+        onClose() {
+          window.location.hash = '#'
+        },
+      })
+    } catch (error) {
+      await APIData.deleteTransaksiSiswa(dataResponse.id_transaksi)
+      await Swal.fire({
+        icon: 'error',
+        text: 'Silahkan tunggu sejenak dan coba kembali',
+        title: 'Terjadi kesalahan pada Midtrans Payment',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-primary',
+        },
+        buttonsStyling: false,
+      })
+    }
   },
 
   _selectTransactionOption(optionButton, optionId) {

@@ -20,6 +20,14 @@ const HTML_FILE = path.join(__dirname, 'index.html')
 app.use(cors({ origin: true }))
 app.options('*', cors())
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept,Authorization,Origin')
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  next()
+})
+
 //
 //
 // Webpack Middleware
@@ -38,12 +46,6 @@ app.use(express.json({
 app.use(bodyParser.urlencoded({
   extended: true,
 }))
-
-app.all('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-  next()
-})
 
 app.use('/api', appRoutes)
 app.use('/api/siswa', siswaRoutes)
