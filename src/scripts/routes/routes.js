@@ -21,8 +21,8 @@ const Routes = {
     '/profile': Profile,
   },
   admin: {
-    '/admin': AdminDashboard,
-    '/admin/data': Users,
+    '/': AdminDashboard,
+    '/data': Users,
   },
 }
 

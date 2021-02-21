@@ -238,6 +238,15 @@ class APIData {
     }
   }
 
+  static async getTransaksiAdmin(id) {
+    try {
+      const response = await fetch(API_ENDPOINT.ADMIN.TRANSAKSI(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
   static async deleteTransaksiSiswa(id) {
     try {
       const response = await fetch(API_ENDPOINT.TRANSAKSI.ID(id), {

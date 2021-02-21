@@ -19,6 +19,7 @@ const API_ENDPOINT = {
   },
   ADMIN: {
     LOGIN: 'api/admin/login',
+    TRANSAKSI: (id) => `api/transaction/admin/${id}`,
   },
   UPLOAD_FILE: 'api/upload',
   DELETE_FILE: 'api/delete',

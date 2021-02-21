@@ -39,6 +39,38 @@ const TransactionController = {
       })
     }
   },
+  getTransactionByAdmin: async (req, res, next) => {
+    try {
+      const snapshot = await Transaction.where('id_admin', '==', req.params.id).get()
+      if (snapshot.empty) {
+        res.status(401).json({
+          status: 'failed',
+          error: true,
+          message: 'No transaction found from that admin id',
+          response: req.params,
+        })
+      }
+      const transactionData = []
+      snapshot.forEach((doc) => {
+        transactionData.push(doc.data())
+      })
+
+      res.status(200).json({
+        status: 'success',
+        error: false,
+        results: transactionData.length,
+        data: transactionData,
+      })
+      return { success: true }
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
+    }
+  },
   createTransaction: async (req, res, next) => {
     try {
       const {

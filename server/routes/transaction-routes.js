@@ -17,5 +17,7 @@ transactionRoutes.route('/:id')
   .delete(TransactionController.deleteTransactionById)
 transactionRoutes.route('/nisn/:id')
   .get(TransactionController.getTransactionByNisn)
+transactionRoutes.route('/admin/:id')
+  .get(TransactionController.getTransactionByAdmin)
 
 export default transactionRoutes
