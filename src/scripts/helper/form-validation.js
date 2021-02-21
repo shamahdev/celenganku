@@ -38,9 +38,13 @@ const formValidation = {
   async _showPasswordToggle(input) {
     if (input.type === 'password') {
       const passwordInputWrapper = document.createElement('div')
-      passwordInputWrapper.className = 'relative w-full'
-      passwordInputWrapper.id = `${input.id}-wrapper`
-      passwordInputWrapper.innerHTML = `
+
+      const passwordToggleCheck = document.getElementById(`${input.id}-toggle`)
+
+      if (passwordToggleCheck == null) {
+        passwordInputWrapper.className = 'relative w-full'
+        passwordInputWrapper.id = `${input.id}-wrapper`
+        passwordInputWrapper.innerHTML = `
           <div class="absolute inset-y-0 right-0 flex items-center px-2">
             <input class="hidden password-toggle" id="${input.id}-toggle" type="checkbox">
             <label class="rounded px-2 py-1 text-sm text-gray-600 font-mono cursor-pointer password-label" for="${input.id}-toggle">
@@ -49,8 +53,9 @@ const formValidation = {
         </svg>
             </label>
           </div>`
-      input.parentElement.insertBefore(passwordInputWrapper, input)
-      passwordInputWrapper.appendChild(input)
+        input.parentElement.insertBefore(passwordInputWrapper, input)
+        passwordInputWrapper.appendChild(input)
+      }
 
       const passwordToggle = document.getElementById(`${input.id}-toggle`)
 

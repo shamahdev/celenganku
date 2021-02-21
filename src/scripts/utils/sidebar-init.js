@@ -11,7 +11,7 @@ const Sidebar = {
     if (page === '/') page = ''
     navLinks.forEach((navElement) => {
       if (page === '') navLinks[0].classList.add('active')
-      else if (page !== '' && page.includes(navElement.hash.substring(1))) {
+      else if (page.includes(navElement.hash.substring(1))) {
         navLinks[0].classList.remove('active')
         navElement.classList.add('active')
       } else {

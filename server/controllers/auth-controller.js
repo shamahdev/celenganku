@@ -74,9 +74,10 @@ const AuthController = {
       const account = await Admin.where('id_admin', '==', id_admin).where('password', '==', password).get()
       if (account.empty) {
         res.status(401).json({
-          status: 'failed',
+          status: 'error',
           error: true,
-          message: 'Wrong ID or Password',
+          title: 'ID atau Password salah',
+          message: 'Silahkan coba lagi',
           response: req.body,
         })
       }
@@ -87,6 +88,8 @@ const AuthController = {
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
       res.status(200).json({
         status: 'success',
+        title: 'Login Berhasil',
+        message: 'Mengalihkan ke halaman dashboard',
         error: false,
         response: req.body,
       })
@@ -147,6 +150,8 @@ const AuthController = {
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
     res.status(200).json({
       status: 'success',
+      title: 'Daftar Berhasil',
+      message: 'Mengalihkan ke halaman dashboard',
       error: false,
       response: req.body,
     })

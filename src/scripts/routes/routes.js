@@ -4,12 +4,15 @@ import Transaction from '../views/pages/user/transaction'
 import Profile from '../views/pages/user/profile'
 import Report from '../views/pages/user/report'
 import ReportPreview from '../views/pages/user/report-preview'
-import AdminDashboard from '../views/pages/admin/dashboard'
-import Process from '../views/pages/admin/process'
+import Admin from '../views/pages/admin'
 import Users from '../views/pages/admin/users'
+import AdminDashboard from '../views/pages/admin/dashboard'
 
 const Routes = {
-  login: Home,
+  login: {
+    '/': Home,
+    '/admin': Admin,
+  },
   user: {
     '/': Dashboard,
     '/transaction': Transaction,
@@ -19,7 +22,6 @@ const Routes = {
   },
   admin: {
     '/admin': AdminDashboard,
-    '/admin/pay': Process,
     '/admin/data': Users,
   },
 }

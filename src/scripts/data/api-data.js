@@ -19,6 +19,24 @@ class APIData {
     }
   }
 
+  static async loginAdmin(loginData) {
+    try {
+      const response = await fetch(API_ENDPOINT.ADMIN.LOGIN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      })
+      return response.json()
+    } catch (error) {
+      return {
+        status: 'error',
+        message: error,
+      }
+    }
+  }
+
   static async loginUser(loginData) {
     try {
       const response = await fetch(API_ENDPOINT.SISWA.LOGIN, {

@@ -33,12 +33,11 @@ const Home = {
             <input id="user-nisn" name="NISN" data-rule="required no-space number-must-10" value="" type="number"
               class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
             <p class="mb-2 text-gray-800">Password</p>
-            <input id="user-password" name="Password" data-rule="required no-space digit-more-than-6" value=""
+            <input id="user-password" name="Password" data-rule="required no-space" value=""
               type="password" class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
             <div class="flex justify-start items-center w-100 mt-6">
               <button role="button" disabled id="user-login-button"
                 class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-default">Masuk</button>
-              <a id="forgot-password" class="ml-4 block text-primary">Lupa Password</a>
             </div>
           </div>
           <div class="hidden" id="register-form">
@@ -111,23 +110,26 @@ const Home = {
       formInputs: loginFormInputs,
       submitButton: loginSubmit,
     })
-
     this._signOption = 'login'
     signOption.forEach((option) => {
       option.addEventListener('click', () => {
         this._renderChangeOption(signOption, option.id)
+        formValidation.init({
+          formInputs: loginFormInputs,
+          submitButton: loginSubmit,
+        })
         if (this._signOption === 'login') {
           loginForm.classList.remove('hidden')
           registerForm.classList.add('hidden')
-          formValidation.init({
-            formInputs: loginFormInputs,
-            submitButton: loginSubmit,
-          })
         } else {
-          formValidation.init({
-            formInputs: registerFormInputs,
-            submitButton: registerSubmit,
-          })
+          let registerValidationInit = false
+          if (!registerValidationInit) {
+            formValidation.init({
+              formInputs: registerFormInputs,
+              submitButton: registerSubmit,
+            })
+            registerValidationInit = !registerValidationInit
+          }
           loginForm.classList.add('hidden')
           registerForm.classList.remove('hidden')
         }
@@ -138,7 +140,7 @@ const Home = {
     loginSubmit.addEventListener('click', async () => {
       const loginData = {
         nisn: loginFormInputs[0].value,
-        password: loginFormInputs[2].value,
+        password: loginFormInputs[1].value,
       }
       const loginResponse = await APIData.loginUser(loginData)
       Swal.fire({
@@ -153,19 +155,39 @@ const Home = {
         buttonsStyling: false,
       })
       if (loginResponse.status === 'success') {
+        loginFormInputs.forEach((input) => {
+          input.value = ''
+          input.classList.remove('border-green-500', 'border-opacity-50', 'focus:border-green-500')
+        })
+        window.location.hash = ''
         window.dispatchEvent(new HashChangeEvent('hashchange'))
       }
     })
 
     registerSubmit.addEventListener('click', async () => {
-      const loginData = {
-        nisn: loginFormInputs[0].value,
-        email: loginFormInputs[1].value,
-        password: loginFormInputs[3].value,
+      const registerData = {
+        nisn: registerFormInputs[0].value,
+        email: registerFormInputs[1].value,
+        password: registerFormInputs[3].value,
       }
-      const loginResponse = await APIData.loginUser(loginData)
-      console.log(loginResponse)
-      if (loginResponse.status === 'success') {
+      const registerResponse = await APIData.registerUser(registerData)
+      console.log(registerResponse)
+      Swal.fire({
+        icon: registerResponse.status,
+        text: registerResponse.message,
+        title: registerResponse.title,
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert',
+        },
+        buttonsStyling: false,
+      })
+      if (registerResponse.status === 'success') {
+        loginFormInputs.forEach((input) => {
+          input.value = ''
+          input.classList.remove('border-green-500', 'border-opacity-50', 'focus:border-green-500')
+        })
         window.dispatchEvent(new HashChangeEvent('hashchange'))
       }
     })

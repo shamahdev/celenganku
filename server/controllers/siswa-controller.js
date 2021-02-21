@@ -20,6 +20,7 @@ const SiswaController = {
         return res.status(404).json({
           status: 'failed',
           error: true,
+          title: 'Daftar Gagal',
           message: 'Please provide NISN, Email, or password',
           response: req.body,
         })
@@ -29,9 +30,10 @@ const SiswaController = {
       const data = await Siswa.data.doc(nisn).get()
       if (!data.exists) {
         res.status(401).json({
-          status: 'failed',
+          status: 'error',
           error: true,
-          message: 'This NISN isn\'t registered',
+          title: 'Gagal Mendaftar',
+          message: 'NISN tidak valid atau belum terdaftar',
           response: req.body,
         })
       }
@@ -39,9 +41,10 @@ const SiswaController = {
       const account = await Siswa.akun.doc(nisn).get()
       if (account.exists) {
         res.status(401).json({
-          status: 'failed',
+          status: 'error',
           error: true,
-          message: 'Account with this NISN already exist',
+          title: 'Gagal Mendaftar',
+          message: 'Akun dengan NISN berikut sudah terdaftar',
           response: req.body,
         })
       }
@@ -63,6 +66,8 @@ const SiswaController = {
 
       res.status(200).json({
         status: 'success',
+        title: 'Daftar Berhasil',
+        message: 'Silahkan login',
         error: false,
         response: req.body,
       })
