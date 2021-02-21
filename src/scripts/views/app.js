@@ -82,7 +82,7 @@ class App {
     userDataArray.forEach((data) => {
       Object.assign(userInformation, data)
     })
-
+    console.log(userInformation)
     return userInformation
   }
 

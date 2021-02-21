@@ -279,16 +279,34 @@ const Report = {
           }
 
           ModalInitializer.init({
-            title: 'Kode Transaksi',
+            title: 'Transaksi',
             content:
             `<div class="px-10 py-6">
               <div id="modal-content">
-                <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
+                <p class="mt-2 mb-1">Kode Transaksi</p>
                 <div class="flex flex-row">
-                <p id="id-transaksi" class="my-2 text-3xl select-all font-bold">${transaction.id_transaksi}</p>
-                <button role="button" id="copy-button" class="w-max text-primary ml-2 font-light p-2">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                </button>
+                  <p id="id-transaksi" class="my-2 text-3xl select-all font-bold">${transaction.id_transaksi}</p>
+                  <button role="button" id="copy-button" class="w-max text-primary ml-2 font-light p-2">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                  </button>
+                </div>
+                <p class="mb-2 text-gray-800">NISN</p>
+                <input name="NISN" disabled value="${transaction.nisn}"
+                  class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                  <p class="mb-2 text-gray-800">Nominal</p>
+                <input name="NISN" disabled value="RP ${transaction.nominal}"
+                  class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                <div class="flex flex-col md:flex-row md:gap-4">
+                  <div class="flex flex-1 flex-col">
+                  <p class="mb-2 text-gray-800">Jenis Transaksi</p>
+                  <input name="NISN" disabled value="${transaction.jenis_transaksi}"
+                    class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                  </div>
+                  <div class="flex flex-1 flex-col">
+                  <p class="mb-2 text-gray-800">Metode Pembayaran</p>
+                    <input name="NISN" disabled value="${transaction.metode_pembayaran}"
+                      class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                  </div>
                 </div>
               </div>
               <div class="flex justify-end items-center w-100 mt-4">
@@ -298,7 +316,7 @@ const Report = {
               </div>
             </div>`,
           })
-          const modal = document.getElementById('modal-kode-transaksi')
+          const modal = document.getElementById('modal-transaksi')
           const modalContent = document.getElementById('modal-content')
           const thisContent = modalContent.innerHTML
           const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
@@ -306,13 +324,17 @@ const Report = {
           const closeButton = document.getElementById('close-button')
           const copyButton = document.getElementById('copy-button')
           const copyText = document.getElementById('id-transaksi')
+          this._isQRContent = false
           copyButton.addEventListener('click', () => {
             EventHelper.copyTextToClipboard(transaction.id_transaksi)
             copyText.focus()
           })
           showQRButton.addEventListener('click', (event) => {
-            if (modalContent.innerHTML === thisContent) modalContent.innerHTML = qrContent
+            event.preventDefault()
+            console.log(this._isQRContent)
+            if (!this._isQRContent) modalContent.innerHTML = qrContent
             else modalContent.innerHTML = thisContent
+            this._isQRContent = !this._isQRContent
           })
           closeButton.addEventListener('click', () => {
             modal.remove()
@@ -352,9 +374,9 @@ const Report = {
         }, delayTime)
       }
 
+      let initialized = false
       setInterval(() => {
         try {
-          let initialized = false
           while (!initialized) {
             const showButton = document.getElementById(`show-transaction-button-${transaction.id_transaksi}`)
             initialized = _showTransactionModalInit(showButton)

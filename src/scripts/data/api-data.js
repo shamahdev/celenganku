@@ -275,7 +275,7 @@ class APIData {
 
   static async getAdmin(id) {
     try {
-      const response = await fetch(API_ENDPOINT.ADMIN(id))
+      const response = await fetch(API_ENDPOINT.ADMIN.ID(id))
       return response.json()
     } catch (err) {
       return {}

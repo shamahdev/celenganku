@@ -5,8 +5,8 @@ import { db } from '../global/firebase'
 
 const Admin = db.collection('akun_admin')
 const AdminController = {
-  getAdmin: BaseController.getOne(Siswa.akun),
-  deleteAdmin: BaseController.deleteOne(Siswa.akun, Siswa.profil),
+  getAdmin: BaseController.getOne(Admin),
+  deleteAdmin: BaseController.deleteOne(Admin),
   createAdmin: async (req, res, next) => {
     try {
       const { id_admin, nama, password } = req.body

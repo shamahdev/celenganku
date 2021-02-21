@@ -1,8 +1,8 @@
 import sortBy from 'lodash/sortBy'
-import Swal from 'sweetalert2'
 import APIData from '../../../data/api-data'
-import DateFormater from '../../../helper/date-formater'
 import StringFormater from '../../../helper/string-formater'
+import ModalInitializer from '../../../utils/modal-initializer'
+import EventHelper from '../../../helper/event-helper'
 
 const AdminDashboard = {
   async render() {
@@ -17,7 +17,7 @@ const AdminDashboard = {
 
       <div class="flex flex-col">
         <div class="bg-gray-200 gap-4 p-5 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
-          <div class="flex p-5 w-1/3 bg-secondary rounded-lg shadow-lg">
+          <div class="flex p-5 md:w-1/3 bg-secondary rounded-lg shadow-lg">
             <div class="flex flex-1 items-center">
               <div id="process-report-card" class="flex flex-col flex-1">
                 <p class="-mb-2 text-white">Proses Transaksi Bulan ini</p>
@@ -33,13 +33,15 @@ const AdminDashboard = {
               <div id="process-card" class="flex flex-col flex-1 w-fill">
                 <p class="mb-4 text-lg text-gray-600">Proses Transaksi</p>
                 <p class="mb-2 text-gray-800 font-semibold">Kode Transaksi</p>
-                <div class="flex flex-row mb-4">
+                <div class="flex flex-col md:flex-row mb-4">
                 <input id="user-nisn" name="Kode Transaksi" data-rule="required no-space" value=""
                   class="flex flex-1 px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
-                  <button role="button" disabled id="admin-login-button"
-                  class="w-max bg-secondary text-white mx-1 ml-4 py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-default">Proses</button>
-                  <button role="button" id="show-qr-button" class="w-max text-secondary mx-1 font-light p-2">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
+                  <div class="flex mt-4 md:mt-0">
+                      <button role="button" disabled id="admin-login-button"
+                      class="w-max bg-secondary text-white mx-1 md:ml-4 py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-default">Proses</button>
+                      <button role="button" id="show-qr-button" class="w-max text-secondary mx-1 font-light p-2">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
+                  </div>
                 </div>
                   </div>
             </div>
@@ -123,6 +125,84 @@ const AdminDashboard = {
         return 'text-failed'
       }
 
+      const _showTransactionModalInit = (showButton) => {
+        showButton.addEventListener('click', () => {
+          ModalInitializer.init({
+            title: 'Transaksi',
+            content:
+            `<div class="px-10 py-6">
+              <div id="modal-content">
+                <p class="mt-2 mb-1">Kode Transaksi kamu adalah</p>
+                <div class="flex flex-row">
+                  <p id="id-transaksi" class="my-2 text-3xl select-all font-bold">${transaction.id_transaksi}</p>
+                  <button role="button" id="copy-button" class="w-max text-secondary ml-2 font-light p-2">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                  </button>
+                </div>
+                <p class="mb-2 text-gray-800">NISN</p>
+                <input name="NISN" disabled value="${transaction.nisn}"
+                  class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                  <p class="mb-2 text-gray-800">Nominal</p>
+                <input name="NISN" disabled value="RP ${transaction.nominal}"
+                  class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                <div class="flex flex-col md:flex-row md:gap-4">
+                  <div class="flex flex-1 flex-col">
+                  <p class="mb-2 text-gray-800">Jenis Transaksi</p>
+                  <input name="NISN" disabled value="${transaction.jenis_transaksi}"
+                    class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                  </div>
+                  <div class="flex flex-1 flex-col">
+                  <p class="mb-2 text-gray-800">Metode Pembayaran</p>
+                    <input name="NISN" disabled value="${transaction.metode_pembayaran}"
+                      class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end items-center w-100 mt-4">
+                <button role="button" id="close-button" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
+              </div>
+            </div>`,
+            bg: 'bg-secondary',
+          })
+          const modal = document.getElementById('modal-transaksi')
+          const modalContent = document.getElementById('modal-content')
+          const thisContent = modalContent.innerHTML
+          const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
+          const showQRButton = document.getElementById('show-qr-button')
+          const closeButton = document.getElementById('close-button')
+          const copyButton = document.getElementById('copy-button')
+          const copyText = document.getElementById('id-transaksi')
+          this._isQRContent = false
+          copyButton.addEventListener('click', () => {
+            EventHelper.copyTextToClipboard(transaction.id_transaksi)
+            copyText.focus()
+          })
+          showQRButton.addEventListener('click', (event) => {
+            event.preventDefault()
+            console.log(this._isQRContent)
+            if (!this._isQRContent) modalContent.innerHTML = qrContent
+            else modalContent.innerHTML = thisContent
+            this._isQRContent = !this._isQRContent
+          })
+          closeButton.addEventListener('click', () => {
+            modal.remove()
+          })
+        })
+        return true
+      }
+
+      setInterval(() => {
+        try {
+          let initialized = false
+          while (!initialized) {
+            const showButton = document.getElementById(`show-transaction-button-${transaction.id_transaksi}`)
+            initialized = _showTransactionModalInit(showButton)
+          }
+        } catch (error) {
+          // console.log('')
+        }
+      }, 1000)
+
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
       <td class="table-cell md:hidden p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
@@ -133,6 +213,7 @@ const AdminDashboard = {
       <td class="bg-white">
         <div class="ml-2 md:ml-0 text-sm bg-secondary text-white p-1 md:py-2 md:px-6 rounded-lg w-max">
         <p class="hidden md:inline">${transaction.status_transaksi}</p>
+        <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
         </div>
       </td>
       <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
@@ -146,7 +227,24 @@ const AdminDashboard = {
         <div id="settings-dropdown"
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-          <p id="reminder-element-${transaction.id_transaksi}"></p>
+          <p id="reminder-element-${transaction.id_transaksi}">
+          <button id="show-transaction-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-secondary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Transaksi</p>
+          </button>
+          <button id="show-profile-button-${transaction.id_transaksi}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-secondary flex">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 mt-1 leading-relaxed">Lihat Profil Siswa</p>
+          </button>
+          </p>
           </div>
         </div>
       </td>
