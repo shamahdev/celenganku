@@ -19,6 +19,42 @@ class APIData {
     }
   }
 
+  static async loginUser(loginData) {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.LOGIN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      })
+      return response.json()
+    } catch (error) {
+      return {
+        status: 'error',
+        message: error,
+      }
+    }
+  }
+
+  static async registerUser(registerData) {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.REGISTER, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(registerData),
+      })
+      return response.json()
+    } catch (error) {
+      return {
+        error: true,
+        message: error,
+      }
+    }
+  }
+
   static async getMidtransToken(transactionDetails) {
     try {
       const SERVER_KEY = 'SB-Mid-server-XmFoI8_j9MpEyaNvbE1-sQiN:'

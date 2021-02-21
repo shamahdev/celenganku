@@ -3,6 +3,9 @@
 .w-max {
     width: fit-content;
 }
+.h-fit {
+    height: fit-content;
+}
 .w-24-rem {
     max-width: 24rem;
 }

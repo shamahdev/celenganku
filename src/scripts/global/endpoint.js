@@ -2,7 +2,9 @@ const API_ENDPOINT = {
   TOKEN: 'api/token/',
   MIDTRANS: 'https://app.sandbox.midtrans.com/snap/v1/transactions',
   SISWA: {
-    LIST: 'api/siswa/',
+    LIST: 'api/siswa',
+    LOGIN: 'api/siswa/login',
+    REGISTER: 'api/siswa/register',
     LIST_DATA: 'api/siswa/data',
     AKUN: (id) => `api/siswa/${id}`,
     DATA: (id) => `api/siswa/${id}/data`,

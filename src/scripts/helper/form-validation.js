@@ -100,11 +100,17 @@ const formValidation = {
           }
         } else if (rule.includes('number-must-')) {
           const mustNumber = parseInt(rule.replace('number-must-', ''), 10)
-
           if (input.value.length < mustNumber || input.value.length > mustNumber) {
             alertText.push(`${input.name} harus berisi ${mustNumber} digit angka`)
           } else if (alertText.includes(`${input.name} harus berisikan ${mustNumber} digit angka`)) {
             alertText.splice(alertText.indexOf(`${input.name} harus berisi ${mustNumber} digit angka`), 1)
+          }
+        } else if (rule.includes('digit-more-than-')) {
+          const moreThanDigit = parseInt(rule.replace('digit-more-than-', ''), 10)
+          if (input.value.length < moreThanDigit) {
+            alertText.push(`${input.name} harus minimal ${moreThanDigit} digit`)
+          } else if (alertText.includes(`${input.name} harus minimal ${moreThanDigit} digit`)) {
+            alertText.splice(alertText.indexOf(`${input.name} harus minimal ${moreThanDigit} digit`), 1)
           }
         } else if (rule.includes('value-more-than-')) {
           const moreThanValue = parseInt(rule.replace('value-more-than-', ''), 10)
@@ -137,7 +143,7 @@ const formValidation = {
             alertText.splice(alertText.indexOf(`${input.name} harus berisikan format: your@email.com`), 1)
           }
         } else if (rule.includes('equal-')) {
-          const equalElementValue = document.querySelector(`input[data-equal="${rule.replace('equal-', '')}"]`)
+          const equalElementValue = document.querySelector(`input[id="${rule.replace('equal-', '')}"]`)
 
           if (input.value !== equalElementValue.value) {
             alertText.push(`Input harus sama dengan ${equalElementValue.name}`)
@@ -151,19 +157,21 @@ const formValidation = {
     const toggleSubmitButton = () => {
       if (this._isEdit) {
         this._submitButton.disabled = false
-      } else {
-        const validatedCounts = document.querySelectorAll('input.border-green-500')
-        if (this._formInputs.length !== undefined) {
-          if (validatedCounts.length === this._formInputs.length) {
-            this._submitButton.disabled = false
-          } else {
-            this._submitButton.disabled = true
-          }
-        } else if (this._formInputs.className.includes(...successInputClasss)) {
+      } else if (this._formInputs.length !== undefined) {
+        let successInputNumber = 0
+        this._formInputs.forEach((thisInput) => {
+          if (thisInput.className.includes(...successInputClasss)) successInputNumber++
+        })
+        console.log(successInputNumber)
+        if (successInputNumber === this._formInputs.length) {
           this._submitButton.disabled = false
         } else {
           this._submitButton.disabled = true
         }
+      } else if (this._formInputs.className.includes(...successInputClasss)) {
+        this._submitButton.disabled = false
+      } else {
+        this._submitButton.disabled = true
       }
     }
 

@@ -26,7 +26,7 @@ const ReportPreview = {
           <div
             class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg print:shadow-none text-gray-800 mb-24">
             <div id="report" class="p-8 md:p-12 rounded-lg flex flex-col">
-              <img class="w-48 mb-10" src="./images/celenganku-logo.png">
+              <img class="w-48 mb-10" alt="Celenganku Wordmark" src="./images/celenganku-logo.png">
               <p id="name" class="text-2xl font-bold"></p>
               <p id="nisn" class="mb-2 text-lg"></p>
               <p id="alamat" class="text-gray-600">
