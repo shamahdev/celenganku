@@ -82,7 +82,7 @@ const BaseController = {
         status: 'success',
         error: false,
         results: data.length,
-        ...data,
+        data,
       })
 
       if (data.length > 0) {

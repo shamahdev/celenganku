@@ -26,7 +26,7 @@ const ReportPreview = {
           <div
             class="flex flex-col w-full pt-0 rounded-lg mx-auto md:mt-4 shadow-lg print:shadow-none text-gray-800 mb-24">
             <div id="report" class="p-8 md:p-12 rounded-lg flex flex-col">
-              <img class="w-64 mb-10" alt="Celenganku Wordmark" src="./images/celenganku-logo.png">
+              <img class="w-56 md:w-64 mb-10" alt="Celenganku Wordmark" src="./images/celenganku-logo.png">
               <p id="name" class="text-2xl font-bold"></p>
               <p id="nisn" class="mb-2 text-lg"></p>
               <p id="alamat" class="text-gray-600">
@@ -170,10 +170,15 @@ const ReportPreview = {
         this._deposit += StringFormater.convertCasttoInt(transaction.nominal)
       }
 
+      const nominalColor = (jenis) => {
+        if (jenis.toLowerCase() === 'pemasukan') return 'text-success'
+        return 'text-failed'
+      }
+
       return /* html */`<tr class="font-bold text-gray-800 mb-5">
       <td class="p-5 pr-0 text-gray-500 bg-gray-200 rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
       <td class="bg-gray-200 hidden md:table-cell">${transaction.jenis_transaksi}</td>
-      <td class="nominal bg-gray-200 ">RP ${transaction.nominal}</td>
+      <td class="nominal bg-gray-200 ${nominalColor(transaction.jenis_transaksi)}">RP ${transaction.nominal}</td>
       <td class="saldo bg-gray-200 rounded-r-lg">RP ${StringFormater.convertToCashFormat(fixedSaldo)}</td>
       </td>
     </tr>

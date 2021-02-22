@@ -145,7 +145,7 @@ const TransactionController = {
 
   updateTransaction: async (req, res, next) => {
     try {
-      const { token, status_transaksi } = req.body
+      const { id_admin, token, status_transaksi } = req.body
       const id_transaksi = req.params.id
 
       const transaction = await Transaction.doc(id_transaksi).get()
@@ -161,15 +161,13 @@ const TransactionController = {
       const transactionData = transaction.data()
 
       const updateData = {
+        id_admin: id_admin || transactionData.id_admin,
         status_transaksi: status_transaksi || transactionData.status_transaksi,
         token: token || transactionData.token,
       }
 
       // Check for existed document
-      await Transaction.doc(id_transaksi).update({
-        status_transaksi: updateData.status_transaksi,
-        token: updateData.token,
-      })
+      await Transaction.doc(id_transaksi).update(updateData)
 
       res.status(200).json({
         status: 'success',

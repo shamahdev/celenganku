@@ -76,8 +76,8 @@ const AuthController = {
         res.status(401).json({
           status: 'error',
           error: true,
-          title: 'ID atau Password salah',
-          message: 'Silahkan coba lagi',
+          title: 'Login Gagal',
+          message: 'ID Admin atau Password salah',
           response: req.body,
         })
       }
@@ -116,8 +116,8 @@ const AuthController = {
         res.status(401).json({
           status: 'error',
           error: true,
-          title: 'NISN atau Password salah',
-          message: 'Silahkan coba lagi',
+          title: 'Login Gagal',
+          message: 'NISN atau Password salah',
           response: req.body,
         })
       }

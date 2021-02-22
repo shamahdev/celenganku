@@ -86,7 +86,7 @@ const Dashboard = {
                 <tbody>
                   <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
-                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Kode Transaksi</th>
                     <th class="font-normal pb-5 pt-0">Nominal</th>
                     <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
                     <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
@@ -243,10 +243,10 @@ const Dashboard = {
           const result = await Swal.fire({
             icon: 'warning',
             text: 'Tekan pilihan untuk mengkonfirmasi',
-            title: 'Apakah benar ingin membatalkan transaksi?',
+            title: 'Batalkan transaksi?',
             showCancelButton: true,
-            confirmButtonText: 'Benar',
-            cancelButtonText: 'Tidak',
+            confirmButtonText: 'Batalkan',
+            cancelButtonText: 'Jangan',
             showLoaderOnConfirm: true,
             preConfirm: async () => {
               try {
@@ -272,7 +272,8 @@ const Dashboard = {
         return true
       }
 
-      const _showTransactionModalInit = (showButton) => {
+      const _showTransactionModalInit = async (showButton) => {
+        const dataSiswa = await APIData.getDataSiswa(transaction.nisn)
         showButton.addEventListener('click', () => {
           if (transaction.metode_pembayaran.toLowerCase() === 'daring' && transaction.status_transaksi.toLowerCase() === 'pembayaran') {
             snap.pay(transaction.token.toLowerCase(), {
@@ -308,21 +309,21 @@ const Dashboard = {
                   <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                   </button>
                 </div>
-                <p class="mb-2 text-gray-800">NISN</p>
-                <input name="NISN" disabled value="${transaction.nisn}"
+                <p class="mb-2 text-gray-800">Nama Siswa</p>
+                <input name="Nama" disabled value="${dataSiswa.nama} (${transaction.nisn})"
                   class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                   <p class="mb-2 text-gray-800">Nominal</p>
-                <input name="NISN" disabled value="${transaction.nominal}"
+                <input name="Nominal" disabled value="${transaction.nominal}"
                   class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                 <div class="flex flex-col md:flex-row md:gap-4">
                   <div class="flex flex-1 flex-col">
                   <p class="mb-2 text-gray-800">Jenis Transaksi</p>
-                  <input name="NISN" disabled value="${transaction.jenis_transaksi}"
+                  <input name="Jenis Transaksi" disabled value="${transaction.jenis_transaksi}"
                     class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                   </div>
                   <div class="flex flex-1 flex-col">
                   <p class="mb-2 text-gray-800">Metode Pembayaran</p>
-                    <input name="NISN" disabled value="${transaction.metode_pembayaran}"
+                    <input name="Metode Pembayaran" disabled value="${transaction.metode_pembayaran}"
                       class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                   </div>
                 </div>
@@ -390,11 +391,12 @@ const Dashboard = {
       }
 
       let initialized = false
-      setInterval(() => {
+      setInterval(async () => {
         try {
           while (!initialized) {
             const showButton = document.getElementById(`show-transaction-button-${transaction.id_transaksi}`)
-            initialized = _showTransactionModalInit(showButton)
+            // eslint-disable-next-line no-await-in-loop
+            initialized = await _showTransactionModalInit(showButton)
           }
         } catch (error) {
           // console.log('')
@@ -437,7 +439,7 @@ const Dashboard = {
     tableBody.innerHTML = `
       <tr class="text-left text-gray-700">
         <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
-        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">ID Transaksi</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Kode Transaksi</th>
         <th class="font-normal pb-5 pt-0">Nominal</th>
         <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Metode</th>
         <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>

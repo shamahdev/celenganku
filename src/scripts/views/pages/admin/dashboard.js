@@ -1,8 +1,11 @@
 import sortBy from 'lodash/sortBy'
+import Swal from 'sweetalert2'
 import APIData from '../../../data/api-data'
 import StringFormater from '../../../helper/string-formater'
 import ModalInitializer from '../../../utils/modal-initializer'
 import EventHelper from '../../../helper/event-helper'
+import formValidation from '../../../helper/form-validation'
+import DateFormater from '../../../helper/date-formater'
 
 const AdminDashboard = {
   async render() {
@@ -19,11 +22,14 @@ const AdminDashboard = {
         <div class="bg-gray-200 gap-4 p-5 rounded-lg flex flex-wrap flex-col mt-4 md:p-8 md:gap-8 md:mt-6 md:flex-row">
           <div class="flex p-5 md:w-1/3 bg-secondary rounded-lg shadow-lg">
             <div class="flex flex-1 items-center">
-              <div id="process-report-card" class="flex flex-col flex-1">
+            <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
+              <div class="loader admin loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+            </div>
+              <div id="process-report-card" class="hidden flex flex-col flex-1">
                 <p class="-mb-2 text-white">Proses Transaksi Bulan ini</p>
                 <p id="monthly-process" class="text-white text-4xl md:text-2xl lg:text-4xl font-bold">124</p>
-                <p class="-mb-1 mt-3 text-white">Proses Transaksi Hari ini</p>
-                <p id="daily-process" class="text-white text-xl md:text-lg lg:text-xl font-bold">5</p>
+                <p class="-mb-1 mt-3 text-white">Proses Transaksi Minggu ini</p>
+                <p id="weekly-process" class="text-white text-xl md:text-lg lg:text-xl font-bold">5</p>
               </div>
             </div>
           </div>
@@ -34,10 +40,12 @@ const AdminDashboard = {
                 <p class="mb-4 text-lg text-gray-600">Proses Transaksi</p>
                 <p class="mb-2 text-gray-800 font-semibold">Kode Transaksi</p>
                 <div class="flex flex-col md:flex-row mb-4">
-                <input id="user-nisn" name="Kode Transaksi" data-rule="required no-space" value=""
+                <div class="flex flex-1 flex-col">
+                <input id="transaction-code" name="Kode Transaksi" data-rule="required no-space number-must-10" value=""
                   class="flex flex-1 px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
+                </div>
                   <div class="flex mt-4 md:mt-0">
-                      <button role="button" disabled id="admin-login-button"
+                      <button role="button" disabled id="process-transaction"
                       class="w-max bg-secondary text-white mx-1 md:ml-4 py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-default">Proses</button>
                       <button role="button" id="show-qr-button" class="w-max text-secondary mx-1 font-light p-2">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
@@ -47,16 +55,16 @@ const AdminDashboard = {
             </div>
           </div>
         </div>
-        <p class="mt-6 text-xl text-center md:text-left">Riwayat Transaksi</p>
+        <p class="mt-6 text-xl text-center md:text-left">Riwayat Proses Transaksi</p>
         <div class="bg-gray-200 p-5 rounded-lg flex flex-col mt-6 md:p-8">
           <div class="flex-1 py-0 white rounded-lg">
             <table id="transaction-table" class="table-auto w-full">
               <tbody>
                 <tr class="text-left text-gray-700">
                   <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
-                  <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Nama Siswa</th>
-                  <th class="font-normal pb-5 pt-0">Nominal</th>
-                  <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Kode Transaksi</th>
+                  <th class="font-normal pb-5 pt-0 hidden lg:table-cell">NISN Siswa</th>
+                  <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Nominal</th>
+                  <th class="font-normal pb-5 pt-0">Kode Transaksi</th>
                   <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
                   <th class="font-normal pb-5 pt-0">Status</th>
                   <th class="font-normal pb-5 pt-0 justify-end"></th>
@@ -64,7 +72,7 @@ const AdminDashboard = {
               </tbody>
             </table>
             <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
-              <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+              <div class="loader admin loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
             </div>
           </div>
         </div>
@@ -77,11 +85,11 @@ const AdminDashboard = {
     // Remove Preloders
     const preloaders = document.querySelectorAll('.preloader')
 
-    this._ballance = 0
-    this._deposit = 0
-    this._weeklyDeposit = 0
-    this._withdraw = 0
-    this._weeklyWithdraw = 0
+    const processReportCard = document.getElementById('process-report-card')
+    const monthlyProcessText = document.getElementById('monthly-process')
+    const weeklyProcessText = document.getElementById('weekly-process')
+    this._monthly = 0
+    this._weekly = 0
 
     // Fetch Data
     const responseData = await APIData.retrieveUser()
@@ -89,9 +97,148 @@ const AdminDashboard = {
 
     await this._renderTable()
 
+    const transactionCodeInput = document.getElementById('transaction-code')
+    const processTransactionButton = document.getElementById('process-transaction')
+    formValidation.init({
+      formInputs: transactionCodeInput,
+      submitButton: processTransactionButton,
+    })
+
+    processTransactionButton.addEventListener('click', async () => {
+      await this._processTransaction(transactionCodeInput.value)
+    })
+
+    monthlyProcessText.innerHTML = this._monthly
+    weeklyProcessText.innerHTML = this._weekly
+    processReportCard.classList.remove('hidden')
     preloaders.forEach((preloader) => {
       preloader.remove()
     })
+  },
+
+  async _processTransaction(transactionCodeInput) {
+    const response = await APIData.getTransaction(transactionCodeInput)
+    console.log(response)
+    if (response.error) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Kode Transaksi tidak valid',
+        title: 'Proses Transaksi Gagal',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    } else if (response.status_transaksi === 'selesai') {
+      Swal.fire({
+        icon: 'error',
+        text: 'Transaksi ini sudah selesai diproses',
+        title: 'Proses Transaksi Gagal',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    } else if (response.metode_pembayaran === 'daring') {
+      Swal.fire({
+        icon: 'error',
+        text: 'Transaksi ini dibuat dengan metode pembayaran daring',
+        title: 'Proses Transaksi Gagal',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    } else {
+      ModalInitializer.init({
+        title: 'Transaksi',
+        content:
+        `<div class="px-10 py-6">
+          <div id="modal-content">
+            <p class="mt-2 mb-1">Kode Transaksi</p>
+            <div class="flex flex-row">
+              <p id="id-transaksi" class="my-2 text-3xl select-all font-bold">${response.id_transaksi}</p>
+              <button role="button" id="copy-button" class="w-max text-secondary ml-2 font-light p-2">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+              </button>
+            </div>
+            <p class="mb-2 text-gray-800">NISN</p>
+            <input name="NISN" disabled value="${response.nisn}"
+              class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+              <p class="mb-2 text-gray-800">Nominal</p>
+            <input name="NISN" disabled value="RP ${response.nominal}"
+              class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+            <div class="flex flex-col md:flex-row md:gap-4">
+              <div class="flex flex-1 flex-col">
+              <p class="mb-2 text-gray-800">Jenis Transaksi</p>
+              <input name="NISN" disabled value="${response.jenis_transaksi}"
+                class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+              </div>
+              <div class="flex flex-1 flex-col">
+              <p class="mb-2 text-gray-800">Metode Pembayaran</p>
+                <input name="NISN" disabled value="${response.metode_pembayaran}"
+                  class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end items-center w-100 mt-4">
+            <button role="button" id="process-button" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Proses Transaksi</button>
+          </div>
+        </div>`,
+        bg: 'bg-secondary',
+      })
+      const modal = document.getElementById('modal-transaksi')
+      const processButton = document.getElementById('process-button')
+      const copyButton = document.getElementById('copy-button')
+      const copyText = document.getElementById('id-transaksi')
+      copyButton.addEventListener('click', () => {
+        EventHelper.copyTextToClipboard(response.id_transaksi)
+        copyText.focus()
+      })
+      processButton.addEventListener('click', async (event) => {
+        event.preventDefault()
+        const result = await Swal.fire({
+          icon: 'warning',
+          text: 'Tekan pilihan untuk mengkonfirmasi',
+          title: 'Konfirmasi Pembayaran?',
+          showCancelButton: true,
+          confirmButtonText: 'Konfirmasi',
+          cancelButtonText: 'Jangan',
+          showLoaderOnConfirm: true,
+          preConfirm: async () => {
+            try {
+              await APIData.updateTransaction(response.id_transaksi, {
+                id_admin: this._adminId,
+                status_transaksi: 'selesai',
+              })
+            } catch (error) {
+              Swal.showValidationMessage(
+                `Request failed: ${error}`,
+              )
+            }
+          },
+          customClass: {
+            popup: 'popup-sweetalert',
+            confirmButton: 'btn-sweetalert bg-success',
+            cancelButton: 'btn-sweetalert bg-failed',
+          },
+          buttonsStyling: false,
+        })
+
+        if (result.isConfirmed) {
+          // eslint-disable-next-line max-len
+          await APIData.updateSaldo(response.nisn, response.nominal, response.jenis_transaksi)
+          modal.remove()
+          this._renderTable()
+        }
+      })
+    }
   },
 
   async _renderTable() {
@@ -119,13 +266,21 @@ const AdminDashboard = {
       const transactionDate = timeStamp.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })
       const transactionDateMini = timeStamp.toLocaleDateString('id-ID')
 
+      if (timeStamp.getMonth() === new Date().getMonth()) {
+        this._monthly++
+        if (DateFormater.isDateInThisWeek(timeStamp)) {
+          this._weekly++
+        }
+      }
+
       // Classes
       const nominalColor = (jenis) => {
         if (jenis.toLowerCase() === 'pemasukan') return 'text-success'
         return 'text-failed'
       }
 
-      const _showTransactionModalInit = (showButton) => {
+      const _showTransactionModalInit = async (showButton) => {
+        const dataSiswa = await APIData.getDataSiswa(transaction.nisn)
         showButton.addEventListener('click', () => {
           ModalInitializer.init({
             title: 'Transaksi',
@@ -139,21 +294,21 @@ const AdminDashboard = {
                   <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                   </button>
                 </div>
-                <p class="mb-2 text-gray-800">NISN</p>
-                <input name="NISN" disabled value="${transaction.nisn}"
+                <p class="mb-2 text-gray-800">Nama Siswa</p>
+                <input name="NISN" disabled value="${dataSiswa.nama} (${transaction.nisn})"
                   class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                   <p class="mb-2 text-gray-800">Nominal</p>
-                <input name="NISN" disabled value="RP ${transaction.nominal}"
+                <input name="Nominal" disabled value="RP ${transaction.nominal}"
                   class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                 <div class="flex flex-col md:flex-row md:gap-4">
                   <div class="flex flex-1 flex-col">
                   <p class="mb-2 text-gray-800">Jenis Transaksi</p>
-                  <input name="NISN" disabled value="${transaction.jenis_transaksi}"
+                  <input name="Jenis Transaksi" disabled value="${transaction.jenis_transaksi}"
                     class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                   </div>
                   <div class="flex flex-1 flex-col">
                   <p class="mb-2 text-gray-800">Metode Pembayaran</p>
-                    <input name="NISN" disabled value="${transaction.metode_pembayaran}"
+                    <input name="Metode Pembayaran" disabled value="${transaction.metode_pembayaran}"
                       class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
                   </div>
                 </div>
@@ -164,6 +319,7 @@ const AdminDashboard = {
             </div>`,
             bg: 'bg-secondary',
           })
+
           const modal = document.getElementById('modal-transaksi')
           const modalContent = document.getElementById('modal-content')
           const thisContent = modalContent.innerHTML
@@ -191,12 +347,13 @@ const AdminDashboard = {
         return true
       }
 
-      setInterval(() => {
+      let initialized = false
+      setInterval(async () => {
         try {
-          let initialized = false
           while (!initialized) {
             const showButton = document.getElementById(`show-transaction-button-${transaction.id_transaksi}`)
-            initialized = _showTransactionModalInit(showButton)
+            // eslint-disable-next-line no-await-in-loop
+            initialized = await _showTransactionModalInit(showButton)
           }
         } catch (error) {
           // console.log('')
@@ -206,9 +363,9 @@ const AdminDashboard = {
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="hidden md:table-cell p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDate.toUpperCase()}</td>
       <td class="table-cell md:hidden p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${transactionDateMini.toUpperCase()}</td>
-      <td class="bg-white select-all hidden lg:table-cell">${transaction.id_transaksi}</td>
-      <td class="bg-white ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
-      <td class="bg-white hidden lg:table-cell">${transaction.id_transaksi}</td>
+      <td class="bg-white hidden lg:table-cell">${transaction.nisn}</td>
+      <td class="bg-white hidden lg:table-cell ${nominalColor(jenisTransaksi)}">RP ${transaction.nominal}</td>
+      <td class="bg-white select-all">${transaction.id_transaksi}</td>
       <td class="bg-white hidden lg:table-cell">${jenisTransaksi}</td>
       <td class="bg-white">
         <div class="ml-2 md:ml-0 text-sm bg-secondary text-white p-1 md:py-2 md:px-6 rounded-lg w-max">
@@ -255,9 +412,9 @@ const AdminDashboard = {
     tableBody.innerHTML = `
     <tr class="text-left text-gray-700">
     <th class="font-normal p-5 pr-0 pt-0">Tanggal</th>
-    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Nama Siswa</th>
-    <th class="font-normal pb-5 pt-0">Nominal</th>
-    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Kode Transaksi</th>
+    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">NISN Siswa</th>
+    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Nominal</th>
+    <th class="font-normal pb-5 pt-0">Kode Transaksi</th>
     <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Jenis</th>
     <th class="font-normal pb-5 pt-0">Status</th>
     <th class="font-normal pb-5 pt-0 justify-end"></th>

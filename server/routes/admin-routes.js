@@ -11,10 +11,8 @@ adminRoutes.post('/login', AuthController.adminLogin)
 
 adminRoutes.use(AuthController.requireAuth)
 
-adminRoutes.route('/')
-  .get(AdminController.getAdmin)
-
 adminRoutes.route('/:id')
+  .get(AdminController.getAdmin)
   .patch(AdminController.updateAdmin)
   .delete(AdminController.deleteAdmin)
 

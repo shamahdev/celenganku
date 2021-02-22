@@ -24,7 +24,7 @@ class Sidebar extends HTMLElement {
                 d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
         </a>
-        <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/data">
+        <a class="btn-nav rounded-b-lg md:rounded-none md:rounded-l-lg" href="#/list">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
         </a>`
     } else {

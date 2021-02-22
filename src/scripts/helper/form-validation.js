@@ -20,6 +20,11 @@ const formValidation = {
           event.preventDefault()
           this._validateInput(input)
         })
+        input.addEventListener('paste', () => {
+          setTimeout(() => {
+            this._validateInput(input)
+          }, 100)
+        })
       })
     } else {
       this._showPasswordToggle(formInputs)
@@ -27,6 +32,11 @@ const formValidation = {
       formInputs.addEventListener('keyup', (event) => {
         event.preventDefault()
         this._validateInput(formInputs)
+      })
+      formInputs.addEventListener('paste', () => {
+        setTimeout(() => {
+          this._validateInput(formInputs)
+        }, 100)
       })
     }
   },

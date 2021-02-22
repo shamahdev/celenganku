@@ -1,5 +1,5 @@
 const API_ENDPOINT = {
-  TOKEN: 'api/token/',
+  TOKEN: 'api/token',
   MIDTRANS: 'https://app.sandbox.midtrans.com/snap/v1/transactions',
   SISWA: {
     LIST: 'api/siswa',

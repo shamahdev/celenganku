@@ -182,10 +182,10 @@ const Profile = {
         const result = await Swal.fire({
           icon: 'warning',
           text: 'Tekan pilihan untuk mengkonfirmasi',
-          title: 'Apakah benar ingin mengubah password?',
+          title: 'Ubah password?',
           showCancelButton: true,
-          confirmButtonText: 'Benar',
-          cancelButtonText: 'Tidak',
+          confirmButtonText: 'Ubah',
+          cancelButtonText: 'Jangan',
           customClass: {
             popup: 'popup-sweetalert',
             confirmButton: 'btn-sweetalert bg-success',

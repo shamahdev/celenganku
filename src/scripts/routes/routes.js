@@ -5,7 +5,7 @@ import Profile from '../views/pages/user/profile'
 import Report from '../views/pages/user/report'
 import ReportPreview from '../views/pages/user/report-preview'
 import Admin from '../views/pages/admin'
-import Users from '../views/pages/admin/users'
+import DataList from '../views/pages/admin/datalist'
 import AdminDashboard from '../views/pages/admin/dashboard'
 
 const Routes = {
@@ -22,7 +22,7 @@ const Routes = {
   },
   admin: {
     '/': AdminDashboard,
-    '/data': Users,
+    '/list': DataList,
   },
 }
 

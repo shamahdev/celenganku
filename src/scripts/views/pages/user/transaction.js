@@ -208,8 +208,8 @@ const Transaction = {
       await APIData.deleteTransaksiSiswa(dataResponse.id_transaksi)
       await Swal.fire({
         icon: 'error',
-        text: 'Silahkan tunggu sejenak dan coba kembali',
-        title: 'Terjadi kesalahan pada Midtrans Payment',
+        text: 'Silahkan periksa koneksi internet kamu dan coba kembali',
+        title: 'Terjadi kesalahan',
         confirmButtonText: 'Tutup',
         customClass: {
           popup: 'popup-sweetalert',

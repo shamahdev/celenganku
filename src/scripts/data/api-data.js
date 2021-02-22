@@ -247,6 +247,15 @@ class APIData {
     }
   }
 
+  static async getTransaction(id) {
+    try {
+      const response = await fetch(API_ENDPOINT.TRANSAKSI.ID(id))
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
   static async deleteTransaksiSiswa(id) {
     try {
       const response = await fetch(API_ENDPOINT.TRANSAKSI.ID(id), {
