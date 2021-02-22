@@ -5,6 +5,7 @@ import Profile from '../views/pages/user/profile'
 import Report from '../views/pages/user/report'
 import ReportPreview from '../views/pages/user/report-preview'
 import Admin from '../views/pages/admin'
+import DataReport from '../views/pages/admin/data-report'
 import DataList from '../views/pages/admin/datalist'
 import AdminDashboard from '../views/pages/admin/dashboard'
 
@@ -23,6 +24,7 @@ const Routes = {
   admin: {
     '/': AdminDashboard,
     '/list': DataList,
+    '/report/:id': DataReport,
   },
 }
 

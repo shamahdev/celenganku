@@ -3,9 +3,10 @@ const API_ENDPOINT = {
   MIDTRANS: 'https://app.sandbox.midtrans.com/snap/v1/transactions',
   SISWA: {
     LIST: 'api/siswa',
+    LIST_DATA: 'api/siswa/data',
+    LIST_PROFIL: 'api/siswa/profil',
     LOGIN: 'api/siswa/login',
     REGISTER: 'api/siswa/register',
-    LIST_DATA: 'api/siswa/data',
     AKUN: (id) => `api/siswa/${id}`,
     DATA: (id) => `api/siswa/${id}/data`,
     PROFIL: (id) => `api/siswa/${id}/profil`,

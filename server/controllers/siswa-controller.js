@@ -5,6 +5,7 @@ import Siswa from '../models/siswa-model'
 const SiswaController = {
   getAllSiswaData: BaseController.getAll(Siswa.data),
   getAllAkunSiswa: BaseController.getAll(Siswa.akun),
+  getAllProfilSiswa: BaseController.getAll(Siswa.profil),
   getDataSiswa: BaseController.getOne(Siswa.data),
   getProfilSiswa: BaseController.getOne(Siswa.profil),
   getAkunSiswa: BaseController.getOne(Siswa.akun),

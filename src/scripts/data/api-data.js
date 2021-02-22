@@ -163,11 +163,19 @@ class APIData {
     }
   }
 
-  static async getAllSiswaData() {
+  static async getAllDataSiswa() {
     try {
       const response = await fetch(API_ENDPOINT.SISWA.LIST_DATA)
-      const responseJson = await response.json()
-      return responseJson.restaurants
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async getAllProfilSiswa() {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.LIST_PROFIL)
+      return response.json()
     } catch (err) {
       return {}
     }

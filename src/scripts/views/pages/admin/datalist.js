@@ -35,21 +35,21 @@ const DataList = {
             </div>
           </div>
           <div class="bg-gray-200 gap-5 p-4 rounded-lg flex flex-col mt-6 md:p-8">
-            <div class="flex-1 py-0 white rounded-lg">
+            <div id="page-content" class="flex-1 py-0 white rounded-lg">
               <table id="transaction-table" class="table-auto w-full">
                 <tbody>
                   <tr class="text-left text-gray-700">
                     <th class="font-normal p-5 pr-0 pt-0">NISN</th>
-                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Nama Siswa</th>
-                    <th class="font-normal pb-5 pt-0">Saldo</th>
+                    <th class="font-normal pb-5 pt-0 ">Nama Siswa</th>
                     <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Email</th>
-                    <th class="font-normal pb-5 pt-0">Laporan</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">No Telepon</th>
+                    <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Saldo</th>
                     <th class="font-normal pb-5 pt-0 justify-end"></th>
                   </tr>
                 </tbody>
               </table>
               <div class="preloader p-4 flex mt-auto mb-auto mx-auto justify-center">
-                <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+                <div class="loader admin loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
               </div>
             </div>
           </div>
@@ -60,23 +60,18 @@ const DataList = {
 
   async afterRender() {
     // Remove Preloders
+    this._pageContent = document.getElementById('page-content')
     this._totalTransaction = 0
-    const preloaders = document.querySelectorAll('.preloader')
-    const printReportButton = document.getElementById('print-report-button')
-
+    
     // Fetch Data
     const responseData = await APIData.retrieveUser()
     this._userId = responseData.id
-
     await this._renderTable()
-    await this._createPrintEvent(printReportButton)
-    preloaders.forEach((preloader) => {
-      preloader.remove()
-    })
   },
 
   async _createPrintEvent(printButton) {
     printButton.addEventListener('click', () => {
+      const nisn = printButton.id.replace('print-report-button-', '')
       ModalInitializer.init({
         title: 'Laporan',
         content:
@@ -112,6 +107,7 @@ const DataList = {
             <button role="button" id="next-button" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Cetak</button>
           </div>
         </div>`,
+        bg: 'bg-secondary',
       })
       const modal = document.getElementById('modal-laporan')
 
@@ -125,7 +121,7 @@ const DataList = {
         })
       })
       nextButton.addEventListener('click', () => {
-        window.location.hash = `#/report/${this._frequencyOption}`
+        window.location.hash = `#/report/${nisn}?${this._frequencyOption}`
         modal.remove()
       })
     })
@@ -147,35 +143,50 @@ const DataList = {
     this._frequencyOption = optionId.replace('-option', '')
   },
 
-  async _getProfileData(id) {
+  async _getAllSiswa() {
+    const mergeArrays = (arr1 = [], arr2 = [], arr3 = []) => {
+      let res = []
+      res = arr1.map((obj) => {
+        const index = arr2.findIndex((el) => el.nisn === obj.nisn)
+        const index2 = arr3.findIndex((el) => el.nisn === obj.nisn)
+        const { nama } = index !== -1 ? arr2[index] : {}
+        // eslint-disable-next-line camelcase
+        const { no_telepon } = index !== -1 ? arr3[index2] : {}
+        return {
+          ...obj,
+          nama,
+          no_telepon,
+        }
+      })
+      return res
+    }
+
     const profileDataArray = []
-    profileDataArray.push(await APIData.getAkunSiswa(id))
-    profileDataArray.push(await APIData.getProfilSiswa(id))
-    profileDataArray.push(await APIData.getDataSiswa(id))
+    profileDataArray.push(await APIData.getAllAkunSiswa())
+    profileDataArray.push(await APIData.getAllDataSiswa())
+    profileDataArray.push(await APIData.getAllProfilSiswa())
 
-    const profileData = {}
-    profileDataArray.forEach((data) => {
-      Object.assign(profileData, data)
-    })
-
+    const profileData = mergeArrays(
+      profileDataArray[0].data,
+      profileDataArray[1].data,
+      profileDataArray[2].data,
+    )
     return profileData
   },
 
   async _renderTable() {
     const tableElement = document.getElementById('transaction-table')
     const tableBody = tableElement.querySelector('tbody')
-    const allUserAccount = await APIData.getAllAkunSiswa()
+    const allUserAccount = await this._getAllSiswa()
 
-    const userTemplate = async (user) => {
-      const userData = await this._getProfileData(user.nisn)
-
-      const _deleteButtonInit = (cancelButton) => {
-        cancelButton.addEventListener('click', async (event) => {
+    const userTemplate = (user) => {
+      const _deleteButtonInit = (deleteButton) => {
+        deleteButton.addEventListener('click', async (event) => {
           event.stopPropagation()
           const result = await Swal.fire({
             icon: 'warning',
             text: 'Tekan pilihan untuk mengkonfirmasi',
-            title: 'Hapus transaksi?',
+            title: 'Hapus akun?',
             showCancelButton: true,
             confirmButtonText: 'Batalkan',
             cancelButtonText: 'Jangan',
@@ -196,18 +207,24 @@ const DataList = {
         return true
       }
 
+      let initialized = false
+      setInterval(() => {
+        try {
+          while (!initialized) {
+            const deleteButton = document.getElementById(`delete-user-${user.nisn}`)
+            initialized = _deleteButtonInit(deleteButton)
+          }
+        } catch (error) {
+          // console.log('')
+        }
+      }, 1000)
+
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
-      <td class="p-5 pr-0 text-gray-500 bg-white rounded-l-lg">${userData.nisn}</td>
-      <td class="bg-white select-all hidden lg:table-cell">${userData.nama}</td>
-      <td class="bg-white">RP ${userData.saldo}</td>
-      <td class="bg-white hidden lg:table-cell">${userData.email}</td>
-      <td class="bg-white hidden lg:table-cell">${userData.no_telepon}</td>
-      <td class="bg-white">
-        <div class="ml-2 md:ml-0 text-sm bg-secondary p-1 md:py-2 md:px-6 rounded-lg w-max">
-        <p class="hidden md:inline">SELESAI</p>
-        // <p class="inline md:hidden"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="0"></path></svg></p>
-        </div>
-      </td>
+      <td class="p-5 pr-0 select-all text-gray-500 bg-white rounded-l-lg">${user.nisn}</td>
+      <td class="bg-white">${user.nama}</td>
+      <td class="bg-white font-normal hidden lg:table-cell">${user.email}</td>
+      <td class="bg-white hidden lg:table-cell">${user.no_telepon}</td>
+      <td class="bg-white hidden lg:table-cell">RP ${StringFormater.convertToCashFormat(user.saldo)}</td>
       <td class="bg-white rounded-r-lg justify-end flex p-3 pl-0">
         <button class="w-8 md:p-2 md:w-12 h-12 text-gray-700" id="settings">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -219,7 +236,32 @@ const DataList = {
         <div id="settings-dropdown"
           class="hidden absolute mt-10 w-56 rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-          <p id="reminder-element-${userData.nisn}"></p>
+          <p id="reminder-element-${user.nisn}">
+          <button id="print-report-button-${user.nisn}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-secondary flex">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+            </i>
+            <p class="flex ml-2 leading-relaxed">Cetak Laporan</p>
+          </button>
+          <button id="show-profile-button-${user.nisn}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-secondary flex">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            </i>
+            <p class="flex ml-2 leading-relaxed">Lihat Profil</p>
+          </button>
+          <button id="delete-user-${user.nisn}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-secondary flex">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </i>
+            <p class="flex ml-2 leading-relaxed">Hapus Akun</p>
+          </button>
+          </p>
           </div>
         </div>
       </td>
@@ -230,16 +272,34 @@ const DataList = {
     tableBody.innerHTML = `
       <tr class="text-left text-gray-700">
         <th class="font-normal p-5 pr-0 pt-0">NISN</th>
-        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Nama Siswa</th>
-        <th class="font-normal pb-5 pt-0">Saldo</th>
+        <th class="font-normal pb-5 pt-0">Nama Siswa</th>
         <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Email</th>
-        <th class="font-normal pb-5 pt-0">Laporan</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">No Telepon</th>
+        <th class="font-normal pb-5 pt-0 hidden lg:table-cell">Saldo</th>
         <th class="font-normal pb-5 pt-0 justify-end"></th>
       </tr>`
-    allUserAccount.data.forEach(async (account) => {
-      const userArray = await userTemplate(account)
-      tableBody.innerHTML += userArray
+
+    allUserAccount.forEach((user) => {
+      tableBody.innerHTML += userTemplate(user)
     })
+
+    const preloader = document.querySelector('.preloader')
+    preloader.remove()
+
+    const printReportButton = document.querySelectorAll('button[id*="print-report-button"]')
+    const editProfileButton = document.querySelectorAll('button[id*="show-profile-button"]')
+
+    editProfileButton.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        const user = event.target.id.replace('show-profile-button-', '')
+        this._initEditProfile(user)
+      })
+    })
+
+    printReportButton.forEach(async (button) => {
+      await this._createPrintEvent(button)
+    })
+
     this._createTableEvent()
   },
 
@@ -270,6 +330,97 @@ const DataList = {
     })
   },
 
+  async _initEditProfile(user) {
+    const element = /* html */`<div class="flex flex-col lg:flex-row">
+    <div class="p-5 rounded-lg flex flex-row md:flex-col flex-1 md:mt-4">
+      <div class="bg-gray-200 p-5 md:p-8 flex flex-1 flex-col white rounded-lg">
+        <div class="preloader p-4 flex mt-auto mb-auto ml-auto mr-auto">
+          <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+        </div>
+        <div id="account-form" class="hidden flex flex-col gap-4">
+          <div class="mx-auto mt-4 rounded-lg">
+            <div class="flex flex-col w-48 rounded-full text-white">
+              <img id="photo-profile" class="object-cover rounded-full w-full h-48 mx-auto"
+                alt="User Photo Profile" src="http://ui-avatars.com/api/background=fff&color=fff">
+              <div id="change-photo" class="disabled:cursor-default hidden flex flex-row">
+                <label for="file-upload"
+                  class="p-3 mt-4 mr-1 ml-auto cursor-pointer w-max bg-primary text-white mx-1 rounded-lg disabled:opacity-50">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                    </path>
+                  </svg>
+                </label>
+                <input class="hidden" id="file-upload" type="file" accept="image/*">
+                <button id="delete-photo"
+                  class="disabled:cursor-default p-3 mt-4 mr-auto ml-1 cursor-pointer w-max bg-primary text-white mx-1 rounded-lg disabled:opacity-50">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                    </path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 pt-0 rounded-lg w-full">
+            <div class="">
+              <p class="mb-2">NISN</p>
+              <input id="input-nisn" name="NISN" disabled value="" type="text"
+                class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500">
+              <p class="mb-2 mt-4">Email</p>
+              <input id="input-email" name="Email" disabled value="" type="email"
+                data-rule="required no-space email"
+                class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
+              <p class="mt-4">Password</p>
+              <input id="input-password" name="Password" disabled value="" type="password"
+                data-rule="required no-space"
+                class="editable block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-5 rounded-lg flex flex-col flex-1 md:mt-4">
+      <p class="mb-4 text-lg text-center md:text-left">Informasi Siswa</p>
+      <div class="bg-gray-200 p-5 md:p-8 flex-col white rounded-lg">
+        <div class="preloader justify-center p-4 flex mt-auto mb-auto ml-auto mr-auto">
+          <div class="loader loader-mini ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
+        </div>
+        <div id="profile-form" class="hidden flex flex-col">
+          <div class="flex-1 rounded-lg w-full">
+            <div class="">
+              <p class="mb-2">Nama Lengkap</p>
+              <input id="input-nama" name="Nama" disabled value="" type="text"
+                class="mb-2 block px-5 py-3 rounded-lg w-full bg-white text-gray-500 focus:placeholder-gray-400">
+              <p class="mb-2 mt-4">Alamat</p>
+              <textarea id="input-alamat" name="Alamat" rows="4" type="text"
+                class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500"
+                disabled></textarea>
+              <p class="mb-2 mt-4">Nomor Telepon</p>
+              <input id="input-no_telepon" name="Nomer Telepon" data-rule="required no-space" value=""
+                type="number"
+                class="editable text-md block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500 focus:placeholder-gray-400"
+                disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-start items-center mt-4">
+        <button id="edit-button"
+          class="w-max bg-primary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Edit Profil</button>
+        <button id="discard-button"
+          class="hidden w-max bg-failed text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Batalkan</button>
+        <button id="confirm-button"
+          class="hidden w-max bg-success text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Selesai</button>
+      </div>
+    </div>
+  </div>`
+
+    this._pageContent.innerHTML = element
+  },
 }
 
 export default DataList

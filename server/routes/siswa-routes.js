@@ -16,7 +16,10 @@ siswaRoutes.route('/')
   .get(SiswaController.getAllAkunSiswa)
 
 siswaRoutes.route('/data')
-  .get(SiswaController.getDataSiswa)
+  .get(SiswaController.getAllSiswaData)
+
+siswaRoutes.route('/profil')
+  .get(SiswaController.getAllProfilSiswa)
 
 siswaRoutes.route('/:id')
   .get(SiswaController.getAkunSiswa)
