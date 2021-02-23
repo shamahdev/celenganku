@@ -314,18 +314,15 @@ const AdminDashboard = {
                 </div>
               </div>
               <div class="flex justify-end items-center w-100 mt-4">
-                <button role="button" id="close-button" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
+                <button role="button" data-modal="Transaksi" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
               </div>
             </div>`,
             bg: 'bg-secondary',
           })
-
-          const modal = document.getElementById('modal-transaksi')
           const modalContent = document.getElementById('modal-content')
           const thisContent = modalContent.innerHTML
           const qrContent = `<img class="mx-auto" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${transaction.id_transaksi}"></img>`
           const showQRButton = document.getElementById('show-qr-button')
-          const closeButton = document.getElementById('close-button')
           const copyButton = document.getElementById('copy-button')
           const copyText = document.getElementById('id-transaksi')
           this._isQRContent = false
@@ -339,9 +336,6 @@ const AdminDashboard = {
             if (!this._isQRContent) modalContent.innerHTML = qrContent
             else modalContent.innerHTML = thisContent
             this._isQRContent = !this._isQRContent
-          })
-          closeButton.addEventListener('click', () => {
-            modal.remove()
           })
         })
         return true

@@ -10,6 +10,7 @@ const SiswaController = {
   getProfilSiswa: BaseController.getOne(Siswa.profil),
   getAkunSiswa: BaseController.getOne(Siswa.akun),
   deleteAkunSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil),
+  deleteDataSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil, Siswa.data),
   createAkunSiswa: async (req, res, next) => {
     try {
       const {
@@ -33,42 +34,43 @@ const SiswaController = {
         res.status(401).json({
           status: 'error',
           error: true,
-          title: 'Gagal Mendaftar',
+          title: 'Registrasi Gagal',
           message: 'NISN tidak valid atau belum terdaftar',
           response: req.body,
         })
-      }
-      // Check for existed document
-      const account = await Siswa.akun.doc(nisn).get()
-      if (account.exists) {
-        res.status(401).json({
-          status: 'error',
-          error: true,
-          title: 'Gagal Mendaftar',
-          message: 'Akun dengan NISN berikut sudah terdaftar',
-          response: req.body,
-        })
-      }
+      } else {
+        // Check for existed document
+        const account = await Siswa.akun.doc(nisn).get()
+        if (account.exists) {
+          res.status(401).json({
+            status: 'error',
+            error: true,
+            title: 'Registrasi Gagal',
+            message: 'Akun dengan NISN berikut sudah terdaftar',
+            response: req.body,
+          })
+        } else {
+          await Siswa.akun.doc(nisn).set({
+            nisn,
+            email,
+            password,
+            saldo: 0,
+          })
 
-      await Siswa.akun.doc(nisn).set({
-        nisn,
-        email,
-        password,
-        saldo: 0,
-      })
-
-      await Siswa.profil.doc(nisn).set({
-        nisn,
-        no_telepon: no_telepon || '',
-        url_foto: url_foto || '',
-      })
+          await Siswa.profil.doc(nisn).set({
+            nisn,
+            no_telepon: no_telepon || '',
+            url_foto: url_foto || '',
+          })
+        }
+      }
 
       req.body.password = undefined
 
       res.status(200).json({
         status: 'success',
-        title: 'Daftar Berhasil',
-        message: 'Silahkan login',
+        title: 'Registrasi Berhasil',
+        message: 'Akun berhasil dibuat, silahkan login',
         error: false,
         response: req.body,
       })
@@ -114,12 +116,53 @@ const SiswaController = {
         password: updateData.password,
       })
 
-      await Siswa.profil.doc(nisn).set({
+      await Siswa.profil.doc(nisn).update({
         no_telepon: updateData.no_telepon || '',
         url_foto: updateData.url_foto || '',
       })
 
       req.body.password = undefined
+
+      res.status(200).json({
+        status: 'success',
+        error: false,
+        response: req.body,
+      })
+      return { success: true }
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
+    }
+  },
+  updateDataSiswa: async (req, res, next) => {
+    try {
+      const nisn = req.params.id
+
+      const account = await Siswa.data.doc(nisn).get()
+      if (!account.exists) {
+        res.status(401).json({
+          status: 'failed',
+          error: true,
+          message: 'Data with this NISN doesn\'t exist',
+          response: req.body,
+        })
+      }
+
+      const siswaData = account.data()
+
+      const updateData = {
+        email: req.body.nisn || siswaData.nisn,
+        password: req.body.nama || siswaData.nama,
+        no_telepon: req.body.alamat || siswaData.alamat,
+        url_foto: req.body.jenis_kelamin || siswaData.jenis_kelamin,
+      }
+
+      // Check for existed document
+      await Siswa.data.doc(nisn).update(updateData)
 
       res.status(200).json({
         status: 'success',

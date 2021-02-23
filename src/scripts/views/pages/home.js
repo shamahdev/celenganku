@@ -184,10 +184,6 @@ const Home = {
         buttonsStyling: false,
       })
       if (registerResponse.status === 'success') {
-        loginFormInputs.forEach((input) => {
-          input.value = ''
-          input.classList.remove('border-green-500', 'border-opacity-50', 'focus:border-green-500')
-        })
         window.dispatchEvent(new HashChangeEvent('hashchange'))
       }
     })

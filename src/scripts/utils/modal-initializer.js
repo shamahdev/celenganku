@@ -41,8 +41,8 @@ const ModalInitializer = {
   },
 
   async _createEvent() {
-    window.onclick = (event) => {
-      if (event.target.id.indexOf('modal') >= 0) {
+    window.onmousedown = (event) => {
+      if (event.target.id.indexOf(`modal-${SlugParser.parseToSlug(this._title)}`) >= 0) {
         event.target.remove()
       }
     }

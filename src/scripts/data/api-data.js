@@ -275,9 +275,35 @@ class APIData {
     }
   }
 
+  static async deleteSiswa(id) {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.AKUN(id), {
+        method: 'DELETE',
+      })
+      return response.json()
+    } catch (err) {
+      return err
+    }
+  }
+
   static async updateAkunSiswa(id, newData) {
     try {
       const response = await fetch(API_ENDPOINT.SISWA.AKUN(id), {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newData),
+      })
+      return response.json()
+    } catch (err) {
+      return {}
+    }
+  }
+
+  static async updateDataSiswa(id, newData) {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.DATA(id), {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
