@@ -1,11 +1,17 @@
+/* eslint-disable import/no-webpack-loader-syntax */
+/* eslint-disable import/no-unresolved */
+import QrScanner from 'qr-scanner'
 import sortBy from 'lodash/sortBy'
 import Swal from 'sweetalert2'
+import QrScannerWorkerPath from '!!file-loader!../../../../../node_modules/qr-scanner/qr-scanner-worker.min'
 import APIData from '../../../data/api-data'
 import StringFormater from '../../../helper/string-formater'
 import ModalInitializer from '../../../utils/modal-initializer'
 import EventHelper from '../../../helper/event-helper'
 import formValidation from '../../../helper/form-validation'
 import DateFormater from '../../../helper/date-formater'
+
+QrScanner.WORKER_PATH = QrScannerWorkerPath
 
 const AdminDashboard = {
   async render() {
@@ -47,7 +53,7 @@ const AdminDashboard = {
                   <div class="flex mt-4 md:mt-0">
                       <button role="button" disabled id="process-transaction"
                       class="w-max bg-secondary text-white mx-1 md:ml-4 py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-default">Proses</button>
-                      <button role="button" id="show-qr-button" class="w-max text-secondary mx-1 font-light p-2">
+                      <button role="button" id="scan-qr-button" class="w-max text-secondary mx-1 font-light p-2">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg></button>
                   </div>
                 </div>
@@ -102,6 +108,43 @@ const AdminDashboard = {
     formValidation.init({
       formInputs: transactionCodeInput,
       submitButton: processTransactionButton,
+    })
+
+    const qrScannerButton = document.getElementById('scan-qr-button')
+    qrScannerButton.addEventListener('click', () => {
+      ModalInitializer.init({
+        title: 'Scan QR',
+        content:
+        `<div class="px-10 py-6">
+          <div id="modal-content">
+            <div id="video-container" class="flex flex-row relative">
+              <video class="w-full" id="scanner-preview"></video>
+            </div>
+          </div>
+          <div class="flex justify-end items-center w-100 mt-4">
+            <button role="button" data-modal="Scan QR" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tutup</button>
+          </div>
+        </div>`,
+        bg: 'bg-secondary',
+      })
+      try {
+        const video = document.getElementById('scanner-preview')
+        const modal = document.getElementById('modal-scan-qr')
+        const videoContainer = document.getElementById('video-container')
+        const qrScanner = new QrScanner(video, async (result) => {
+          console.log('decoded qr code:', result)
+          await this._processTransaction(result)
+          qrScanner.stop()
+          modal.remove()
+        })
+        videoContainer.appendChild(qrScanner.$canvas)
+        video.style.paddingTop = '50%'
+        qrScanner.$canvas.className = 'absolute w-full h-full'
+        qrScanner.start()
+        window.scanner = qrScanner
+      } catch (error) {
+        console.log(`error: ${error}`)
+      }
     })
 
     processTransactionButton.addEventListener('click', async () => {
@@ -172,17 +215,17 @@ const AdminDashboard = {
             <input name="NISN" disabled value="${response.nisn}"
               class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
               <p class="mb-2 text-gray-800">Nominal</p>
-            <input name="NISN" disabled value="RP ${response.nominal}"
+            <input name="NISN" disabled value="RP ${StringFormater.convertToCashFormat(response.nominal)}"
               class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
             <div class="flex flex-col md:flex-row md:gap-4">
               <div class="flex flex-1 flex-col">
               <p class="mb-2 text-gray-800">Jenis Transaksi</p>
-              <input name="NISN" disabled value="${response.jenis_transaksi}"
+              <input name="NISN" disabled value="${response.jenis_transaksi.toUpperCase()}"
                 class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
               </div>
               <div class="flex flex-1 flex-col">
               <p class="mb-2 text-gray-800">Metode Pembayaran</p>
-                <input name="NISN" disabled value="${response.metode_pembayaran}"
+                <input name="NISN" disabled value="${response.metode_pembayaran.toUpperCase()}"
                   class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-500">
               </div>
             </div>

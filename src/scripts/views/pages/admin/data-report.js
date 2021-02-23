@@ -139,7 +139,7 @@ const DataReport = {
     if (transactionData.length === 0) {
       Swal.fire({
         icon: 'error',
-        text: 'Akun belum pernah melakukan transaksi',
+        text: 'Tidak ada transaksi dalam akun ini',
         title: 'Gagal Menampilkan Laporan',
         confirmButtonText: 'Tutup',
         customClass: {

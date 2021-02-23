@@ -200,7 +200,7 @@ const formValidation = {
       } else {
         alertElement.innerHTML = alertText[0]
 
-        if (input.name === 'Password') {
+        if (input.type === 'password') {
           // eslint-disable-next-line max-len
           input.parentElement.parentElement.insertBefore(alertElement, input.parentElement.nextSibling)
         } else {

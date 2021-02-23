@@ -1,6 +1,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable max-len */
 import sortBy from 'lodash/sortBy'
+import Swal from 'sweetalert2'
 import APIData from '../../../data/api-data'
 import StringFormater from '../../../helper/string-formater'
 import SlugParser from '../../../routes/slugparser'
@@ -137,6 +138,21 @@ const ReportPreview = {
     const tableBody = tableElement.querySelector('tbody')
     const unsortedTransactionData = await APIData.getTransaksiSiswa(this._userId)
     const transactionData = sortBy(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
+
+    if (transactionData.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Tidak ada transaksi dalam akun ini',
+        title: 'Gagal Menampilkan Laporan',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert',
+        },
+        buttonsStyling: false,
+      })
+      window.location.hash = '#/report'
+    }
 
     let thisSaldo = this._ballance
     const transactionTemplate = (transaction) => {

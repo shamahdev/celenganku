@@ -104,7 +104,7 @@ const DataList = {
           class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
         <p class="mb-2 text-gray-800">Buat Password</p>
         <input id="user-password-register" name="Password" data-rule="required no-space digit-more-than-6" value=""
-          type="password" class="mb-2 block px-5 py-3 Ulangi Password-lg w-full bg-gray-200 text-gray-800">
+          type="password" class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
         <p class="mb-2 text-gray-800">Password</p>
         <input id="user-password-again-register" name="Input"
           data-rule="required no-space digit-more-than-6 equal-user-password-register" value="" type="password"
@@ -721,7 +721,9 @@ const DataList = {
               showLoaderOnConfirm: true,
               preConfirm: async () => {
                 try {
-                  await this._updateProfile(nisn.value, nama.value, alamat.value, this._genderOption)
+                  await this._updateData(nisn.value, nama.value, alamat.value, this._genderOption)
+                  modal.remove()
+                  this._renderDataTable()
                 } catch (error) {
                   Swal.showValidationMessage(
                     `Request failed: ${error}`,
@@ -841,7 +843,7 @@ const DataList = {
                         class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
                       <p class="mt-4">Password</p>
                       <input id="input-password" name="Password" disabled value="" type="password"
-                        data-rule="required no-space"
+                        data-rule="required no-space digit-more-than-6"
                         class="editable block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
                     </div>
                   </div>
@@ -959,35 +961,44 @@ const DataList = {
     })
 
     confirmButton.addEventListener('click', async () => {
-      let confirmUpdate = true
-      if (password.value !== passwordTemp) {
-        confirmUpdate = false
-        const result = await Swal.fire({
-          icon: 'warning',
-          text: 'Tekan pilihan untuk mengkonfirmasi',
-          title: 'Ubah password?',
-          showCancelButton: true,
-          confirmButtonText: 'Ubah',
-          cancelButtonText: 'Jangan',
+      const result = await Swal.fire({
+        icon: 'warning',
+        text: 'Tekan pilihan untuk mengkonfirmasi',
+        title: 'Ubah Profil?',
+        showCancelButton: true,
+        confirmButtonText: 'Ubah',
+        cancelButtonText: 'Jangan',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          try {
+            await this._updateProfile(nisn, email.value, password.value, nomorTelepon.value, newPhoto, photoProfileTemp)
+          } catch (error) {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`,
+            )
+          }
+        },
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-success',
+          cancelButton: 'btn-sweetalert bg-failed',
+        },
+        buttonsStyling: false,
+      })
+
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: 'success',
+          text: 'Tekan tutup untuk menutup popup',
+          title: 'Profil berhasil diubah',
+          confirmButtonText: 'Tutup',
           customClass: {
             popup: 'popup-sweetalert',
-            confirmButton: 'btn-sweetalert bg-success',
-            cancelButton: 'btn-sweetalert bg-failed',
+            confirmButton: 'btn-sweetalert bg-secondary',
           },
           buttonsStyling: false,
         })
-
-        if (result.isConfirmed) {
-          confirmUpdate = true
-        }
-      }
-
-      if (confirmUpdate) {
-        await this._updateProfile(nisn, email.value, password.value, nomorTelepon.value, newPhoto, photoProfileTemp)
-        editableForm.forEach((input) => {
-          input.disabled = true
-          toggleEditable(false)
-        })
+        this._initEditProfile(nisn)
       }
     })
 
@@ -1060,7 +1071,46 @@ const DataList = {
   },
 
   // eslint-disable-next-line camelcase
-  async _updateProfile(nisn, nama, alamat, jenis_kelamin) {
+  async _updateProfile(nisn, email, password, noTelepon, newPhoto, photoProfileTemp) {
+    try {
+      const newData = {
+        email,
+        password,
+        no_telepon: noTelepon,
+        url_foto: photoProfileTemp,
+      }
+
+      if (newPhoto !== '') {
+        if (photoProfileTemp !== '' && !(photoProfileTemp.includes('ui-avatars.com'))) {
+          await APIData.deleteFile(photoProfileTemp)
+        }
+        if (newPhoto === 'default') {
+          newData.url_foto = ''
+        } else {
+          const photo = await APIData.uploadFile(newPhoto)
+          newData.url_foto = photo.url
+        }
+      }
+
+      const response = await APIData.updateAkunSiswa(nisn, newData)
+      console.log(response)
+    } catch (error) {
+      await Swal.fire({
+        icon: 'error',
+        text: 'Periksa internet kamu dan coba lagi',
+        title: 'Terjadi Kesalahan',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    }
+  },
+
+  // eslint-disable-next-line camelcase
+  async _updateData(nisn, nama, alamat, jenis_kelamin) {
     try {
       const newData = {
         nisn,
@@ -1075,18 +1125,18 @@ const DataList = {
       Swal.fire({
         icon: 'success',
         text: 'Tekan tutup untuk menutup popup',
-        title: 'Berhasil memperbaharui profil',
+        title: 'Data Berhasil diubah',
         confirmButtonText: 'Tutup',
         customClass: {
           popup: 'popup-sweetalert',
-          confirmButton: 'btn-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
         },
         buttonsStyling: false,
       })
     } catch (error) {
       await Swal.fire({
         icon: 'error',
-        text: error,
+        text: 'Periksa internet kamu dan coba lagi',
         title: 'Terjadi kesalahan',
         confirmButtonText: 'Tutup',
         customClass: {

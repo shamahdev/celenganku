@@ -50,7 +50,7 @@ const Home = {
               class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
             <p class="mb-2 text-gray-800">Buat Password</p>
             <input id="user-password-register" name="Password" data-rule="required no-space digit-more-than-6" value=""
-              type="password" class="mb-2 block px-5 py-3 Ulangi Password-lg w-full bg-gray-200 text-gray-800">
+              type="password" class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
             <p class="mb-2 text-gray-800">Password</p>
             <input id="user-password-again-register" name="Input"
               data-rule="required no-space digit-more-than-6 equal-user-password-register" value="" type="password"

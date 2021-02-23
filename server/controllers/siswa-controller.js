@@ -154,15 +154,11 @@ const SiswaController = {
 
       const siswaData = account.data()
 
-      const updateData = {
+      // Check for existed document
+      await Siswa.data.doc(nisn).update({
         nama: req.body.nama || siswaData.nama,
         alamat: req.body.alamat || siswaData.alamat,
         jenis_kelamin: req.body.jenis_kelamin || siswaData.jenis_kelamin,
-      }
-
-      // Check for existed document
-      await Siswa.data.doc(nisn).update({
-        updateData,
       })
 
       res.status(200).json({

@@ -93,7 +93,7 @@ const Admin = {
         confirmButtonText: 'Tutup',
         customClass: {
           popup: 'popup-sweetalert',
-          confirmButton: 'btn-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
         },
         buttonsStyling: false,
       })

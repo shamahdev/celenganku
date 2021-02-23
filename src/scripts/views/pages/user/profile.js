@@ -176,35 +176,44 @@ const Profile = {
     })
 
     confirmButton.addEventListener('click', async () => {
-      let confirmUpdate = true
-      if (password.value !== passwordTemp) {
-        confirmUpdate = false
-        const result = await Swal.fire({
-          icon: 'warning',
-          text: 'Tekan pilihan untuk mengkonfirmasi',
-          title: 'Ubah password?',
-          showCancelButton: true,
-          confirmButtonText: 'Ubah',
-          cancelButtonText: 'Jangan',
+      const result = await Swal.fire({
+        icon: 'warning',
+        text: 'Tekan pilihan untuk mengkonfirmasi',
+        title: 'Ubah Profil?',
+        showCancelButton: true,
+        confirmButtonText: 'Ubah',
+        cancelButtonText: 'Jangan',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          try {
+            await this._updateProfile(email.value, password.value, nomorTelepon.value, newPhoto, photoProfileTemp)
+          } catch (error) {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`,
+            )
+          }
+        },
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-success',
+          cancelButton: 'btn-sweetalert bg-failed',
+        },
+        buttonsStyling: false,
+      })
+
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: 'success',
+          text: 'Tekan tutup untuk menutup popup',
+          title: 'Profil berhasil diubah',
+          confirmButtonText: 'Tutup',
           customClass: {
             popup: 'popup-sweetalert',
-            confirmButton: 'btn-sweetalert bg-success',
-            cancelButton: 'btn-sweetalert bg-failed',
+            confirmButton: 'btn-sweetalert',
           },
           buttonsStyling: false,
         })
-
-        if (result.isConfirmed) {
-          confirmUpdate = true
-        }
-      }
-
-      if (confirmUpdate) {
-        await this._updateProfile(email.value, password.value, nomorTelepon.value, newPhoto, photoProfileTemp)
-        editableForm.forEach((input) => {
-          input.disabled = true
-          toggleEditable(false)
-        })
+        window.dispatchEvent(new HashChangeEvent('hashchange'))
       }
     })
 
@@ -300,18 +309,6 @@ const Profile = {
 
       const response = await APIData.updateAkunSiswa(this._userId, newData)
       console.log(response)
-
-      Swal.fire({
-        icon: 'success',
-        text: 'Tekan tutup untuk menutup popup',
-        title: 'Berhasil memperbaharui profil',
-        confirmButtonText: 'Tutup',
-        customClass: {
-          popup: 'popup-sweetalert',
-          confirmButton: 'btn-sweetalert',
-        },
-        buttonsStyling: false,
-      })
     } catch (error) {
       await Swal.fire({
         icon: 'error',
