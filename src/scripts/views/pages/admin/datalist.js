@@ -1086,8 +1086,8 @@ const DataList = {
     } catch (error) {
       await Swal.fire({
         icon: 'error',
-        text: 'Silahkan tunggu sejenak dan coba kembali',
-        title: 'Terjadi kesalahan ketika memperbaharui profil',
+        text: error,
+        title: 'Terjadi kesalahan',
         confirmButtonText: 'Tutup',
         customClass: {
           popup: 'popup-sweetalert',

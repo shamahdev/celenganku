@@ -31,6 +31,8 @@ siswaRoutes.route('/:id/profil')
 
 siswaRoutes.route('/:id/data')
   .get(SiswaController.getDataSiswa)
+  .patch(SiswaController.updateDataSiswa)
+  .delete(SiswaController.deleteDataSiswa)
 
 siswaRoutes.route('/:id/saldo')
   .patch(SiswaController.updateSaldoSiswa)

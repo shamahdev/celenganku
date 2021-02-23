@@ -155,14 +155,15 @@ const SiswaController = {
       const siswaData = account.data()
 
       const updateData = {
-        email: req.body.nisn || siswaData.nisn,
-        password: req.body.nama || siswaData.nama,
-        no_telepon: req.body.alamat || siswaData.alamat,
-        url_foto: req.body.jenis_kelamin || siswaData.jenis_kelamin,
+        nama: req.body.nama || siswaData.nama,
+        alamat: req.body.alamat || siswaData.alamat,
+        jenis_kelamin: req.body.jenis_kelamin || siswaData.jenis_kelamin,
       }
 
       // Check for existed document
-      await Siswa.data.doc(nisn).update(updateData)
+      await Siswa.data.doc(nisn).update({
+        updateData,
+      })
 
       res.status(200).json({
         status: 'success',
