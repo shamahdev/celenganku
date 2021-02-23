@@ -1,4 +1,5 @@
 import 'regenerator-runtime'
+import 'animate.css'
 import '../styles/base.css'
 import '../styles/components.css'
 import '../styles/utilities.css'

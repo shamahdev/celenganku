@@ -1,11 +1,19 @@
 /* eslint-disable consistent-return */
 import AppError from '../utils/appError'
+import { db } from '../global/firebase'
 
 const BaseController = {
   deleteOne: (...Model) => async (req, res, next) => {
     try {
       Model.forEach(async (model) => {
-        await model.doc(req.params.id).delete()
+        if (model === 'transaksi') {
+          const thisModel = db.collection('transaksi')
+          const snapshot = await thisModel.where('nisn', '==', req.params.id).get()
+          snapshot.forEach((doc) => {
+            doc.ref.delete()
+            console.log(`deleted: ${doc.id}`)
+          })
+        } else await model.doc(req.params.id).delete()
       })
       res.status(200).json({
         status: 'success',

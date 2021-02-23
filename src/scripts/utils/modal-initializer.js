@@ -19,7 +19,7 @@ const ModalInitializer = {
     const modalElement = document.createElement('div')
     modalElement.id = `modal-${SlugParser.parseToSlug(this._title)}`
     modalElement.className = 'modal h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50 z-50'
-    modalElement.innerHTML = `<div class="rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 w-5/6 md:w-1/2 lg:w-1/3">
+    modalElement.innerHTML = `<div class="animate__animated animate__zoomIn animate__faster rounded-lg shadow-lg bg-white ring-1 ring-black ring-opacity-5 w-5/6 md:w-1/2 lg:w-1/3">
           <!-- modal header -->
           <div class="${this._bgColor} text-white rounded-t-lg px-6 py-4 flex justify-between items-center">
             <h3 class="text-md">${this._title}</h3>

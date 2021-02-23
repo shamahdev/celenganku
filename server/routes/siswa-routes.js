@@ -17,6 +17,7 @@ siswaRoutes.route('/')
 
 siswaRoutes.route('/data')
   .get(SiswaController.getAllSiswaData)
+  .post(SiswaController.createDataSiswa)
 
 siswaRoutes.route('/profil')
   .get(SiswaController.getAllProfilSiswa)

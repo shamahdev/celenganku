@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import BaseController from './base-controller'
 import Siswa from '../models/siswa-model'
+import { db } from '../global/firebase'
 
 const SiswaController = {
   getAllSiswaData: BaseController.getAll(Siswa.data),
@@ -9,8 +10,8 @@ const SiswaController = {
   getDataSiswa: BaseController.getOne(Siswa.data),
   getProfilSiswa: BaseController.getOne(Siswa.profil),
   getAkunSiswa: BaseController.getOne(Siswa.akun),
-  deleteAkunSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil),
-  deleteDataSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil, Siswa.data),
+  deleteAkunSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil, 'transaksi'),
+  deleteDataSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil, Siswa.data, 'transaksi'),
   createAkunSiswa: async (req, res, next) => {
     try {
       const {
@@ -71,6 +72,60 @@ const SiswaController = {
         status: 'success',
         title: 'Registrasi Berhasil',
         message: 'Akun berhasil dibuat, silahkan login',
+        error: false,
+        response: req.body,
+      })
+      return {
+        ...req.body,
+        error: false,
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
+    }
+  },
+  createDataSiswa: async (req, res, next) => {
+    try {
+      const {
+        nisn, nama, alamat, jenis_kelamin,
+      } = req.body
+
+      // Check if req.body is not empty
+      if (!nisn || !nama || !alamat || !jenis_kelamin) {
+        return res.status(404).json({
+          status: 'failed',
+          error: true,
+          title: 'Data Gagal Ditambahkan',
+          message: 'Please provide NISN, Name, Address, or Gender',
+          response: req.body,
+        })
+      }
+
+      const isData = await Siswa.data.doc(nisn).get()
+      if (isData.exists) {
+        res.status(401).json({
+          status: 'error',
+          error: true,
+          title: 'Data Gagal Ditambahkan',
+          message: 'Data dengan NISN berikut sudah ada',
+          response: req.body,
+        })
+      } else {
+        await Siswa.data.doc(nisn).set({
+          nisn,
+          nama,
+          alamat,
+          jenis_kelamin,
+        })
+      }
+      res.status(200).json({
+        status: 'success',
+        title: 'Data Berhasil Ditambahkan',
+        message: 'Tekan tutup untuk menutup popup',
         error: false,
         response: req.body,
       })

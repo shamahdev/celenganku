@@ -443,7 +443,14 @@ const DataList = {
   },
 
   async _renderDataTable() {
-    this._pageContent.innerHTML = `<table id="transaction-table" class="table-auto w-full">
+    this._pageContent.innerHTML = `
+    <button role="button" id="add-data-button" class="w-max bg-secondary text-white mb-4 md:mb-8 py-3 px-8 flex ml-auto rounded-lg disabled:opacity-50">
+      <i class="text-white flex">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+      </i>
+      <p class="flex ml-2 leading-relaxed">Tambah Data Siswa</p>
+    </button>
+    <table id="transaction-table" class="table-auto w-full">
     <tbody>
       <tr class="text-left text-gray-700">
         <th class="font-normal p-5 pr-0 pt-0">NISN</th>
@@ -461,7 +468,12 @@ const DataList = {
   `
     const tableElement = document.getElementById('transaction-table')
     const tableBody = tableElement.querySelector('tbody')
+    const addDataButton = document.getElementById('add-data-button')
     const allUserAccount = await this._getDataSiswa()
+
+    addDataButton.addEventListener('click', () => {
+      this._addDataModalEvent()
+    })
 
     const userTemplate = (user) => {
       let initialized = false
@@ -497,6 +509,14 @@ const DataList = {
       const _renderAction = (saldo) => {
         if (typeof (saldo) === 'undefined' || saldo === null) {
           return `
+          <button id="create-user-${user.nisn}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-secondary flex">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+            </i>
+            <p class="flex ml-2 leading-relaxed">Daftar Akun</p>
+          </button>
           <button id="show-data-button-${user.nisn}"
             class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
@@ -505,14 +525,15 @@ const DataList = {
             </i>
             <p class="flex ml-2 leading-relaxed">Lihat Data Siswa</p>
           </button>
-          <button id="create-user-${user.nisn}"
+          <button id="delete-data-${user.nisn}"
             class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
             role="menuitem">
             <i class="text-secondary flex">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
             </i>
-            <p class="flex ml-2 leading-relaxed">Daftar Akun</p>
-          </button>`
+            <p class="flex ml-2 leading-relaxed">Hapus Data</p>
+          </button>
+          `
         }
         return `
         <button id="show-data-button-${user.nisn}"
@@ -522,8 +543,57 @@ const DataList = {
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
           </i>
           <p class="flex ml-2 leading-relaxed">Lihat Data Siswa</p>
-        </button>`
+        </button>
+        <button id="delete-data-${user.nisn}"
+            class="flex w-full flex-1 px-4 py-3 text-sm font-normal text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            role="menuitem">
+            <i class="text-secondary flex">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </i>
+            <p class="flex ml-2 leading-relaxed">Hapus Data</p>
+        </button>
+        `
       }
+
+      const _deleteDataButtonInit = (deleteButton) => {
+        deleteButton.addEventListener('click', async (event) => {
+          event.stopPropagation()
+          const result = await Swal.fire({
+            icon: 'warning',
+            text: 'Tekan pilihan untuk mengkonfirmasi',
+            title: 'Hapus Data Siswa?',
+            showCancelButton: true,
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Jangan',
+            customClass: {
+              popup: 'popup-sweetalert',
+              confirmButton: 'btn-sweetalert bg-success',
+              cancelButton: 'btn-sweetalert bg-failed',
+            },
+            buttonsStyling: false,
+          })
+
+          if (result.isConfirmed) {
+            const response = await APIData.deleteDataSiswa(user.nisn)
+            console.log(response)
+            this._renderDataTable()
+          }
+        })
+        return true
+      }
+
+      let deleteInitialized = false
+      setInterval(() => {
+        try {
+          while (!deleteInitialized) {
+            const deleteButton = document.getElementById(`delete-data-${user.nisn}`)
+            deleteInitialized = _deleteDataButtonInit(deleteButton)
+          }
+        } catch (error) {
+          // console.log('')
+        }
+      }, 1000)
+
 
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="p-5 pr-0 select-all text-gray-500 bg-white rounded-l-lg">${user.nisn}</td>
@@ -658,6 +728,12 @@ const DataList = {
           const genderOptionButtons = document.querySelectorAll('#laki-option, #perempuan-option')
           const [nisn, nama, alamat] = editableForm
 
+          formValidation.init({
+            formInputs: editableForm,
+            submitButton: confirmButton,
+            isEdit: true,
+          })
+
           let genderId = ''
           genderId = 'laki-option'
           if (this._genderOption === 'P') genderId = 'perempuan-option'
@@ -779,6 +855,121 @@ const DataList = {
             row.style.display = 'none'
           }
         }
+      })
+    })
+  },
+
+  async _addDataModalEvent() {
+    ModalInitializer.init({
+      title: 'Tambah Data Siswa',
+      content:
+      /* html */`<div class="px-10 py-6">
+          <div id="modal-content">
+          <p class="mb-2 text-gray-800">NISN</p>
+            <input name="NISN" value="" data-rule="required number-must-10"
+              class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 disabled:text-gray-500 text-gray-800">
+              <p class="mb-2 text-gray-800">Nama Lengkap</p>
+            <input name="Nama Lengkap" value="" data-rule="required"
+              class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 disabled:text-gray-500 text-gray-800">
+              <div class="my-6 flex flex-col gap-4 md:flex-row">
+              <button id="laki-option" class="disabled:cursor-default w-full rounded-lg focus:outline-none ">
+                <div class="flex flex-1 md:justify-center">
+                  <div class="text-white flex flex-1 flex-row">
+                    <div data-option class="mx-2 my-auto text-sm bg-secondary text-white p-1 rounded-lg">
+                    <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                    </div>
+                    <p class="text-gray-700 mt-1">Laki-laki</p>
+                  </div>
+                </div>
+              </button>
+              <button id="perempuan-option" class="disabled:cursor-default w-full focus:outline-none ">
+                <div class="flex flex-1 md:justify-center">
+                  <div class="text-white flex flex-1 flex-row">
+                    <div data-option class="mx-2 my-auto text-sm bg-gray-300 text-gray-300 p-1 rounded-lg">
+                    <p><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg></p>
+                    </div>
+                    <p class="text-gray-700 mt-1">Perempuan</p>
+                  </div>
+                </div>
+              </button>
+              </div>
+            <p class="mb-2 text-gray-800">Alamat</p>
+            <textarea id="input-alamat" name="Alamat" rows="4" type="text" data-rule="required"
+              class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 disabled:text-gray-500 text-gray-800"></textarea>
+          </div>
+          <div class="flex justify-end items-center w-100 mt-4">
+              <button role="button" disable id="add-data" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tambah Data</button>
+            </div>
+        </div>`,
+      bg: 'bg-secondary',
+    })
+
+    const modal = document.getElementById('modal-tambah-data-siswa')
+    this._addGenderOption = 'L'
+
+    const _selectGenderOption = (optionButton, optionId) => {
+      const selectedClass = 'mx-2 my-auto text-sm bg-secondary text-white p-1 rounded-lg'
+      const nonSelectedClass = 'mx-2 my-auto text-sm bg-gray-200 text-gray-200 p-1 rounded-lg'
+      optionButton.forEach((option) => {
+        const optionIcon = option.querySelector('div[data-option]')
+        if (option.id === optionId) {
+          optionIcon.className = selectedClass
+        } else {
+          optionIcon.className = nonSelectedClass
+        }
+      })
+      this._addGenderOption = optionId.replace('-option', '')[0].toUpperCase()
+    }
+
+    const confirmAddDataButton = document.getElementById('add-data')
+    const editableForm = document.querySelectorAll('input[data-rule], textarea[data-rule]')
+    const genderOptionButtons = document.querySelectorAll('#laki-option, #perempuan-option')
+    const [nisn, nama, alamat] = editableForm
+
+    formValidation.init({
+      formInputs: editableForm,
+      submitButton: confirmAddDataButton,
+    })
+
+    let genderId = ''
+    genderId = 'laki-option'
+    if (this._addGenderOption === 'P') genderId = 'perempuan-option'
+    _selectGenderOption(genderOptionButtons, genderId)
+
+    confirmAddDataButton.addEventListener('click', async () => {
+      await Swal.fire({
+        icon: 'warning',
+        text: 'Tekan pilihan untuk mengkonfirmasi',
+        title: 'Tambahkan Data?',
+        showCancelButton: true,
+        confirmButtonText: 'Tambah',
+        cancelButtonText: 'Jangan',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          try {
+            await this._addData(nisn.value, nama.value, alamat.value, this._addGenderOption)
+            modal.remove()
+            this._renderDataTable()
+          } catch (error) {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`,
+            )
+          }
+        },
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-success',
+          cancelButton: 'btn-sweetalert bg-failed',
+        },
+        buttonsStyling: false,
+      })
+    })
+
+    genderOptionButtons.forEach((option) => {
+      option.addEventListener('click', () => {
+        _selectGenderOption(genderOptionButtons, option.id)
       })
     })
   },
@@ -1134,6 +1325,46 @@ const DataList = {
         buttonsStyling: false,
       })
     } catch (error) {
+      await Swal.fire({
+        icon: 'error',
+        text: 'Periksa internet kamu dan coba lagi',
+        title: 'Terjadi kesalahan',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    }
+  },
+
+  // eslint-disable-next-line camelcase
+  async _addData(nisn, nama, alamat, jenis_kelamin) {
+    try {
+      const newData = {
+        nisn,
+        nama,
+        alamat,
+        jenis_kelamin,
+      }
+
+      const response = await APIData.createDataSiswa(newData)
+      console.log(response)
+
+      Swal.fire({
+        icon: response.status,
+        text: response.message,
+        title: response.title,
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    } catch (error) {
+      console.log(error)
       await Swal.fire({
         icon: 'error',
         text: 'Periksa internet kamu dan coba lagi',

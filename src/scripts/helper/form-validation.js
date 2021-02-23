@@ -177,7 +177,6 @@ const formValidation = {
         this._formInputs.forEach((thisInput) => {
           if (thisInput.className.includes(...successInputClasss)) successInputNumber++
         })
-        console.log(successInputNumber)
         if (successInputNumber === this._formInputs.length) {
           this._submitButton.disabled = false
         } else {
