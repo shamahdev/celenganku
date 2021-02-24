@@ -9,7 +9,7 @@ const Admin = {
     <div class="flex flex-col-reverse md:flex-row">
       <div class="bg-secondary flex-1 h-screen">
         <div class="relative md:h-screen flex flex-col">
-          <img id="jumbotron" class="h-64 md:h-full object-contain" src="./images/login-admin-cover.png">
+          <img id="jumbotron" class="animate__animated animate__bounceIn h-64 md:h-full object-contain" src="./images/login-admin-cover.png">
           <div class="absolute left-0 right-0 bottom-0 mb-4 mx-auto flex flex-1 flex-col">
             <p class="text-white text-center">Apa itu Celenganku?</p>
             <svg class="w-8 h-8 text-white mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"

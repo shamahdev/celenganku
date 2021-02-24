@@ -1,3 +1,4 @@
+/* eslint-disable no-new */
 const EventHelper = {
   triggerEvent: (el, type) => {
     // IE9+ and other modern browsers
@@ -67,6 +68,24 @@ const EventHelper = {
     }
 
     document.body.removeChild(textArea)
+  },
+
+  animateCSSEvent: (element, animation, prefix = 'animate__') => {
+    new Promise((resolve, reject) => {
+      const animationName = `${prefix}${animation}`
+      const node = document.querySelector(element)
+
+      node.classList.add(`${prefix}animated`, animationName)
+
+      // When the animation ends, we clean the classes and resolve the Promise
+      function handleAnimationEnd(event) {
+        event.stopPropagation()
+        node.classList.remove(`${prefix}animated`, animationName)
+        resolve('Animation ended')
+      }
+
+      node.addEventListener('animationend', handleAnimationEnd, { once: true })
+    })
   },
 }
 

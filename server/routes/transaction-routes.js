@@ -1,14 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import TransactionController from '../controllers/transaction-controller'
-import AuthController from '../controllers/auth-controller'
 
 const transactionRoutes = express.Router()
-
 transactionRoutes.use(bodyParser.json())
 
 // transactionRoutes.use(AuthController.requireAuth)
-
+transactionRoutes.route('/finish')
+  .get(TransactionController.finishPayment)
 transactionRoutes.route('/create')
   .post(TransactionController.createTransaction)
 transactionRoutes.route('/:id')

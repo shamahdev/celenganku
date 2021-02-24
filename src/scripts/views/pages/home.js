@@ -2,6 +2,7 @@
 import Swal from 'sweetalert2'
 import APIData from '../../data/api-data'
 import formValidation from '../../helper/form-validation'
+import EventHelper from '../../helper/event-helper'
 
 const Home = {
   async render() {
@@ -11,8 +12,8 @@ const Home = {
         <div class="relative md:h-screen flex flex-col">
           <img id="jumbotron" class="h-64 md:h-full object-cover" src="./images/login-cover.png">
           <div class="absolute left-0 right-0 bottom-0 mb-4 mx-auto flex flex-1 flex-col">
-            <p class="text-white text-center">Apa itu Celenganku?</p>
-            <svg class="w-8 h-8 text-white mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            <p class="text-white text-center mb-1">Apa itu Celenganku?</p>
+            <svg class="w-8 h-8 text-white mx-auto animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
@@ -21,7 +22,7 @@ const Home = {
       </div>
       <div class="flex flex-1 h-full my-24 md:my-auto">
         <div class="flex flex-col w-8/12 mx-auto">
-          <img class="w-64 mb-16" alt="Celenganku Wordmark" src="./images/celenganku-logo.png">
+          <img class="w-64 mb-16 md:mt-12" alt="Celenganku Wordmark" src="./images/celenganku-logo.png">
           <div class="flex flex-row mb-6">
             <button id="login-option" disabled
               class="w-max bg-primary text-white py-3 px-10 rounded-lg rounded-r-none disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-default">Masuk</button>
@@ -190,6 +191,7 @@ const Home = {
   },
 
   _renderChangeOption(optionButton, optionId) {
+    EventHelper.animateCSSEvent('#jumbotron', 'bounceIn')
     optionButton.forEach((option) => {
       if (option.id === optionId) {
         option.disabled = true

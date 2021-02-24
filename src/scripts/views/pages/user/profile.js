@@ -56,8 +56,8 @@ const Profile = {
                       <input id="input-email" name="Email" disabled value="" type="email"
                         data-rule="required no-space email"
                         class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
-                      <p class="mt-4">Password</p>
-                      <input id="input-password" name="Password" disabled value="" type="password"
+                      <p class="mb-2 mt-4">Ubah Password</p>
+                      <input id="input-password" name="Password" placeholder="Isi untuk mengubah password..." disabled value="" type="password"
                         data-rule="required no-space"
                         class="editable block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
                     </div>
@@ -116,7 +116,7 @@ const Profile = {
     const photoProfile = document.getElementById('photo-profile')
     allInputForms.forEach((input) => {
       const inputValue = input.id.replace('input-', '')
-      input.value = user[inputValue]
+      if (inputValue !== 'password') input.value = user[inputValue]
     })
 
     photoProfile.src = user.url_foto || `http://ui-avatars.com/api/?name=${user.nama}&background=fff`
@@ -148,7 +148,6 @@ const Profile = {
     // Input Temp
     const photoProfileTemp = photoProfile.src
     const emailTemp = email.value
-    const passwordTemp = password.value
     const nomorTeleponTemp = nomorTelepon.value
 
     if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
@@ -228,7 +227,7 @@ const Profile = {
       }
       photoProfile.src = photoProfileTemp
       email.value = emailTemp
-      password.value = passwordTemp
+      password.value = ''
       nomorTelepon.value = nomorTeleponTemp
       if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
 
@@ -290,10 +289,11 @@ const Profile = {
     try {
       const newData = {
         email,
-        password,
         no_telepon: noTelepon,
         url_foto: photoProfileTemp,
       }
+
+      if (password !== '') newData.password = password
 
       if (newPhoto !== '') {
         if (photoProfileTemp !== '' && !(photoProfileTemp.includes('ui-avatars.com'))) {

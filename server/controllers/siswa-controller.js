@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import bcrypt from 'bcrypt'
 import BaseController from './base-controller'
 import Siswa from '../models/siswa-model'
 import { db } from '../global/firebase'
@@ -14,9 +15,7 @@ const SiswaController = {
   deleteDataSiswa: BaseController.deleteOne(Siswa.akun, Siswa.profil, Siswa.data, 'transaksi'),
   createAkunSiswa: async (req, res, next) => {
     try {
-      const {
-        nisn, email, password, no_telepon, url_foto,
-      } = req.body
+      const { nisn, email, password } = req.body
 
       // Check if req.body is not empty
       if (!nisn || !email || !password) {
@@ -28,6 +27,11 @@ const SiswaController = {
           response: req.body,
         })
       }
+
+      let encryptedPassword = password
+      bcrypt.hash(encryptedPassword, 10, (err, encrypted) => {
+        encryptedPassword = encrypted
+      })
 
       // Check if NISN is registered
       const data = await Siswa.data.doc(nisn).get()
@@ -54,14 +58,14 @@ const SiswaController = {
           await Siswa.akun.doc(nisn).set({
             nisn,
             email,
-            password,
+            password: encryptedPassword,
             saldo: 0,
           })
 
           await Siswa.profil.doc(nisn).set({
             nisn,
-            no_telepon: no_telepon || '',
-            url_foto: url_foto || '',
+            no_telepon: '',
+            url_foto: '',
           })
         }
       }
@@ -71,14 +75,10 @@ const SiswaController = {
       res.status(200).json({
         status: 'success',
         title: 'Registrasi Berhasil',
-        message: 'Akun berhasil dibuat, silahkan login',
+        message: 'Akun berhasil dibuat',
         error: false,
         response: req.body,
       })
-      return {
-        ...req.body,
-        error: false,
-      }
     } catch (error) {
       console.log(error)
       res.status(502).json({

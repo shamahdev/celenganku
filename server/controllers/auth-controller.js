@@ -2,9 +2,9 @@
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 import dotenv from 'dotenv'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import Siswa from '../models/siswa-model'
-import SiswaController from './siswa-controller'
 import { db, storage } from '../global/firebase'
 
 global.XMLHttpRequest = require('xhr2')
@@ -61,6 +61,10 @@ const AuthController = {
   adminLogin: async (req, res, next) => {
     try {
       const { id_admin, password } = req.body
+      let comparePassword = password
+      bcrypt.hash(comparePassword, 10, (err, encrypted) => {
+        comparePassword = encrypted
+      })
 
       if (!id_admin || !password) {
         return res.status(404).json({
@@ -71,7 +75,7 @@ const AuthController = {
         })
       }
 
-      const account = await Admin.where('id_admin', '==', id_admin).where('password', '==', password).get()
+      const account = await Admin.doc(id_admin).get()
       if (account.empty) {
         res.status(401).json({
           status: 'error',
@@ -82,16 +86,31 @@ const AuthController = {
         })
       }
 
-      const token = createToken(id_admin)
-      req.body.password = undefined
+      const accountData = account.data()
 
-      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-      res.status(200).json({
-        status: 'success',
-        title: 'Login Berhasil',
-        message: 'Mengalihkan ke halaman dashboard',
-        error: false,
-        response: req.body,
+      bcrypt.compare(comparePassword, accountData.password, (err, result) => {
+        console.log(comparePassword)
+        if (result === true) {
+          const token = createToken(id_admin)
+          req.body.password = undefined
+
+          res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+          res.status(200).json({
+            status: 'success',
+            title: 'Login Berhasil',
+            message: 'Mengalihkan ke halaman dashboard',
+            error: false,
+            response: req.body,
+          })
+        } else {
+          res.status(502).json({
+            status: 'error',
+            error: true,
+            title: 'Login Gagal',
+            message: 'ID Admin atau Password salah',
+            response: req.body,
+          })
+        }
       })
     } catch (err) {
       next(err)
@@ -101,6 +120,10 @@ const AuthController = {
   login: async (req, res, next) => {
     try {
       const { nisn, password } = req.body
+      let comparePassword = password
+      bcrypt.hash(comparePassword, 10, (err, encrypted) => {
+        comparePassword = encrypted
+      })
 
       if (!nisn || !password) {
         return res.status(404).json({
@@ -111,27 +134,41 @@ const AuthController = {
         })
       }
 
-      const account = await Siswa.akun.where('nisn', '==', nisn).where('password', '==', password).get()
-      if (account.empty) {
-        res.status(401).json({
+      const account = await Siswa.akun.doc(nisn).get()
+      if (!account.exists) {
+        res.status(502).json({
           status: 'error',
           error: true,
           title: 'Login Gagal',
-          message: 'NISN atau Password salah',
+          message: 'Akun dengan NISN ini tidak terdaftar',
           response: req.body,
         })
       }
 
-      const token = createToken(nisn)
-      req.body.password = undefined
+      const accountData = account.data()
 
-      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-      res.status(200).json({
-        status: 'success',
-        title: 'Login Berhasil',
-        message: 'Mengalihkan ke halaman dashboard',
-        error: false,
-        response: req.body,
+      bcrypt.compare(comparePassword, accountData.password, (err, result) => {
+        if (result === true) {
+          const token = createToken(nisn)
+          req.body.password = undefined
+
+          res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+          res.status(200).json({
+            status: 'success',
+            title: 'Login Berhasil',
+            message: 'Mengalihkan ke halaman dashboard',
+            error: false,
+            response: req.body,
+          })
+        } else {
+          res.status(502).json({
+            status: 'error',
+            error: true,
+            title: 'Login Gagal',
+            message: 'NISN atau Password salah',
+            response: req.body,
+          })
+        }
       })
     } catch (err) {
       next(err)
@@ -141,20 +178,6 @@ const AuthController = {
   logout: (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 })
     res.redirect('/')
-  },
-  register: async (req, res, next) => {
-    const { nisn } = await SiswaController.createAkunSiswa(req, res, next)
-
-    const token = createToken(nisn)
-    req.body.password = undefined
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-    res.status(200).json({
-      status: 'success',
-      title: 'Daftar Berhasil',
-      message: 'Mengalihkan ke halaman dashboard',
-      error: false,
-      response: req.body,
-    })
   },
 
   retrieveToken: async (req, res, next) => {

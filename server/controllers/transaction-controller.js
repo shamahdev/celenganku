@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import * as firebase from 'firebase/app'
 import BaseController from './base-controller'
+import Siswa from '../models/siswa-model'
 import { db } from '../global/firebase'
 
 const Transaction = db.collection('transaksi')
@@ -165,6 +166,57 @@ const TransactionController = {
         token: token || transactionData.token,
         status_transaksi: status_transaksi || transactionData.status_transaksi,
       })
+
+      res.status(200).json({
+        status: 'success',
+        error: false,
+        response: req.body,
+      })
+      return { success: true }
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
+    }
+  },
+
+  finishPayment: async (req, res) => {
+    try {
+      console.log(req.query.id)
+      const transactionToken = req.query.id
+      const snapshot = await Transaction.where('token', '==', transactionToken).get()
+      if (snapshot.empty) {
+        res.status(401).json({
+          status: 'failed',
+          error: true,
+          message: 'No transaction found from that token',
+          response: req.query,
+        })
+      } else {
+        let transaction = ''
+        snapshot.forEach((doc) => {
+          transaction = doc.data()
+          doc.ref.update({
+            status_transaksi: 'selesai',
+          })
+        })
+        const account = await Siswa.akun.doc(transaction.nisn).get()
+        const accountData = account.data()
+        const { nominal, jenis_transaksi } = transaction
+
+        let newSaldo = 0
+        if (jenis_transaksi === 'pemasukan') newSaldo = +accountData.saldo + +nominal
+        else newSaldo = +accountData.saldo - +nominal
+
+        // Check for existed document
+        await Siswa.akun.doc(transaction.nisn).update({
+          saldo: newSaldo,
+        })
+        res.redirect('/')
+      }
 
       res.status(200).json({
         status: 'success',
