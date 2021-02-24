@@ -24,6 +24,7 @@ const Routes = {
   admin: {
     '/': AdminDashboard,
     '/list': DataList,
+    '/list/:id': DataList,
     '/report/:id': DataReport,
   },
 }

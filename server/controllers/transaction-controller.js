@@ -74,7 +74,7 @@ const TransactionController = {
   createTransaction: async (req, res, next) => {
     try {
       const {
-        nominal, metode_pembayaran, jenis_transaksi, nisn,
+        nominal, metode_pembayaran, jenis_transaksi, nisn, id_admin,
       } = req.body
 
       // Check if req.body is not empty
@@ -115,6 +115,7 @@ const TransactionController = {
       const time = firebase.firestore.Timestamp.fromDate(dateCreated)
       const transactionResponse = {
         id_transaksi,
+        id_admin,
         nominal,
         metode_pembayaran,
         jenis_transaksi,
@@ -157,17 +158,13 @@ const TransactionController = {
           response: req.body,
         })
       }
-
       const transactionData = transaction.data()
 
-      const updateData = {
+      await Transaction.doc(id_transaksi).update({
         id_admin: id_admin || transactionData.id_admin,
-        status_transaksi: status_transaksi || transactionData.status_transaksi,
         token: token || transactionData.token,
-      }
-
-      // Check for existed document
-      await Transaction.doc(id_transaksi).update(updateData)
+        status_transaksi: status_transaksi || transactionData.status_transaksi,
+      })
 
       res.status(200).json({
         status: 'success',

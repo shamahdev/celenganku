@@ -98,10 +98,6 @@ const Admin = {
         buttonsStyling: false,
       })
       if (loginResponse.status === 'success') {
-        loginFormInputs.forEach((input) => {
-          input.value = ''
-          input.classList.remove('border-green-500', 'border-opacity-50', 'focus:border-green-500')
-        })
         window.location.hash = ''
         window.dispatchEvent(new HashChangeEvent('hashchange'))
       }

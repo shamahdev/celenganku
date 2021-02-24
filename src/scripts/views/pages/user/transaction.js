@@ -131,6 +131,7 @@ const Transaction = {
       try {
         const transactionData = {
           nisn: this._userId,
+          id_admin: '',
           nominal: nominalInput.value,
           jenis_transaksi: this._transactionOption,
           metode_pembayaran: this._paymentOption,
@@ -176,9 +177,10 @@ const Transaction = {
     try {
       const response = await APIData.getMidtransToken(data)
 
-      await APIData.updateTransaction(dataResponse.id_transaksi, {
+      const update = await APIData.updateTransaction(dataResponse.id_transaksi, {
         token: response.token,
       })
+      console.log(update)
       // eslint-disable-next-line no-undef
       snap.pay(response.token, {
         onSuccess: async () => {

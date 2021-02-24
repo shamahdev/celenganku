@@ -16,7 +16,15 @@ button#settings:hover~#settings-dropdown {
     display: block !important;
 }
 
+button#settings:focus~#settings-dropdown {
+    display: block !important;
+}
+
 #settings-dropdown:hover {
+    display: block !important;
+}
+
+#settings-dropdown:focus {
     display: block !important;
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable max-len */
 import Swal from 'sweetalert2'
 import StringFormater from '../../../helper/string-formater'
@@ -5,6 +6,7 @@ import APIData from '../../../data/api-data'
 import formValidation from '../../../helper/form-validation'
 import EventHelper from '../../../helper/event-helper'
 import ModalInitializer from '../../../utils/modal-initializer'
+import UrlParser from '../../../routes/urlparser'
 
 const DataList = {
   async render() {
@@ -49,7 +51,9 @@ const DataList = {
   },
 
   async afterRender() {
-    // Remove Preloders
+    const url = UrlParser.parseActiveUrlWithoutCombiner()
+    this._profileRedirectID = url.id || ''
+
     this._pageContent = document.getElementById('page-content')
     this._totalTransaction = 0
     this._tableOption = 'account'
@@ -80,12 +84,13 @@ const DataList = {
       option.addEventListener('click', async () => {
         _selectTableOption(option.id)
 
-        if (this._tableOption == 'data') await this._renderDataTable()
+        if (this._tableOption === 'data') await this._renderDataTable()
         else await this._renderAccountTable()
       })
     })
 
-    await this._renderAccountTable()
+    if (this._profileRedirectID !== '') await this._initEditProfile(this._profileRedirectID)
+    else await this._renderAccountTable()
   },
 
   _createAccountModalInit(nisn = null) {
