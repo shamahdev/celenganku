@@ -134,7 +134,9 @@ const DataReport = {
     const tableElement = document.getElementById('transaction-table')
     const tableBody = tableElement.querySelector('tbody')
     const unsortedTransactionData = await APIData.getTransaksiSiswa(this._userId)
-    const transactionData = sortBy(unsortedTransactionData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
+
+    const filteredData = unsortedTransactionData.data.filter((transaction) => transaction.status_transaksi === 'SELESAI')
+    const transactionData = sortBy(filteredData, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     if (transactionData.length === 0) {
       Swal.fire({
