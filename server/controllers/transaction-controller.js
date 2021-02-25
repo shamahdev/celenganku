@@ -185,24 +185,16 @@ const TransactionController = {
 
   finishPayment: async (req, res) => {
     try {
-      console.log(req.query.id)
-      const transactionToken = req.query.id
-      const snapshot = await Transaction.where('token', '==', transactionToken).get()
-      if (snapshot.empty) {
-        res.status(401).json({
-          status: 'failed',
-          error: true,
-          message: 'No transaction found from that token',
-          response: req.query,
+      const transactionId = req.query.order_id || ''
+
+      if (transactionId !== '') {
+        const response = await Transaction.doc(transactionId).get()
+        const transaction = response.data()
+
+        await Transaction.doc(transactionId).update({
+          status_transaksi: 'selesai',
         })
-      } else {
-        let transaction = ''
-        snapshot.forEach((doc) => {
-          transaction = doc.data()
-          doc.ref.update({
-            status_transaksi: 'selesai',
-          })
-        })
+
         const account = await Siswa.akun.doc(transaction.nisn).get()
         const accountData = account.data()
         const { nominal, jenis_transaksi } = transaction
@@ -216,14 +208,9 @@ const TransactionController = {
           saldo: newSaldo,
         })
         res.redirect('/')
+      } else {
+        res.redirect('/')
       }
-
-      res.status(200).json({
-        status: 'success',
-        error: false,
-        response: req.body,
-      })
-      return { success: true }
     } catch (error) {
       console.log(error)
       res.status(502).json({

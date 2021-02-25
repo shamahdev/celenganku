@@ -7,7 +7,7 @@ const StringFormater = {
     return cash
   },
   convertCasttoInt: (cash) => {
-    let integer = cash.replace('.', '')
+    let integer = cash.replaceAll('.', '')
     // eslint-disable-next-line radix
     integer = +integer
     return integer

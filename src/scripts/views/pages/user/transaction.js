@@ -171,7 +171,7 @@ const Transaction = {
         email: this._userAccount.email,
       },
       callbacks: {
-        finish: '/',
+        finish: 'api/transaction/finish',
       },
     }
     try {
@@ -190,12 +190,11 @@ const Transaction = {
           await APIData.updateSaldo(dataResponse.nisn, dataResponse.nominal, dataResponse.jenis_transaksi)
           window.location.hash = '#'
         },
-        onPending() {
-        /* You may add your own implementation here */
+        onPending(result) {
+          console.log(result)
           window.location.hash = '#'
         },
         onError(result) {
-          // eslint-disable-next-line no-undef
           console.log(result)
           // eslint-disable-next-line no-undef
           snap.hide()

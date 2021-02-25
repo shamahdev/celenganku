@@ -16,27 +16,17 @@ const formValidation = {
       formInputs.forEach((input) => {
         this._showPasswordToggle(input)
         if (this._isEdit) this._setTemp(input)
-        input.addEventListener('keyup', (event) => {
+        input.addEventListener('input', (event) => {
           event.preventDefault()
           this._validateInput(input)
-        })
-        input.addEventListener('paste', () => {
-          setTimeout(() => {
-            this._validateInput(input)
-          }, 100)
         })
       })
     } else {
       this._showPasswordToggle(formInputs)
       if (this._isEdit) this._setTemp(formInputs)
-      formInputs.addEventListener('keyup', (event) => {
+      formInputs.addEventListener('input', (event) => {
         event.preventDefault()
         this._validateInput(formInputs)
-      })
-      formInputs.addEventListener('paste', () => {
-        setTimeout(() => {
-          this._validateInput(formInputs)
-        }, 100)
       })
     }
   },

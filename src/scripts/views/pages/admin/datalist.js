@@ -330,10 +330,20 @@ const DataList = {
           const result = await Swal.fire({
             icon: 'warning',
             text: 'Tekan pilihan untuk mengkonfirmasi',
-            title: 'Hapus akun?',
+            title: 'Hapus?',
             showCancelButton: true,
-            confirmButtonText: 'Hapus',
+            confirmButtonText: 'Batalkan',
             cancelButtonText: 'Jangan',
+            showLoaderOnConfirm: true,
+            preConfirm: async () => {
+              try {
+                await APIData.deleteSiswa(user.nisn)
+              } catch (error) {
+                Swal.showValidationMessage(
+                  `Request failed: ${error}`,
+                )
+              }
+            },
             customClass: {
               popup: 'popup-sweetalert',
               confirmButton: 'btn-sweetalert bg-success',
@@ -343,8 +353,6 @@ const DataList = {
           })
 
           if (result.isConfirmed) {
-            const response = await APIData.deleteSiswa(user.nisn)
-            // console.log(response)
             this._renderAccountTable()
           }
         })
@@ -691,7 +699,7 @@ const DataList = {
         setTimeout(() => {
           modalContent.innerHTML = /* html */`
         <p class="mb-2 text-gray-800">NISN</p>
-              <input name="NISN" disabled value="${user.nisn}" data-rule="required"
+              <input name="NISN" disabled value="${user.nisn}" data-rule="required number-must-10"
                 class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 disabled:text-gray-500 text-gray-800">
                 <p class="mb-2 text-gray-800">Nama Lengkap</p>
               <input name="Nama Lengkap" disabled value="${user.nama}" data-rule="required"
@@ -1037,8 +1045,8 @@ const DataList = {
                       <input id="input-email" name="Email" disabled value="" type="email"
                         data-rule="required no-space email"
                         class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
-                      <p class="mt-4">Password</p>
-                      <input id="input-password" name="Password" disabled value="" type="password"
+                      <p class="mb-2 mt-4"></p>
+                      <input id="input-password" name="Password" disabled value="" placeholder="Isi untnuk mengubah password..." type="password"
                         data-rule="required no-space digit-more-than-6"
                         class="editable block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
                     </div>
@@ -1129,7 +1137,6 @@ const DataList = {
     // Input Temp
     const photoProfileTemp = photoProfile.src
     const emailTemp = email.value
-    const passwordTemp = password.value
     const nomorTeleponTemp = nomorTelepon.value
 
     if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
@@ -1271,10 +1278,11 @@ const DataList = {
     try {
       const newData = {
         email,
-        password,
         no_telepon: noTelepon,
         url_foto: photoProfileTemp,
       }
+
+      if (password !== '') newData.password = password
 
       if (newPhoto !== '') {
         if (photoProfileTemp !== '' && !(photoProfileTemp.includes('ui-avatars.com'))) {

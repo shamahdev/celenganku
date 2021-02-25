@@ -43,7 +43,14 @@ const ModalInitializer = {
   async _createEvent() {
     window.onmousedown = (event) => {
       if (event.target.id.indexOf(`modal-${SlugParser.parseToSlug(this._title)}`) >= 0) {
-        event.target.remove()
+        const thisModalElement = document.querySelector(`#modal-${SlugParser.parseToSlug(this._title)} div`)
+        thisModalElement.classList.remove('animate__zoomIn')
+        thisModalElement.classList.add('animate__zoomOut')
+        thisModalElement.style.setProperty('--animate-duration', '0.25s')
+
+        thisModalElement.addEventListener('animationend', () => {
+          event.target.remove()
+        })
       }
     }
     const formButtons = document.querySelectorAll(`button[data-modal="${this._title}"], a[data-modal="${this._title}"]`)

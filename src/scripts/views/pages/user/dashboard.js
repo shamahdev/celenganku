@@ -59,8 +59,8 @@ const Dashboard = {
 
                 <div id="deposit-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Pemasukan Bulan ini</p>
-                  <p id="monthly-withdraw" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 800.000</p>
-                  <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                  <p id="monthly-deposit" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold"></p>
+                  <p id="weekly-deposit" class="font-bold text-sm text-gray-400 mt-3" href=""></p>
                 </div>
               </div>
             </div>
@@ -73,8 +73,8 @@ const Dashboard = {
 
                 <div id="withdraw-card" class="hidden flex flex-col flex-1">
                   <p class="-mb-2 text-gray-700">Penarikan Bulan ini</p>
-                  <p id="monthly-deposit" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold">Rp 80.000</p>
-                  <p id="weekly-deposit" class="font-bold text-sm text-gray-400 mt-3" href="">RP 100.000 MINGGU INI</p>
+                  <p id="monthly-withdraw" class="text-gray-800 text-4xl md:text-2xl lg:text-4xl font-bold"></p>
+                  <p id="weekly-withdraw" class="font-bold text-sm text-gray-400 mt-3" href=""></p>
                 </div>
               </div>
             </div>
@@ -175,14 +175,14 @@ const Dashboard = {
       if (transaction.status_transaksi.toLowerCase() === 'selesai') {
         if (timeStamp.getMonth() === new Date().getMonth()) {
           if (jenisTransaksi.toLowerCase() === 'pemasukan') {
+            this._deposit += StringFormater.convertCasttoInt(transaction.nominal)
+            if (DateFormater.isDateInThisWeek(timeStamp)) {
+              this._weeklydeposit += StringFormater.convertCasttoInt(transaction.nominal)
+            }
+          } else {
             this._withdraw += StringFormater.convertCasttoInt(transaction.nominal)
             if (DateFormater.isDateInThisWeek(timeStamp)) {
               this._weeklyWithdraw += StringFormater.convertCasttoInt(transaction.nominal)
-            }
-          } else {
-            this._deposit += StringFormater.convertCasttoInt(transaction.nominal)
-            if (DateFormater.isDateInThisWeek(timeStamp)) {
-              this._weeklyDeposit += StringFormater.convertCasttoInt(transaction.nominal)
             }
           }
         }
@@ -277,21 +277,12 @@ const Dashboard = {
         showButton.addEventListener('click', () => {
           if (transaction.metode_pembayaran.toLowerCase() === 'daring' && transaction.status_transaksi.toLowerCase() === 'pembayaran') {
             snap.pay(transaction.token.toLowerCase(), {
-              onSuccess: async (result) => {
-              /* You may add your own implementation here */
-                console.log(result)
-                const response = await APIData.updateTransaction(transaction.id_transaksi, {
-                  status_transaksi: 'selesai',
-                })
+              onSuccess: (result) => {
+              },
+              onPending(response) {
                 console.log(response)
-                window.dispatchEvent(new HashChangeEvent('hashchange'))
-              },
-              onPending() {
                 /* You may add your own implementation here */
-                // window.location.hash = '#'
-              },
-              onClose() {
-                //
+                window.location.href = response.finish_redirect_url
               },
             })
             return true

@@ -61,10 +61,6 @@ const AuthController = {
   adminLogin: async (req, res, next) => {
     try {
       const { id_admin, password } = req.body
-      let comparePassword = password
-      bcrypt.hash(comparePassword, 10, (err, encrypted) => {
-        comparePassword = encrypted
-      })
 
       if (!id_admin || !password) {
         return res.status(404).json({
@@ -87,31 +83,39 @@ const AuthController = {
       }
 
       const accountData = account.data()
+      accountData.password = accountData.password || ''
 
-      bcrypt.compare(comparePassword, accountData.password, (err, result) => {
-        console.log(comparePassword)
-        if (result === true) {
-          const token = createToken(id_admin)
-          req.body.password = undefined
+      if (accountData.password === '') {
+        res.status(502).json({
+          status: 'error',
+          error: true,
+          title: 'Login Gagal',
+          message: 'ID Admin atau Password salah',
+          response: req.body,
+        })
+      }
 
-          res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-          res.status(200).json({
-            status: 'success',
-            title: 'Login Berhasil',
-            message: 'Mengalihkan ke halaman dashboard',
-            error: false,
-            response: req.body,
-          })
-        } else {
-          res.status(502).json({
-            status: 'error',
-            error: true,
-            title: 'Login Gagal',
-            message: 'ID Admin atau Password salah',
-            response: req.body,
-          })
-        }
-      })
+      const match = await bcrypt.compare(password, accountData.password)
+      if (match) {
+        const token = createToken(id_admin)
+        req.body.password = undefined
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+        res.status(200).json({
+          status: 'success',
+          title: 'Login Berhasil',
+          message: 'Mengalihkan ke halaman dashboard',
+          error: false,
+          response: req.body,
+        })
+      } else {
+        res.status(502).json({
+          status: 'error',
+          error: true,
+          title: 'Login Gagal',
+          message: 'ID Admin atau Password salah',
+          response: req.body,
+        })
+      }
     } catch (err) {
       next(err)
     }
@@ -120,10 +124,6 @@ const AuthController = {
   login: async (req, res, next) => {
     try {
       const { nisn, password } = req.body
-      let comparePassword = password
-      bcrypt.hash(comparePassword, 10, (err, encrypted) => {
-        comparePassword = encrypted
-      })
 
       if (!nisn || !password) {
         return res.status(404).json({
@@ -146,30 +146,30 @@ const AuthController = {
       }
 
       const accountData = account.data()
+      accountData.password = accountData.password || ''
 
-      bcrypt.compare(comparePassword, accountData.password, (err, result) => {
-        if (result === true) {
-          const token = createToken(nisn)
-          req.body.password = undefined
+      const match = await bcrypt.compare(password, accountData.password)
+      if (match) {
+        const token = createToken(nisn)
+        req.body.password = undefined
 
-          res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
-          res.status(200).json({
-            status: 'success',
-            title: 'Login Berhasil',
-            message: 'Mengalihkan ke halaman dashboard',
-            error: false,
-            response: req.body,
-          })
-        } else {
-          res.status(502).json({
-            status: 'error',
-            error: true,
-            title: 'Login Gagal',
-            message: 'NISN atau Password salah',
-            response: req.body,
-          })
-        }
-      })
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
+        res.status(200).json({
+          status: 'success',
+          title: 'Login Berhasil',
+          message: 'Mengalihkan ke halaman dashboard',
+          error: false,
+          response: req.body,
+        })
+      } else {
+        res.status(502).json({
+          status: 'error',
+          error: true,
+          title: 'Login Gagal',
+          message: 'NISN atau Password salah',
+          response: req.body,
+        })
+      }
     } catch (err) {
       next(err)
     }
