@@ -29,9 +29,8 @@ const SiswaController = {
       }
 
       let encryptedPassword = password
-      bcrypt.hash(encryptedPassword, 10, (err, encrypted) => {
-        encryptedPassword = encrypted
-      })
+      const encrypted = await bcrypt.hash(encryptedPassword, 10)
+      encryptedPassword = encrypted
 
       // Check if NISN is registered
       const data = await Siswa.data.doc(nisn).get()
@@ -156,11 +155,16 @@ const SiswaController = {
         })
       }
 
+      req.body.password = req.body.password || ''
+
       const accountData = account.data()
+
+      let encryptedPassword = req.body.password
+      if (encryptedPassword !== '') encryptedPassword = await bcrypt.hash(encryptedPassword, 10)
 
       const updateData = {
         email: req.body.email || accountData.email,
-        password: req.body.password || accountData.password,
+        password: encryptedPassword || accountData.password,
         no_telepon: req.body.no_telepon || accountData.no_telepon,
         url_foto: req.body.url_foto || accountData.url_foto,
       }

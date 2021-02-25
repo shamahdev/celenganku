@@ -1045,7 +1045,7 @@ const DataList = {
                       <input id="input-email" name="Email" disabled value="" type="email"
                         data-rule="required no-space email"
                         class="editable mb-2 block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
-                      <p class="mb-2 mt-4"></p>
+                      <p class="mb-2 mt-4">Ubah Password</p>
                       <input id="input-password" name="Password" disabled value="" placeholder="Isi untnuk mengubah password..." type="password"
                         data-rule="required no-space digit-more-than-6"
                         class="editable block px-5 py-3 rounded-lg w-full bg-white disabled:text-gray-500">
@@ -1104,7 +1104,7 @@ const DataList = {
     })
     allInputForms.forEach((input) => {
       const inputValue = input.id.replace('input-', '')
-      input.value = user[inputValue]
+      if (inputValue !== 'password') input.value = user[inputValue]
     })
 
     photoProfile.src = user.url_foto || `http://ui-avatars.com/api/?name=${user.nama}&background=fff`
@@ -1216,7 +1216,7 @@ const DataList = {
       }
       photoProfile.src = photoProfileTemp
       email.value = emailTemp
-      password.value = passwordTemp
+      password.value = ''
       nomorTelepon.value = nomorTeleponTemp
       if (photoProfileTemp.includes('ui-avatars.com')) deletePhotoButton.disabled = true
 
