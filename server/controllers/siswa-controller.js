@@ -22,7 +22,7 @@ const SiswaController = {
         return res.status(404).json({
           status: 'failed',
           error: true,
-          title: 'Daftar Gagal',
+          title: 'Registrasi Gagal',
           message: 'Please provide NISN, Email, or password',
           response: req.body,
         })

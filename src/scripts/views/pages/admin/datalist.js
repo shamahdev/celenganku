@@ -131,7 +131,10 @@ const DataList = {
       submitButton: registerSubmit,
     })
 
-    if (nisn !== null) EventHelper.triggerEvent(nisnInput, 'keyup')
+    if (nisn !== null) {
+      EventHelper.triggerEvent(nisnInput, 'input')
+      nisnInput.disabled = true
+    }
 
     registerSubmit.addEventListener('click', async () => {
       const registerData = {
@@ -578,6 +581,15 @@ const DataList = {
             showCancelButton: true,
             confirmButtonText: 'Hapus',
             cancelButtonText: 'Jangan',
+            preConfirm: async () => {
+              try {
+                await APIData.deleteDataSiswa(user.nisn)
+              } catch (error) {
+                Swal.showValidationMessage(
+                  `Request failed: ${error}`,
+                )
+              }
+            },
             customClass: {
               popup: 'popup-sweetalert',
               confirmButton: 'btn-sweetalert bg-success',
@@ -587,8 +599,6 @@ const DataList = {
           })
 
           if (result.isConfirmed) {
-            const response = await APIData.deleteDataSiswa(user.nisn)
-            console.log(response)
             this._renderDataTable()
           }
         })
@@ -879,7 +889,7 @@ const DataList = {
       /* html */`<div class="px-10 py-6">
           <div id="modal-content">
           <p class="mb-2 text-gray-800">NISN</p>
-            <input name="NISN" value="" data-rule="required number-must-10"
+            <input name="NISN" value="" type="number" data-rule="required number-must-10"
               class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 disabled:text-gray-500 text-gray-800">
               <p class="mb-2 text-gray-800">Nama Lengkap</p>
             <input name="Nama Lengkap" value="" data-rule="required"

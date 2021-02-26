@@ -138,8 +138,7 @@ const ReportPreview = {
     const tableBody = tableElement.querySelector('tbody')
     const unsortedTransactionData = await APIData.getTransaksiSiswa(this._userId)
 
-    const filteredData = unsortedTransactionData.data.filter((transaction) => transaction.status_transaksi === 'SELESAI')
-
+    const filteredData = unsortedTransactionData.data.filter((transaction) => transaction.status_transaksi.toUpperCase() === 'SELESAI')
     const transactionData = sortBy(filteredData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     if (transactionData.length === 0) {
