@@ -139,7 +139,7 @@ const ReportPreview = {
     const unsortedTransactionData = await APIData.getTransaksiSiswa(this._userId)
 
     const filteredData = unsortedTransactionData.data.filter((transaction) => transaction.status_transaksi.toUpperCase() === 'SELESAI')
-    const transactionData = sortBy(filteredData.data, ['tenggat_waktu_pembayaran.seconds']).reverse()
+    const transactionData = sortBy(filteredData, ['tenggat_waktu_pembayaran.seconds']).reverse()
 
     if (transactionData.length === 0) {
       Swal.fire({

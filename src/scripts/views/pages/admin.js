@@ -32,7 +32,6 @@ const Admin = {
             <div class="flex justify-start items-center w-100 mt-6">
               <button role="button" disabled id="admin-login-button"
                 class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-default">Masuk</button>
-              <a id="forgot-password" class="ml-4 block text-secondary">Lupa Password</a>
             </div>
           </div>
           <p class="mt-8 text-gray-800">Seorang siswa? <a class="ml-1 text-secondary" href="#/">Login disini</a></p>
