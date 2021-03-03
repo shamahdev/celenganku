@@ -63,7 +63,7 @@ class App {
       page.afterRender()
     } catch (err) {
       console.log(err)
-      this._content.innerHTML = this.constructor._loadPreloader()
+      window.location.hash = ''
     }
   }
 
@@ -88,8 +88,10 @@ class App {
   static _loadPageNotFound() {
     return `
     <div id='preloader' class="flex h-full w-full m-auto">
-    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200"></div>
-    </div>
+          <div class="flex m-auto">
+            <h2>Halaman Tidak ada</h2>
+          </div>
+        </div>
       `
   }
 

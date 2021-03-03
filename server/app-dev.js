@@ -57,7 +57,7 @@ app.use('/', (req, res) => res.sendFile(HTML_FILE))
 //
 //
 // Webpack Middleware
-app.get('*', (req, res, next) => {
+app.get('/', (req, res, next) => {
   compiler.outputFileSystem.readFile(path.join(CONFIG.DIST_DIR, 'index.html'), (err, result) => {
     if (err) {
       return next(err)
@@ -66,6 +66,9 @@ app.get('*', (req, res, next) => {
     res.send(result)
     res.end()
   })
+})
+app.get('*', (req, res) => {
+  res.redirect('/')
 })
 // Webpack Middleware
 //

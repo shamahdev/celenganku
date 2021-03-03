@@ -27,5 +27,8 @@ app.use('/api/admin', adminRoutes)
 app.use('/api/transaction', transactionRoutes)
 app.use(express.static(__dirname))
 app.use('/', (req, res) => res.sendFile(HTML_FILE))
+app.get('*', (req, res) => {
+  res.redirect('/')
+})
 
 export default app
