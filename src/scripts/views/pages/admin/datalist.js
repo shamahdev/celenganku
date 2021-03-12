@@ -617,7 +617,6 @@ const DataList = {
         }
       }, 1000)
 
-
       return /* html */`<tr class="font-bold text-gray-800 mb-5 hover:shadow-lg">
       <td class="p-5 pr-0 select-all text-gray-500 bg-white rounded-l-lg">${user.nisn}</td>
       <td class="bg-white hidden md:table-cell">${user.nama}</td>
@@ -923,7 +922,12 @@ const DataList = {
               class="disabled:resize-none mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 disabled:text-gray-500 text-gray-800"></textarea>
           </div>
           <div class="flex justify-end items-center w-100 mt-4">
-              <button role="button" disable id="add-data" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Tambah Data</button>
+              <label for="csv-upload"
+                class="w-max cursor-pointer bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">
+                Import
+              </label>
+              <input class="hidden" id="csv-upload" type="file" accept=".csv">
+              <button role="button" disable id="add-data" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50" disabled>Tambah Data</button>
             </div>
         </div>`,
       bg: 'bg-secondary',
@@ -947,9 +951,24 @@ const DataList = {
     }
 
     const confirmAddDataButton = document.getElementById('add-data')
+    const importFromCSV = document.getElementById('csv-upload')
     const editableForm = document.querySelectorAll('input[data-rule], textarea[data-rule]')
     const genderOptionButtons = document.querySelectorAll('#laki-option, #perempuan-option')
     const [nisn, nama, alamat] = editableForm
+
+    importFromCSV.addEventListener('change', async (event) => {
+      // eslint-disable-next-line prefer-destructuring
+      const csvFiles = event.target.files[0]
+      console.log(csvFiles)
+      const reader = new FileReader()
+      // photoProfile.title = newPhoto.name
+
+      reader.onload = (e) => {
+        const rows = e.target.result.split('\n')
+        console.log(rows)
+      }
+      reader.readAsBinaryString(csvFiles)
+    })
 
     formValidation.init({
       formInputs: editableForm,
