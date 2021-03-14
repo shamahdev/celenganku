@@ -115,7 +115,7 @@ const DataList = {
           data-rule="required no-space digit-more-than-6 equal-user-password-register" value="" type="password"
           class="mb-2 block px-5 py-3 rounded-lg w-full bg-gray-200 text-gray-800">
         <div class="flex justify-end items-center w-100 mt-4">
-          <button role="button" id="user-register-button" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Daftar</button>
+          <button role="button" disabled id="user-register-button" class="w-max bg-secondary text-white mx-1 py-3 px-8 rounded-lg disabled:opacity-50">Daftar</button>
         </div>
         </div>
       </div>`,
@@ -959,13 +959,49 @@ const DataList = {
     importFromCSV.addEventListener('change', async (event) => {
       // eslint-disable-next-line prefer-destructuring
       const csvFiles = event.target.files[0]
-      console.log(csvFiles)
       const reader = new FileReader()
       // photoProfile.title = newPhoto.name
 
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
+        const csvDatas = []
         const rows = e.target.result.split('\n')
-        console.log(rows)
+        rows.forEach((row) => {
+          const data = row.split(',')
+          if (typeof data[3] !== 'undefined' || data[0] !== '') {
+            csvDatas.push({
+              nisn: data[0],
+              nama: data[1],
+              jenis_kelamin: data[2],
+              alamat: data[3],
+            })
+          }
+        })
+        await Swal.fire({
+          icon: 'warning',
+          text: 'Tekan pilihan untuk mengkonfirmasi',
+          title: `Tambahkan ${csvDatas.length} Data?`,
+          showCancelButton: true,
+          confirmButtonText: 'Tambah',
+          cancelButtonText: 'Jangan',
+          showLoaderOnConfirm: true,
+          preConfirm: async () => {
+            try {
+              await this._addMultipleData(csvDatas)
+              modal.remove()
+              this._renderDataTable()
+            } catch (error) {
+              Swal.showValidationMessage(
+                `Request failed: ${error}`,
+              )
+            }
+          },
+          customClass: {
+            popup: 'popup-sweetalert',
+            confirmButton: 'btn-sweetalert bg-success',
+            cancelButton: 'btn-sweetalert bg-failed',
+          },
+          buttonsStyling: false,
+        })
       }
       reader.readAsBinaryString(csvFiles)
     })
@@ -1392,6 +1428,38 @@ const DataList = {
       }
 
       const response = await APIData.createDataSiswa(newData)
+      console.log(response)
+
+      Swal.fire({
+        icon: response.status,
+        text: response.message,
+        title: response.title,
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    } catch (error) {
+      console.log(error)
+      await Swal.fire({
+        icon: 'error',
+        text: 'Periksa internet kamu dan coba lagi',
+        title: 'Terjadi kesalahan',
+        confirmButtonText: 'Tutup',
+        customClass: {
+          popup: 'popup-sweetalert',
+          confirmButton: 'btn-sweetalert bg-secondary',
+        },
+        buttonsStyling: false,
+      })
+    }
+  },
+
+  async _addMultipleData(dataSiswa) {
+    try {
+      const response = await APIData.createMultipleDataSiswa(dataSiswa)
       console.log(response)
 
       Swal.fire({

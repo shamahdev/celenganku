@@ -141,6 +141,54 @@ const SiswaController = {
       })
     }
   },
+  createMultipleDataSiswa: async (req, res, next) => {
+    try {
+      const datas = req.body
+
+      // Check if req.body is not empty
+      if (!datas) {
+        return res.status(404).json({
+          status: 'failed',
+          error: true,
+          title: 'Data Gagal Diimpor',
+          message: 'Terjadi kesalahan ketika mengimpor berkas',
+          response: req.body,
+        })
+      }
+
+      datas.forEach(async (siswa) => {
+        const isData = await Siswa.data.doc(siswa.nisn).get()
+        if (isData.exists) {
+          console.log('Data exist')
+        } else {
+          await Siswa.data.doc(siswa.nisn).set({
+            nisn: siswa.nisn,
+            nama: siswa.nama,
+            alamat: siswa.alamat,
+            jenis_kelamin: siswa.jenis_kelamin,
+          })
+        }
+      })
+      res.status(200).json({
+        status: 'success',
+        title: 'Data Berhasil Diimpor',
+        message: 'Tekan tutup untuk menutup popup',
+        error: false,
+        response: req.body,
+      })
+      return {
+        ...req.body,
+        error: false,
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(502).json({
+        status: 'failed',
+        error: true,
+        response: error,
+      })
+    }
+  },
   updateAkunSiswa: async (req, res, next) => {
     try {
       const nisn = req.params.id

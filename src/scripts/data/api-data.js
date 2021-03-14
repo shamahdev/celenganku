@@ -91,6 +91,24 @@ class APIData {
     }
   }
 
+  static async createMultipleDataSiswa(userData) {
+    try {
+      const response = await fetch(API_ENDPOINT.SISWA.IMPORT_DATA, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      })
+      return response.json()
+    } catch (error) {
+      return {
+        error: true,
+        message: error,
+      }
+    }
+  }
+
   static async getMidtransToken(transactionDetails) {
     try {
       const SERVER_KEY = 'SB-Mid-server-XmFoI8_j9MpEyaNvbE1-sQiN:'

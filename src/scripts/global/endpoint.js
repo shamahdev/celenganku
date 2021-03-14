@@ -4,6 +4,7 @@ const API_ENDPOINT = {
   SISWA: {
     LIST: 'api/siswa',
     LIST_DATA: 'api/siswa/data',
+    IMPORT_DATA: 'api/siswa/data/import',
     LIST_PROFIL: 'api/siswa/profil',
     LOGIN: 'api/siswa/login',
     REGISTER: 'api/siswa/register',
